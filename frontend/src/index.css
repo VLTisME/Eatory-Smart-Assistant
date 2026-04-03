@@ -1,0 +1,14 @@
+@import "tailwindcss";
+@keyframes scale-beat {
+	0%,
+	100% {
+		transform: scale(1);
+	}
+	50% {
+		transform: scale(1.05);
+	}
+}
+
+.mic-animation {
+	animation: scale-beat 1s infinite ease-in-out;
+}
