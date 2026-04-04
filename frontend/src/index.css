@@ -11,7 +11,24 @@ body {
 		transform: scale(1.05);
 	}
 }
-
 .mic-animation {
 	animation: scale-beat 1s infinite ease-in-out;
+}
+/* Nhắm mục tiêu vào khung danh sách trong ScrollSelect */
+.overflow-y-auto::-webkit-scrollbar {
+  width: 12px; /* Độ rộng thanh cuộn */
+}
+
+.overflow-y-auto::-webkit-scrollbar-track {
+  background: transparent; 
+  margin: 10px; /* Để thanh cuộn không dính sát mép trên/dưới đã bo tròn */
+}
+
+.overflow-y-auto::-webkit-scrollbar-thumb {
+  background-color: #d1d5db; /* Màu xám nhạt */
+  border-radius: 12px; /* Bo tròn thanh cuộn */
+}
+
+.overflow-y-auto::-webkit-scrollbar-thumb:hover {
+  background-color: #9ca3af;
 }

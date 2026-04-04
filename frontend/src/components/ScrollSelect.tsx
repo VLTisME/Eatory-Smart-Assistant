@@ -48,7 +48,7 @@ export default function ScrollSelect({ value, onSelect }: ScrollSelectProps) {
       <button
         type="button"
         onClick={() => setOpen(!open)}
-        className="w-full p-4 bg-white border rounded shadow text-left text-black flex justify-between items-center focus:outline-none"
+        className="w-full p-4 bg-white border rounded-2xl shadow text-left text-black flex justify-between items-center focus:outline-none"
       >
         <span className="truncate">{value || "Chọn tỉnh/thành phố"}</span>
         <span
@@ -59,7 +59,7 @@ export default function ScrollSelect({ value, onSelect }: ScrollSelectProps) {
       </button>
 
       {open && (
-        <div className="absolute top-full mt-1 w-full bg-white border rounded shadow-xl max-h-60 overflow-y-auto z-100 text-black">
+        <div className="absolute top-full mt-1 w-full bg-white border rounded-2xl shadow-xl max-h-60 overflow-y-auto z-100 text-black overflow-hidden">
           {VIETNAM_PROVINCES.map((province) => (
             <div
               key={province}
