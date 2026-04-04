@@ -13,10 +13,8 @@ export default function Navbar() {
           <nav className="flex items-center gap-6">
 
             <Link to="/">Home</Link>
-            <Link to="/map">Map</Link>
+            <Link to="/MainPage">Map</Link>
           </nav>
-
-          <button className="bg-blue-800 px-4 py-2 rounded">Contact</button>
         </div>
       </div>
     </header>
