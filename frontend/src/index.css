@@ -1,4 +1,7 @@
 @import "tailwindcss";
+body {
+	margin: 0;
+}
 @keyframes scale-beat {
 	0%,
 	100% {
@@ -26,4 +29,19 @@
 
 .animate-slide-up {
 	animation: slideUp 0.3s ease-out forwards;
+}
+
+.overflow-y-auto::-webkit-scrollbar {
+	width: 12px;
+}
+.overflow-y-auto::-webkit-scrollbar-track {
+	background: transparent;
+	margin: 10px;
+}
+.overflow-y-auto::-webkit-scrollbar-thumb {
+	background-color: #d1d5db;
+	border-radius: 12px;
+}
+.overflow-y-auto::-webkit-scrollbar-thumb:hover {
+	background-color: #9ca3af;
 }
