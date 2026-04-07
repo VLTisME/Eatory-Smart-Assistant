@@ -6,6 +6,7 @@ import React, { useRef, useState } from "react";
 import { useVoiceRecognition } from "../../hooks/useVoiceRecognition";
 import foodLogo from "../../assets/food-logo.png";
 import ChatBotPanel, { type Message } from "./ChatBotPanel";
+import ImageUploadModel from "../upload-image/ImageUploadModal";
 
 interface FloatingSidebarProps {
 	onClose: () => void;
@@ -14,6 +15,8 @@ interface FloatingSidebarProps {
 	isThinking: boolean;
 	setIsThinking: React.Dispatch<React.SetStateAction<boolean>>;
 }
+
+type UploadMode = "ocr" | "image-search";
 
 function FloatingSidebar({
 	onClose,
@@ -26,6 +29,8 @@ function FloatingSidebar({
 
 	const { isListening, startListening, stopListening } =
 		useVoiceRecognition();
+	const [isOpen, setIsOpen] = useState<boolean>(false);
+	const [uploadMode, setUploadMode] = useState<UploadMode>("ocr");
 
 	const textareaRef = useRef<HTMLTextAreaElement>(null);
 
@@ -85,6 +90,35 @@ function FloatingSidebar({
 			e.preventDefault();
 			handleSend();
 		}
+	};
+
+	const handleOpenUploadModal = (mode: UploadMode) => {
+		setUploadMode(mode);
+		setIsOpen(true);
+	};
+
+	const handleFileSelected = (file: File) => {
+		const actionLabel =
+			uploadMode === "ocr" ? "OCR Dịch Menu" : "Tìm kiếm hình ảnh";
+		const botReply =
+			uploadMode === "ocr"
+				? "Đã nhận ảnh menu. Bước tiếp theo là OCR và dịch nội dung."
+				: "Đã nhận ảnh. Bước tiếp theo là tìm kiếm các hình ảnh tương tự.";
+		const timestamp = Date.now();
+
+		const uploadedImageMessage: Message = {
+			id: timestamp.toString(),
+			role: "user",
+			content: `[${actionLabel}] Đã chọn ảnh: ${file.name}`,
+		};
+
+		const statusMessage: Message = {
+			id: (timestamp + 1).toString(),
+			role: "bot",
+			content: botReply,
+		};
+
+		setMessages((prev) => [...prev, uploadedImageMessage, statusMessage]);
 	};
 
 	return (
@@ -163,6 +197,7 @@ function FloatingSidebar({
 
 				<div className="flex gap-3 justify-center">
 					<button
+						onClick={() => handleOpenUploadModal("ocr")}
 						className="flex flex-col items-center gap-1 group"
 						title="OCR Dịch Menu"
 					>
@@ -172,6 +207,7 @@ function FloatingSidebar({
 					</button>
 
 					<button
+						onClick={() => handleOpenUploadModal("image-search")}
 						className="flex flex-col items-center gap-1 group"
 						title="Tìm kiếm hình ảnh"
 					>
@@ -190,6 +226,12 @@ function FloatingSidebar({
 					</button>
 				</div>
 			</div>
+			<ImageUploadModel
+				isOpen={isOpen}
+				onClose={() => setIsOpen(false)}
+				onFileSelected={handleFileSelected}
+				mode={uploadMode}
+			/>
 		</div>
 	);
 }
