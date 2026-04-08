@@ -1,0 +1,1 @@
+"""Menu translation feature package."""
