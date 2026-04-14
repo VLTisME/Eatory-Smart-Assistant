@@ -1,9 +1,13 @@
 import { useEffect, useRef } from "react";
+import type { MenuResponse } from "../../types/menuTranslation";
+import MenuCard from "./MenuCard";
 
 export interface Message {
 	id: string;
 	role: "user" | "bot";
 	content: string;
+	/** Nếu bot trả về structured menu → render MenuCard */
+	menuData?: MenuResponse;
 }
 
 interface ChatBotPanelProps {
@@ -27,15 +31,29 @@ function ChatBotPanel({ messages, isThinking }: ChatBotPanelProps) {
 						msg.role === "user" ? "justify-end" : "justify-start"
 					} animate-slide-up`}
 				>
-					<div
-						className={`max-w-[85%] p-3 rounded-2xl shadow-sm leading-relaxed ${
-							msg.role === "user"
-								? "bg-blue-600 text-white rounded-br-sm"
-								: "bg-white border border-gray-100 text-gray-800 rounded-bl-sm"
-						}`}
-					>
-						{msg.content}
-					</div>
+					{/* ── Bot message with menuData → render MenuCard ── */}
+					{msg.role === "bot" && msg.menuData ? (
+						<div className="w-full max-w-full animate-fade-in-up">
+							{/* Optional text above the card */}
+							{msg.content && (
+								<div className="bg-white border border-gray-100 text-gray-800 rounded-2xl rounded-bl-sm p-3 shadow-sm leading-relaxed mb-2 text-sm">
+									{msg.content}
+								</div>
+							)}
+							<MenuCard data={msg.menuData} />
+						</div>
+					) : (
+						/* ── Regular text message ── */
+						<div
+							className={`max-w-[85%] p-3 rounded-2xl shadow-sm leading-relaxed text-sm ${
+								msg.role === "user"
+									? "bg-blue-600 text-white rounded-br-sm"
+									: "bg-white border border-gray-100 text-gray-800 rounded-bl-sm"
+							}`}
+						>
+							{msg.content}
+						</div>
+					)}
 				</div>
 			))}
 
