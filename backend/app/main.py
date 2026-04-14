@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import asyncio
 import logging
 from contextlib import asynccontextmanager
 
@@ -11,6 +12,8 @@ from fastapi.responses import JSONResponse
 
 from app.api.router import router as api_router
 from app.core.config import settings
+from app.features.menu_translation.ocr_engine import get_menu_ocr_engine
+from app.shared.refinement import get_refinement_client
 
 # 1. Logging configuration
 logging.basicConfig(
@@ -28,6 +31,23 @@ async def lifespan(app: FastAPI):
     logger.info("Starting %s", settings.app_name)
     logger.info("OpenAI model: %s", settings.openai_model)
     logger.info("OCR provider: %s", settings.ocr_provider)
+
+    # Warm-up heavy clients to avoid cold-start failures on the first upload.
+    try:
+        logger.info("Warming up OCR engine...")
+        await asyncio.to_thread(get_menu_ocr_engine)
+        logger.info("OCR engine warm-up completed")
+    except Exception:
+        logger.exception("OCR engine warm-up failed; first OCR request may be slower")
+
+    if settings.openai_api_key:
+        try:
+            logger.info("Warming up refinement client...")
+            await asyncio.to_thread(get_refinement_client)
+            logger.info("Refinement client warm-up completed")
+        except Exception:
+            logger.exception("Refinement warm-up failed; first LLM request may be slower")
+
     yield
     logger.info("Shutting down %s", settings.app_name)
 
