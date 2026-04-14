@@ -1,64 +1,230 @@
 @import "tailwindcss";
 body {
-  margin: 0;
+    margin: 0;
 }
+
+/* ── Custom animation utilities ─────────────────────────────────────────────── */
+
+@keyframes spin-slow {
+    from { transform: rotate(0deg); }
+    to   { transform: rotate(360deg); }
+}
+.animate-spin-slow {
+    animation: spin-slow 4s linear infinite;
+}
+
+@keyframes rainbow-pulse {
+    0%, 100% { opacity: 0.5; }
+    50%       { opacity: 0.8; }
+}
+.animate-rainbow-pulse {
+    animation: rainbow-pulse 2s ease-in-out infinite;
+}
+
+@keyframes fade-in-up {
+    from {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+.animate-fade-in-up {
+    animation: fade-in-up 0.35s ease-out both;
+}
+
+
 @keyframes scale-beat {
-	0%,
-	100% {
-		transform: scale(1);
-	}
-	50% {
-		transform: scale(1.05);
-	}
+    0%,
+    100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
 }
 .mic-animation {
-	animation: scale-beat 1s infinite ease-in-out;
+    animation: scale-beat 1s infinite ease-in-out;
 }
 
 @keyframes slideUp {
-	from {
-		opacity: 0;
-		transform: translateY(15px);
-	}
-	to {
-		opacity: 1;
-		transform: translateY(0);
-	}
+    from {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .animate-slide-up {
-	animation: slideUp 0.3s ease-out forwards;
+    animation: slideUp 0.3s ease-out forwards;
 }
 
 .overflow-y-auto::-webkit-scrollbar {
-	width: 12px;
+    width: 12px;
 }
 .overflow-y-auto::-webkit-scrollbar-track {
-	background: transparent;
-	margin: 10px;
+    background: transparent;
+    margin: 10px;
 }
 .overflow-y-auto::-webkit-scrollbar-thumb {
-	background-color: #d1d5db;
-	border-radius: 12px;
+    background-color: #d1d5db;
+    border-radius: 12px;
 }
 .overflow-y-auto::-webkit-scrollbar-thumb:hover {
-	background-color: #9ca3af;
-}
-/* Nhắm mục tiêu vào khung danh sách trong ScrollSelect */
-.overflow-y-auto::-webkit-scrollbar {
-  width: 12px; /* Độ rộng thanh cuộn */
+    background-color: #9ca3af;
 }
 
-.overflow-y-auto::-webkit-scrollbar-track {
-  background: transparent; 
-  margin: 10px; /* Để thanh cuộn không dính sát mép trên/dưới đã bo tròn */
+@keyframes tooltip-slide-down {
+    0% {
+        opacity: 0;
+        transform: translateY(-6px) scale(0.96);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
 }
 
-.overflow-y-auto::-webkit-scrollbar-thumb {
-  background-color: #d1d5db; /* Màu xám nhạt */
-  border-radius: 12px; /* Bo tròn thanh cuộn */
+.tooltip-style {
+    background: linear-gradient(135deg, #f43f5e 0%, #fb7185 100%) !important;
+    color: #fff !important;
+    border: 1px solid rgba(255, 255, 255, 0.18) !important;
+    border-radius: 12px !important;
+    padding: 5px 8px !important;
+    font-size: 0.8rem !important;
+    font-weight: 600 !important;
+    box-shadow: 0 16px 30px rgba(0, 0, 0, 0.18) !important;
+    backdrop-filter: blur(6px) !important;
+    animation: tooltip-slide-down 130ms ease-out !important;
 }
 
-.overflow-y-auto::-webkit-scrollbar-thumb:hover {
-  background-color: #9ca3af;
+/* ═══════════════════════════════════════════════════════════════════════════
+   MenuCard — Styled menu card in chat
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.menu-card {
+    background: linear-gradient(145deg, rgba(255,255,255,0.95) 0%, rgba(249,250,251,0.9) 100%);
+    border: 1px solid rgba(229, 231, 235, 0.6);
+    border-radius: 1.25rem;
+    overflow: hidden;
+    box-shadow:
+        0 4px 24px rgba(0, 0, 0, 0.06),
+        0 1px 3px rgba(0, 0, 0, 0.04);
+    backdrop-filter: blur(8px);
+    max-width: 100%;
 }
+
+.menu-card-header {
+    padding: 0.75rem 0.875rem 0.625rem;
+    background: linear-gradient(135deg, rgba(255,237,213,0.3) 0%, rgba(254,205,211,0.2) 100%);
+}
+
+.menu-card-body {
+    padding: 0.5rem 0.5rem;
+    max-height: 320px;
+    overflow-y: auto;
+}
+
+/* ── Restaurant info chips ── */
+.menu-info-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 3px;
+    font-size: 10px;
+    color: #9ca3af;
+    line-height: 1;
+}
+
+/* ── Category section ── */
+.menu-category {
+    border-radius: 0.75rem;
+    overflow: hidden;
+}
+
+/* ── Item row ── */
+.menu-item-row {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    padding: 0.5rem 0.625rem;
+    border-radius: 0.625rem;
+    transition: background-color 200ms ease;
+    animation: menu-item-enter 0.3s ease-out both;
+}
+.menu-item-row:hover {
+    background-color: rgba(249, 115, 22, 0.04);
+}
+
+/* ── Price styles ── */
+.menu-price-fixed {
+    font-size: 12px;
+    font-weight: 700;
+    color: #ea580c;
+    white-space: nowrap;
+    background: linear-gradient(135deg, #fff7ed, #fff1e6);
+    padding: 2px 8px;
+    border-radius: 8px;
+    border: 1px solid rgba(251, 146, 60, 0.15);
+}
+
+.menu-price-market {
+    font-size: 10px;
+    font-weight: 600;
+    color: #059669;
+    font-style: italic;
+}
+
+.menu-price-option {
+    font-size: 10px;
+    font-weight: 600;
+    color: #ea580c;
+    background: #fff7ed;
+    padding: 1px 6px;
+    border-radius: 6px;
+    border: 1px solid rgba(251, 146, 60, 0.12);
+}
+
+/* ── Tags ── */
+.menu-tag {
+    font-size: 9px;
+    font-weight: 600;
+    color: #6366f1;
+    background: #eef2ff;
+    padding: 1px 6px;
+    border-radius: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+}
+
+/* ── Menu item enter animation ── */
+@keyframes menu-item-enter {
+    from {
+        opacity: 0;
+        transform: translateX(-8px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* ── Custom scrollbar for menu-card-body ── */
+.menu-card-body::-webkit-scrollbar {
+    width: 4px;
+}
+.menu-card-body::-webkit-scrollbar-track {
+    background: transparent;
+}
+.menu-card-body::-webkit-scrollbar-thumb {
+    background-color: #e5e7eb;
+    border-radius: 4px;
+}
+.menu-card-body::-webkit-scrollbar-thumb:hover {
+    background-color: #d1d5db;
+}
+
