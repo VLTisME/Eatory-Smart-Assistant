@@ -78,7 +78,7 @@ class MenuPipeline:
             refined_text, duration_ms, _ = self.llm.refine(
                 content=content,
                 context="ocr_menu",
-                source_language="auto",
+                source_language="vi",
                 target_language=target_language,
             )
             logger.info("LLM call done in %.0fms", duration_ms)

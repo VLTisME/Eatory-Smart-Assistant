@@ -4,12 +4,14 @@ from __future__ import annotations
 
 import logging
 import time
+import base64
 from dataclasses import dataclass
 from functools import lru_cache
 from io import BytesIO
 
 import numpy as np
 from PIL import Image
+from openai import OpenAI
 
 from app.core.config import settings
 
@@ -47,29 +49,58 @@ class EasyOCROCRProvider:
         return "\n".join(lines).strip()
 
 
-class HuggingFaceOCRProvider:
-    """OCR provider using Hugging Face Inference API."""
+class OpenAIOCRProvider:
+    """OCR provider using OpenAI vision models."""
 
-    def __init__(self, model_name: str) -> None:
-        from huggingface_hub import InferenceClient
+    def __init__(self, model_name: str, api_key: str | None) -> None:
+        if not api_key:
+            raise OCRServiceError(
+                "OPENAI_API_KEY is not configured. Set it in the environment before using OpenAI OCR."
+            )
 
-        self._client = InferenceClient(model=model_name)
+        self._client = OpenAI(api_key=api_key)
+        self._model = model_name
+
+    def _to_data_url(self, image_bytes: bytes) -> str:
+        image = Image.open(BytesIO(image_bytes)).convert("RGB")
+        buffer = BytesIO()
+        image.save(buffer, format="PNG")
+        encoded = base64.b64encode(buffer.getvalue()).decode("utf-8")
+        return f"data:image/png;base64,{encoded}"
 
     def extract_text(self, image_bytes: bytes) -> str:
-        response = self._client.image_to_text(image_bytes)
-        if isinstance(response, list):
-            texts: list[str] = []
-            for item in response:
-                if isinstance(item, dict):
-                    text = str(item.get("generated_text", "")).strip()
-                else:
-                    text = str(getattr(item, "generated_text", "")).strip()
-                if text:
-                    texts.append(text)
-            return "\n".join(texts).strip()
-        if isinstance(response, dict):
-            return str(response.get("generated_text", "")).strip()
-        return str(response).strip()
+        data_url = self._to_data_url(image_bytes)
+
+        response = self._client.chat.completions.create(
+            model=self._model,
+            temperature=0,
+            messages=[
+                {
+                    "role": "system",
+                    "content": (
+                        "You are an OCR engine for Vietnamese menu images. "
+                        "Transcribe all visible text exactly as plain text. "
+                        "Do not translate, summarize, explain, or add markdown. "
+                        "Preserve line breaks as best as possible."
+                    ),
+                },
+                {
+                    "role": "user",
+                    "content": [
+                        {
+                            "type": "text",
+                            "text": (
+                                "Extract all visible text from this image. Output only raw OCR text."
+                            ),
+                        },
+                        {"type": "image_url", "image_url": {"url": data_url}},
+                    ],
+                },
+            ],
+        )
+
+        content = response.choices[0].message.content or ""
+        return content.strip()
 
 
 class MenuOCREngine:
@@ -77,9 +108,9 @@ class MenuOCREngine:
 
     def __init__(self) -> None:
         provider_name = settings.ocr_provider.strip().lower()
-        if provider_name == "hf":
-            self._provider = HuggingFaceOCRProvider(settings.huggingface_ocr_model)
-            self.provider_name = f"huggingface:{settings.huggingface_ocr_model}"
+        if provider_name == "openai":
+            self._provider = OpenAIOCRProvider(settings.ocr_openai_model, settings.openai_api_key)
+            self.provider_name = f"openai:{settings.ocr_openai_model}"
         else:
             self._provider = EasyOCROCRProvider(settings.ocr_language_list, settings.ocr_gpu)
             self.provider_name = f"easyocr:{','.join(settings.ocr_language_list)}"

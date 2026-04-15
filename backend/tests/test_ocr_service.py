@@ -59,14 +59,15 @@ def test_ocr_service_uses_provider_and_returns_result(monkeypatch, sample_image_
             assert image_bytes == sample_image_bytes
             return "Phở bò"
 
-    monkeypatch.setattr(ocr_module, "EasyOCROCRProvider", lambda languages, gpu: FakeProvider())
+    monkeypatch.setattr(ocr_module, "OpenAIOCRProvider", lambda model_name, api_key: FakeProvider())
     ocr_module.get_menu_ocr_engine.cache_clear()
 
+    monkeypatch.setattr(ocr_module.settings, "ocr_provider", "openai")
     service = ocr_module.MenuOCREngine()
     result = service.extract_text(sample_image_bytes)
 
     assert result.text == "Phở bò"
-    assert result.provider.startswith("easyocr:")
+    assert result.provider.startswith("openai:")
     assert result.processing_time_ms >= 0
 
 
@@ -75,8 +76,10 @@ def test_get_menu_ocr_engine_returns_singleton(monkeypatch):
         def extract_text(self, image_bytes: bytes) -> str:
             return "demo"
 
-    monkeypatch.setattr(ocr_module, "EasyOCROCRProvider", lambda languages, gpu: FakeProvider())
+    monkeypatch.setattr(ocr_module, "OpenAIOCRProvider", lambda model_name, api_key: FakeProvider())
     ocr_module.get_menu_ocr_engine.cache_clear()
+    monkeypatch.setattr(ocr_module.settings, "ocr_provider", "openai")
+    monkeypatch.setattr(ocr_module.settings, "openai_api_key", "test-key")
 
     service_one = ocr_module.get_menu_ocr_engine()
     service_two = ocr_module.get_menu_ocr_engine()

@@ -18,7 +18,8 @@ def test_build_refinement_prompt_mentions_translation_rules():
         target_language="en",
     )
 
-    assert "Vietnamese-to-English menu translator" in system_prompt
+    assert "Vietnamese menu data extractor and spell-checker" in system_prompt
+    assert "Return ONLY valid JSON" in system_prompt
     assert "Phở bò" in user_prompt
     assert "Source language: vi" in user_prompt
     assert "Target language: en" in user_prompt
@@ -60,4 +61,4 @@ def test_llm_service_refines_text(monkeypatch):
 
     assert refined_text == "Beef Pho\nPrice: 50,000 VND"
     assert processing_time_ms >= 0
-    assert prompt_version == "menu_translation_v1"
+    assert prompt_version == "menu_translation_v2"
