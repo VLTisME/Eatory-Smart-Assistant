@@ -21,10 +21,10 @@ class Settings(BaseSettings):
     cors_allow_origins: list[str] = Field(default_factory=lambda: ["*"])
 
     max_upload_size_mb: int = 10
-    ocr_provider: str = "easyocr"
+    ocr_provider: str = "openai"
     ocr_languages: str = "vi,en"
     ocr_gpu: bool = False
-    huggingface_ocr_model: str = "microsoft/trocr-base-printed"
+    ocr_openai_model: str = "gpt-4o-mini"
 
     openai_api_key: str | None = None
     openai_model: str = "gpt-4o-mini"
