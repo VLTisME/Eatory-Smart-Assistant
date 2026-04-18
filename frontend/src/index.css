@@ -1,6 +1,10 @@
 @import "tailwindcss";
 body {
     margin: 0;
+    font-family: "DM Sans", sans-serif;
+}
+@theme {
+  --font-sans: "DM Sans", sans-serif;
 }
 
 /* ── Custom animation utilities ─────────────────────────────────────────────── */
