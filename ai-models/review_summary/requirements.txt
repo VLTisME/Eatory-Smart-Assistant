@@ -1,0 +1,7 @@
+pandas
+scikit-learn
+keybert
+sentence-transformers
+sqlalchemy
+psycopg2-binary
+python-dotenv
