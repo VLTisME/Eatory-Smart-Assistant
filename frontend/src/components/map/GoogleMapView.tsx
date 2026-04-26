@@ -1,5 +1,6 @@
 // MapView.tsx
 import { memo, useState, useCallback } from "react";
+import { useSearchParams } from "react-router-dom";
 import Map, {
     Marker,
     Popup,
@@ -36,8 +37,25 @@ const mockFoodLocation: LocationDetails = {
 
 const MapView = memo(function MapView() {
     const goongMapKey = import.meta.env.VITE_GOONG_MAP_KEY;
+    const [params] = useSearchParams();
 
-    // Quản lý state cho Popup
+    const lat = params.get("lat");
+    const lng = params.get("lng");
+    const province = params.get("province");
+    let dynamicLocation: LocationDetails | null = null;
+
+    if (lat && lng) {
+    dynamicLocation = {
+        id: "ubnd",
+        name: `UBND ${province}`,
+        description: "Trụ sở UBND",
+        lat: Number(lat),
+        lng: Number(lng),
+    };
+    }
+
+    const displayLocation = dynamicLocation || mockFoodLocation;
+        // Quản lý state cho Popup
     const [selectedLocation, setSelectedLocation] =
         useState<LocationDetails | null>(null);
 
@@ -57,7 +75,17 @@ const MapView = memo(function MapView() {
     return (
         <div className="relative h-screen w-full rounded-xl overflow-hidden shadow-2xl">
             <Map
-                initialViewState={INITIAL_VIEW_STATE}
+                initialViewState={
+                dynamicLocation
+                    ? {
+                        longitude: dynamicLocation.lng,
+                        latitude: dynamicLocation.lat,
+                        zoom: 16,
+                        pitch: 45,
+                        bearing: 0,
+                    }
+                    : INITIAL_VIEW_STATE
+                }
                 mapStyle={mapStyle}
                 mapLib={maplibregl}
                 interactiveLayerIds={["poi-label"]}
@@ -70,10 +98,10 @@ const MapView = memo(function MapView() {
 
                 {/* Marker Custom với hiệu ứng hover */}
                 <Marker
-                    longitude={mockFoodLocation.lng}
-                    latitude={mockFoodLocation.lat}
+                    longitude={displayLocation.lng}
+                    latitude={displayLocation.lat}
                     anchor="bottom"
-                    onClick={(e) => handleMarkerClick(e, mockFoodLocation)}
+                    onClick={(e) => handleMarkerClick(e, displayLocation)}
                 >
                     <div className="cursor-pointer transition-transform duration-300 hover:scale-125 hover:-translate-y-2">
                         <div className="w-8 h-8 bg-red-500 rounded-full flex items-center justify-center shadow-lg border-2 border-white animate-bounce">
