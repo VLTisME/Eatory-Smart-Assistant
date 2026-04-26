@@ -28,6 +28,7 @@ class Settings(BaseSettings):
 
     openai_api_key: str | None = None
     openai_model: str = "gpt-4o-mini"
+    firebase_service_account_path: str = "firebase-service-account.json"
 
     @property
     def ocr_language_list(self) -> list[str]:
