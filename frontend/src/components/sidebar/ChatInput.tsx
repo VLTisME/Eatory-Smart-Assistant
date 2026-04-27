@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import {
 	LayoutGrid,
 	Mic,
-	Send,
+	SendHorizontal,
 	AudioLines,
 	Languages,
 	Image,
@@ -161,7 +161,7 @@ export default function ChatInput({
 
 				{/* Pill input — nằm trên gradient, inset 2px để lộ viền */}
 				<div
-					className="relative z-10 flex items-end gap-1.5 bg-white/90 backdrop-blur-sm
+					className="relative z-10 flex items-center gap-1.5 bg-white/90 backdrop-blur-sm
 						border border-gray-200/60 rounded-[1.75rem] p-1.5
 						focus-within:border-gray-300 focus-within:bg-white
 						focus-within:shadow-sm transition-all duration-300"
@@ -192,7 +192,7 @@ export default function ChatInput({
 							<div
 								className="absolute bottom-full left-0 mb-2 w-52
 									bg-white rounded-2xl shadow-xl border border-gray-100/80
-									overflow-hidden z-50 animate-slide-up"
+									overflow-hidden 	z-50 animate-slide-up"
 							>
 								<p className="text-[10px] font-semibold text-gray-400 uppercase tracking-wider px-3 pt-3 pb-1.5">
 									Công cụ
@@ -284,7 +284,7 @@ export default function ChatInput({
 							}`}
 						title="Gửi tin nhắn"
 					>
-						<Send size={16} strokeWidth={2} />
+						<SendHorizontal size={16} strokeWidth={2} />
 					</button>
 				</div>
 			</div>

@@ -1,35 +1,48 @@
-import { BotMessageSquare } from "lucide-react";
+import { MessageCircle, House } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 interface ToggleButtonProps {
 	handleClick: () => void;
 }
 
 function ToggleButton({ handleClick }: ToggleButtonProps) {
+	const navigate = useNavigate();
+	const handleHomeClick = () => {
+		navigate("/");
+	};
 	return (
-		<button
-			onClick={handleClick}
-			className="group relative flex items-center h-12 bg-[#facc15] hover:bg-yellow-400 transition-[width,background-color] duration-500 ease-in-out rounded-full overflow-hidden w-12 hover:w-36.25 cursor-pointer"
-			style={
-				{
-					WebkitMaskImage: `radial-gradient(circle 8px at calc(100% - 3rem) 0, transparent 8px, black 8.5px), radial-gradient(circle 8px at calc(100% - 3rem) 100%, transparent 8px, black 8.5px)`,
-					WebkitMaskSize: "100% 51%",
-					WebkitMaskRepeat: "no-repeat",
-					WebkitMaskPosition: "top, bottom",
-					maskImage: `radial-gradient(circle 8px at calc(100% - 3rem) 0, transparent 8px, black 8.5px), radial-gradient(circle 8px at calc(100% - 3rem) 100%, transparent 8px, black 8.5px)`,
-					maskSize: "100% 51%",
-					maskRepeat: "no-repeat",
-					maskPosition: "top, bottom",
-				} as React.CSSProperties
-			}
-		>
-			<div className="absolute left-0 pl-5 whitespace-nowrap text-sm font-bold text-gray-900 opacity-0 transition-opacity duration-200 group-hover:opacity-100 group-hover:duration-500 group-hover:delay-150">
-				Chat Now
-			</div>
+		<div className="flex flex-col sm:flex-row items-center gap-2 p-2 bg-white/70 backdrop-blur-md border border-white/60 shadow-[0_8px_32px_rgba(0,0,0,0.1)] rounded-full z-50 transition-all duration-300">
+			{/* Home Button */}
+			<button
+				onClick={handleHomeClick}
+				className="group relative flex items-center justify-center w-10 h-10 rounded-full bg-white hover:bg-gray-50 hover:shadow-md transition-all duration-500 ease-in-out hover:w-32 overflow-hidden cursor-pointer"
+			>
+				<div className="absolute left-0 flex w-10 h-full items-center justify-center shrink-0">
+					<House
+						size={24}
+						className="text-gray-600 group-hover:text-gray-900 transition-colors duration-300"
+					/>
+				</div>
+				<span className="absolute left-10 whitespace-nowrap text-sm font-semibold text-gray-800 opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-100">
+					Home
+				</span>
+			</button>
 
-			<div className="absolute right-0 flex items-center justify-center w-12 h-full shrink-0">
-				<BotMessageSquare size={25} strokeWidth={2} />
-			</div>
-		</button>
+			<button
+				onClick={handleClick}
+				className="group relative flex items-center justify-center w-10 h-10 rounded-full bg-white hover:bg-gray-50 hover:shadow-md transition-all duration-500 ease-in-out hover:w-32 overflow-hidden cursor-pointer"
+			>
+				<div className="absolute left-0 flex w-10 h-full items-center justify-center shrink-0">
+					<MessageCircle
+						size={24}
+						className="text-gray-600 group-hover:text-gray-900 transition-colors duration-300"
+					/>
+				</div>
+				<span className="absolute left-10 whitespace-nowrap text-sm font-semibold text-gray-800 opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-100">
+					Chat Now
+				</span>
+			</button>
+		</div>
 	);
 }
 
