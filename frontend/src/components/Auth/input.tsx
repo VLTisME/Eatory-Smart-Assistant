@@ -27,7 +27,7 @@ export default function Input({ label, type, value, onChange }: Props) {
           absolute left-0 text-gray-300 transition-all duration-200
           ${
             value || isFocused
-              ? "top-0 text-sm"
+              ? "-top-2 text-sm"
               : "top-1/2 -translate-y-1/2"
           }
         `}

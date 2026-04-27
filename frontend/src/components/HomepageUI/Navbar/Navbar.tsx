@@ -17,7 +17,6 @@ export default function Navbar({ currentProvince, currentPath }: NavbarProps) {
   const [open, setOpen] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
   const isMapPage = currentPath === "/MainPage";
-  // 2. Logic tọa độ (Đã dọn dẹp khai báo lặp)
   const provinceToShare = currentProvince;
   const coords = provinceToShare ? UBND_COORDS[provinceToShare] : null;
 
@@ -46,7 +45,7 @@ export default function Navbar({ currentProvince, currentPath }: NavbarProps) {
       {/* Vùng cảm biến: Kích hoạt khi di chuột lên sát mép trên cùng */}
       {isMapPage && (
         <div
-          className="fixed top-0 left-0 w-full h-4 z-[60]"
+          className="fixed top-0 left-0 w-full h-4 z-60"
           onMouseEnter={() => setIsHovered(true)}
         />
       )}
@@ -62,8 +61,8 @@ export default function Navbar({ currentProvince, currentPath }: NavbarProps) {
       >
         <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
           {/* Logo */}
-          <Link
-            to="/"
+          <a
+            href="/"
             onClick={() => {
               localStorage.removeItem("province");
               setOpen(false);
@@ -71,7 +70,7 @@ export default function Navbar({ currentProvince, currentPath }: NavbarProps) {
             className="text-2xl font-bold transition-colors text-[#43268c]"
           >
             WebTravel
-          </Link>
+          </a>
 
           {/* Mobile button */}
           <button

@@ -36,13 +36,14 @@ export default function Header({
   //  lấy data từ localStorage
   const storedFoods = localStorage.getItem(storageKey);
 
-  const displayFoods =
-    results.length > 0
+ const displayFoods =
+  hasSearched
+    ? results.length > 0
       ? results
       : storedFoods
       ? JSON.parse(storedFoods)
-      : [];
-
+      : []
+    : [];
   //  lưu data khi có kết quả mới 
   useEffect(() => {
     if (results.length > 0 && displayProvince) {
@@ -50,16 +51,6 @@ export default function Header({
     }
   }, [results, displayProvince, storageKey]);
 
-  //  auto search theo GPS
-  useEffect(() => {
-    if (
-      detectedProvince && 
-      results.length === 0 &&
-      !searchLoading && 
-      !hasSearched) {
-      search(detectedProvince);
-    }
-  }, [detectedProvince, results.length, searchLoading, search, hasSearched]);
 
   //  click search
   const handleSearch = () => {
@@ -99,7 +90,7 @@ export default function Header({
       )}
 
       {/* Result */}
-      {!geoLoading && !searchLoading && displayFoods.length > 0 && (
+      {!geoLoading && !searchLoading  && hasSearched && displayFoods.length > 0 && (
         <div className="max-w-6xl mx-auto p-10">
           <div className="flex items-center justify-between mb-6 border-b pb-4">
             <h2 className="text-3xl font-bold text-gray-800">

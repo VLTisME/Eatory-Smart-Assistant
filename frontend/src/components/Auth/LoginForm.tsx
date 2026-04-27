@@ -1,8 +1,11 @@
-//src/components/Auth/LoginForm.tsx
 import Input from "./input";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import {
+  signInWithEmailAndPassword,
+  GoogleAuthProvider,
+  signInWithPopup,
+} from "firebase/auth";
 import { auth } from "../../firebase";
 import { FirebaseError } from "firebase/app";
 
@@ -14,84 +17,86 @@ type Props = {
 export default function LoginForm({ isRegister, setIsRegister }: Props) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [errorMsg, setErrorMsg] = useState(""); 
   const navigate = useNavigate();
 
-const handleLogin = async (e: React.FormEvent) => {
-  e.preventDefault();
+  const handleLogin = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setErrorMsg("");
 
-  if (!email || !password) {
-    alert("Nhập đầy đủ");
-    return;
-  }
+    if (!email || !password) {
+      setErrorMsg("Vui lòng nhập đầy đủ email và mật khẩu");
+      return;
+    }
 
-  try {
-    const userCredential = await signInWithEmailAndPassword(
-      auth,
-      email,
-      password
-    );
+    try {
+      const userCredential = await signInWithEmailAndPassword(
+        auth!,
+        email,
+        password
+      );
 
-    const user = userCredential.user;
+      const user = userCredential.user;
 
-    //  Lấy token
-    const token = await user.getIdToken();
-    localStorage.setItem("token", token);
+      const token = await user.getIdToken();
+      localStorage.setItem("token", token);
 
-    //  Lưu user
-    localStorage.setItem(
-      "user",
-      JSON.stringify({
-        name: user.email?.split("@")[0],
-        avatar: "https://i.pravatar.cc/40",
-      })
-    );
+      localStorage.setItem(
+        "user",
+        JSON.stringify({
+          name: user.email?.split("@")[0],
+          avatar: `https://ui-avatars.com/api/?name=${encodeURIComponent(user.email?.split("@")[0] || "U")}`
+        })
+      );
 
-    //  update navbar
-    window.dispatchEvent(new Event("userChange"));
+      window.dispatchEvent(new Event("userChange"));
+      navigate("/");
+    } catch (err) {
+      const error = err as FirebaseError;
 
-    navigate("/");
-} catch (err) {
-  const error = err as FirebaseError;
-  console.error("Full Error:", err);
-  
-  if (error.code === "auth/invalid-credential") {
-    alert("Email hoặc mật khẩu không chính xác. Vui lòng kiểm tra lại!");
-  } else if (error.code === "auth/user-not-found") {
-    alert("Tài khoản chưa tồn tại!");
-  } else {
-    alert("Lỗi: " + error.code);
-  }
-}
-};
-const handleGoogleLogin = async () => {
-  try {
-    const provider = new GoogleAuthProvider();
+      if (error.code === "auth/invalid-credential") {
+        setErrorMsg("Email hoặc mật khẩu không đúng");
+      } else if (error.code === "auth/user-not-found") {
+        setErrorMsg("Tài khoản chưa tồn tại");
+      } else {
+        setErrorMsg("Lỗi: " + error.code);
+      }
+    }
+  };
 
-    const result = await signInWithPopup(auth, provider);
+  const handleGoogleLogin = async () => {
+    setErrorMsg("");
 
-    const user = result.user;
+    try {
+      const provider = new GoogleAuthProvider();
+      const result = await signInWithPopup(auth!, provider);
 
-    //  token
-    const token = await user.getIdToken();
-    localStorage.setItem("token", token);
+      const user = result.user;
 
-    //  lưu user
-    localStorage.setItem(
-      "user",
-      JSON.stringify({
-        name: user.displayName || "User",
-        avatar: user.photoURL || "https://i.pravatar.cc/40",
-      })
-    );
+      const token = await user.getIdToken();
+      localStorage.setItem("token", token);
 
-    window.dispatchEvent(new Event("userChange"));
+      localStorage.setItem(
+        "user",
+        JSON.stringify({
+          name: user.displayName || "User",
+          avatar: user.photoURL || "https://i.pravatar.cc/40",
+        })
+      );
 
-    navigate("/");
-  } catch (err) {
-    console.error(err);
-    alert("Google login failed");
-  }
-};
+      window.dispatchEvent(new Event("userChange"));
+      navigate("/");
+    } catch (err) {
+      const error = err as FirebaseError;
+
+      if (error.code === "auth/popup-closed-by-user") {
+        setErrorMsg("Bạn đã đóng cửa sổ đăng nhập Google");
+      } else {
+        setErrorMsg("Google login thất bại");
+      }
+    }
+  };
+
   return (
     <div
       className={`absolute top-0 left-0 w-full h-full backdrop-blur-lg flex items-center justify-center text-white transition-transform duration-500 ${
@@ -107,6 +112,7 @@ const handleGoogleLogin = async () => {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
+
         <Input
           label="Password"
           type="password"
@@ -114,7 +120,13 @@ const handleGoogleLogin = async () => {
           onChange={(e) => setPassword(e.target.value)}
         />
 
-        <button className="cursor-pointer w-full h-11 bg-red-600 rounded-md mt-4 flex items-center justify-center gap-2 hover:bg-[#9b1212] transition">
+        {errorMsg && (
+          <div className="text-red-400 text-sm mb-3 text-center">
+            {errorMsg}
+          </div>
+        )}
+
+        <button className="cursor-pointer w-full h-11 bg-red-600 rounded-md mt-2 flex items-center justify-center gap-2 hover:bg-[#9b1212] transition">
           Sign In
         </button>
 
@@ -127,15 +139,17 @@ const handleGoogleLogin = async () => {
 
         {/* Google */}
         <button
-        type="button"
-        onClick={handleGoogleLogin} 
-        className="cursor-pointer w-full h-11 border border-white/30 rounded-md flex items-center justify-center gap-2 hover:bg-white/10 transition">
+          type="button"
+          onClick={handleGoogleLogin}
+          className="cursor-pointer w-full h-11 border border-white/30 rounded-md flex items-center justify-center gap-2 hover:bg-white/10 transition"
+        >
           <img
             src="https://www.svgrepo.com/show/475656/google-color.svg"
             className="w-5 h-5"
           />
           Continue with Google
         </button>
+
         <p className="text-center mt-5 text-sm">
           Don't have an account?{" "}
           <button
