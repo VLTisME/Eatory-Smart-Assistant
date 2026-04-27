@@ -32,6 +32,7 @@ export default function ScrollSelect({ value, onSelect }: ScrollSelectProps) {
           value={value}
           onSelect={(val) => {
             onSelect(val);
+            localStorage.removeItem("hasSearched");
             setOpen(false);
           }}
         />

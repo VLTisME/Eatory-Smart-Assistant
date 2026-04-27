@@ -9,7 +9,7 @@ export default function Avatar({ src, onClick }: Props) {
     <img
       src={src}
       onClick={onClick}
-      className="w-10 h-10 rounded-full cursor-pointer hover:scale-105 transition"
+      className="w-7 h-7 rounded-full cursor-pointer hover:scale-105 transition"
     />
   );
 }
