@@ -1,10 +1,15 @@
+import { auth } from "../firebase";
+
 const BASE_URL = "http://localhost:8000/api/v1";
 
 export const fetchWithAuth = async (
   endpoint: string,
   options: RequestInit = {}
 ) => {
-  const token = localStorage.getItem("token");
+  let token = localStorage.getItem("token");
+  if (auth?.currentUser) {
+    token = await auth.currentUser.getIdToken();
+  }
 
   const res = await fetch(`${BASE_URL}${endpoint}`, {
     ...options,
