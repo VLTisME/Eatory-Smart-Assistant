@@ -24,7 +24,7 @@ class RefinementClient:
                 "OPENAI_API_KEY is not configured. Set it in the environment before calling the refinement endpoint."
             )
         self._client = OpenAI(api_key=settings.openai_api_key)
-        self.model = settings.openai_model
+        self.model = settings.openai_refine_model
 
     def refine(
         self,

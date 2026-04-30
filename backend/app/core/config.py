@@ -25,9 +25,11 @@ class Settings(BaseSettings):
     ocr_languages: str = "vi,en"
     ocr_gpu: bool = False
     ocr_openai_model: str = "gpt-4o-mini"
+    menu_refine_max_chars: int = 8000
 
     openai_api_key: str | None = None
     openai_model: str = "gpt-4o-mini"
+    openai_refine_model: str = "gpt-4o-mini"
 
     @property
     def ocr_language_list(self) -> list[str]:

@@ -18,7 +18,7 @@ def test_build_refinement_prompt_mentions_translation_rules():
         target_language="en",
     )
 
-    assert "Vietnamese menu data extractor and spell-checker" in system_prompt
+    assert "Vietnamese menu OCR normalizer and translator" in system_prompt
     assert "Return ONLY valid JSON" in system_prompt
     assert "Phở bò" in user_prompt
     assert "Source language: vi" in user_prompt
@@ -34,7 +34,7 @@ def test_llm_service_raises_without_api_key(monkeypatch):
 
 def test_llm_service_refines_text(monkeypatch):
     monkeypatch.setattr(refinement_module.settings, "openai_api_key", "test-key")
-    monkeypatch.setattr(refinement_module.settings, "openai_model", "gpt-4o-mini")
+    monkeypatch.setattr(refinement_module.settings, "openai_refine_model", "gpt-4o-mini")
 
     class FakeCompletions:
         def create(self, *, model, temperature, messages):

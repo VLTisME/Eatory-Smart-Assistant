@@ -3,6 +3,7 @@ import json
 import uuid
 import re
 import logging
+from app.core.config import settings
 from app.features.menu_translation.ocr_engine import MenuOCREngine
 from app.features.menu_translation.schemas import (
     MenuResponse, RestaurantInfo, MenuCategory, MenuItem, PriceType,
@@ -36,7 +37,7 @@ class MenuPipeline:
         ocr_result = self.ocr.extract_text(image_bytes)
         raw_text = ocr_result.text
         logger.info("OCR done: %d chars, %.0fms", len(raw_text), ocr_result.processing_time_ms)
-        logger.info("RAW OCR TEXT:\n%s", raw_text)
+        logger.info("RAW OCR TEXT preview: %s", raw_text)
         
         if not raw_text.strip():
             logger.warning("OCR returned empty text")
@@ -46,9 +47,12 @@ class MenuPipeline:
         if self.llm is None:
             logger.warning("No LLM client available - returning empty response")
             return self._empty_response(restaurant_name)
+
+        prepared_text = self._prepare_refinement_input(raw_text)
+        logger.info("Prepared OCR text for refine: %d -> %d chars", len(raw_text), len(prepared_text))
         
         try:
-            llm_response = await self._call_llm(raw_text, restaurant_name, target_language)
+            llm_response = await self._call_llm(prepared_text, restaurant_name, target_language)
             if llm_response is not None:
                 logger.info(
                     "LLM success: %d categories, %d items",
@@ -62,6 +66,29 @@ class MenuPipeline:
         # ===== Fallback: trả empty nếu LLM thất bại =====
         logger.warning("LLM failed - returning empty response")
         return self._empty_response(restaurant_name)
+
+    def _prepare_refinement_input(self, raw_text: str) -> str:
+        """Reduce noisy OCR payload size before sending to LLM."""
+
+        lines = [line.strip() for line in raw_text.splitlines()]
+        lines = [line for line in lines if line]
+
+        deduped: list[str] = []
+        seen: set[str] = set()
+        for line in lines:
+            normalized = re.sub(r"\s+", " ", line).lower()
+            if normalized in seen:
+                continue
+            seen.add(normalized)
+            deduped.append(line)
+
+        compact_text = "\n".join(deduped)
+
+        max_chars = max(1000, settings.menu_refine_max_chars)
+        if len(compact_text) <= max_chars:
+            return compact_text
+
+        return compact_text[:max_chars]
     
     async def _call_llm(self, raw_text: str, restaurant_name: str, target_language: str) -> MenuResponse | None:
         """
