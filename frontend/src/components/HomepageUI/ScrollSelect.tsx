@@ -30,6 +30,7 @@ export default function ScrollSelect({ value, onSelect }: ScrollSelectProps) {
   }, [open]);
 
   const handleSelect = (option: string) => {
+    localStorage.setItem("province", option);
     if (onSelect) onSelect(option);
     setOpen(false);
   };

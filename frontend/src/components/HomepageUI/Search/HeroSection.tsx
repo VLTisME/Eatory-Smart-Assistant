@@ -25,7 +25,9 @@ export default function HeroSection({ province, setProvince, onSearch,isLoading 
         </h1>
 
         <div className="flex w-full gap-2">
-          <ScrollSelect value={province} onSelect={setProvince} />
+          <ScrollSelect 
+          value={province}
+          onSelect={(value) => setProvince(value)}/>
 
           <button
             onClick={onSearch}
