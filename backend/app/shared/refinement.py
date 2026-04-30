@@ -8,7 +8,12 @@ from functools import lru_cache
 from openai import OpenAI
 
 from app.core.config import settings
-from app.core.prompts import MENU_REFINEMENT_PROMPT_VERSION, build_refinement_prompt
+from app.core.prompts import (
+    MENU_REFINEMENT_PROMPT_VERSION,
+    PLACE_REFINEMENT_PROMPT_VERSION,
+    GENERIC_REFINEMENT_PROMPT_VERSION,
+    build_refinement_prompt,
+)
 
 
 class RefinementError(RuntimeError):
@@ -51,7 +56,16 @@ class RefinementClient:
         )
         processing_time_ms = (time.perf_counter() - start_time) * 1000
         refined_text = (response.choices[0].message.content or "").strip()
-        return refined_text, processing_time_ms, MENU_REFINEMENT_PROMPT_VERSION
+
+        normalized_context = (context or "").strip().lower()
+        if normalized_context in {"menu", "menu_translation", "menu translation", "ocr_menu"}:
+            version = MENU_REFINEMENT_PROMPT_VERSION
+        elif normalized_context in {"place_search", "place search", "image_search", "image search"}:
+            version = PLACE_REFINEMENT_PROMPT_VERSION
+        else:
+            version = GENERIC_REFINEMENT_PROMPT_VERSION
+
+        return refined_text, processing_time_ms, version
 
 
 @lru_cache

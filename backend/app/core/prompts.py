@@ -6,6 +6,8 @@ from textwrap import dedent
 
 
 MENU_REFINEMENT_PROMPT_VERSION = "menu_translation_v2"
+PLACE_REFINEMENT_PROMPT_VERSION = "place_search_v1"
+GENERIC_REFINEMENT_PROMPT_VERSION = "generic_refine_v1"
 
 MENU_STRUCTURED_PROMPT = dedent(
     """
