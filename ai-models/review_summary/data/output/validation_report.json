@@ -1,0 +1,39 @@
+{
+  "total_places": 30,
+  "total_reviews": 1792,
+  "missing_place_id": 0,
+  "missing_text": 0,
+  "missing_rating": 60,
+  "invalid_rating": 0,
+  "places_with_reviews": 30,
+  "places_under_60_reviews": 5,
+  "rating_distribution": {
+    "1.0": 200,
+    "2.0": 43,
+    "3.0": 93,
+    "4.0": 195,
+    "5.0": 1201
+  },
+  "places_under_60_detail": [
+    {
+      "place_id": "4fd38bb308aad362498515acfd24a5fb",
+      "review_count": 57
+    },
+    {
+      "place_id": "ffba71354431a538f430abe37c9535dd",
+      "review_count": 58
+    },
+    {
+      "place_id": "10a444ba2ef2661aca13f6bfd473de3a",
+      "review_count": 59
+    },
+    {
+      "place_id": "0098a8ed97daad56f4afab536d7620b8",
+      "review_count": 59
+    },
+    {
+      "place_id": "bd5e1e167d3beb3757ee098bafea7b28",
+      "review_count": 59
+    }
+  ]
+}
