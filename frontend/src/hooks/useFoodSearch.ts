@@ -12,7 +12,7 @@ const normalizeVietnamese = (str: string) => {
     .trim();
 };
 
-// 👉 tạo data giả
+//  tạo data giả
 const generateFakeData = (province: string): FoodType[] => {
   return Array.from({ length: 6 }).map((_, i) => ({
     title: `Món ngon ${i + 1} tại ${province}`,
