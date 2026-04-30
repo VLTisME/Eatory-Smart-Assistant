@@ -16,6 +16,7 @@ initialize_firebase()
 from app.api.router import router as api_router
 from app.core.config import settings
 from app.features.menu_translation.ocr_engine import get_menu_ocr_engine
+from app.features.place_search.service import get_place_search_engine
 from app.shared.refinement import get_refinement_client
 
 # 1. Logging configuration
@@ -50,6 +51,13 @@ async def lifespan(app: FastAPI):
             logger.info("Refinement client warm-up completed")
         except Exception:
             logger.exception("Refinement warm-up failed; first LLM request may be slower")
+
+    try:
+        logger.info("Warming up place search engine...")
+        await asyncio.to_thread(get_place_search_engine)
+        logger.info("Place search engine warm-up completed")
+    except Exception:
+        logger.exception("Place search warm-up failed; first place-search request may be slower")
 
     yield
     logger.info("Shutting down %s", settings.app_name)
@@ -97,11 +105,12 @@ async def service_info() -> dict[str, object]:
         "service": settings.app_name,
         "version": settings.app_version,
         "shared_components": ["uploads", "llm_refinement"],
-        "features": ["menu_translation"],
+        "features": ["menu_translation", "place_search"],
         "llm_model": settings.openai_model,
         "endpoints": {
             "upload_image": "/api/v1/uploads/image",
             "menu_translation_ocr": "/api/v1/menu-translation/ocr",
+            "place_search": "/api/v1/place-search",
             "llm_refine": "/api/v1/llm/refine",
         },
     }

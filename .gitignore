@@ -1,7 +1,7 @@
 backend/.*
 venv/
 __pycache__/
-copilot-guide.md
 .env
 backend/firebase-service-account.json
 backend/API_DOCS.md
+data/

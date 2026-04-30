@@ -6,6 +6,7 @@ import BentoFeatures from "./BentoFeatures";
 import ChatInput from "./ChatInput";
 import ImageUploadModel from "../upload-image/ImageUploadModal";
 import { uploadMenuImage } from "../../services/menuTranslationApi";
+import { uploadPlaceSearchImage } from "../../services/placeSearchApi";
 
 /**
  * FloatingSidebar — Component cha cho Chatbot UI (Modern Glassmorphism)
@@ -139,24 +140,68 @@ function FloatingSidebar({
 				setIsThinking(false);
 			}
 		} else {
-			// ── Image search — giữ logic cũ ──
-			const actionLabel = "Tìm kiếm hình ảnh";
-			const botReply =
-				"Đã nhận ảnh. Bước tiếp theo là tìm kiếm các hình ảnh tương tự.";
-
 			setMessages((prev) => [
 				...prev,
 				{
 					id: timestamp.toString(),
 					role: "user",
-					content: `[${actionLabel}] Đã chọn ảnh: ${file.name}`,
-				},
-				{
-					id: (timestamp + 1).toString(),
-					role: "bot",
-					content: botReply,
+					content: `[Tìm kiếm hình ảnh] Đã chọn ảnh: ${file.name}`,
 				},
 			]);
+			setIsThinking(true);
+
+			try {
+				const placeData = await uploadPlaceSearchImage(file);
+				const topResults = placeData.results.slice(0, 5);
+
+				if (topResults.length === 0) {
+					setMessages((prev) => [
+						...prev,
+						{
+							id: Date.now().toString(),
+							role: "bot",
+							content:
+								"Không tìm thấy địa điểm phù hợp từ ảnh này.",
+						},
+					]);
+					return;
+				}
+
+				const lines = topResults.map((item, index) => {
+					const score = (item.score * 100).toFixed(1);
+					const placeName = item.name || item.place_id;
+					const address = item.address ? ` - ${item.address}` : "";
+					return `${index + 1}. ${placeName} (${score}%)${address}`;
+				});
+
+				setMessages((prev) => [
+					...prev,
+					{
+						id: Date.now().toString(),
+						role: "bot",
+						content: `Đã tìm thấy các địa điểm tương tự:\n${lines.join("\n")}`,
+					},
+				]);
+			} catch (err: unknown) {
+				let errorMsg = "Không thể tìm kiếm địa điểm từ ảnh này. Vui lòng thử lại.";
+				if (err && typeof err === "object" && "response" in err) {
+					const axiosErr = err as {
+						response?: { data?: { detail?: string } };
+					};
+					errorMsg = axiosErr.response?.data?.detail || errorMsg;
+				}
+
+				setMessages((prev) => [
+					...prev,
+					{
+						id: Date.now().toString(),
+						role: "bot",
+						content: errorMsg,
+					},
+				]);
+			} finally {
+				setIsThinking(false);
+			}
 		}
 	};
 

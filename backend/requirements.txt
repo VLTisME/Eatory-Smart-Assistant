@@ -13,6 +13,8 @@ numpy>=1.26.4
 easyocr>=1.7.2
 huggingface_hub>=0.26.2
 openai>=2.30.0
+transformers>=4.46.0
+torch>=2.4.0
 
 # Testing and load testing
 pytest>=7.4.0

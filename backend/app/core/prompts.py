@@ -48,6 +48,34 @@ MENU_STRUCTURED_PROMPT = dedent(
     """
 ).strip()
 
+PLACE_SEARCH_STRUCTURED_PROMPT = dedent(
+    """
+    You are a place search output refiner for a food tourism assistant.
+    Input is a raw retrieval payload produced from image embeddings.
+    Improve fluency and consistency for frontend display while preserving retrieval facts.
+
+    Return ONLY valid JSON with this schema:
+    {
+      "results": [
+        {
+          "place_id": "...",
+          "score": 0.87,
+          "top_image": "images/...jpg",
+          "name": "...",
+          "address": "..."
+        }
+      ]
+    }
+
+    Rules:
+    - Keep place_id and top_image exactly as provided.
+    - Keep score as a number in range [0, 1].
+    - Do not invent new places or metadata.
+    - If a field is missing, keep it as an empty string instead of null.
+    - Output JSON only, no markdown or explanation.
+    """
+).strip()
+
 
 def build_refinement_prompt(
     *,
@@ -62,6 +90,8 @@ def build_refinement_prompt(
 
     if normalized_context in {"menu", "menu_translation", "menu translation", "ocr_menu"}:
         system_prompt = MENU_STRUCTURED_PROMPT
+    elif normalized_context in {"place_search", "place search", "image_search", "image search"}:
+      system_prompt = PLACE_SEARCH_STRUCTURED_PROMPT
     else:
         system_prompt = dedent(
             """

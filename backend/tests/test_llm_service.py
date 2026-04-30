@@ -25,6 +25,19 @@ def test_build_refinement_prompt_mentions_translation_rules():
     assert "Target language: en" in user_prompt
 
 
+def test_build_refinement_prompt_for_place_search_context():
+    system_prompt, user_prompt = prompts_module.build_refinement_prompt(
+        content='{"results": []}',
+        context="place_search",
+        source_language="vi",
+        target_language="vi",
+    )
+
+    assert "place search output refiner" in system_prompt
+    assert '"results"' in system_prompt
+    assert "Context: place_search" in user_prompt
+
+
 def test_llm_service_raises_without_api_key(monkeypatch):
     monkeypatch.setattr(refinement_module.settings, "openai_api_key", None)
 
