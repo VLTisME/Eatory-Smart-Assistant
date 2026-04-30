@@ -1,0 +1,2864 @@
+[
+  {
+    "idx": 0,
+    "image_id": "ChIJf5dULuwldTERhbtf7fImTZo_012.jpg",
+    "place_id": "ChIJf5dULuwldTERhbtf7fImTZo",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJf5dULuwldTERhbtf7fImTZo/ChIJf5dULuwldTERhbtf7fImTZo_012.jpg"
+  },
+  {
+    "idx": 1,
+    "image_id": "ChIJf5dULuwldTERhbtf7fImTZo_005.jpg",
+    "place_id": "ChIJf5dULuwldTERhbtf7fImTZo",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJf5dULuwldTERhbtf7fImTZo/ChIJf5dULuwldTERhbtf7fImTZo_005.jpg"
+  },
+  {
+    "idx": 2,
+    "image_id": "ChIJf5dULuwldTERhbtf7fImTZo_014.jpg",
+    "place_id": "ChIJf5dULuwldTERhbtf7fImTZo",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJf5dULuwldTERhbtf7fImTZo/ChIJf5dULuwldTERhbtf7fImTZo_014.jpg"
+  },
+  {
+    "idx": 3,
+    "image_id": "ChIJf5dULuwldTERhbtf7fImTZo_006.jpg",
+    "place_id": "ChIJf5dULuwldTERhbtf7fImTZo",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJf5dULuwldTERhbtf7fImTZo/ChIJf5dULuwldTERhbtf7fImTZo_006.jpg"
+  },
+  {
+    "idx": 4,
+    "image_id": "ChIJf5dULuwldTERhbtf7fImTZo_009.jpg",
+    "place_id": "ChIJf5dULuwldTERhbtf7fImTZo",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJf5dULuwldTERhbtf7fImTZo/ChIJf5dULuwldTERhbtf7fImTZo_009.jpg"
+  },
+  {
+    "idx": 5,
+    "image_id": "ChIJf5dULuwldTERhbtf7fImTZo_008.jpg",
+    "place_id": "ChIJf5dULuwldTERhbtf7fImTZo",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJf5dULuwldTERhbtf7fImTZo/ChIJf5dULuwldTERhbtf7fImTZo_008.jpg"
+  },
+  {
+    "idx": 6,
+    "image_id": "ChIJf5dULuwldTERhbtf7fImTZo_001.jpg",
+    "place_id": "ChIJf5dULuwldTERhbtf7fImTZo",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJf5dULuwldTERhbtf7fImTZo/ChIJf5dULuwldTERhbtf7fImTZo_001.jpg"
+  },
+  {
+    "idx": 7,
+    "image_id": "ChIJf5dULuwldTERhbtf7fImTZo_002.jpg",
+    "place_id": "ChIJf5dULuwldTERhbtf7fImTZo",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJf5dULuwldTERhbtf7fImTZo/ChIJf5dULuwldTERhbtf7fImTZo_002.jpg"
+  },
+  {
+    "idx": 8,
+    "image_id": "ChIJf5dULuwldTERhbtf7fImTZo_010.jpg",
+    "place_id": "ChIJf5dULuwldTERhbtf7fImTZo",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJf5dULuwldTERhbtf7fImTZo/ChIJf5dULuwldTERhbtf7fImTZo_010.jpg"
+  },
+  {
+    "idx": 9,
+    "image_id": "ChIJf5dULuwldTERhbtf7fImTZo_003.jpg",
+    "place_id": "ChIJf5dULuwldTERhbtf7fImTZo",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJf5dULuwldTERhbtf7fImTZo/ChIJf5dULuwldTERhbtf7fImTZo_003.jpg"
+  },
+  {
+    "idx": 10,
+    "image_id": "ChIJf5dULuwldTERhbtf7fImTZo_013.jpg",
+    "place_id": "ChIJf5dULuwldTERhbtf7fImTZo",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJf5dULuwldTERhbtf7fImTZo/ChIJf5dULuwldTERhbtf7fImTZo_013.jpg"
+  },
+  {
+    "idx": 11,
+    "image_id": "ChIJf5dULuwldTERhbtf7fImTZo_011.jpg",
+    "place_id": "ChIJf5dULuwldTERhbtf7fImTZo",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJf5dULuwldTERhbtf7fImTZo/ChIJf5dULuwldTERhbtf7fImTZo_011.jpg"
+  },
+  {
+    "idx": 12,
+    "image_id": "ChIJf5dULuwldTERhbtf7fImTZo_015.jpg",
+    "place_id": "ChIJf5dULuwldTERhbtf7fImTZo",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJf5dULuwldTERhbtf7fImTZo/ChIJf5dULuwldTERhbtf7fImTZo_015.jpg"
+  },
+  {
+    "idx": 13,
+    "image_id": "ChIJgWfui4gndTERAY0pIZ6B8CE_009.jpg",
+    "place_id": "ChIJgWfui4gndTERAY0pIZ6B8CE",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJgWfui4gndTERAY0pIZ6B8CE/ChIJgWfui4gndTERAY0pIZ6B8CE_009.jpg"
+  },
+  {
+    "idx": 14,
+    "image_id": "ChIJgWfui4gndTERAY0pIZ6B8CE_008.jpg",
+    "place_id": "ChIJgWfui4gndTERAY0pIZ6B8CE",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJgWfui4gndTERAY0pIZ6B8CE/ChIJgWfui4gndTERAY0pIZ6B8CE_008.jpg"
+  },
+  {
+    "idx": 15,
+    "image_id": "ChIJgWfui4gndTERAY0pIZ6B8CE_002.jpg",
+    "place_id": "ChIJgWfui4gndTERAY0pIZ6B8CE",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJgWfui4gndTERAY0pIZ6B8CE/ChIJgWfui4gndTERAY0pIZ6B8CE_002.jpg"
+  },
+  {
+    "idx": 16,
+    "image_id": "ChIJgWfui4gndTERAY0pIZ6B8CE_001.jpg",
+    "place_id": "ChIJgWfui4gndTERAY0pIZ6B8CE",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJgWfui4gndTERAY0pIZ6B8CE/ChIJgWfui4gndTERAY0pIZ6B8CE_001.jpg"
+  },
+  {
+    "idx": 17,
+    "image_id": "ChIJgWfui4gndTERAY0pIZ6B8CE_003.jpg",
+    "place_id": "ChIJgWfui4gndTERAY0pIZ6B8CE",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJgWfui4gndTERAY0pIZ6B8CE/ChIJgWfui4gndTERAY0pIZ6B8CE_003.jpg"
+  },
+  {
+    "idx": 18,
+    "image_id": "ChIJgWfui4gndTERAY0pIZ6B8CE_010.jpg",
+    "place_id": "ChIJgWfui4gndTERAY0pIZ6B8CE",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJgWfui4gndTERAY0pIZ6B8CE/ChIJgWfui4gndTERAY0pIZ6B8CE_010.jpg"
+  },
+  {
+    "idx": 19,
+    "image_id": "ChIJgWfui4gndTERAY0pIZ6B8CE_011.jpg",
+    "place_id": "ChIJgWfui4gndTERAY0pIZ6B8CE",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJgWfui4gndTERAY0pIZ6B8CE/ChIJgWfui4gndTERAY0pIZ6B8CE_011.jpg"
+  },
+  {
+    "idx": 20,
+    "image_id": "ChIJgWfui4gndTERAY0pIZ6B8CE_006.jpg",
+    "place_id": "ChIJgWfui4gndTERAY0pIZ6B8CE",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJgWfui4gndTERAY0pIZ6B8CE/ChIJgWfui4gndTERAY0pIZ6B8CE_006.jpg"
+  },
+  {
+    "idx": 21,
+    "image_id": "ChIJgWfui4gndTERAY0pIZ6B8CE_007.jpg",
+    "place_id": "ChIJgWfui4gndTERAY0pIZ6B8CE",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJgWfui4gndTERAY0pIZ6B8CE/ChIJgWfui4gndTERAY0pIZ6B8CE_007.jpg"
+  },
+  {
+    "idx": 22,
+    "image_id": "ChIJgWfui4gndTERAY0pIZ6B8CE_005.jpg",
+    "place_id": "ChIJgWfui4gndTERAY0pIZ6B8CE",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJgWfui4gndTERAY0pIZ6B8CE/ChIJgWfui4gndTERAY0pIZ6B8CE_005.jpg"
+  },
+  {
+    "idx": 23,
+    "image_id": "ChIJ3yg2LEkvdTERL8-WeUdBSFU_015.jpg",
+    "place_id": "ChIJ3yg2LEkvdTERL8-WeUdBSFU",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJ3yg2LEkvdTERL8-WeUdBSFU/ChIJ3yg2LEkvdTERL8-WeUdBSFU_015.jpg"
+  },
+  {
+    "idx": 24,
+    "image_id": "ChIJ3yg2LEkvdTERL8-WeUdBSFU_003.jpg",
+    "place_id": "ChIJ3yg2LEkvdTERL8-WeUdBSFU",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJ3yg2LEkvdTERL8-WeUdBSFU/ChIJ3yg2LEkvdTERL8-WeUdBSFU_003.jpg"
+  },
+  {
+    "idx": 25,
+    "image_id": "ChIJ3yg2LEkvdTERL8-WeUdBSFU_002.jpg",
+    "place_id": "ChIJ3yg2LEkvdTERL8-WeUdBSFU",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJ3yg2LEkvdTERL8-WeUdBSFU/ChIJ3yg2LEkvdTERL8-WeUdBSFU_002.jpg"
+  },
+  {
+    "idx": 26,
+    "image_id": "ChIJ3yg2LEkvdTERL8-WeUdBSFU_005.jpg",
+    "place_id": "ChIJ3yg2LEkvdTERL8-WeUdBSFU",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJ3yg2LEkvdTERL8-WeUdBSFU/ChIJ3yg2LEkvdTERL8-WeUdBSFU_005.jpg"
+  },
+  {
+    "idx": 27,
+    "image_id": "ChIJ3yg2LEkvdTERL8-WeUdBSFU_009.jpg",
+    "place_id": "ChIJ3yg2LEkvdTERL8-WeUdBSFU",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJ3yg2LEkvdTERL8-WeUdBSFU/ChIJ3yg2LEkvdTERL8-WeUdBSFU_009.jpg"
+  },
+  {
+    "idx": 28,
+    "image_id": "ChIJ3yg2LEkvdTERL8-WeUdBSFU_008.jpg",
+    "place_id": "ChIJ3yg2LEkvdTERL8-WeUdBSFU",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJ3yg2LEkvdTERL8-WeUdBSFU/ChIJ3yg2LEkvdTERL8-WeUdBSFU_008.jpg"
+  },
+  {
+    "idx": 29,
+    "image_id": "ChIJ3yg2LEkvdTERL8-WeUdBSFU_013.jpg",
+    "place_id": "ChIJ3yg2LEkvdTERL8-WeUdBSFU",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJ3yg2LEkvdTERL8-WeUdBSFU/ChIJ3yg2LEkvdTERL8-WeUdBSFU_013.jpg"
+  },
+  {
+    "idx": 30,
+    "image_id": "ChIJ3yg2LEkvdTERL8-WeUdBSFU_012.jpg",
+    "place_id": "ChIJ3yg2LEkvdTERL8-WeUdBSFU",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJ3yg2LEkvdTERL8-WeUdBSFU/ChIJ3yg2LEkvdTERL8-WeUdBSFU_012.jpg"
+  },
+  {
+    "idx": 31,
+    "image_id": "ChIJ3yg2LEkvdTERL8-WeUdBSFU_006.jpg",
+    "place_id": "ChIJ3yg2LEkvdTERL8-WeUdBSFU",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJ3yg2LEkvdTERL8-WeUdBSFU/ChIJ3yg2LEkvdTERL8-WeUdBSFU_006.jpg"
+  },
+  {
+    "idx": 32,
+    "image_id": "ChIJ3yg2LEkvdTERL8-WeUdBSFU_007.jpg",
+    "place_id": "ChIJ3yg2LEkvdTERL8-WeUdBSFU",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJ3yg2LEkvdTERL8-WeUdBSFU/ChIJ3yg2LEkvdTERL8-WeUdBSFU_007.jpg"
+  },
+  {
+    "idx": 33,
+    "image_id": "ChIJ3yg2LEkvdTERL8-WeUdBSFU_001.jpg",
+    "place_id": "ChIJ3yg2LEkvdTERL8-WeUdBSFU",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJ3yg2LEkvdTERL8-WeUdBSFU/ChIJ3yg2LEkvdTERL8-WeUdBSFU_001.jpg"
+  },
+  {
+    "idx": 34,
+    "image_id": "ChIJ3yg2LEkvdTERL8-WeUdBSFU_014.jpg",
+    "place_id": "ChIJ3yg2LEkvdTERL8-WeUdBSFU",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJ3yg2LEkvdTERL8-WeUdBSFU/ChIJ3yg2LEkvdTERL8-WeUdBSFU_014.jpg"
+  },
+  {
+    "idx": 35,
+    "image_id": "ChIJ3yg2LEkvdTERL8-WeUdBSFU_011.jpg",
+    "place_id": "ChIJ3yg2LEkvdTERL8-WeUdBSFU",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJ3yg2LEkvdTERL8-WeUdBSFU/ChIJ3yg2LEkvdTERL8-WeUdBSFU_011.jpg"
+  },
+  {
+    "idx": 36,
+    "image_id": "ChIJ3yg2LEkvdTERL8-WeUdBSFU_010.jpg",
+    "place_id": "ChIJ3yg2LEkvdTERL8-WeUdBSFU",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJ3yg2LEkvdTERL8-WeUdBSFU/ChIJ3yg2LEkvdTERL8-WeUdBSFU_010.jpg"
+  },
+  {
+    "idx": 37,
+    "image_id": "ChIJ-fCCywwndTERBy8ZHAa9B5k_001.jpg",
+    "place_id": "ChIJ-fCCywwndTERBy8ZHAa9B5k",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJ-fCCywwndTERBy8ZHAa9B5k/ChIJ-fCCywwndTERBy8ZHAa9B5k_001.jpg"
+  },
+  {
+    "idx": 38,
+    "image_id": "ChIJ-fCCywwndTERBy8ZHAa9B5k_009.jpg",
+    "place_id": "ChIJ-fCCywwndTERBy8ZHAa9B5k",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJ-fCCywwndTERBy8ZHAa9B5k/ChIJ-fCCywwndTERBy8ZHAa9B5k_009.jpg"
+  },
+  {
+    "idx": 39,
+    "image_id": "ChIJ-fCCywwndTERBy8ZHAa9B5k_002.jpg",
+    "place_id": "ChIJ-fCCywwndTERBy8ZHAa9B5k",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJ-fCCywwndTERBy8ZHAa9B5k/ChIJ-fCCywwndTERBy8ZHAa9B5k_002.jpg"
+  },
+  {
+    "idx": 40,
+    "image_id": "ChIJ-fCCywwndTERBy8ZHAa9B5k_007.jpg",
+    "place_id": "ChIJ-fCCywwndTERBy8ZHAa9B5k",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJ-fCCywwndTERBy8ZHAa9B5k/ChIJ-fCCywwndTERBy8ZHAa9B5k_007.jpg"
+  },
+  {
+    "idx": 41,
+    "image_id": "ChIJ-fCCywwndTERBy8ZHAa9B5k_011.jpg",
+    "place_id": "ChIJ-fCCywwndTERBy8ZHAa9B5k",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJ-fCCywwndTERBy8ZHAa9B5k/ChIJ-fCCywwndTERBy8ZHAa9B5k_011.jpg"
+  },
+  {
+    "idx": 42,
+    "image_id": "ChIJ-fCCywwndTERBy8ZHAa9B5k_005.png",
+    "place_id": "ChIJ-fCCywwndTERBy8ZHAa9B5k",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJ-fCCywwndTERBy8ZHAa9B5k/ChIJ-fCCywwndTERBy8ZHAa9B5k_005.png"
+  },
+  {
+    "idx": 43,
+    "image_id": "ChIJ-fCCywwndTERBy8ZHAa9B5k_006.jpg",
+    "place_id": "ChIJ-fCCywwndTERBy8ZHAa9B5k",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJ-fCCywwndTERBy8ZHAa9B5k/ChIJ-fCCywwndTERBy8ZHAa9B5k_006.jpg"
+  },
+  {
+    "idx": 44,
+    "image_id": "ChIJ-fCCywwndTERBy8ZHAa9B5k_003.jpg",
+    "place_id": "ChIJ-fCCywwndTERBy8ZHAa9B5k",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJ-fCCywwndTERBy8ZHAa9B5k/ChIJ-fCCywwndTERBy8ZHAa9B5k_003.jpg"
+  },
+  {
+    "idx": 45,
+    "image_id": "ChIJ-fCCywwndTERBy8ZHAa9B5k_010.jpg",
+    "place_id": "ChIJ-fCCywwndTERBy8ZHAa9B5k",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJ-fCCywwndTERBy8ZHAa9B5k/ChIJ-fCCywwndTERBy8ZHAa9B5k_010.jpg"
+  },
+  {
+    "idx": 46,
+    "image_id": "ChIJ-fCCywwndTERBy8ZHAa9B5k_012.jpg",
+    "place_id": "ChIJ-fCCywwndTERBy8ZHAa9B5k",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJ-fCCywwndTERBy8ZHAa9B5k/ChIJ-fCCywwndTERBy8ZHAa9B5k_012.jpg"
+  },
+  {
+    "idx": 47,
+    "image_id": "ChIJ-fCCywwndTERBy8ZHAa9B5k_008.jpg",
+    "place_id": "ChIJ-fCCywwndTERBy8ZHAa9B5k",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJ-fCCywwndTERBy8ZHAa9B5k/ChIJ-fCCywwndTERBy8ZHAa9B5k_008.jpg"
+  },
+  {
+    "idx": 48,
+    "image_id": "ChIJ-fCCywwndTERBy8ZHAa9B5k_004.jpg",
+    "place_id": "ChIJ-fCCywwndTERBy8ZHAa9B5k",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJ-fCCywwndTERBy8ZHAa9B5k/ChIJ-fCCywwndTERBy8ZHAa9B5k_004.jpg"
+  },
+  {
+    "idx": 49,
+    "image_id": "ChIJjyx4Oe8vdTERzPNy7iVETQY_008.jpg",
+    "place_id": "ChIJjyx4Oe8vdTERzPNy7iVETQY",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJjyx4Oe8vdTERzPNy7iVETQY/ChIJjyx4Oe8vdTERzPNy7iVETQY_008.jpg"
+  },
+  {
+    "idx": 50,
+    "image_id": "ChIJjyx4Oe8vdTERzPNy7iVETQY_007.jpg",
+    "place_id": "ChIJjyx4Oe8vdTERzPNy7iVETQY",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJjyx4Oe8vdTERzPNy7iVETQY/ChIJjyx4Oe8vdTERzPNy7iVETQY_007.jpg"
+  },
+  {
+    "idx": 51,
+    "image_id": "ChIJjyx4Oe8vdTERzPNy7iVETQY_011.jpg",
+    "place_id": "ChIJjyx4Oe8vdTERzPNy7iVETQY",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJjyx4Oe8vdTERzPNy7iVETQY/ChIJjyx4Oe8vdTERzPNy7iVETQY_011.jpg"
+  },
+  {
+    "idx": 52,
+    "image_id": "ChIJjyx4Oe8vdTERzPNy7iVETQY_003.jpg",
+    "place_id": "ChIJjyx4Oe8vdTERzPNy7iVETQY",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJjyx4Oe8vdTERzPNy7iVETQY/ChIJjyx4Oe8vdTERzPNy7iVETQY_003.jpg"
+  },
+  {
+    "idx": 53,
+    "image_id": "ChIJjyx4Oe8vdTERzPNy7iVETQY_010.png",
+    "place_id": "ChIJjyx4Oe8vdTERzPNy7iVETQY",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJjyx4Oe8vdTERzPNy7iVETQY/ChIJjyx4Oe8vdTERzPNy7iVETQY_010.png"
+  },
+  {
+    "idx": 54,
+    "image_id": "ChIJjyx4Oe8vdTERzPNy7iVETQY_006.jpg",
+    "place_id": "ChIJjyx4Oe8vdTERzPNy7iVETQY",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJjyx4Oe8vdTERzPNy7iVETQY/ChIJjyx4Oe8vdTERzPNy7iVETQY_006.jpg"
+  },
+  {
+    "idx": 55,
+    "image_id": "ChIJjyx4Oe8vdTERzPNy7iVETQY_005.jpg",
+    "place_id": "ChIJjyx4Oe8vdTERzPNy7iVETQY",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJjyx4Oe8vdTERzPNy7iVETQY/ChIJjyx4Oe8vdTERzPNy7iVETQY_005.jpg"
+  },
+  {
+    "idx": 56,
+    "image_id": "ChIJjyx4Oe8vdTERzPNy7iVETQY_009.jpg",
+    "place_id": "ChIJjyx4Oe8vdTERzPNy7iVETQY",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJjyx4Oe8vdTERzPNy7iVETQY/ChIJjyx4Oe8vdTERzPNy7iVETQY_009.jpg"
+  },
+  {
+    "idx": 57,
+    "image_id": "ChIJjyx4Oe8vdTERzPNy7iVETQY_002.jpg",
+    "place_id": "ChIJjyx4Oe8vdTERzPNy7iVETQY",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJjyx4Oe8vdTERzPNy7iVETQY/ChIJjyx4Oe8vdTERzPNy7iVETQY_002.jpg"
+  },
+  {
+    "idx": 58,
+    "image_id": "ChIJjyx4Oe8vdTERzPNy7iVETQY_001.jpg",
+    "place_id": "ChIJjyx4Oe8vdTERzPNy7iVETQY",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJjyx4Oe8vdTERzPNy7iVETQY/ChIJjyx4Oe8vdTERzPNy7iVETQY_001.jpg"
+  },
+  {
+    "idx": 59,
+    "image_id": "ChIJ6cL6ZtkvdTERFI5pV9DaJjQ_011.jpg",
+    "place_id": "ChIJ6cL6ZtkvdTERFI5pV9DaJjQ",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJ6cL6ZtkvdTERFI5pV9DaJjQ/ChIJ6cL6ZtkvdTERFI5pV9DaJjQ_011.jpg"
+  },
+  {
+    "idx": 60,
+    "image_id": "ChIJ6cL6ZtkvdTERFI5pV9DaJjQ_006.jpg",
+    "place_id": "ChIJ6cL6ZtkvdTERFI5pV9DaJjQ",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJ6cL6ZtkvdTERFI5pV9DaJjQ/ChIJ6cL6ZtkvdTERFI5pV9DaJjQ_006.jpg"
+  },
+  {
+    "idx": 61,
+    "image_id": "ChIJ6cL6ZtkvdTERFI5pV9DaJjQ_003.jpg",
+    "place_id": "ChIJ6cL6ZtkvdTERFI5pV9DaJjQ",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJ6cL6ZtkvdTERFI5pV9DaJjQ/ChIJ6cL6ZtkvdTERFI5pV9DaJjQ_003.jpg"
+  },
+  {
+    "idx": 62,
+    "image_id": "ChIJ6cL6ZtkvdTERFI5pV9DaJjQ_001.jpg",
+    "place_id": "ChIJ6cL6ZtkvdTERFI5pV9DaJjQ",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJ6cL6ZtkvdTERFI5pV9DaJjQ/ChIJ6cL6ZtkvdTERFI5pV9DaJjQ_001.jpg"
+  },
+  {
+    "idx": 63,
+    "image_id": "ChIJ6cL6ZtkvdTERFI5pV9DaJjQ_010.jpg",
+    "place_id": "ChIJ6cL6ZtkvdTERFI5pV9DaJjQ",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJ6cL6ZtkvdTERFI5pV9DaJjQ/ChIJ6cL6ZtkvdTERFI5pV9DaJjQ_010.jpg"
+  },
+  {
+    "idx": 64,
+    "image_id": "ChIJ6cL6ZtkvdTERFI5pV9DaJjQ_009.jpg",
+    "place_id": "ChIJ6cL6ZtkvdTERFI5pV9DaJjQ",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJ6cL6ZtkvdTERFI5pV9DaJjQ/ChIJ6cL6ZtkvdTERFI5pV9DaJjQ_009.jpg"
+  },
+  {
+    "idx": 65,
+    "image_id": "ChIJ6cL6ZtkvdTERFI5pV9DaJjQ_008.jpg",
+    "place_id": "ChIJ6cL6ZtkvdTERFI5pV9DaJjQ",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJ6cL6ZtkvdTERFI5pV9DaJjQ/ChIJ6cL6ZtkvdTERFI5pV9DaJjQ_008.jpg"
+  },
+  {
+    "idx": 66,
+    "image_id": "ChIJ6cL6ZtkvdTERFI5pV9DaJjQ_004.jpg",
+    "place_id": "ChIJ6cL6ZtkvdTERFI5pV9DaJjQ",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJ6cL6ZtkvdTERFI5pV9DaJjQ/ChIJ6cL6ZtkvdTERFI5pV9DaJjQ_004.jpg"
+  },
+  {
+    "idx": 67,
+    "image_id": "ChIJ6cL6ZtkvdTERFI5pV9DaJjQ_007.jpg",
+    "place_id": "ChIJ6cL6ZtkvdTERFI5pV9DaJjQ",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJ6cL6ZtkvdTERFI5pV9DaJjQ/ChIJ6cL6ZtkvdTERFI5pV9DaJjQ_007.jpg"
+  },
+  {
+    "idx": 68,
+    "image_id": "ChIJ6cL6ZtkvdTERFI5pV9DaJjQ_002.jpg",
+    "place_id": "ChIJ6cL6ZtkvdTERFI5pV9DaJjQ",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJ6cL6ZtkvdTERFI5pV9DaJjQ/ChIJ6cL6ZtkvdTERFI5pV9DaJjQ_002.jpg"
+  },
+  {
+    "idx": 69,
+    "image_id": "ChIJ6cL6ZtkvdTERFI5pV9DaJjQ_005.jpg",
+    "place_id": "ChIJ6cL6ZtkvdTERFI5pV9DaJjQ",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJ6cL6ZtkvdTERFI5pV9DaJjQ/ChIJ6cL6ZtkvdTERFI5pV9DaJjQ_005.jpg"
+  },
+  {
+    "idx": 70,
+    "image_id": "ChIJFx7EFQAndTER_QcnargOn1Y_002.jpg",
+    "place_id": "ChIJFx7EFQAndTER_QcnargOn1Y",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJFx7EFQAndTER_QcnargOn1Y/ChIJFx7EFQAndTER_QcnargOn1Y_002.jpg"
+  },
+  {
+    "idx": 71,
+    "image_id": "ChIJFx7EFQAndTER_QcnargOn1Y_007.jpg",
+    "place_id": "ChIJFx7EFQAndTER_QcnargOn1Y",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJFx7EFQAndTER_QcnargOn1Y/ChIJFx7EFQAndTER_QcnargOn1Y_007.jpg"
+  },
+  {
+    "idx": 72,
+    "image_id": "ChIJFx7EFQAndTER_QcnargOn1Y_010.jpg",
+    "place_id": "ChIJFx7EFQAndTER_QcnargOn1Y",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJFx7EFQAndTER_QcnargOn1Y/ChIJFx7EFQAndTER_QcnargOn1Y_010.jpg"
+  },
+  {
+    "idx": 73,
+    "image_id": "ChIJFx7EFQAndTER_QcnargOn1Y_008.jpg",
+    "place_id": "ChIJFx7EFQAndTER_QcnargOn1Y",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJFx7EFQAndTER_QcnargOn1Y/ChIJFx7EFQAndTER_QcnargOn1Y_008.jpg"
+  },
+  {
+    "idx": 74,
+    "image_id": "ChIJFx7EFQAndTER_QcnargOn1Y_014.jpg",
+    "place_id": "ChIJFx7EFQAndTER_QcnargOn1Y",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJFx7EFQAndTER_QcnargOn1Y/ChIJFx7EFQAndTER_QcnargOn1Y_014.jpg"
+  },
+  {
+    "idx": 75,
+    "image_id": "ChIJFx7EFQAndTER_QcnargOn1Y_012.jpg",
+    "place_id": "ChIJFx7EFQAndTER_QcnargOn1Y",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJFx7EFQAndTER_QcnargOn1Y/ChIJFx7EFQAndTER_QcnargOn1Y_012.jpg"
+  },
+  {
+    "idx": 76,
+    "image_id": "ChIJFx7EFQAndTER_QcnargOn1Y_009.jpg",
+    "place_id": "ChIJFx7EFQAndTER_QcnargOn1Y",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJFx7EFQAndTER_QcnargOn1Y/ChIJFx7EFQAndTER_QcnargOn1Y_009.jpg"
+  },
+  {
+    "idx": 77,
+    "image_id": "ChIJFx7EFQAndTER_QcnargOn1Y_006.jpg",
+    "place_id": "ChIJFx7EFQAndTER_QcnargOn1Y",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJFx7EFQAndTER_QcnargOn1Y/ChIJFx7EFQAndTER_QcnargOn1Y_006.jpg"
+  },
+  {
+    "idx": 78,
+    "image_id": "ChIJFx7EFQAndTER_QcnargOn1Y_011.jpg",
+    "place_id": "ChIJFx7EFQAndTER_QcnargOn1Y",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJFx7EFQAndTER_QcnargOn1Y/ChIJFx7EFQAndTER_QcnargOn1Y_011.jpg"
+  },
+  {
+    "idx": 79,
+    "image_id": "ChIJFx7EFQAndTER_QcnargOn1Y_003.jpg",
+    "place_id": "ChIJFx7EFQAndTER_QcnargOn1Y",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJFx7EFQAndTER_QcnargOn1Y/ChIJFx7EFQAndTER_QcnargOn1Y_003.jpg"
+  },
+  {
+    "idx": 80,
+    "image_id": "ChIJFx7EFQAndTER_QcnargOn1Y_005.jpg",
+    "place_id": "ChIJFx7EFQAndTER_QcnargOn1Y",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJFx7EFQAndTER_QcnargOn1Y/ChIJFx7EFQAndTER_QcnargOn1Y_005.jpg"
+  },
+  {
+    "idx": 81,
+    "image_id": "ChIJFx7EFQAndTER_QcnargOn1Y_001.jpg",
+    "place_id": "ChIJFx7EFQAndTER_QcnargOn1Y",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJFx7EFQAndTER_QcnargOn1Y/ChIJFx7EFQAndTER_QcnargOn1Y_001.jpg"
+  },
+  {
+    "idx": 82,
+    "image_id": "ChIJa50yEW8ndTEREAK7y57f978_013.jpg",
+    "place_id": "ChIJa50yEW8ndTEREAK7y57f978",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJa50yEW8ndTEREAK7y57f978/ChIJa50yEW8ndTEREAK7y57f978_013.jpg"
+  },
+  {
+    "idx": 83,
+    "image_id": "ChIJa50yEW8ndTEREAK7y57f978_010.jpg",
+    "place_id": "ChIJa50yEW8ndTEREAK7y57f978",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJa50yEW8ndTEREAK7y57f978/ChIJa50yEW8ndTEREAK7y57f978_010.jpg"
+  },
+  {
+    "idx": 84,
+    "image_id": "ChIJa50yEW8ndTEREAK7y57f978_006.jpg",
+    "place_id": "ChIJa50yEW8ndTEREAK7y57f978",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJa50yEW8ndTEREAK7y57f978/ChIJa50yEW8ndTEREAK7y57f978_006.jpg"
+  },
+  {
+    "idx": 85,
+    "image_id": "ChIJa50yEW8ndTEREAK7y57f978_014.jpg",
+    "place_id": "ChIJa50yEW8ndTEREAK7y57f978",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJa50yEW8ndTEREAK7y57f978/ChIJa50yEW8ndTEREAK7y57f978_014.jpg"
+  },
+  {
+    "idx": 86,
+    "image_id": "ChIJa50yEW8ndTEREAK7y57f978_007.jpg",
+    "place_id": "ChIJa50yEW8ndTEREAK7y57f978",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJa50yEW8ndTEREAK7y57f978/ChIJa50yEW8ndTEREAK7y57f978_007.jpg"
+  },
+  {
+    "idx": 87,
+    "image_id": "ChIJa50yEW8ndTEREAK7y57f978_001.jpg",
+    "place_id": "ChIJa50yEW8ndTEREAK7y57f978",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJa50yEW8ndTEREAK7y57f978/ChIJa50yEW8ndTEREAK7y57f978_001.jpg"
+  },
+  {
+    "idx": 88,
+    "image_id": "ChIJa50yEW8ndTEREAK7y57f978_005.png",
+    "place_id": "ChIJa50yEW8ndTEREAK7y57f978",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJa50yEW8ndTEREAK7y57f978/ChIJa50yEW8ndTEREAK7y57f978_005.png"
+  },
+  {
+    "idx": 89,
+    "image_id": "ChIJa50yEW8ndTEREAK7y57f978_012.jpg",
+    "place_id": "ChIJa50yEW8ndTEREAK7y57f978",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJa50yEW8ndTEREAK7y57f978/ChIJa50yEW8ndTEREAK7y57f978_012.jpg"
+  },
+  {
+    "idx": 90,
+    "image_id": "ChIJa50yEW8ndTEREAK7y57f978_015.jpg",
+    "place_id": "ChIJa50yEW8ndTEREAK7y57f978",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJa50yEW8ndTEREAK7y57f978/ChIJa50yEW8ndTEREAK7y57f978_015.jpg"
+  },
+  {
+    "idx": 91,
+    "image_id": "ChIJa50yEW8ndTEREAK7y57f978_003.jpg",
+    "place_id": "ChIJa50yEW8ndTEREAK7y57f978",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJa50yEW8ndTEREAK7y57f978/ChIJa50yEW8ndTEREAK7y57f978_003.jpg"
+  },
+  {
+    "idx": 92,
+    "image_id": "ChIJa50yEW8ndTEREAK7y57f978_009.jpg",
+    "place_id": "ChIJa50yEW8ndTEREAK7y57f978",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJa50yEW8ndTEREAK7y57f978/ChIJa50yEW8ndTEREAK7y57f978_009.jpg"
+  },
+  {
+    "idx": 93,
+    "image_id": "ChIJa50yEW8ndTEREAK7y57f978_002.jpg",
+    "place_id": "ChIJa50yEW8ndTEREAK7y57f978",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJa50yEW8ndTEREAK7y57f978/ChIJa50yEW8ndTEREAK7y57f978_002.jpg"
+  },
+  {
+    "idx": 94,
+    "image_id": "ChIJgRwlQ5MvdTERqQ_32WTjau8_003.jpg",
+    "place_id": "ChIJgRwlQ5MvdTERqQ_32WTjau8",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJgRwlQ5MvdTERqQ_32WTjau8/ChIJgRwlQ5MvdTERqQ_32WTjau8_003.jpg"
+  },
+  {
+    "idx": 95,
+    "image_id": "ChIJgRwlQ5MvdTERqQ_32WTjau8_010.jpg",
+    "place_id": "ChIJgRwlQ5MvdTERqQ_32WTjau8",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJgRwlQ5MvdTERqQ_32WTjau8/ChIJgRwlQ5MvdTERqQ_32WTjau8_010.jpg"
+  },
+  {
+    "idx": 96,
+    "image_id": "ChIJgRwlQ5MvdTERqQ_32WTjau8_009.jpg",
+    "place_id": "ChIJgRwlQ5MvdTERqQ_32WTjau8",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJgRwlQ5MvdTERqQ_32WTjau8/ChIJgRwlQ5MvdTERqQ_32WTjau8_009.jpg"
+  },
+  {
+    "idx": 97,
+    "image_id": "ChIJgRwlQ5MvdTERqQ_32WTjau8_012.jpg",
+    "place_id": "ChIJgRwlQ5MvdTERqQ_32WTjau8",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJgRwlQ5MvdTERqQ_32WTjau8/ChIJgRwlQ5MvdTERqQ_32WTjau8_012.jpg"
+  },
+  {
+    "idx": 98,
+    "image_id": "ChIJgRwlQ5MvdTERqQ_32WTjau8_007.jpg",
+    "place_id": "ChIJgRwlQ5MvdTERqQ_32WTjau8",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJgRwlQ5MvdTERqQ_32WTjau8/ChIJgRwlQ5MvdTERqQ_32WTjau8_007.jpg"
+  },
+  {
+    "idx": 99,
+    "image_id": "ChIJgRwlQ5MvdTERqQ_32WTjau8_002.jpg",
+    "place_id": "ChIJgRwlQ5MvdTERqQ_32WTjau8",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJgRwlQ5MvdTERqQ_32WTjau8/ChIJgRwlQ5MvdTERqQ_32WTjau8_002.jpg"
+  },
+  {
+    "idx": 100,
+    "image_id": "ChIJgRwlQ5MvdTERqQ_32WTjau8_011.jpg",
+    "place_id": "ChIJgRwlQ5MvdTERqQ_32WTjau8",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJgRwlQ5MvdTERqQ_32WTjau8/ChIJgRwlQ5MvdTERqQ_32WTjau8_011.jpg"
+  },
+  {
+    "idx": 101,
+    "image_id": "ChIJgRwlQ5MvdTERqQ_32WTjau8_008.jpg",
+    "place_id": "ChIJgRwlQ5MvdTERqQ_32WTjau8",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJgRwlQ5MvdTERqQ_32WTjau8/ChIJgRwlQ5MvdTERqQ_32WTjau8_008.jpg"
+  },
+  {
+    "idx": 102,
+    "image_id": "ChIJgRwlQ5MvdTERqQ_32WTjau8_001.jpg",
+    "place_id": "ChIJgRwlQ5MvdTERqQ_32WTjau8",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJgRwlQ5MvdTERqQ_32WTjau8/ChIJgRwlQ5MvdTERqQ_32WTjau8_001.jpg"
+  },
+  {
+    "idx": 103,
+    "image_id": "ChIJgRwlQ5MvdTERqQ_32WTjau8_006.jpg",
+    "place_id": "ChIJgRwlQ5MvdTERqQ_32WTjau8",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJgRwlQ5MvdTERqQ_32WTjau8/ChIJgRwlQ5MvdTERqQ_32WTjau8_006.jpg"
+  },
+  {
+    "idx": 104,
+    "image_id": "ChIJVy5_KHQvdTERIuolQr53Dus_008.jpg",
+    "place_id": "ChIJVy5_KHQvdTERIuolQr53Dus",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJVy5_KHQvdTERIuolQr53Dus/ChIJVy5_KHQvdTERIuolQr53Dus_008.jpg"
+  },
+  {
+    "idx": 105,
+    "image_id": "ChIJVy5_KHQvdTERIuolQr53Dus_011.jpg",
+    "place_id": "ChIJVy5_KHQvdTERIuolQr53Dus",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJVy5_KHQvdTERIuolQr53Dus/ChIJVy5_KHQvdTERIuolQr53Dus_011.jpg"
+  },
+  {
+    "idx": 106,
+    "image_id": "ChIJVy5_KHQvdTERIuolQr53Dus_007.jpg",
+    "place_id": "ChIJVy5_KHQvdTERIuolQr53Dus",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJVy5_KHQvdTERIuolQr53Dus/ChIJVy5_KHQvdTERIuolQr53Dus_007.jpg"
+  },
+  {
+    "idx": 107,
+    "image_id": "ChIJVy5_KHQvdTERIuolQr53Dus_003.jpg",
+    "place_id": "ChIJVy5_KHQvdTERIuolQr53Dus",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJVy5_KHQvdTERIuolQr53Dus/ChIJVy5_KHQvdTERIuolQr53Dus_003.jpg"
+  },
+  {
+    "idx": 108,
+    "image_id": "ChIJVy5_KHQvdTERIuolQr53Dus_002.jpg",
+    "place_id": "ChIJVy5_KHQvdTERIuolQr53Dus",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJVy5_KHQvdTERIuolQr53Dus/ChIJVy5_KHQvdTERIuolQr53Dus_002.jpg"
+  },
+  {
+    "idx": 109,
+    "image_id": "ChIJVy5_KHQvdTERIuolQr53Dus_005.jpg",
+    "place_id": "ChIJVy5_KHQvdTERIuolQr53Dus",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJVy5_KHQvdTERIuolQr53Dus/ChIJVy5_KHQvdTERIuolQr53Dus_005.jpg"
+  },
+  {
+    "idx": 110,
+    "image_id": "ChIJVy5_KHQvdTERIuolQr53Dus_010.jpg",
+    "place_id": "ChIJVy5_KHQvdTERIuolQr53Dus",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJVy5_KHQvdTERIuolQr53Dus/ChIJVy5_KHQvdTERIuolQr53Dus_010.jpg"
+  },
+  {
+    "idx": 111,
+    "image_id": "ChIJVy5_KHQvdTERIuolQr53Dus_006.jpg",
+    "place_id": "ChIJVy5_KHQvdTERIuolQr53Dus",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJVy5_KHQvdTERIuolQr53Dus/ChIJVy5_KHQvdTERIuolQr53Dus_006.jpg"
+  },
+  {
+    "idx": 112,
+    "image_id": "ChIJVy5_KHQvdTERIuolQr53Dus_001.jpg",
+    "place_id": "ChIJVy5_KHQvdTERIuolQr53Dus",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJVy5_KHQvdTERIuolQr53Dus/ChIJVy5_KHQvdTERIuolQr53Dus_001.jpg"
+  },
+  {
+    "idx": 113,
+    "image_id": "ChIJVy5_KHQvdTERIuolQr53Dus_009.jpg",
+    "place_id": "ChIJVy5_KHQvdTERIuolQr53Dus",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJVy5_KHQvdTERIuolQr53Dus/ChIJVy5_KHQvdTERIuolQr53Dus_009.jpg"
+  },
+  {
+    "idx": 114,
+    "image_id": "ChIJ22p6x2AvdTERFDZPouHGoMs_001.jpg",
+    "place_id": "ChIJ22p6x2AvdTERFDZPouHGoMs",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJ22p6x2AvdTERFDZPouHGoMs/ChIJ22p6x2AvdTERFDZPouHGoMs_001.jpg"
+  },
+  {
+    "idx": 115,
+    "image_id": "ChIJ22p6x2AvdTERFDZPouHGoMs_002.jpg",
+    "place_id": "ChIJ22p6x2AvdTERFDZPouHGoMs",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJ22p6x2AvdTERFDZPouHGoMs/ChIJ22p6x2AvdTERFDZPouHGoMs_002.jpg"
+  },
+  {
+    "idx": 116,
+    "image_id": "ChIJ22p6x2AvdTERFDZPouHGoMs_007.jpg",
+    "place_id": "ChIJ22p6x2AvdTERFDZPouHGoMs",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJ22p6x2AvdTERFDZPouHGoMs/ChIJ22p6x2AvdTERFDZPouHGoMs_007.jpg"
+  },
+  {
+    "idx": 117,
+    "image_id": "ChIJ22p6x2AvdTERFDZPouHGoMs_008.jpg",
+    "place_id": "ChIJ22p6x2AvdTERFDZPouHGoMs",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJ22p6x2AvdTERFDZPouHGoMs/ChIJ22p6x2AvdTERFDZPouHGoMs_008.jpg"
+  },
+  {
+    "idx": 118,
+    "image_id": "ChIJ22p6x2AvdTERFDZPouHGoMs_010.jpg",
+    "place_id": "ChIJ22p6x2AvdTERFDZPouHGoMs",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJ22p6x2AvdTERFDZPouHGoMs/ChIJ22p6x2AvdTERFDZPouHGoMs_010.jpg"
+  },
+  {
+    "idx": 119,
+    "image_id": "ChIJ22p6x2AvdTERFDZPouHGoMs_011.jpg",
+    "place_id": "ChIJ22p6x2AvdTERFDZPouHGoMs",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJ22p6x2AvdTERFDZPouHGoMs/ChIJ22p6x2AvdTERFDZPouHGoMs_011.jpg"
+  },
+  {
+    "idx": 120,
+    "image_id": "ChIJ22p6x2AvdTERFDZPouHGoMs_005.jpg",
+    "place_id": "ChIJ22p6x2AvdTERFDZPouHGoMs",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJ22p6x2AvdTERFDZPouHGoMs/ChIJ22p6x2AvdTERFDZPouHGoMs_005.jpg"
+  },
+  {
+    "idx": 121,
+    "image_id": "ChIJ22p6x2AvdTERFDZPouHGoMs_009.jpg",
+    "place_id": "ChIJ22p6x2AvdTERFDZPouHGoMs",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJ22p6x2AvdTERFDZPouHGoMs/ChIJ22p6x2AvdTERFDZPouHGoMs_009.jpg"
+  },
+  {
+    "idx": 122,
+    "image_id": "ChIJ22p6x2AvdTERFDZPouHGoMs_006.jpg",
+    "place_id": "ChIJ22p6x2AvdTERFDZPouHGoMs",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJ22p6x2AvdTERFDZPouHGoMs/ChIJ22p6x2AvdTERFDZPouHGoMs_006.jpg"
+  },
+  {
+    "idx": 123,
+    "image_id": "ChIJ22p6x2AvdTERFDZPouHGoMs_003.jpg",
+    "place_id": "ChIJ22p6x2AvdTERFDZPouHGoMs",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJ22p6x2AvdTERFDZPouHGoMs/ChIJ22p6x2AvdTERFDZPouHGoMs_003.jpg"
+  },
+  {
+    "idx": 124,
+    "image_id": "ChIJOcN1YBYvdTERxs17dCCBl0U_005.jpg",
+    "place_id": "ChIJOcN1YBYvdTERxs17dCCBl0U",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJOcN1YBYvdTERxs17dCCBl0U/ChIJOcN1YBYvdTERxs17dCCBl0U_005.jpg"
+  },
+  {
+    "idx": 125,
+    "image_id": "ChIJOcN1YBYvdTERxs17dCCBl0U_014.jpg",
+    "place_id": "ChIJOcN1YBYvdTERxs17dCCBl0U",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJOcN1YBYvdTERxs17dCCBl0U/ChIJOcN1YBYvdTERxs17dCCBl0U_014.jpg"
+  },
+  {
+    "idx": 126,
+    "image_id": "ChIJOcN1YBYvdTERxs17dCCBl0U_007.jpg",
+    "place_id": "ChIJOcN1YBYvdTERxs17dCCBl0U",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJOcN1YBYvdTERxs17dCCBl0U/ChIJOcN1YBYvdTERxs17dCCBl0U_007.jpg"
+  },
+  {
+    "idx": 127,
+    "image_id": "ChIJOcN1YBYvdTERxs17dCCBl0U_009.jpg",
+    "place_id": "ChIJOcN1YBYvdTERxs17dCCBl0U",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJOcN1YBYvdTERxs17dCCBl0U/ChIJOcN1YBYvdTERxs17dCCBl0U_009.jpg"
+  },
+  {
+    "idx": 128,
+    "image_id": "ChIJOcN1YBYvdTERxs17dCCBl0U_001.jpg",
+    "place_id": "ChIJOcN1YBYvdTERxs17dCCBl0U",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJOcN1YBYvdTERxs17dCCBl0U/ChIJOcN1YBYvdTERxs17dCCBl0U_001.jpg"
+  },
+  {
+    "idx": 129,
+    "image_id": "ChIJOcN1YBYvdTERxs17dCCBl0U_002.jpg",
+    "place_id": "ChIJOcN1YBYvdTERxs17dCCBl0U",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJOcN1YBYvdTERxs17dCCBl0U/ChIJOcN1YBYvdTERxs17dCCBl0U_002.jpg"
+  },
+  {
+    "idx": 130,
+    "image_id": "ChIJOcN1YBYvdTERxs17dCCBl0U_015.jpg",
+    "place_id": "ChIJOcN1YBYvdTERxs17dCCBl0U",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJOcN1YBYvdTERxs17dCCBl0U/ChIJOcN1YBYvdTERxs17dCCBl0U_015.jpg"
+  },
+  {
+    "idx": 131,
+    "image_id": "ChIJOcN1YBYvdTERxs17dCCBl0U_011.png",
+    "place_id": "ChIJOcN1YBYvdTERxs17dCCBl0U",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJOcN1YBYvdTERxs17dCCBl0U/ChIJOcN1YBYvdTERxs17dCCBl0U_011.png"
+  },
+  {
+    "idx": 132,
+    "image_id": "ChIJOcN1YBYvdTERxs17dCCBl0U_003.jpg",
+    "place_id": "ChIJOcN1YBYvdTERxs17dCCBl0U",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJOcN1YBYvdTERxs17dCCBl0U/ChIJOcN1YBYvdTERxs17dCCBl0U_003.jpg"
+  },
+  {
+    "idx": 133,
+    "image_id": "ChIJOcN1YBYvdTERxs17dCCBl0U_012.jpg",
+    "place_id": "ChIJOcN1YBYvdTERxs17dCCBl0U",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJOcN1YBYvdTERxs17dCCBl0U/ChIJOcN1YBYvdTERxs17dCCBl0U_012.jpg"
+  },
+  {
+    "idx": 134,
+    "image_id": "ChIJOcN1YBYvdTERxs17dCCBl0U_004.jpg",
+    "place_id": "ChIJOcN1YBYvdTERxs17dCCBl0U",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJOcN1YBYvdTERxs17dCCBl0U/ChIJOcN1YBYvdTERxs17dCCBl0U_004.jpg"
+  },
+  {
+    "idx": 135,
+    "image_id": "ChIJOcN1YBYvdTERxs17dCCBl0U_006.jpg",
+    "place_id": "ChIJOcN1YBYvdTERxs17dCCBl0U",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJOcN1YBYvdTERxs17dCCBl0U/ChIJOcN1YBYvdTERxs17dCCBl0U_006.jpg"
+  },
+  {
+    "idx": 136,
+    "image_id": "ChIJcQv9BwAvdTERd0YnfoeH0gA_008.jpg",
+    "place_id": "ChIJcQv9BwAvdTERd0YnfoeH0gA",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJcQv9BwAvdTERd0YnfoeH0gA/ChIJcQv9BwAvdTERd0YnfoeH0gA_008.jpg"
+  },
+  {
+    "idx": 137,
+    "image_id": "ChIJcQv9BwAvdTERd0YnfoeH0gA_011.jpg",
+    "place_id": "ChIJcQv9BwAvdTERd0YnfoeH0gA",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJcQv9BwAvdTERd0YnfoeH0gA/ChIJcQv9BwAvdTERd0YnfoeH0gA_011.jpg"
+  },
+  {
+    "idx": 138,
+    "image_id": "ChIJcQv9BwAvdTERd0YnfoeH0gA_002.jpg",
+    "place_id": "ChIJcQv9BwAvdTERd0YnfoeH0gA",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJcQv9BwAvdTERd0YnfoeH0gA/ChIJcQv9BwAvdTERd0YnfoeH0gA_002.jpg"
+  },
+  {
+    "idx": 139,
+    "image_id": "ChIJcQv9BwAvdTERd0YnfoeH0gA_007.jpg",
+    "place_id": "ChIJcQv9BwAvdTERd0YnfoeH0gA",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJcQv9BwAvdTERd0YnfoeH0gA/ChIJcQv9BwAvdTERd0YnfoeH0gA_007.jpg"
+  },
+  {
+    "idx": 140,
+    "image_id": "ChIJcQv9BwAvdTERd0YnfoeH0gA_010.jpg",
+    "place_id": "ChIJcQv9BwAvdTERd0YnfoeH0gA",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJcQv9BwAvdTERd0YnfoeH0gA/ChIJcQv9BwAvdTERd0YnfoeH0gA_010.jpg"
+  },
+  {
+    "idx": 141,
+    "image_id": "ChIJcQv9BwAvdTERd0YnfoeH0gA_005.jpg",
+    "place_id": "ChIJcQv9BwAvdTERd0YnfoeH0gA",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJcQv9BwAvdTERd0YnfoeH0gA/ChIJcQv9BwAvdTERd0YnfoeH0gA_005.jpg"
+  },
+  {
+    "idx": 142,
+    "image_id": "ChIJcQv9BwAvdTERd0YnfoeH0gA_006.jpg",
+    "place_id": "ChIJcQv9BwAvdTERd0YnfoeH0gA",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJcQv9BwAvdTERd0YnfoeH0gA/ChIJcQv9BwAvdTERd0YnfoeH0gA_006.jpg"
+  },
+  {
+    "idx": 143,
+    "image_id": "ChIJcQv9BwAvdTERd0YnfoeH0gA_001.jpg",
+    "place_id": "ChIJcQv9BwAvdTERd0YnfoeH0gA",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJcQv9BwAvdTERd0YnfoeH0gA/ChIJcQv9BwAvdTERd0YnfoeH0gA_001.jpg"
+  },
+  {
+    "idx": 144,
+    "image_id": "ChIJcQv9BwAvdTERd0YnfoeH0gA_009.jpg",
+    "place_id": "ChIJcQv9BwAvdTERd0YnfoeH0gA",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJcQv9BwAvdTERd0YnfoeH0gA/ChIJcQv9BwAvdTERd0YnfoeH0gA_009.jpg"
+  },
+  {
+    "idx": 145,
+    "image_id": "ChIJcQv9BwAvdTERd0YnfoeH0gA_003.jpg",
+    "place_id": "ChIJcQv9BwAvdTERd0YnfoeH0gA",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJcQv9BwAvdTERd0YnfoeH0gA/ChIJcQv9BwAvdTERd0YnfoeH0gA_003.jpg"
+  },
+  {
+    "idx": 146,
+    "image_id": "ChIJeX1s4_IvdTERKZRLuMufrUQ_008.jpg",
+    "place_id": "ChIJeX1s4_IvdTERKZRLuMufrUQ",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJeX1s4_IvdTERKZRLuMufrUQ/ChIJeX1s4_IvdTERKZRLuMufrUQ_008.jpg"
+  },
+  {
+    "idx": 147,
+    "image_id": "ChIJeX1s4_IvdTERKZRLuMufrUQ_003.jpg",
+    "place_id": "ChIJeX1s4_IvdTERKZRLuMufrUQ",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJeX1s4_IvdTERKZRLuMufrUQ/ChIJeX1s4_IvdTERKZRLuMufrUQ_003.jpg"
+  },
+  {
+    "idx": 148,
+    "image_id": "ChIJeX1s4_IvdTERKZRLuMufrUQ_001.jpg",
+    "place_id": "ChIJeX1s4_IvdTERKZRLuMufrUQ",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJeX1s4_IvdTERKZRLuMufrUQ/ChIJeX1s4_IvdTERKZRLuMufrUQ_001.jpg"
+  },
+  {
+    "idx": 149,
+    "image_id": "ChIJeX1s4_IvdTERKZRLuMufrUQ_012.jpg",
+    "place_id": "ChIJeX1s4_IvdTERKZRLuMufrUQ",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJeX1s4_IvdTERKZRLuMufrUQ/ChIJeX1s4_IvdTERKZRLuMufrUQ_012.jpg"
+  },
+  {
+    "idx": 150,
+    "image_id": "ChIJeX1s4_IvdTERKZRLuMufrUQ_011.jpg",
+    "place_id": "ChIJeX1s4_IvdTERKZRLuMufrUQ",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJeX1s4_IvdTERKZRLuMufrUQ/ChIJeX1s4_IvdTERKZRLuMufrUQ_011.jpg"
+  },
+  {
+    "idx": 151,
+    "image_id": "ChIJeX1s4_IvdTERKZRLuMufrUQ_002.jpg",
+    "place_id": "ChIJeX1s4_IvdTERKZRLuMufrUQ",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJeX1s4_IvdTERKZRLuMufrUQ/ChIJeX1s4_IvdTERKZRLuMufrUQ_002.jpg"
+  },
+  {
+    "idx": 152,
+    "image_id": "ChIJeX1s4_IvdTERKZRLuMufrUQ_010.jpg",
+    "place_id": "ChIJeX1s4_IvdTERKZRLuMufrUQ",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJeX1s4_IvdTERKZRLuMufrUQ/ChIJeX1s4_IvdTERKZRLuMufrUQ_010.jpg"
+  },
+  {
+    "idx": 153,
+    "image_id": "ChIJeX1s4_IvdTERKZRLuMufrUQ_005.jpg",
+    "place_id": "ChIJeX1s4_IvdTERKZRLuMufrUQ",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJeX1s4_IvdTERKZRLuMufrUQ/ChIJeX1s4_IvdTERKZRLuMufrUQ_005.jpg"
+  },
+  {
+    "idx": 154,
+    "image_id": "ChIJeX1s4_IvdTERKZRLuMufrUQ_006.jpg",
+    "place_id": "ChIJeX1s4_IvdTERKZRLuMufrUQ",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJeX1s4_IvdTERKZRLuMufrUQ/ChIJeX1s4_IvdTERKZRLuMufrUQ_006.jpg"
+  },
+  {
+    "idx": 155,
+    "image_id": "ChIJeX1s4_IvdTERKZRLuMufrUQ_009.jpg",
+    "place_id": "ChIJeX1s4_IvdTERKZRLuMufrUQ",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJeX1s4_IvdTERKZRLuMufrUQ/ChIJeX1s4_IvdTERKZRLuMufrUQ_009.jpg"
+  },
+  {
+    "idx": 156,
+    "image_id": "ChIJeX1s4_IvdTERKZRLuMufrUQ_007.jpg",
+    "place_id": "ChIJeX1s4_IvdTERKZRLuMufrUQ",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJeX1s4_IvdTERKZRLuMufrUQ/ChIJeX1s4_IvdTERKZRLuMufrUQ_007.jpg"
+  },
+  {
+    "idx": 157,
+    "image_id": "ChIJt9fUYbQvdTERj0Usapzp3ZI_010.jpg",
+    "place_id": "ChIJt9fUYbQvdTERj0Usapzp3ZI",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJt9fUYbQvdTERj0Usapzp3ZI/ChIJt9fUYbQvdTERj0Usapzp3ZI_010.jpg"
+  },
+  {
+    "idx": 158,
+    "image_id": "ChIJt9fUYbQvdTERj0Usapzp3ZI_001.jpg",
+    "place_id": "ChIJt9fUYbQvdTERj0Usapzp3ZI",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJt9fUYbQvdTERj0Usapzp3ZI/ChIJt9fUYbQvdTERj0Usapzp3ZI_001.jpg"
+  },
+  {
+    "idx": 159,
+    "image_id": "ChIJt9fUYbQvdTERj0Usapzp3ZI_007.jpg",
+    "place_id": "ChIJt9fUYbQvdTERj0Usapzp3ZI",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJt9fUYbQvdTERj0Usapzp3ZI/ChIJt9fUYbQvdTERj0Usapzp3ZI_007.jpg"
+  },
+  {
+    "idx": 160,
+    "image_id": "ChIJt9fUYbQvdTERj0Usapzp3ZI_005.jpg",
+    "place_id": "ChIJt9fUYbQvdTERj0Usapzp3ZI",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJt9fUYbQvdTERj0Usapzp3ZI/ChIJt9fUYbQvdTERj0Usapzp3ZI_005.jpg"
+  },
+  {
+    "idx": 161,
+    "image_id": "ChIJt9fUYbQvdTERj0Usapzp3ZI_009.jpg",
+    "place_id": "ChIJt9fUYbQvdTERj0Usapzp3ZI",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJt9fUYbQvdTERj0Usapzp3ZI/ChIJt9fUYbQvdTERj0Usapzp3ZI_009.jpg"
+  },
+  {
+    "idx": 162,
+    "image_id": "ChIJt9fUYbQvdTERj0Usapzp3ZI_011.jpg",
+    "place_id": "ChIJt9fUYbQvdTERj0Usapzp3ZI",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJt9fUYbQvdTERj0Usapzp3ZI/ChIJt9fUYbQvdTERj0Usapzp3ZI_011.jpg"
+  },
+  {
+    "idx": 163,
+    "image_id": "ChIJt9fUYbQvdTERj0Usapzp3ZI_003.jpg",
+    "place_id": "ChIJt9fUYbQvdTERj0Usapzp3ZI",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJt9fUYbQvdTERj0Usapzp3ZI/ChIJt9fUYbQvdTERj0Usapzp3ZI_003.jpg"
+  },
+  {
+    "idx": 164,
+    "image_id": "ChIJt9fUYbQvdTERj0Usapzp3ZI_008.jpg",
+    "place_id": "ChIJt9fUYbQvdTERj0Usapzp3ZI",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJt9fUYbQvdTERj0Usapzp3ZI/ChIJt9fUYbQvdTERj0Usapzp3ZI_008.jpg"
+  },
+  {
+    "idx": 165,
+    "image_id": "ChIJt9fUYbQvdTERj0Usapzp3ZI_004.jpg",
+    "place_id": "ChIJt9fUYbQvdTERj0Usapzp3ZI",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJt9fUYbQvdTERj0Usapzp3ZI/ChIJt9fUYbQvdTERj0Usapzp3ZI_004.jpg"
+  },
+  {
+    "idx": 166,
+    "image_id": "ChIJt9fUYbQvdTERj0Usapzp3ZI_006.jpg",
+    "place_id": "ChIJt9fUYbQvdTERj0Usapzp3ZI",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJt9fUYbQvdTERj0Usapzp3ZI/ChIJt9fUYbQvdTERj0Usapzp3ZI_006.jpg"
+  },
+  {
+    "idx": 167,
+    "image_id": "ChIJt9fUYbQvdTERj0Usapzp3ZI_002.jpg",
+    "place_id": "ChIJt9fUYbQvdTERj0Usapzp3ZI",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJt9fUYbQvdTERj0Usapzp3ZI/ChIJt9fUYbQvdTERj0Usapzp3ZI_002.jpg"
+  },
+  {
+    "idx": 168,
+    "image_id": "ChIJNwP-6QUvdTERqJOGDQxQRZI_010.jpg",
+    "place_id": "ChIJNwP-6QUvdTERqJOGDQxQRZI",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJNwP-6QUvdTERqJOGDQxQRZI/ChIJNwP-6QUvdTERqJOGDQxQRZI_010.jpg"
+  },
+  {
+    "idx": 169,
+    "image_id": "ChIJNwP-6QUvdTERqJOGDQxQRZI_001.jpg",
+    "place_id": "ChIJNwP-6QUvdTERqJOGDQxQRZI",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJNwP-6QUvdTERqJOGDQxQRZI/ChIJNwP-6QUvdTERqJOGDQxQRZI_001.jpg"
+  },
+  {
+    "idx": 170,
+    "image_id": "ChIJNwP-6QUvdTERqJOGDQxQRZI_007.jpg",
+    "place_id": "ChIJNwP-6QUvdTERqJOGDQxQRZI",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJNwP-6QUvdTERqJOGDQxQRZI/ChIJNwP-6QUvdTERqJOGDQxQRZI_007.jpg"
+  },
+  {
+    "idx": 171,
+    "image_id": "ChIJNwP-6QUvdTERqJOGDQxQRZI_003.jpg",
+    "place_id": "ChIJNwP-6QUvdTERqJOGDQxQRZI",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJNwP-6QUvdTERqJOGDQxQRZI/ChIJNwP-6QUvdTERqJOGDQxQRZI_003.jpg"
+  },
+  {
+    "idx": 172,
+    "image_id": "ChIJNwP-6QUvdTERqJOGDQxQRZI_011.jpg",
+    "place_id": "ChIJNwP-6QUvdTERqJOGDQxQRZI",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJNwP-6QUvdTERqJOGDQxQRZI/ChIJNwP-6QUvdTERqJOGDQxQRZI_011.jpg"
+  },
+  {
+    "idx": 173,
+    "image_id": "ChIJNwP-6QUvdTERqJOGDQxQRZI_006.jpg",
+    "place_id": "ChIJNwP-6QUvdTERqJOGDQxQRZI",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJNwP-6QUvdTERqJOGDQxQRZI/ChIJNwP-6QUvdTERqJOGDQxQRZI_006.jpg"
+  },
+  {
+    "idx": 174,
+    "image_id": "ChIJNwP-6QUvdTERqJOGDQxQRZI_008.jpg",
+    "place_id": "ChIJNwP-6QUvdTERqJOGDQxQRZI",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJNwP-6QUvdTERqJOGDQxQRZI/ChIJNwP-6QUvdTERqJOGDQxQRZI_008.jpg"
+  },
+  {
+    "idx": 175,
+    "image_id": "ChIJNwP-6QUvdTERqJOGDQxQRZI_004.jpg",
+    "place_id": "ChIJNwP-6QUvdTERqJOGDQxQRZI",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJNwP-6QUvdTERqJOGDQxQRZI/ChIJNwP-6QUvdTERqJOGDQxQRZI_004.jpg"
+  },
+  {
+    "idx": 176,
+    "image_id": "ChIJNwP-6QUvdTERqJOGDQxQRZI_009.jpg",
+    "place_id": "ChIJNwP-6QUvdTERqJOGDQxQRZI",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJNwP-6QUvdTERqJOGDQxQRZI/ChIJNwP-6QUvdTERqJOGDQxQRZI_009.jpg"
+  },
+  {
+    "idx": 177,
+    "image_id": "ChIJNwP-6QUvdTERqJOGDQxQRZI_002.jpg",
+    "place_id": "ChIJNwP-6QUvdTERqJOGDQxQRZI",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJNwP-6QUvdTERqJOGDQxQRZI/ChIJNwP-6QUvdTERqJOGDQxQRZI_002.jpg"
+  },
+  {
+    "idx": 178,
+    "image_id": "ChIJNwP-6QUvdTERqJOGDQxQRZI_005.jpg",
+    "place_id": "ChIJNwP-6QUvdTERqJOGDQxQRZI",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJNwP-6QUvdTERqJOGDQxQRZI/ChIJNwP-6QUvdTERqJOGDQxQRZI_005.jpg"
+  },
+  {
+    "idx": 179,
+    "image_id": "ChIJXeAstn8mdTERTWy8UrjzSI8_008.jpg",
+    "place_id": "ChIJXeAstn8mdTERTWy8UrjzSI8",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJXeAstn8mdTERTWy8UrjzSI8/ChIJXeAstn8mdTERTWy8UrjzSI8_008.jpg"
+  },
+  {
+    "idx": 180,
+    "image_id": "ChIJXeAstn8mdTERTWy8UrjzSI8_010.jpg",
+    "place_id": "ChIJXeAstn8mdTERTWy8UrjzSI8",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJXeAstn8mdTERTWy8UrjzSI8/ChIJXeAstn8mdTERTWy8UrjzSI8_010.jpg"
+  },
+  {
+    "idx": 181,
+    "image_id": "ChIJXeAstn8mdTERTWy8UrjzSI8_002.jpg",
+    "place_id": "ChIJXeAstn8mdTERTWy8UrjzSI8",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJXeAstn8mdTERTWy8UrjzSI8/ChIJXeAstn8mdTERTWy8UrjzSI8_002.jpg"
+  },
+  {
+    "idx": 182,
+    "image_id": "ChIJXeAstn8mdTERTWy8UrjzSI8_011.jpg",
+    "place_id": "ChIJXeAstn8mdTERTWy8UrjzSI8",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJXeAstn8mdTERTWy8UrjzSI8/ChIJXeAstn8mdTERTWy8UrjzSI8_011.jpg"
+  },
+  {
+    "idx": 183,
+    "image_id": "ChIJXeAstn8mdTERTWy8UrjzSI8_007.jpg",
+    "place_id": "ChIJXeAstn8mdTERTWy8UrjzSI8",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJXeAstn8mdTERTWy8UrjzSI8/ChIJXeAstn8mdTERTWy8UrjzSI8_007.jpg"
+  },
+  {
+    "idx": 184,
+    "image_id": "ChIJXeAstn8mdTERTWy8UrjzSI8_009.jpg",
+    "place_id": "ChIJXeAstn8mdTERTWy8UrjzSI8",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJXeAstn8mdTERTWy8UrjzSI8/ChIJXeAstn8mdTERTWy8UrjzSI8_009.jpg"
+  },
+  {
+    "idx": 185,
+    "image_id": "ChIJXeAstn8mdTERTWy8UrjzSI8_001.jpg",
+    "place_id": "ChIJXeAstn8mdTERTWy8UrjzSI8",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJXeAstn8mdTERTWy8UrjzSI8/ChIJXeAstn8mdTERTWy8UrjzSI8_001.jpg"
+  },
+  {
+    "idx": 186,
+    "image_id": "ChIJXeAstn8mdTERTWy8UrjzSI8_006.jpg",
+    "place_id": "ChIJXeAstn8mdTERTWy8UrjzSI8",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJXeAstn8mdTERTWy8UrjzSI8/ChIJXeAstn8mdTERTWy8UrjzSI8_006.jpg"
+  },
+  {
+    "idx": 187,
+    "image_id": "ChIJXeAstn8mdTERTWy8UrjzSI8_004.jpg",
+    "place_id": "ChIJXeAstn8mdTERTWy8UrjzSI8",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJXeAstn8mdTERTWy8UrjzSI8/ChIJXeAstn8mdTERTWy8UrjzSI8_004.jpg"
+  },
+  {
+    "idx": 188,
+    "image_id": "ChIJXeAstn8mdTERTWy8UrjzSI8_003.jpg",
+    "place_id": "ChIJXeAstn8mdTERTWy8UrjzSI8",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJXeAstn8mdTERTWy8UrjzSI8/ChIJXeAstn8mdTERTWy8UrjzSI8_003.jpg"
+  },
+  {
+    "idx": 189,
+    "image_id": "ChIJmTwzucwldTERcqxLB6bYWNo_005.jpg",
+    "place_id": "ChIJmTwzucwldTERcqxLB6bYWNo",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJmTwzucwldTERcqxLB6bYWNo/ChIJmTwzucwldTERcqxLB6bYWNo_005.jpg"
+  },
+  {
+    "idx": 190,
+    "image_id": "ChIJmTwzucwldTERcqxLB6bYWNo_006.jpg",
+    "place_id": "ChIJmTwzucwldTERcqxLB6bYWNo",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJmTwzucwldTERcqxLB6bYWNo/ChIJmTwzucwldTERcqxLB6bYWNo_006.jpg"
+  },
+  {
+    "idx": 191,
+    "image_id": "ChIJmTwzucwldTERcqxLB6bYWNo_009.jpg",
+    "place_id": "ChIJmTwzucwldTERcqxLB6bYWNo",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJmTwzucwldTERcqxLB6bYWNo/ChIJmTwzucwldTERcqxLB6bYWNo_009.jpg"
+  },
+  {
+    "idx": 192,
+    "image_id": "ChIJmTwzucwldTERcqxLB6bYWNo_002.jpg",
+    "place_id": "ChIJmTwzucwldTERcqxLB6bYWNo",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJmTwzucwldTERcqxLB6bYWNo/ChIJmTwzucwldTERcqxLB6bYWNo_002.jpg"
+  },
+  {
+    "idx": 193,
+    "image_id": "ChIJmTwzucwldTERcqxLB6bYWNo_003.jpg",
+    "place_id": "ChIJmTwzucwldTERcqxLB6bYWNo",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJmTwzucwldTERcqxLB6bYWNo/ChIJmTwzucwldTERcqxLB6bYWNo_003.jpg"
+  },
+  {
+    "idx": 194,
+    "image_id": "ChIJmTwzucwldTERcqxLB6bYWNo_001.png",
+    "place_id": "ChIJmTwzucwldTERcqxLB6bYWNo",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJmTwzucwldTERcqxLB6bYWNo/ChIJmTwzucwldTERcqxLB6bYWNo_001.png"
+  },
+  {
+    "idx": 195,
+    "image_id": "ChIJmTwzucwldTERcqxLB6bYWNo_004.jpg",
+    "place_id": "ChIJmTwzucwldTERcqxLB6bYWNo",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJmTwzucwldTERcqxLB6bYWNo/ChIJmTwzucwldTERcqxLB6bYWNo_004.jpg"
+  },
+  {
+    "idx": 196,
+    "image_id": "ChIJmTwzucwldTERcqxLB6bYWNo_010.jpg",
+    "place_id": "ChIJmTwzucwldTERcqxLB6bYWNo",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJmTwzucwldTERcqxLB6bYWNo/ChIJmTwzucwldTERcqxLB6bYWNo_010.jpg"
+  },
+  {
+    "idx": 197,
+    "image_id": "ChIJmTwzucwldTERcqxLB6bYWNo_008.jpg",
+    "place_id": "ChIJmTwzucwldTERcqxLB6bYWNo",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJmTwzucwldTERcqxLB6bYWNo/ChIJmTwzucwldTERcqxLB6bYWNo_008.jpg"
+  },
+  {
+    "idx": 198,
+    "image_id": "ChIJmTwzucwldTERcqxLB6bYWNo_007.jpg",
+    "place_id": "ChIJmTwzucwldTERcqxLB6bYWNo",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJmTwzucwldTERcqxLB6bYWNo/ChIJmTwzucwldTERcqxLB6bYWNo_007.jpg"
+  },
+  {
+    "idx": 199,
+    "image_id": "ChIJmTwzucwldTERcqxLB6bYWNo_011.jpg",
+    "place_id": "ChIJmTwzucwldTERcqxLB6bYWNo",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJmTwzucwldTERcqxLB6bYWNo/ChIJmTwzucwldTERcqxLB6bYWNo_011.jpg"
+  },
+  {
+    "idx": 200,
+    "image_id": "ChIJPcJdD8IvdTERo6_7qDO6uY4_010.jpg",
+    "place_id": "ChIJPcJdD8IvdTERo6_7qDO6uY4",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJPcJdD8IvdTERo6_7qDO6uY4/ChIJPcJdD8IvdTERo6_7qDO6uY4_010.jpg"
+  },
+  {
+    "idx": 201,
+    "image_id": "ChIJPcJdD8IvdTERo6_7qDO6uY4_002.jpg",
+    "place_id": "ChIJPcJdD8IvdTERo6_7qDO6uY4",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJPcJdD8IvdTERo6_7qDO6uY4/ChIJPcJdD8IvdTERo6_7qDO6uY4_002.jpg"
+  },
+  {
+    "idx": 202,
+    "image_id": "ChIJPcJdD8IvdTERo6_7qDO6uY4_003.jpg",
+    "place_id": "ChIJPcJdD8IvdTERo6_7qDO6uY4",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJPcJdD8IvdTERo6_7qDO6uY4/ChIJPcJdD8IvdTERo6_7qDO6uY4_003.jpg"
+  },
+  {
+    "idx": 203,
+    "image_id": "ChIJPcJdD8IvdTERo6_7qDO6uY4_009.jpg",
+    "place_id": "ChIJPcJdD8IvdTERo6_7qDO6uY4",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJPcJdD8IvdTERo6_7qDO6uY4/ChIJPcJdD8IvdTERo6_7qDO6uY4_009.jpg"
+  },
+  {
+    "idx": 204,
+    "image_id": "ChIJPcJdD8IvdTERo6_7qDO6uY4_011.png",
+    "place_id": "ChIJPcJdD8IvdTERo6_7qDO6uY4",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJPcJdD8IvdTERo6_7qDO6uY4/ChIJPcJdD8IvdTERo6_7qDO6uY4_011.png"
+  },
+  {
+    "idx": 205,
+    "image_id": "ChIJPcJdD8IvdTERo6_7qDO6uY4_001.jpg",
+    "place_id": "ChIJPcJdD8IvdTERo6_7qDO6uY4",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJPcJdD8IvdTERo6_7qDO6uY4/ChIJPcJdD8IvdTERo6_7qDO6uY4_001.jpg"
+  },
+  {
+    "idx": 206,
+    "image_id": "ChIJPcJdD8IvdTERo6_7qDO6uY4_005.png",
+    "place_id": "ChIJPcJdD8IvdTERo6_7qDO6uY4",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJPcJdD8IvdTERo6_7qDO6uY4/ChIJPcJdD8IvdTERo6_7qDO6uY4_005.png"
+  },
+  {
+    "idx": 207,
+    "image_id": "ChIJPcJdD8IvdTERo6_7qDO6uY4_008.png",
+    "place_id": "ChIJPcJdD8IvdTERo6_7qDO6uY4",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJPcJdD8IvdTERo6_7qDO6uY4/ChIJPcJdD8IvdTERo6_7qDO6uY4_008.png"
+  },
+  {
+    "idx": 208,
+    "image_id": "ChIJPcJdD8IvdTERo6_7qDO6uY4_004.jpg",
+    "place_id": "ChIJPcJdD8IvdTERo6_7qDO6uY4",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJPcJdD8IvdTERo6_7qDO6uY4/ChIJPcJdD8IvdTERo6_7qDO6uY4_004.jpg"
+  },
+  {
+    "idx": 209,
+    "image_id": "ChIJPcJdD8IvdTERo6_7qDO6uY4_006.jpg",
+    "place_id": "ChIJPcJdD8IvdTERo6_7qDO6uY4",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJPcJdD8IvdTERo6_7qDO6uY4/ChIJPcJdD8IvdTERo6_7qDO6uY4_006.jpg"
+  },
+  {
+    "idx": 210,
+    "image_id": "ChIJk8X2Fy0vdTERJNAx-4NCts0_012.jpg",
+    "place_id": "ChIJk8X2Fy0vdTERJNAx-4NCts0",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJk8X2Fy0vdTERJNAx-4NCts0/ChIJk8X2Fy0vdTERJNAx-4NCts0_012.jpg"
+  },
+  {
+    "idx": 211,
+    "image_id": "ChIJk8X2Fy0vdTERJNAx-4NCts0_010.jpg",
+    "place_id": "ChIJk8X2Fy0vdTERJNAx-4NCts0",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJk8X2Fy0vdTERJNAx-4NCts0/ChIJk8X2Fy0vdTERJNAx-4NCts0_010.jpg"
+  },
+  {
+    "idx": 212,
+    "image_id": "ChIJk8X2Fy0vdTERJNAx-4NCts0_005.jpg",
+    "place_id": "ChIJk8X2Fy0vdTERJNAx-4NCts0",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJk8X2Fy0vdTERJNAx-4NCts0/ChIJk8X2Fy0vdTERJNAx-4NCts0_005.jpg"
+  },
+  {
+    "idx": 213,
+    "image_id": "ChIJk8X2Fy0vdTERJNAx-4NCts0_001.jpg",
+    "place_id": "ChIJk8X2Fy0vdTERJNAx-4NCts0",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJk8X2Fy0vdTERJNAx-4NCts0/ChIJk8X2Fy0vdTERJNAx-4NCts0_001.jpg"
+  },
+  {
+    "idx": 214,
+    "image_id": "ChIJk8X2Fy0vdTERJNAx-4NCts0_002.jpg",
+    "place_id": "ChIJk8X2Fy0vdTERJNAx-4NCts0",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJk8X2Fy0vdTERJNAx-4NCts0/ChIJk8X2Fy0vdTERJNAx-4NCts0_002.jpg"
+  },
+  {
+    "idx": 215,
+    "image_id": "ChIJk8X2Fy0vdTERJNAx-4NCts0_007.jpg",
+    "place_id": "ChIJk8X2Fy0vdTERJNAx-4NCts0",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJk8X2Fy0vdTERJNAx-4NCts0/ChIJk8X2Fy0vdTERJNAx-4NCts0_007.jpg"
+  },
+  {
+    "idx": 216,
+    "image_id": "ChIJk8X2Fy0vdTERJNAx-4NCts0_014.jpg",
+    "place_id": "ChIJk8X2Fy0vdTERJNAx-4NCts0",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJk8X2Fy0vdTERJNAx-4NCts0/ChIJk8X2Fy0vdTERJNAx-4NCts0_014.jpg"
+  },
+  {
+    "idx": 217,
+    "image_id": "ChIJk8X2Fy0vdTERJNAx-4NCts0_011.jpg",
+    "place_id": "ChIJk8X2Fy0vdTERJNAx-4NCts0",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJk8X2Fy0vdTERJNAx-4NCts0/ChIJk8X2Fy0vdTERJNAx-4NCts0_011.jpg"
+  },
+  {
+    "idx": 218,
+    "image_id": "ChIJk8X2Fy0vdTERJNAx-4NCts0_008.jpg",
+    "place_id": "ChIJk8X2Fy0vdTERJNAx-4NCts0",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJk8X2Fy0vdTERJNAx-4NCts0/ChIJk8X2Fy0vdTERJNAx-4NCts0_008.jpg"
+  },
+  {
+    "idx": 219,
+    "image_id": "ChIJk8X2Fy0vdTERJNAx-4NCts0_013.jpg",
+    "place_id": "ChIJk8X2Fy0vdTERJNAx-4NCts0",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJk8X2Fy0vdTERJNAx-4NCts0/ChIJk8X2Fy0vdTERJNAx-4NCts0_013.jpg"
+  },
+  {
+    "idx": 220,
+    "image_id": "ChIJk8X2Fy0vdTERJNAx-4NCts0_003.jpg",
+    "place_id": "ChIJk8X2Fy0vdTERJNAx-4NCts0",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJk8X2Fy0vdTERJNAx-4NCts0/ChIJk8X2Fy0vdTERJNAx-4NCts0_003.jpg"
+  },
+  {
+    "idx": 221,
+    "image_id": "ChIJMzp1gSUvdTER-IanzsYU1Sc_012.jpg",
+    "place_id": "ChIJMzp1gSUvdTER-IanzsYU1Sc",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJMzp1gSUvdTER-IanzsYU1Sc/ChIJMzp1gSUvdTER-IanzsYU1Sc_012.jpg"
+  },
+  {
+    "idx": 222,
+    "image_id": "ChIJMzp1gSUvdTER-IanzsYU1Sc_009.jpg",
+    "place_id": "ChIJMzp1gSUvdTER-IanzsYU1Sc",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJMzp1gSUvdTER-IanzsYU1Sc/ChIJMzp1gSUvdTER-IanzsYU1Sc_009.jpg"
+  },
+  {
+    "idx": 223,
+    "image_id": "ChIJMzp1gSUvdTER-IanzsYU1Sc_008.jpg",
+    "place_id": "ChIJMzp1gSUvdTER-IanzsYU1Sc",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJMzp1gSUvdTER-IanzsYU1Sc/ChIJMzp1gSUvdTER-IanzsYU1Sc_008.jpg"
+  },
+  {
+    "idx": 224,
+    "image_id": "ChIJMzp1gSUvdTER-IanzsYU1Sc_001.jpg",
+    "place_id": "ChIJMzp1gSUvdTER-IanzsYU1Sc",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJMzp1gSUvdTER-IanzsYU1Sc/ChIJMzp1gSUvdTER-IanzsYU1Sc_001.jpg"
+  },
+  {
+    "idx": 225,
+    "image_id": "ChIJMzp1gSUvdTER-IanzsYU1Sc_011.jpg",
+    "place_id": "ChIJMzp1gSUvdTER-IanzsYU1Sc",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJMzp1gSUvdTER-IanzsYU1Sc/ChIJMzp1gSUvdTER-IanzsYU1Sc_011.jpg"
+  },
+  {
+    "idx": 226,
+    "image_id": "ChIJMzp1gSUvdTER-IanzsYU1Sc_002.jpg",
+    "place_id": "ChIJMzp1gSUvdTER-IanzsYU1Sc",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJMzp1gSUvdTER-IanzsYU1Sc/ChIJMzp1gSUvdTER-IanzsYU1Sc_002.jpg"
+  },
+  {
+    "idx": 227,
+    "image_id": "ChIJMzp1gSUvdTER-IanzsYU1Sc_006.jpg",
+    "place_id": "ChIJMzp1gSUvdTER-IanzsYU1Sc",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJMzp1gSUvdTER-IanzsYU1Sc/ChIJMzp1gSUvdTER-IanzsYU1Sc_006.jpg"
+  },
+  {
+    "idx": 228,
+    "image_id": "ChIJMzp1gSUvdTER-IanzsYU1Sc_007.jpg",
+    "place_id": "ChIJMzp1gSUvdTER-IanzsYU1Sc",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJMzp1gSUvdTER-IanzsYU1Sc/ChIJMzp1gSUvdTER-IanzsYU1Sc_007.jpg"
+  },
+  {
+    "idx": 229,
+    "image_id": "ChIJMzp1gSUvdTER-IanzsYU1Sc_010.jpg",
+    "place_id": "ChIJMzp1gSUvdTER-IanzsYU1Sc",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJMzp1gSUvdTER-IanzsYU1Sc/ChIJMzp1gSUvdTER-IanzsYU1Sc_010.jpg"
+  },
+  {
+    "idx": 230,
+    "image_id": "ChIJMzp1gSUvdTER-IanzsYU1Sc_003.jpg",
+    "place_id": "ChIJMzp1gSUvdTER-IanzsYU1Sc",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJMzp1gSUvdTER-IanzsYU1Sc/ChIJMzp1gSUvdTER-IanzsYU1Sc_003.jpg"
+  },
+  {
+    "idx": 231,
+    "image_id": "ChIJMzp1gSUvdTER-IanzsYU1Sc_005.jpg",
+    "place_id": "ChIJMzp1gSUvdTER-IanzsYU1Sc",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJMzp1gSUvdTER-IanzsYU1Sc/ChIJMzp1gSUvdTER-IanzsYU1Sc_005.jpg"
+  },
+  {
+    "idx": 232,
+    "image_id": "ChIJRWI6wEYvdTEREjmTDIz-a6M_009.jpg",
+    "place_id": "ChIJRWI6wEYvdTEREjmTDIz-a6M",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJRWI6wEYvdTEREjmTDIz-a6M/ChIJRWI6wEYvdTEREjmTDIz-a6M_009.jpg"
+  },
+  {
+    "idx": 233,
+    "image_id": "ChIJRWI6wEYvdTEREjmTDIz-a6M_004.jpg",
+    "place_id": "ChIJRWI6wEYvdTEREjmTDIz-a6M",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJRWI6wEYvdTEREjmTDIz-a6M/ChIJRWI6wEYvdTEREjmTDIz-a6M_004.jpg"
+  },
+  {
+    "idx": 234,
+    "image_id": "ChIJRWI6wEYvdTEREjmTDIz-a6M_005.jpg",
+    "place_id": "ChIJRWI6wEYvdTEREjmTDIz-a6M",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJRWI6wEYvdTEREjmTDIz-a6M/ChIJRWI6wEYvdTEREjmTDIz-a6M_005.jpg"
+  },
+  {
+    "idx": 235,
+    "image_id": "ChIJRWI6wEYvdTEREjmTDIz-a6M_010.jpg",
+    "place_id": "ChIJRWI6wEYvdTEREjmTDIz-a6M",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJRWI6wEYvdTEREjmTDIz-a6M/ChIJRWI6wEYvdTEREjmTDIz-a6M_010.jpg"
+  },
+  {
+    "idx": 236,
+    "image_id": "ChIJRWI6wEYvdTEREjmTDIz-a6M_007.jpg",
+    "place_id": "ChIJRWI6wEYvdTEREjmTDIz-a6M",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJRWI6wEYvdTEREjmTDIz-a6M/ChIJRWI6wEYvdTEREjmTDIz-a6M_007.jpg"
+  },
+  {
+    "idx": 237,
+    "image_id": "ChIJRWI6wEYvdTEREjmTDIz-a6M_002.jpg",
+    "place_id": "ChIJRWI6wEYvdTEREjmTDIz-a6M",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJRWI6wEYvdTEREjmTDIz-a6M/ChIJRWI6wEYvdTEREjmTDIz-a6M_002.jpg"
+  },
+  {
+    "idx": 238,
+    "image_id": "ChIJRWI6wEYvdTEREjmTDIz-a6M_001.jpg",
+    "place_id": "ChIJRWI6wEYvdTEREjmTDIz-a6M",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJRWI6wEYvdTEREjmTDIz-a6M/ChIJRWI6wEYvdTEREjmTDIz-a6M_001.jpg"
+  },
+  {
+    "idx": 239,
+    "image_id": "ChIJRWI6wEYvdTEREjmTDIz-a6M_008.jpg",
+    "place_id": "ChIJRWI6wEYvdTEREjmTDIz-a6M",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJRWI6wEYvdTEREjmTDIz-a6M/ChIJRWI6wEYvdTEREjmTDIz-a6M_008.jpg"
+  },
+  {
+    "idx": 240,
+    "image_id": "ChIJRWI6wEYvdTEREjmTDIz-a6M_011.jpg",
+    "place_id": "ChIJRWI6wEYvdTEREjmTDIz-a6M",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJRWI6wEYvdTEREjmTDIz-a6M/ChIJRWI6wEYvdTEREjmTDIz-a6M_011.jpg"
+  },
+  {
+    "idx": 241,
+    "image_id": "ChIJRWI6wEYvdTEREjmTDIz-a6M_003.jpg",
+    "place_id": "ChIJRWI6wEYvdTEREjmTDIz-a6M",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJRWI6wEYvdTEREjmTDIz-a6M/ChIJRWI6wEYvdTEREjmTDIz-a6M_003.jpg"
+  },
+  {
+    "idx": 242,
+    "image_id": "ChIJRWI6wEYvdTEREjmTDIz-a6M_006.jpg",
+    "place_id": "ChIJRWI6wEYvdTEREjmTDIz-a6M",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJRWI6wEYvdTEREjmTDIz-a6M/ChIJRWI6wEYvdTEREjmTDIz-a6M_006.jpg"
+  },
+  {
+    "idx": 243,
+    "image_id": "ChIJk8qFZOUldTERcbwPHDZK9n4_002.jpg",
+    "place_id": "ChIJk8qFZOUldTERcbwPHDZK9n4",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJk8qFZOUldTERcbwPHDZK9n4/ChIJk8qFZOUldTERcbwPHDZK9n4_002.jpg"
+  },
+  {
+    "idx": 244,
+    "image_id": "ChIJk8qFZOUldTERcbwPHDZK9n4_003.jpg",
+    "place_id": "ChIJk8qFZOUldTERcbwPHDZK9n4",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJk8qFZOUldTERcbwPHDZK9n4/ChIJk8qFZOUldTERcbwPHDZK9n4_003.jpg"
+  },
+  {
+    "idx": 245,
+    "image_id": "ChIJk8qFZOUldTERcbwPHDZK9n4_009.jpg",
+    "place_id": "ChIJk8qFZOUldTERcbwPHDZK9n4",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJk8qFZOUldTERcbwPHDZK9n4/ChIJk8qFZOUldTERcbwPHDZK9n4_009.jpg"
+  },
+  {
+    "idx": 246,
+    "image_id": "ChIJk8qFZOUldTERcbwPHDZK9n4_010.jpg",
+    "place_id": "ChIJk8qFZOUldTERcbwPHDZK9n4",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJk8qFZOUldTERcbwPHDZK9n4/ChIJk8qFZOUldTERcbwPHDZK9n4_010.jpg"
+  },
+  {
+    "idx": 247,
+    "image_id": "ChIJk8qFZOUldTERcbwPHDZK9n4_005.jpg",
+    "place_id": "ChIJk8qFZOUldTERcbwPHDZK9n4",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJk8qFZOUldTERcbwPHDZK9n4/ChIJk8qFZOUldTERcbwPHDZK9n4_005.jpg"
+  },
+  {
+    "idx": 248,
+    "image_id": "ChIJk8qFZOUldTERcbwPHDZK9n4_008.jpg",
+    "place_id": "ChIJk8qFZOUldTERcbwPHDZK9n4",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJk8qFZOUldTERcbwPHDZK9n4/ChIJk8qFZOUldTERcbwPHDZK9n4_008.jpg"
+  },
+  {
+    "idx": 249,
+    "image_id": "ChIJk8qFZOUldTERcbwPHDZK9n4_001.jpg",
+    "place_id": "ChIJk8qFZOUldTERcbwPHDZK9n4",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJk8qFZOUldTERcbwPHDZK9n4/ChIJk8qFZOUldTERcbwPHDZK9n4_001.jpg"
+  },
+  {
+    "idx": 250,
+    "image_id": "ChIJk8qFZOUldTERcbwPHDZK9n4_007.jpg",
+    "place_id": "ChIJk8qFZOUldTERcbwPHDZK9n4",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJk8qFZOUldTERcbwPHDZK9n4/ChIJk8qFZOUldTERcbwPHDZK9n4_007.jpg"
+  },
+  {
+    "idx": 251,
+    "image_id": "ChIJk8qFZOUldTERcbwPHDZK9n4_006.jpg",
+    "place_id": "ChIJk8qFZOUldTERcbwPHDZK9n4",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJk8qFZOUldTERcbwPHDZK9n4/ChIJk8qFZOUldTERcbwPHDZK9n4_006.jpg"
+  },
+  {
+    "idx": 252,
+    "image_id": "ChIJk8qFZOUldTERcbwPHDZK9n4_011.jpg",
+    "place_id": "ChIJk8qFZOUldTERcbwPHDZK9n4",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJk8qFZOUldTERcbwPHDZK9n4/ChIJk8qFZOUldTERcbwPHDZK9n4_011.jpg"
+  },
+  {
+    "idx": 253,
+    "image_id": "ChIJmSbykKsvdTERHnCl6ou9HiI_009.jpg",
+    "place_id": "ChIJmSbykKsvdTERHnCl6ou9HiI",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJmSbykKsvdTERHnCl6ou9HiI/ChIJmSbykKsvdTERHnCl6ou9HiI_009.jpg"
+  },
+  {
+    "idx": 254,
+    "image_id": "ChIJmSbykKsvdTERHnCl6ou9HiI_006.jpg",
+    "place_id": "ChIJmSbykKsvdTERHnCl6ou9HiI",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJmSbykKsvdTERHnCl6ou9HiI/ChIJmSbykKsvdTERHnCl6ou9HiI_006.jpg"
+  },
+  {
+    "idx": 255,
+    "image_id": "ChIJmSbykKsvdTERHnCl6ou9HiI_007.jpg",
+    "place_id": "ChIJmSbykKsvdTERHnCl6ou9HiI",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJmSbykKsvdTERHnCl6ou9HiI/ChIJmSbykKsvdTERHnCl6ou9HiI_007.jpg"
+  },
+  {
+    "idx": 256,
+    "image_id": "ChIJmSbykKsvdTERHnCl6ou9HiI_003.jpg",
+    "place_id": "ChIJmSbykKsvdTERHnCl6ou9HiI",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJmSbykKsvdTERHnCl6ou9HiI/ChIJmSbykKsvdTERHnCl6ou9HiI_003.jpg"
+  },
+  {
+    "idx": 257,
+    "image_id": "ChIJmSbykKsvdTERHnCl6ou9HiI_012.jpg",
+    "place_id": "ChIJmSbykKsvdTERHnCl6ou9HiI",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJmSbykKsvdTERHnCl6ou9HiI/ChIJmSbykKsvdTERHnCl6ou9HiI_012.jpg"
+  },
+  {
+    "idx": 258,
+    "image_id": "ChIJmSbykKsvdTERHnCl6ou9HiI_002.jpg",
+    "place_id": "ChIJmSbykKsvdTERHnCl6ou9HiI",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJmSbykKsvdTERHnCl6ou9HiI/ChIJmSbykKsvdTERHnCl6ou9HiI_002.jpg"
+  },
+  {
+    "idx": 259,
+    "image_id": "ChIJmSbykKsvdTERHnCl6ou9HiI_011.jpg",
+    "place_id": "ChIJmSbykKsvdTERHnCl6ou9HiI",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJmSbykKsvdTERHnCl6ou9HiI/ChIJmSbykKsvdTERHnCl6ou9HiI_011.jpg"
+  },
+  {
+    "idx": 260,
+    "image_id": "ChIJmSbykKsvdTERHnCl6ou9HiI_010.jpg",
+    "place_id": "ChIJmSbykKsvdTERHnCl6ou9HiI",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJmSbykKsvdTERHnCl6ou9HiI/ChIJmSbykKsvdTERHnCl6ou9HiI_010.jpg"
+  },
+  {
+    "idx": 261,
+    "image_id": "ChIJmSbykKsvdTERHnCl6ou9HiI_001.jpg",
+    "place_id": "ChIJmSbykKsvdTERHnCl6ou9HiI",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJmSbykKsvdTERHnCl6ou9HiI/ChIJmSbykKsvdTERHnCl6ou9HiI_001.jpg"
+  },
+  {
+    "idx": 262,
+    "image_id": "ChIJmSbykKsvdTERHnCl6ou9HiI_008.jpg",
+    "place_id": "ChIJmSbykKsvdTERHnCl6ou9HiI",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJmSbykKsvdTERHnCl6ou9HiI/ChIJmSbykKsvdTERHnCl6ou9HiI_008.jpg"
+  },
+  {
+    "idx": 263,
+    "image_id": "ChIJmSbykKsvdTERHnCl6ou9HiI_005.jpg",
+    "place_id": "ChIJmSbykKsvdTERHnCl6ou9HiI",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJmSbykKsvdTERHnCl6ou9HiI/ChIJmSbykKsvdTERHnCl6ou9HiI_005.jpg"
+  },
+  {
+    "idx": 264,
+    "image_id": "ChIJI5ehazgldTERH5FH6JbUJcI_011.jpg",
+    "place_id": "ChIJI5ehazgldTERH5FH6JbUJcI",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJI5ehazgldTERH5FH6JbUJcI/ChIJI5ehazgldTERH5FH6JbUJcI_011.jpg"
+  },
+  {
+    "idx": 265,
+    "image_id": "ChIJI5ehazgldTERH5FH6JbUJcI_009.jpg",
+    "place_id": "ChIJI5ehazgldTERH5FH6JbUJcI",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJI5ehazgldTERH5FH6JbUJcI/ChIJI5ehazgldTERH5FH6JbUJcI_009.jpg"
+  },
+  {
+    "idx": 266,
+    "image_id": "ChIJI5ehazgldTERH5FH6JbUJcI_005.jpg",
+    "place_id": "ChIJI5ehazgldTERH5FH6JbUJcI",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJI5ehazgldTERH5FH6JbUJcI/ChIJI5ehazgldTERH5FH6JbUJcI_005.jpg"
+  },
+  {
+    "idx": 267,
+    "image_id": "ChIJI5ehazgldTERH5FH6JbUJcI_006.jpg",
+    "place_id": "ChIJI5ehazgldTERH5FH6JbUJcI",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJI5ehazgldTERH5FH6JbUJcI/ChIJI5ehazgldTERH5FH6JbUJcI_006.jpg"
+  },
+  {
+    "idx": 268,
+    "image_id": "ChIJI5ehazgldTERH5FH6JbUJcI_003.jpg",
+    "place_id": "ChIJI5ehazgldTERH5FH6JbUJcI",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJI5ehazgldTERH5FH6JbUJcI/ChIJI5ehazgldTERH5FH6JbUJcI_003.jpg"
+  },
+  {
+    "idx": 269,
+    "image_id": "ChIJI5ehazgldTERH5FH6JbUJcI_008.jpg",
+    "place_id": "ChIJI5ehazgldTERH5FH6JbUJcI",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJI5ehazgldTERH5FH6JbUJcI/ChIJI5ehazgldTERH5FH6JbUJcI_008.jpg"
+  },
+  {
+    "idx": 270,
+    "image_id": "ChIJI5ehazgldTERH5FH6JbUJcI_001.jpg",
+    "place_id": "ChIJI5ehazgldTERH5FH6JbUJcI",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJI5ehazgldTERH5FH6JbUJcI/ChIJI5ehazgldTERH5FH6JbUJcI_001.jpg"
+  },
+  {
+    "idx": 271,
+    "image_id": "ChIJI5ehazgldTERH5FH6JbUJcI_002.jpg",
+    "place_id": "ChIJI5ehazgldTERH5FH6JbUJcI",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJI5ehazgldTERH5FH6JbUJcI/ChIJI5ehazgldTERH5FH6JbUJcI_002.jpg"
+  },
+  {
+    "idx": 272,
+    "image_id": "ChIJI5ehazgldTERH5FH6JbUJcI_004.jpg",
+    "place_id": "ChIJI5ehazgldTERH5FH6JbUJcI",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJI5ehazgldTERH5FH6JbUJcI/ChIJI5ehazgldTERH5FH6JbUJcI_004.jpg"
+  },
+  {
+    "idx": 273,
+    "image_id": "ChIJI5ehazgldTERH5FH6JbUJcI_007.jpg",
+    "place_id": "ChIJI5ehazgldTERH5FH6JbUJcI",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJI5ehazgldTERH5FH6JbUJcI/ChIJI5ehazgldTERH5FH6JbUJcI_007.jpg"
+  },
+  {
+    "idx": 274,
+    "image_id": "ChIJI5ehazgldTERH5FH6JbUJcI_010.jpg",
+    "place_id": "ChIJI5ehazgldTERH5FH6JbUJcI",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJI5ehazgldTERH5FH6JbUJcI/ChIJI5ehazgldTERH5FH6JbUJcI_010.jpg"
+  },
+  {
+    "idx": 275,
+    "image_id": "ChIJq8lL5x4ndTERaR-1dV_Gqf0_005.jpg",
+    "place_id": "ChIJq8lL5x4ndTERaR-1dV_Gqf0",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJq8lL5x4ndTERaR-1dV_Gqf0/ChIJq8lL5x4ndTERaR-1dV_Gqf0_005.jpg"
+  },
+  {
+    "idx": 276,
+    "image_id": "ChIJq8lL5x4ndTERaR-1dV_Gqf0_011.jpg",
+    "place_id": "ChIJq8lL5x4ndTERaR-1dV_Gqf0",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJq8lL5x4ndTERaR-1dV_Gqf0/ChIJq8lL5x4ndTERaR-1dV_Gqf0_011.jpg"
+  },
+  {
+    "idx": 277,
+    "image_id": "ChIJq8lL5x4ndTERaR-1dV_Gqf0_004.jpg",
+    "place_id": "ChIJq8lL5x4ndTERaR-1dV_Gqf0",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJq8lL5x4ndTERaR-1dV_Gqf0/ChIJq8lL5x4ndTERaR-1dV_Gqf0_004.jpg"
+  },
+  {
+    "idx": 278,
+    "image_id": "ChIJq8lL5x4ndTERaR-1dV_Gqf0_001.jpg",
+    "place_id": "ChIJq8lL5x4ndTERaR-1dV_Gqf0",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJq8lL5x4ndTERaR-1dV_Gqf0/ChIJq8lL5x4ndTERaR-1dV_Gqf0_001.jpg"
+  },
+  {
+    "idx": 279,
+    "image_id": "ChIJq8lL5x4ndTERaR-1dV_Gqf0_009.jpg",
+    "place_id": "ChIJq8lL5x4ndTERaR-1dV_Gqf0",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJq8lL5x4ndTERaR-1dV_Gqf0/ChIJq8lL5x4ndTERaR-1dV_Gqf0_009.jpg"
+  },
+  {
+    "idx": 280,
+    "image_id": "ChIJq8lL5x4ndTERaR-1dV_Gqf0_007.jpg",
+    "place_id": "ChIJq8lL5x4ndTERaR-1dV_Gqf0",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJq8lL5x4ndTERaR-1dV_Gqf0/ChIJq8lL5x4ndTERaR-1dV_Gqf0_007.jpg"
+  },
+  {
+    "idx": 281,
+    "image_id": "ChIJq8lL5x4ndTERaR-1dV_Gqf0_003.jpg",
+    "place_id": "ChIJq8lL5x4ndTERaR-1dV_Gqf0",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJq8lL5x4ndTERaR-1dV_Gqf0/ChIJq8lL5x4ndTERaR-1dV_Gqf0_003.jpg"
+  },
+  {
+    "idx": 282,
+    "image_id": "ChIJq8lL5x4ndTERaR-1dV_Gqf0_008.jpg",
+    "place_id": "ChIJq8lL5x4ndTERaR-1dV_Gqf0",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJq8lL5x4ndTERaR-1dV_Gqf0/ChIJq8lL5x4ndTERaR-1dV_Gqf0_008.jpg"
+  },
+  {
+    "idx": 283,
+    "image_id": "ChIJq8lL5x4ndTERaR-1dV_Gqf0_006.jpg",
+    "place_id": "ChIJq8lL5x4ndTERaR-1dV_Gqf0",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJq8lL5x4ndTERaR-1dV_Gqf0/ChIJq8lL5x4ndTERaR-1dV_Gqf0_006.jpg"
+  },
+  {
+    "idx": 284,
+    "image_id": "ChIJnbKCt0UpdTERT3CIorMTWzw_003.jpg",
+    "place_id": "ChIJnbKCt0UpdTERT3CIorMTWzw",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJnbKCt0UpdTERT3CIorMTWzw/ChIJnbKCt0UpdTERT3CIorMTWzw_003.jpg"
+  },
+  {
+    "idx": 285,
+    "image_id": "ChIJnbKCt0UpdTERT3CIorMTWzw_005.jpg",
+    "place_id": "ChIJnbKCt0UpdTERT3CIorMTWzw",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJnbKCt0UpdTERT3CIorMTWzw/ChIJnbKCt0UpdTERT3CIorMTWzw_005.jpg"
+  },
+  {
+    "idx": 286,
+    "image_id": "ChIJnbKCt0UpdTERT3CIorMTWzw_009.jpg",
+    "place_id": "ChIJnbKCt0UpdTERT3CIorMTWzw",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJnbKCt0UpdTERT3CIorMTWzw/ChIJnbKCt0UpdTERT3CIorMTWzw_009.jpg"
+  },
+  {
+    "idx": 287,
+    "image_id": "ChIJnbKCt0UpdTERT3CIorMTWzw_011.jpg",
+    "place_id": "ChIJnbKCt0UpdTERT3CIorMTWzw",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJnbKCt0UpdTERT3CIorMTWzw/ChIJnbKCt0UpdTERT3CIorMTWzw_011.jpg"
+  },
+  {
+    "idx": 288,
+    "image_id": "ChIJnbKCt0UpdTERT3CIorMTWzw_001.jpg",
+    "place_id": "ChIJnbKCt0UpdTERT3CIorMTWzw",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJnbKCt0UpdTERT3CIorMTWzw/ChIJnbKCt0UpdTERT3CIorMTWzw_001.jpg"
+  },
+  {
+    "idx": 289,
+    "image_id": "ChIJnbKCt0UpdTERT3CIorMTWzw_007.jpg",
+    "place_id": "ChIJnbKCt0UpdTERT3CIorMTWzw",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJnbKCt0UpdTERT3CIorMTWzw/ChIJnbKCt0UpdTERT3CIorMTWzw_007.jpg"
+  },
+  {
+    "idx": 290,
+    "image_id": "ChIJnbKCt0UpdTERT3CIorMTWzw_006.jpg",
+    "place_id": "ChIJnbKCt0UpdTERT3CIorMTWzw",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJnbKCt0UpdTERT3CIorMTWzw/ChIJnbKCt0UpdTERT3CIorMTWzw_006.jpg"
+  },
+  {
+    "idx": 291,
+    "image_id": "ChIJnbKCt0UpdTERT3CIorMTWzw_002.jpg",
+    "place_id": "ChIJnbKCt0UpdTERT3CIorMTWzw",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJnbKCt0UpdTERT3CIorMTWzw/ChIJnbKCt0UpdTERT3CIorMTWzw_002.jpg"
+  },
+  {
+    "idx": 292,
+    "image_id": "ChIJnbKCt0UpdTERT3CIorMTWzw_008.jpg",
+    "place_id": "ChIJnbKCt0UpdTERT3CIorMTWzw",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJnbKCt0UpdTERT3CIorMTWzw/ChIJnbKCt0UpdTERT3CIorMTWzw_008.jpg"
+  },
+  {
+    "idx": 293,
+    "image_id": "ChIJnbKCt0UpdTERT3CIorMTWzw_010.jpg",
+    "place_id": "ChIJnbKCt0UpdTERT3CIorMTWzw",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJnbKCt0UpdTERT3CIorMTWzw/ChIJnbKCt0UpdTERT3CIorMTWzw_010.jpg"
+  },
+  {
+    "idx": 294,
+    "image_id": "ChIJ2xW0W5EvdTERDwMPy7z7n0k_003.jpg",
+    "place_id": "ChIJ2xW0W5EvdTERDwMPy7z7n0k",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJ2xW0W5EvdTERDwMPy7z7n0k/ChIJ2xW0W5EvdTERDwMPy7z7n0k_003.jpg"
+  },
+  {
+    "idx": 295,
+    "image_id": "ChIJ2xW0W5EvdTERDwMPy7z7n0k_005.jpg",
+    "place_id": "ChIJ2xW0W5EvdTERDwMPy7z7n0k",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJ2xW0W5EvdTERDwMPy7z7n0k/ChIJ2xW0W5EvdTERDwMPy7z7n0k_005.jpg"
+  },
+  {
+    "idx": 296,
+    "image_id": "ChIJ2xW0W5EvdTERDwMPy7z7n0k_010.jpg",
+    "place_id": "ChIJ2xW0W5EvdTERDwMPy7z7n0k",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJ2xW0W5EvdTERDwMPy7z7n0k/ChIJ2xW0W5EvdTERDwMPy7z7n0k_010.jpg"
+  },
+  {
+    "idx": 297,
+    "image_id": "ChIJ2xW0W5EvdTERDwMPy7z7n0k_002.jpg",
+    "place_id": "ChIJ2xW0W5EvdTERDwMPy7z7n0k",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJ2xW0W5EvdTERDwMPy7z7n0k/ChIJ2xW0W5EvdTERDwMPy7z7n0k_002.jpg"
+  },
+  {
+    "idx": 298,
+    "image_id": "ChIJ2xW0W5EvdTERDwMPy7z7n0k_012.jpg",
+    "place_id": "ChIJ2xW0W5EvdTERDwMPy7z7n0k",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJ2xW0W5EvdTERDwMPy7z7n0k/ChIJ2xW0W5EvdTERDwMPy7z7n0k_012.jpg"
+  },
+  {
+    "idx": 299,
+    "image_id": "ChIJ2xW0W5EvdTERDwMPy7z7n0k_001.jpg",
+    "place_id": "ChIJ2xW0W5EvdTERDwMPy7z7n0k",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJ2xW0W5EvdTERDwMPy7z7n0k/ChIJ2xW0W5EvdTERDwMPy7z7n0k_001.jpg"
+  },
+  {
+    "idx": 300,
+    "image_id": "ChIJ2xW0W5EvdTERDwMPy7z7n0k_015.jpg",
+    "place_id": "ChIJ2xW0W5EvdTERDwMPy7z7n0k",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJ2xW0W5EvdTERDwMPy7z7n0k/ChIJ2xW0W5EvdTERDwMPy7z7n0k_015.jpg"
+  },
+  {
+    "idx": 301,
+    "image_id": "ChIJ2xW0W5EvdTERDwMPy7z7n0k_011.jpg",
+    "place_id": "ChIJ2xW0W5EvdTERDwMPy7z7n0k",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJ2xW0W5EvdTERDwMPy7z7n0k/ChIJ2xW0W5EvdTERDwMPy7z7n0k_011.jpg"
+  },
+  {
+    "idx": 302,
+    "image_id": "ChIJ2xW0W5EvdTERDwMPy7z7n0k_004.jpg",
+    "place_id": "ChIJ2xW0W5EvdTERDwMPy7z7n0k",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJ2xW0W5EvdTERDwMPy7z7n0k/ChIJ2xW0W5EvdTERDwMPy7z7n0k_004.jpg"
+  },
+  {
+    "idx": 303,
+    "image_id": "ChIJ2xW0W5EvdTERDwMPy7z7n0k_006.jpg",
+    "place_id": "ChIJ2xW0W5EvdTERDwMPy7z7n0k",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJ2xW0W5EvdTERDwMPy7z7n0k/ChIJ2xW0W5EvdTERDwMPy7z7n0k_006.jpg"
+  },
+  {
+    "idx": 304,
+    "image_id": "ChIJ2xW0W5EvdTERDwMPy7z7n0k_008.jpg",
+    "place_id": "ChIJ2xW0W5EvdTERDwMPy7z7n0k",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJ2xW0W5EvdTERDwMPy7z7n0k/ChIJ2xW0W5EvdTERDwMPy7z7n0k_008.jpg"
+  },
+  {
+    "idx": 305,
+    "image_id": "ChIJ2xW0W5EvdTERDwMPy7z7n0k_014.jpg",
+    "place_id": "ChIJ2xW0W5EvdTERDwMPy7z7n0k",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJ2xW0W5EvdTERDwMPy7z7n0k/ChIJ2xW0W5EvdTERDwMPy7z7n0k_014.jpg"
+  },
+  {
+    "idx": 306,
+    "image_id": "ChIJ2xW0W5EvdTERDwMPy7z7n0k_009.jpg",
+    "place_id": "ChIJ2xW0W5EvdTERDwMPy7z7n0k",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJ2xW0W5EvdTERDwMPy7z7n0k/ChIJ2xW0W5EvdTERDwMPy7z7n0k_009.jpg"
+  },
+  {
+    "idx": 307,
+    "image_id": "ChIJWX-lRIkvdTERNoQyuLtbbAc_002.jpg",
+    "place_id": "ChIJWX-lRIkvdTERNoQyuLtbbAc",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJWX-lRIkvdTERNoQyuLtbbAc/ChIJWX-lRIkvdTERNoQyuLtbbAc_002.jpg"
+  },
+  {
+    "idx": 308,
+    "image_id": "ChIJWX-lRIkvdTERNoQyuLtbbAc_007.jpg",
+    "place_id": "ChIJWX-lRIkvdTERNoQyuLtbbAc",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJWX-lRIkvdTERNoQyuLtbbAc/ChIJWX-lRIkvdTERNoQyuLtbbAc_007.jpg"
+  },
+  {
+    "idx": 309,
+    "image_id": "ChIJWX-lRIkvdTERNoQyuLtbbAc_015.jpg",
+    "place_id": "ChIJWX-lRIkvdTERNoQyuLtbbAc",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJWX-lRIkvdTERNoQyuLtbbAc/ChIJWX-lRIkvdTERNoQyuLtbbAc_015.jpg"
+  },
+  {
+    "idx": 310,
+    "image_id": "ChIJWX-lRIkvdTERNoQyuLtbbAc_012.jpg",
+    "place_id": "ChIJWX-lRIkvdTERNoQyuLtbbAc",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJWX-lRIkvdTERNoQyuLtbbAc/ChIJWX-lRIkvdTERNoQyuLtbbAc_012.jpg"
+  },
+  {
+    "idx": 311,
+    "image_id": "ChIJWX-lRIkvdTERNoQyuLtbbAc_008.jpg",
+    "place_id": "ChIJWX-lRIkvdTERNoQyuLtbbAc",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJWX-lRIkvdTERNoQyuLtbbAc/ChIJWX-lRIkvdTERNoQyuLtbbAc_008.jpg"
+  },
+  {
+    "idx": 312,
+    "image_id": "ChIJWX-lRIkvdTERNoQyuLtbbAc_006.jpg",
+    "place_id": "ChIJWX-lRIkvdTERNoQyuLtbbAc",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJWX-lRIkvdTERNoQyuLtbbAc/ChIJWX-lRIkvdTERNoQyuLtbbAc_006.jpg"
+  },
+  {
+    "idx": 313,
+    "image_id": "ChIJWX-lRIkvdTERNoQyuLtbbAc_001.jpg",
+    "place_id": "ChIJWX-lRIkvdTERNoQyuLtbbAc",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJWX-lRIkvdTERNoQyuLtbbAc/ChIJWX-lRIkvdTERNoQyuLtbbAc_001.jpg"
+  },
+  {
+    "idx": 314,
+    "image_id": "ChIJWX-lRIkvdTERNoQyuLtbbAc_011.jpg",
+    "place_id": "ChIJWX-lRIkvdTERNoQyuLtbbAc",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJWX-lRIkvdTERNoQyuLtbbAc/ChIJWX-lRIkvdTERNoQyuLtbbAc_011.jpg"
+  },
+  {
+    "idx": 315,
+    "image_id": "ChIJWX-lRIkvdTERNoQyuLtbbAc_014.jpg",
+    "place_id": "ChIJWX-lRIkvdTERNoQyuLtbbAc",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJWX-lRIkvdTERNoQyuLtbbAc/ChIJWX-lRIkvdTERNoQyuLtbbAc_014.jpg"
+  },
+  {
+    "idx": 316,
+    "image_id": "ChIJWX-lRIkvdTERNoQyuLtbbAc_010.jpg",
+    "place_id": "ChIJWX-lRIkvdTERNoQyuLtbbAc",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJWX-lRIkvdTERNoQyuLtbbAc/ChIJWX-lRIkvdTERNoQyuLtbbAc_010.jpg"
+  },
+  {
+    "idx": 317,
+    "image_id": "ChIJWX-lRIkvdTERNoQyuLtbbAc_005.jpg",
+    "place_id": "ChIJWX-lRIkvdTERNoQyuLtbbAc",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJWX-lRIkvdTERNoQyuLtbbAc/ChIJWX-lRIkvdTERNoQyuLtbbAc_005.jpg"
+  },
+  {
+    "idx": 318,
+    "image_id": "ChIJWX-lRIkvdTERNoQyuLtbbAc_003.jpg",
+    "place_id": "ChIJWX-lRIkvdTERNoQyuLtbbAc",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJWX-lRIkvdTERNoQyuLtbbAc/ChIJWX-lRIkvdTERNoQyuLtbbAc_003.jpg"
+  },
+  {
+    "idx": 319,
+    "image_id": "ChIJT9Pk5PsudTER3sQCMS5UC_0_002.jpg",
+    "place_id": "ChIJT9Pk5PsudTER3sQCMS5UC_0",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJT9Pk5PsudTER3sQCMS5UC_0/ChIJT9Pk5PsudTER3sQCMS5UC_0_002.jpg"
+  },
+  {
+    "idx": 320,
+    "image_id": "ChIJT9Pk5PsudTER3sQCMS5UC_0_014.png",
+    "place_id": "ChIJT9Pk5PsudTER3sQCMS5UC_0",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJT9Pk5PsudTER3sQCMS5UC_0/ChIJT9Pk5PsudTER3sQCMS5UC_0_014.png"
+  },
+  {
+    "idx": 321,
+    "image_id": "ChIJT9Pk5PsudTER3sQCMS5UC_0_010.jpg",
+    "place_id": "ChIJT9Pk5PsudTER3sQCMS5UC_0",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJT9Pk5PsudTER3sQCMS5UC_0/ChIJT9Pk5PsudTER3sQCMS5UC_0_010.jpg"
+  },
+  {
+    "idx": 322,
+    "image_id": "ChIJT9Pk5PsudTER3sQCMS5UC_0_011.jpg",
+    "place_id": "ChIJT9Pk5PsudTER3sQCMS5UC_0",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJT9Pk5PsudTER3sQCMS5UC_0/ChIJT9Pk5PsudTER3sQCMS5UC_0_011.jpg"
+  },
+  {
+    "idx": 323,
+    "image_id": "ChIJT9Pk5PsudTER3sQCMS5UC_0_006.jpg",
+    "place_id": "ChIJT9Pk5PsudTER3sQCMS5UC_0",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJT9Pk5PsudTER3sQCMS5UC_0/ChIJT9Pk5PsudTER3sQCMS5UC_0_006.jpg"
+  },
+  {
+    "idx": 324,
+    "image_id": "ChIJT9Pk5PsudTER3sQCMS5UC_0_005.jpg",
+    "place_id": "ChIJT9Pk5PsudTER3sQCMS5UC_0",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJT9Pk5PsudTER3sQCMS5UC_0/ChIJT9Pk5PsudTER3sQCMS5UC_0_005.jpg"
+  },
+  {
+    "idx": 325,
+    "image_id": "ChIJT9Pk5PsudTER3sQCMS5UC_0_009.jpg",
+    "place_id": "ChIJT9Pk5PsudTER3sQCMS5UC_0",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJT9Pk5PsudTER3sQCMS5UC_0/ChIJT9Pk5PsudTER3sQCMS5UC_0_009.jpg"
+  },
+  {
+    "idx": 326,
+    "image_id": "ChIJT9Pk5PsudTER3sQCMS5UC_0_013.jpg",
+    "place_id": "ChIJT9Pk5PsudTER3sQCMS5UC_0",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJT9Pk5PsudTER3sQCMS5UC_0/ChIJT9Pk5PsudTER3sQCMS5UC_0_013.jpg"
+  },
+  {
+    "idx": 327,
+    "image_id": "ChIJT9Pk5PsudTER3sQCMS5UC_0_003.jpg",
+    "place_id": "ChIJT9Pk5PsudTER3sQCMS5UC_0",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJT9Pk5PsudTER3sQCMS5UC_0/ChIJT9Pk5PsudTER3sQCMS5UC_0_003.jpg"
+  },
+  {
+    "idx": 328,
+    "image_id": "ChIJT9Pk5PsudTER3sQCMS5UC_0_001.jpg",
+    "place_id": "ChIJT9Pk5PsudTER3sQCMS5UC_0",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJT9Pk5PsudTER3sQCMS5UC_0/ChIJT9Pk5PsudTER3sQCMS5UC_0_001.jpg"
+  },
+  {
+    "idx": 329,
+    "image_id": "ChIJT9Pk5PsudTER3sQCMS5UC_0_015.jpg",
+    "place_id": "ChIJT9Pk5PsudTER3sQCMS5UC_0",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJT9Pk5PsudTER3sQCMS5UC_0/ChIJT9Pk5PsudTER3sQCMS5UC_0_015.jpg"
+  },
+  {
+    "idx": 330,
+    "image_id": "ChIJT9Pk5PsudTER3sQCMS5UC_0_007.jpg",
+    "place_id": "ChIJT9Pk5PsudTER3sQCMS5UC_0",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJT9Pk5PsudTER3sQCMS5UC_0/ChIJT9Pk5PsudTER3sQCMS5UC_0_007.jpg"
+  },
+  {
+    "idx": 331,
+    "image_id": "ChIJT9Pk5PsudTER3sQCMS5UC_0_012.jpg",
+    "place_id": "ChIJT9Pk5PsudTER3sQCMS5UC_0",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJT9Pk5PsudTER3sQCMS5UC_0/ChIJT9Pk5PsudTER3sQCMS5UC_0_012.jpg"
+  },
+  {
+    "idx": 332,
+    "image_id": "ChIJT9Pk5PsudTER3sQCMS5UC_0_008.jpg",
+    "place_id": "ChIJT9Pk5PsudTER3sQCMS5UC_0",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJT9Pk5PsudTER3sQCMS5UC_0/ChIJT9Pk5PsudTER3sQCMS5UC_0_008.jpg"
+  },
+  {
+    "idx": 333,
+    "image_id": "ChIJy-vbI6EldTERVONPShP8M9c_013.jpg",
+    "place_id": "ChIJy-vbI6EldTERVONPShP8M9c",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJy-vbI6EldTERVONPShP8M9c/ChIJy-vbI6EldTERVONPShP8M9c_013.jpg"
+  },
+  {
+    "idx": 334,
+    "image_id": "ChIJy-vbI6EldTERVONPShP8M9c_008.jpg",
+    "place_id": "ChIJy-vbI6EldTERVONPShP8M9c",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJy-vbI6EldTERVONPShP8M9c/ChIJy-vbI6EldTERVONPShP8M9c_008.jpg"
+  },
+  {
+    "idx": 335,
+    "image_id": "ChIJy-vbI6EldTERVONPShP8M9c_002.jpg",
+    "place_id": "ChIJy-vbI6EldTERVONPShP8M9c",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJy-vbI6EldTERVONPShP8M9c/ChIJy-vbI6EldTERVONPShP8M9c_002.jpg"
+  },
+  {
+    "idx": 336,
+    "image_id": "ChIJy-vbI6EldTERVONPShP8M9c_012.jpg",
+    "place_id": "ChIJy-vbI6EldTERVONPShP8M9c",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJy-vbI6EldTERVONPShP8M9c/ChIJy-vbI6EldTERVONPShP8M9c_012.jpg"
+  },
+  {
+    "idx": 337,
+    "image_id": "ChIJy-vbI6EldTERVONPShP8M9c_001.jpg",
+    "place_id": "ChIJy-vbI6EldTERVONPShP8M9c",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJy-vbI6EldTERVONPShP8M9c/ChIJy-vbI6EldTERVONPShP8M9c_001.jpg"
+  },
+  {
+    "idx": 338,
+    "image_id": "ChIJy-vbI6EldTERVONPShP8M9c_006.jpg",
+    "place_id": "ChIJy-vbI6EldTERVONPShP8M9c",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJy-vbI6EldTERVONPShP8M9c/ChIJy-vbI6EldTERVONPShP8M9c_006.jpg"
+  },
+  {
+    "idx": 339,
+    "image_id": "ChIJy-vbI6EldTERVONPShP8M9c_007.jpg",
+    "place_id": "ChIJy-vbI6EldTERVONPShP8M9c",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJy-vbI6EldTERVONPShP8M9c/ChIJy-vbI6EldTERVONPShP8M9c_007.jpg"
+  },
+  {
+    "idx": 340,
+    "image_id": "ChIJy-vbI6EldTERVONPShP8M9c_005.jpg",
+    "place_id": "ChIJy-vbI6EldTERVONPShP8M9c",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJy-vbI6EldTERVONPShP8M9c/ChIJy-vbI6EldTERVONPShP8M9c_005.jpg"
+  },
+  {
+    "idx": 341,
+    "image_id": "ChIJy-vbI6EldTERVONPShP8M9c_003.jpg",
+    "place_id": "ChIJy-vbI6EldTERVONPShP8M9c",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJy-vbI6EldTERVONPShP8M9c/ChIJy-vbI6EldTERVONPShP8M9c_003.jpg"
+  },
+  {
+    "idx": 342,
+    "image_id": "ChIJy-vbI6EldTERVONPShP8M9c_010.jpg",
+    "place_id": "ChIJy-vbI6EldTERVONPShP8M9c",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJy-vbI6EldTERVONPShP8M9c/ChIJy-vbI6EldTERVONPShP8M9c_010.jpg"
+  },
+  {
+    "idx": 343,
+    "image_id": "ChIJ67SU4vMudTERyb8_WbHBIiU_009.jpg",
+    "place_id": "ChIJ67SU4vMudTERyb8_WbHBIiU",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJ67SU4vMudTERyb8_WbHBIiU/ChIJ67SU4vMudTERyb8_WbHBIiU_009.jpg"
+  },
+  {
+    "idx": 344,
+    "image_id": "ChIJ67SU4vMudTERyb8_WbHBIiU_007.jpg",
+    "place_id": "ChIJ67SU4vMudTERyb8_WbHBIiU",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJ67SU4vMudTERyb8_WbHBIiU/ChIJ67SU4vMudTERyb8_WbHBIiU_007.jpg"
+  },
+  {
+    "idx": 345,
+    "image_id": "ChIJ67SU4vMudTERyb8_WbHBIiU_011.jpg",
+    "place_id": "ChIJ67SU4vMudTERyb8_WbHBIiU",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJ67SU4vMudTERyb8_WbHBIiU/ChIJ67SU4vMudTERyb8_WbHBIiU_011.jpg"
+  },
+  {
+    "idx": 346,
+    "image_id": "ChIJ67SU4vMudTERyb8_WbHBIiU_015.jpg",
+    "place_id": "ChIJ67SU4vMudTERyb8_WbHBIiU",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJ67SU4vMudTERyb8_WbHBIiU/ChIJ67SU4vMudTERyb8_WbHBIiU_015.jpg"
+  },
+  {
+    "idx": 347,
+    "image_id": "ChIJ67SU4vMudTERyb8_WbHBIiU_003.jpg",
+    "place_id": "ChIJ67SU4vMudTERyb8_WbHBIiU",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJ67SU4vMudTERyb8_WbHBIiU/ChIJ67SU4vMudTERyb8_WbHBIiU_003.jpg"
+  },
+  {
+    "idx": 348,
+    "image_id": "ChIJ67SU4vMudTERyb8_WbHBIiU_014.jpg",
+    "place_id": "ChIJ67SU4vMudTERyb8_WbHBIiU",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJ67SU4vMudTERyb8_WbHBIiU/ChIJ67SU4vMudTERyb8_WbHBIiU_014.jpg"
+  },
+  {
+    "idx": 349,
+    "image_id": "ChIJ67SU4vMudTERyb8_WbHBIiU_006.jpg",
+    "place_id": "ChIJ67SU4vMudTERyb8_WbHBIiU",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJ67SU4vMudTERyb8_WbHBIiU/ChIJ67SU4vMudTERyb8_WbHBIiU_006.jpg"
+  },
+  {
+    "idx": 350,
+    "image_id": "ChIJ67SU4vMudTERyb8_WbHBIiU_001.jpg",
+    "place_id": "ChIJ67SU4vMudTERyb8_WbHBIiU",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJ67SU4vMudTERyb8_WbHBIiU/ChIJ67SU4vMudTERyb8_WbHBIiU_001.jpg"
+  },
+  {
+    "idx": 351,
+    "image_id": "ChIJ67SU4vMudTERyb8_WbHBIiU_005.jpg",
+    "place_id": "ChIJ67SU4vMudTERyb8_WbHBIiU",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJ67SU4vMudTERyb8_WbHBIiU/ChIJ67SU4vMudTERyb8_WbHBIiU_005.jpg"
+  },
+  {
+    "idx": 352,
+    "image_id": "ChIJ67SU4vMudTERyb8_WbHBIiU_008.jpg",
+    "place_id": "ChIJ67SU4vMudTERyb8_WbHBIiU",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJ67SU4vMudTERyb8_WbHBIiU/ChIJ67SU4vMudTERyb8_WbHBIiU_008.jpg"
+  },
+  {
+    "idx": 353,
+    "image_id": "ChIJ67SU4vMudTERyb8_WbHBIiU_010.jpg",
+    "place_id": "ChIJ67SU4vMudTERyb8_WbHBIiU",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJ67SU4vMudTERyb8_WbHBIiU/ChIJ67SU4vMudTERyb8_WbHBIiU_010.jpg"
+  },
+  {
+    "idx": 354,
+    "image_id": "ChIJ67SU4vMudTERyb8_WbHBIiU_013.jpg",
+    "place_id": "ChIJ67SU4vMudTERyb8_WbHBIiU",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJ67SU4vMudTERyb8_WbHBIiU/ChIJ67SU4vMudTERyb8_WbHBIiU_013.jpg"
+  },
+  {
+    "idx": 355,
+    "image_id": "ChIJ67SU4vMudTERyb8_WbHBIiU_002.jpg",
+    "place_id": "ChIJ67SU4vMudTERyb8_WbHBIiU",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJ67SU4vMudTERyb8_WbHBIiU/ChIJ67SU4vMudTERyb8_WbHBIiU_002.jpg"
+  },
+  {
+    "idx": 356,
+    "image_id": "ChIJoSe8xkMvdTERRKC9H2gpQc8_003.jpg",
+    "place_id": "ChIJoSe8xkMvdTERRKC9H2gpQc8",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJoSe8xkMvdTERRKC9H2gpQc8/ChIJoSe8xkMvdTERRKC9H2gpQc8_003.jpg"
+  },
+  {
+    "idx": 357,
+    "image_id": "ChIJoSe8xkMvdTERRKC9H2gpQc8_010.jpg",
+    "place_id": "ChIJoSe8xkMvdTERRKC9H2gpQc8",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJoSe8xkMvdTERRKC9H2gpQc8/ChIJoSe8xkMvdTERRKC9H2gpQc8_010.jpg"
+  },
+  {
+    "idx": 358,
+    "image_id": "ChIJoSe8xkMvdTERRKC9H2gpQc8_007.jpg",
+    "place_id": "ChIJoSe8xkMvdTERRKC9H2gpQc8",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJoSe8xkMvdTERRKC9H2gpQc8/ChIJoSe8xkMvdTERRKC9H2gpQc8_007.jpg"
+  },
+  {
+    "idx": 359,
+    "image_id": "ChIJoSe8xkMvdTERRKC9H2gpQc8_004.jpg",
+    "place_id": "ChIJoSe8xkMvdTERRKC9H2gpQc8",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJoSe8xkMvdTERRKC9H2gpQc8/ChIJoSe8xkMvdTERRKC9H2gpQc8_004.jpg"
+  },
+  {
+    "idx": 360,
+    "image_id": "ChIJoSe8xkMvdTERRKC9H2gpQc8_002.jpg",
+    "place_id": "ChIJoSe8xkMvdTERRKC9H2gpQc8",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJoSe8xkMvdTERRKC9H2gpQc8/ChIJoSe8xkMvdTERRKC9H2gpQc8_002.jpg"
+  },
+  {
+    "idx": 361,
+    "image_id": "ChIJoSe8xkMvdTERRKC9H2gpQc8_006.jpg",
+    "place_id": "ChIJoSe8xkMvdTERRKC9H2gpQc8",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJoSe8xkMvdTERRKC9H2gpQc8/ChIJoSe8xkMvdTERRKC9H2gpQc8_006.jpg"
+  },
+  {
+    "idx": 362,
+    "image_id": "ChIJoSe8xkMvdTERRKC9H2gpQc8_009.jpg",
+    "place_id": "ChIJoSe8xkMvdTERRKC9H2gpQc8",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJoSe8xkMvdTERRKC9H2gpQc8/ChIJoSe8xkMvdTERRKC9H2gpQc8_009.jpg"
+  },
+  {
+    "idx": 363,
+    "image_id": "ChIJoSe8xkMvdTERRKC9H2gpQc8_001.jpg",
+    "place_id": "ChIJoSe8xkMvdTERRKC9H2gpQc8",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJoSe8xkMvdTERRKC9H2gpQc8/ChIJoSe8xkMvdTERRKC9H2gpQc8_001.jpg"
+  },
+  {
+    "idx": 364,
+    "image_id": "ChIJoSe8xkMvdTERRKC9H2gpQc8_013.jpg",
+    "place_id": "ChIJoSe8xkMvdTERRKC9H2gpQc8",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJoSe8xkMvdTERRKC9H2gpQc8/ChIJoSe8xkMvdTERRKC9H2gpQc8_013.jpg"
+  },
+  {
+    "idx": 365,
+    "image_id": "ChIJoSe8xkMvdTERRKC9H2gpQc8_014.jpg",
+    "place_id": "ChIJoSe8xkMvdTERRKC9H2gpQc8",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJoSe8xkMvdTERRKC9H2gpQc8/ChIJoSe8xkMvdTERRKC9H2gpQc8_014.jpg"
+  },
+  {
+    "idx": 366,
+    "image_id": "ChIJoSe8xkMvdTERRKC9H2gpQc8_011.jpg",
+    "place_id": "ChIJoSe8xkMvdTERRKC9H2gpQc8",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJoSe8xkMvdTERRKC9H2gpQc8/ChIJoSe8xkMvdTERRKC9H2gpQc8_011.jpg"
+  },
+  {
+    "idx": 367,
+    "image_id": "ChIJRTo9IhsvdTER835Z0g1dO58_011.jpg",
+    "place_id": "ChIJRTo9IhsvdTER835Z0g1dO58",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJRTo9IhsvdTER835Z0g1dO58/ChIJRTo9IhsvdTER835Z0g1dO58_011.jpg"
+  },
+  {
+    "idx": 368,
+    "image_id": "ChIJRTo9IhsvdTER835Z0g1dO58_010.jpg",
+    "place_id": "ChIJRTo9IhsvdTER835Z0g1dO58",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJRTo9IhsvdTER835Z0g1dO58/ChIJRTo9IhsvdTER835Z0g1dO58_010.jpg"
+  },
+  {
+    "idx": 369,
+    "image_id": "ChIJRTo9IhsvdTER835Z0g1dO58_004.jpg",
+    "place_id": "ChIJRTo9IhsvdTER835Z0g1dO58",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJRTo9IhsvdTER835Z0g1dO58/ChIJRTo9IhsvdTER835Z0g1dO58_004.jpg"
+  },
+  {
+    "idx": 370,
+    "image_id": "ChIJRTo9IhsvdTER835Z0g1dO58_007.jpg",
+    "place_id": "ChIJRTo9IhsvdTER835Z0g1dO58",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJRTo9IhsvdTER835Z0g1dO58/ChIJRTo9IhsvdTER835Z0g1dO58_007.jpg"
+  },
+  {
+    "idx": 371,
+    "image_id": "ChIJRTo9IhsvdTER835Z0g1dO58_005.jpg",
+    "place_id": "ChIJRTo9IhsvdTER835Z0g1dO58",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJRTo9IhsvdTER835Z0g1dO58/ChIJRTo9IhsvdTER835Z0g1dO58_005.jpg"
+  },
+  {
+    "idx": 372,
+    "image_id": "ChIJRTo9IhsvdTER835Z0g1dO58_001.jpg",
+    "place_id": "ChIJRTo9IhsvdTER835Z0g1dO58",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJRTo9IhsvdTER835Z0g1dO58/ChIJRTo9IhsvdTER835Z0g1dO58_001.jpg"
+  },
+  {
+    "idx": 373,
+    "image_id": "ChIJRTo9IhsvdTER835Z0g1dO58_003.jpg",
+    "place_id": "ChIJRTo9IhsvdTER835Z0g1dO58",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJRTo9IhsvdTER835Z0g1dO58/ChIJRTo9IhsvdTER835Z0g1dO58_003.jpg"
+  },
+  {
+    "idx": 374,
+    "image_id": "ChIJRTo9IhsvdTER835Z0g1dO58_002.jpg",
+    "place_id": "ChIJRTo9IhsvdTER835Z0g1dO58",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJRTo9IhsvdTER835Z0g1dO58/ChIJRTo9IhsvdTER835Z0g1dO58_002.jpg"
+  },
+  {
+    "idx": 375,
+    "image_id": "ChIJRTo9IhsvdTER835Z0g1dO58_006.jpg",
+    "place_id": "ChIJRTo9IhsvdTER835Z0g1dO58",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJRTo9IhsvdTER835Z0g1dO58/ChIJRTo9IhsvdTER835Z0g1dO58_006.jpg"
+  },
+  {
+    "idx": 376,
+    "image_id": "ChIJRTo9IhsvdTER835Z0g1dO58_009.jpg",
+    "place_id": "ChIJRTo9IhsvdTER835Z0g1dO58",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJRTo9IhsvdTER835Z0g1dO58/ChIJRTo9IhsvdTER835Z0g1dO58_009.jpg"
+  },
+  {
+    "idx": 377,
+    "image_id": "ChIJRTo9IhsvdTER835Z0g1dO58_008.jpg",
+    "place_id": "ChIJRTo9IhsvdTER835Z0g1dO58",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJRTo9IhsvdTER835Z0g1dO58/ChIJRTo9IhsvdTER835Z0g1dO58_008.jpg"
+  },
+  {
+    "idx": 378,
+    "image_id": "ChIJ9XAX8oAvdTER1ub-ybAdDbk_006.jpg",
+    "place_id": "ChIJ9XAX8oAvdTER1ub-ybAdDbk",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJ9XAX8oAvdTER1ub-ybAdDbk/ChIJ9XAX8oAvdTER1ub-ybAdDbk_006.jpg"
+  },
+  {
+    "idx": 379,
+    "image_id": "ChIJ9XAX8oAvdTER1ub-ybAdDbk_010.jpg",
+    "place_id": "ChIJ9XAX8oAvdTER1ub-ybAdDbk",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJ9XAX8oAvdTER1ub-ybAdDbk/ChIJ9XAX8oAvdTER1ub-ybAdDbk_010.jpg"
+  },
+  {
+    "idx": 380,
+    "image_id": "ChIJ9XAX8oAvdTER1ub-ybAdDbk_014.jpg",
+    "place_id": "ChIJ9XAX8oAvdTER1ub-ybAdDbk",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJ9XAX8oAvdTER1ub-ybAdDbk/ChIJ9XAX8oAvdTER1ub-ybAdDbk_014.jpg"
+  },
+  {
+    "idx": 381,
+    "image_id": "ChIJ9XAX8oAvdTER1ub-ybAdDbk_001.jpg",
+    "place_id": "ChIJ9XAX8oAvdTER1ub-ybAdDbk",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJ9XAX8oAvdTER1ub-ybAdDbk/ChIJ9XAX8oAvdTER1ub-ybAdDbk_001.jpg"
+  },
+  {
+    "idx": 382,
+    "image_id": "ChIJ9XAX8oAvdTER1ub-ybAdDbk_012.jpg",
+    "place_id": "ChIJ9XAX8oAvdTER1ub-ybAdDbk",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJ9XAX8oAvdTER1ub-ybAdDbk/ChIJ9XAX8oAvdTER1ub-ybAdDbk_012.jpg"
+  },
+  {
+    "idx": 383,
+    "image_id": "ChIJ9XAX8oAvdTER1ub-ybAdDbk_005.jpg",
+    "place_id": "ChIJ9XAX8oAvdTER1ub-ybAdDbk",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJ9XAX8oAvdTER1ub-ybAdDbk/ChIJ9XAX8oAvdTER1ub-ybAdDbk_005.jpg"
+  },
+  {
+    "idx": 384,
+    "image_id": "ChIJ9XAX8oAvdTER1ub-ybAdDbk_011.jpg",
+    "place_id": "ChIJ9XAX8oAvdTER1ub-ybAdDbk",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJ9XAX8oAvdTER1ub-ybAdDbk/ChIJ9XAX8oAvdTER1ub-ybAdDbk_011.jpg"
+  },
+  {
+    "idx": 385,
+    "image_id": "ChIJ9XAX8oAvdTER1ub-ybAdDbk_002.jpg",
+    "place_id": "ChIJ9XAX8oAvdTER1ub-ybAdDbk",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJ9XAX8oAvdTER1ub-ybAdDbk/ChIJ9XAX8oAvdTER1ub-ybAdDbk_002.jpg"
+  },
+  {
+    "idx": 386,
+    "image_id": "ChIJ9XAX8oAvdTER1ub-ybAdDbk_003.jpg",
+    "place_id": "ChIJ9XAX8oAvdTER1ub-ybAdDbk",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJ9XAX8oAvdTER1ub-ybAdDbk/ChIJ9XAX8oAvdTER1ub-ybAdDbk_003.jpg"
+  },
+  {
+    "idx": 387,
+    "image_id": "ChIJ9XAX8oAvdTER1ub-ybAdDbk_009.jpg",
+    "place_id": "ChIJ9XAX8oAvdTER1ub-ybAdDbk",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJ9XAX8oAvdTER1ub-ybAdDbk/ChIJ9XAX8oAvdTER1ub-ybAdDbk_009.jpg"
+  },
+  {
+    "idx": 388,
+    "image_id": "ChIJ9XAX8oAvdTER1ub-ybAdDbk_013.jpg",
+    "place_id": "ChIJ9XAX8oAvdTER1ub-ybAdDbk",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJ9XAX8oAvdTER1ub-ybAdDbk/ChIJ9XAX8oAvdTER1ub-ybAdDbk_013.jpg"
+  },
+  {
+    "idx": 389,
+    "image_id": "ChIJNVT4dVondTER-sL6PUoLOqE_009.png",
+    "place_id": "ChIJNVT4dVondTER-sL6PUoLOqE",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJNVT4dVondTER-sL6PUoLOqE/ChIJNVT4dVondTER-sL6PUoLOqE_009.png"
+  },
+  {
+    "idx": 390,
+    "image_id": "ChIJNVT4dVondTER-sL6PUoLOqE_003.jpg",
+    "place_id": "ChIJNVT4dVondTER-sL6PUoLOqE",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJNVT4dVondTER-sL6PUoLOqE/ChIJNVT4dVondTER-sL6PUoLOqE_003.jpg"
+  },
+  {
+    "idx": 391,
+    "image_id": "ChIJNVT4dVondTER-sL6PUoLOqE_011.jpg",
+    "place_id": "ChIJNVT4dVondTER-sL6PUoLOqE",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJNVT4dVondTER-sL6PUoLOqE/ChIJNVT4dVondTER-sL6PUoLOqE_011.jpg"
+  },
+  {
+    "idx": 392,
+    "image_id": "ChIJNVT4dVondTER-sL6PUoLOqE_012.png",
+    "place_id": "ChIJNVT4dVondTER-sL6PUoLOqE",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJNVT4dVondTER-sL6PUoLOqE/ChIJNVT4dVondTER-sL6PUoLOqE_012.png"
+  },
+  {
+    "idx": 393,
+    "image_id": "ChIJNVT4dVondTER-sL6PUoLOqE_006.jpg",
+    "place_id": "ChIJNVT4dVondTER-sL6PUoLOqE",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJNVT4dVondTER-sL6PUoLOqE/ChIJNVT4dVondTER-sL6PUoLOqE_006.jpg"
+  },
+  {
+    "idx": 394,
+    "image_id": "ChIJNVT4dVondTER-sL6PUoLOqE_002.jpg",
+    "place_id": "ChIJNVT4dVondTER-sL6PUoLOqE",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJNVT4dVondTER-sL6PUoLOqE/ChIJNVT4dVondTER-sL6PUoLOqE_002.jpg"
+  },
+  {
+    "idx": 395,
+    "image_id": "ChIJNVT4dVondTER-sL6PUoLOqE_010.jpg",
+    "place_id": "ChIJNVT4dVondTER-sL6PUoLOqE",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJNVT4dVondTER-sL6PUoLOqE/ChIJNVT4dVondTER-sL6PUoLOqE_010.jpg"
+  },
+  {
+    "idx": 396,
+    "image_id": "ChIJNVT4dVondTER-sL6PUoLOqE_008.jpg",
+    "place_id": "ChIJNVT4dVondTER-sL6PUoLOqE",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJNVT4dVondTER-sL6PUoLOqE/ChIJNVT4dVondTER-sL6PUoLOqE_008.jpg"
+  },
+  {
+    "idx": 397,
+    "image_id": "ChIJNVT4dVondTER-sL6PUoLOqE_013.jpg",
+    "place_id": "ChIJNVT4dVondTER-sL6PUoLOqE",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJNVT4dVondTER-sL6PUoLOqE/ChIJNVT4dVondTER-sL6PUoLOqE_013.jpg"
+  },
+  {
+    "idx": 398,
+    "image_id": "ChIJNVT4dVondTER-sL6PUoLOqE_007.jpg",
+    "place_id": "ChIJNVT4dVondTER-sL6PUoLOqE",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJNVT4dVondTER-sL6PUoLOqE/ChIJNVT4dVondTER-sL6PUoLOqE_007.jpg"
+  },
+  {
+    "idx": 399,
+    "image_id": "ChIJNVT4dVondTER-sL6PUoLOqE_004.jpg",
+    "place_id": "ChIJNVT4dVondTER-sL6PUoLOqE",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJNVT4dVondTER-sL6PUoLOqE/ChIJNVT4dVondTER-sL6PUoLOqE_004.jpg"
+  },
+  {
+    "idx": 400,
+    "image_id": "ChIJNVT4dVondTER-sL6PUoLOqE_005.jpg",
+    "place_id": "ChIJNVT4dVondTER-sL6PUoLOqE",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJNVT4dVondTER-sL6PUoLOqE/ChIJNVT4dVondTER-sL6PUoLOqE_005.jpg"
+  },
+  {
+    "idx": 401,
+    "image_id": "ChIJNVT4dVondTER-sL6PUoLOqE_001.jpg",
+    "place_id": "ChIJNVT4dVondTER-sL6PUoLOqE",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJNVT4dVondTER-sL6PUoLOqE/ChIJNVT4dVondTER-sL6PUoLOqE_001.jpg"
+  },
+  {
+    "idx": 402,
+    "image_id": "ChIJN_yLl_ovdTERDpCe3N0ySUo_008.jpg",
+    "place_id": "ChIJN_yLl_ovdTERDpCe3N0ySUo",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJN_yLl_ovdTERDpCe3N0ySUo/ChIJN_yLl_ovdTERDpCe3N0ySUo_008.jpg"
+  },
+  {
+    "idx": 403,
+    "image_id": "ChIJN_yLl_ovdTERDpCe3N0ySUo_011.jpg",
+    "place_id": "ChIJN_yLl_ovdTERDpCe3N0ySUo",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJN_yLl_ovdTERDpCe3N0ySUo/ChIJN_yLl_ovdTERDpCe3N0ySUo_011.jpg"
+  },
+  {
+    "idx": 404,
+    "image_id": "ChIJN_yLl_ovdTERDpCe3N0ySUo_005.jpg",
+    "place_id": "ChIJN_yLl_ovdTERDpCe3N0ySUo",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJN_yLl_ovdTERDpCe3N0ySUo/ChIJN_yLl_ovdTERDpCe3N0ySUo_005.jpg"
+  },
+  {
+    "idx": 405,
+    "image_id": "ChIJN_yLl_ovdTERDpCe3N0ySUo_007.jpg",
+    "place_id": "ChIJN_yLl_ovdTERDpCe3N0ySUo",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJN_yLl_ovdTERDpCe3N0ySUo/ChIJN_yLl_ovdTERDpCe3N0ySUo_007.jpg"
+  },
+  {
+    "idx": 406,
+    "image_id": "ChIJN_yLl_ovdTERDpCe3N0ySUo_012.jpg",
+    "place_id": "ChIJN_yLl_ovdTERDpCe3N0ySUo",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJN_yLl_ovdTERDpCe3N0ySUo/ChIJN_yLl_ovdTERDpCe3N0ySUo_012.jpg"
+  },
+  {
+    "idx": 407,
+    "image_id": "ChIJN_yLl_ovdTERDpCe3N0ySUo_010.jpg",
+    "place_id": "ChIJN_yLl_ovdTERDpCe3N0ySUo",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJN_yLl_ovdTERDpCe3N0ySUo/ChIJN_yLl_ovdTERDpCe3N0ySUo_010.jpg"
+  },
+  {
+    "idx": 408,
+    "image_id": "ChIJN_yLl_ovdTERDpCe3N0ySUo_002.jpg",
+    "place_id": "ChIJN_yLl_ovdTERDpCe3N0ySUo",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJN_yLl_ovdTERDpCe3N0ySUo/ChIJN_yLl_ovdTERDpCe3N0ySUo_002.jpg"
+  },
+  {
+    "idx": 409,
+    "image_id": "ChIJN_yLl_ovdTERDpCe3N0ySUo_003.jpg",
+    "place_id": "ChIJN_yLl_ovdTERDpCe3N0ySUo",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJN_yLl_ovdTERDpCe3N0ySUo/ChIJN_yLl_ovdTERDpCe3N0ySUo_003.jpg"
+  },
+  {
+    "idx": 410,
+    "image_id": "ChIJN_yLl_ovdTERDpCe3N0ySUo_006.jpg",
+    "place_id": "ChIJN_yLl_ovdTERDpCe3N0ySUo",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJN_yLl_ovdTERDpCe3N0ySUo/ChIJN_yLl_ovdTERDpCe3N0ySUo_006.jpg"
+  },
+  {
+    "idx": 411,
+    "image_id": "ChIJN_yLl_ovdTERDpCe3N0ySUo_009.jpg",
+    "place_id": "ChIJN_yLl_ovdTERDpCe3N0ySUo",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJN_yLl_ovdTERDpCe3N0ySUo/ChIJN_yLl_ovdTERDpCe3N0ySUo_009.jpg"
+  },
+  {
+    "idx": 412,
+    "image_id": "ChIJN_yLl_ovdTERDpCe3N0ySUo_001.jpg",
+    "place_id": "ChIJN_yLl_ovdTERDpCe3N0ySUo",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJN_yLl_ovdTERDpCe3N0ySUo/ChIJN_yLl_ovdTERDpCe3N0ySUo_001.jpg"
+  },
+  {
+    "idx": 413,
+    "image_id": "ChIJIUO8zYkldTER6zQ-eZjGaSA_013.jpg",
+    "place_id": "ChIJIUO8zYkldTER6zQ-eZjGaSA",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJIUO8zYkldTER6zQ-eZjGaSA/ChIJIUO8zYkldTER6zQ-eZjGaSA_013.jpg"
+  },
+  {
+    "idx": 414,
+    "image_id": "ChIJIUO8zYkldTER6zQ-eZjGaSA_003.jpg",
+    "place_id": "ChIJIUO8zYkldTER6zQ-eZjGaSA",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJIUO8zYkldTER6zQ-eZjGaSA/ChIJIUO8zYkldTER6zQ-eZjGaSA_003.jpg"
+  },
+  {
+    "idx": 415,
+    "image_id": "ChIJIUO8zYkldTER6zQ-eZjGaSA_008.jpg",
+    "place_id": "ChIJIUO8zYkldTER6zQ-eZjGaSA",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJIUO8zYkldTER6zQ-eZjGaSA/ChIJIUO8zYkldTER6zQ-eZjGaSA_008.jpg"
+  },
+  {
+    "idx": 416,
+    "image_id": "ChIJIUO8zYkldTER6zQ-eZjGaSA_010.jpg",
+    "place_id": "ChIJIUO8zYkldTER6zQ-eZjGaSA",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJIUO8zYkldTER6zQ-eZjGaSA/ChIJIUO8zYkldTER6zQ-eZjGaSA_010.jpg"
+  },
+  {
+    "idx": 417,
+    "image_id": "ChIJIUO8zYkldTER6zQ-eZjGaSA_001.jpg",
+    "place_id": "ChIJIUO8zYkldTER6zQ-eZjGaSA",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJIUO8zYkldTER6zQ-eZjGaSA/ChIJIUO8zYkldTER6zQ-eZjGaSA_001.jpg"
+  },
+  {
+    "idx": 418,
+    "image_id": "ChIJIUO8zYkldTER6zQ-eZjGaSA_012.jpg",
+    "place_id": "ChIJIUO8zYkldTER6zQ-eZjGaSA",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJIUO8zYkldTER6zQ-eZjGaSA/ChIJIUO8zYkldTER6zQ-eZjGaSA_012.jpg"
+  },
+  {
+    "idx": 419,
+    "image_id": "ChIJIUO8zYkldTER6zQ-eZjGaSA_006.jpg",
+    "place_id": "ChIJIUO8zYkldTER6zQ-eZjGaSA",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJIUO8zYkldTER6zQ-eZjGaSA/ChIJIUO8zYkldTER6zQ-eZjGaSA_006.jpg"
+  },
+  {
+    "idx": 420,
+    "image_id": "ChIJIUO8zYkldTER6zQ-eZjGaSA_014.jpg",
+    "place_id": "ChIJIUO8zYkldTER6zQ-eZjGaSA",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJIUO8zYkldTER6zQ-eZjGaSA/ChIJIUO8zYkldTER6zQ-eZjGaSA_014.jpg"
+  },
+  {
+    "idx": 421,
+    "image_id": "ChIJIUO8zYkldTER6zQ-eZjGaSA_009.jpg",
+    "place_id": "ChIJIUO8zYkldTER6zQ-eZjGaSA",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJIUO8zYkldTER6zQ-eZjGaSA/ChIJIUO8zYkldTER6zQ-eZjGaSA_009.jpg"
+  },
+  {
+    "idx": 422,
+    "image_id": "ChIJIUO8zYkldTER6zQ-eZjGaSA_005.jpg",
+    "place_id": "ChIJIUO8zYkldTER6zQ-eZjGaSA",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJIUO8zYkldTER6zQ-eZjGaSA/ChIJIUO8zYkldTER6zQ-eZjGaSA_005.jpg"
+  },
+  {
+    "idx": 423,
+    "image_id": "ChIJIUO8zYkldTER6zQ-eZjGaSA_002.jpg",
+    "place_id": "ChIJIUO8zYkldTER6zQ-eZjGaSA",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJIUO8zYkldTER6zQ-eZjGaSA/ChIJIUO8zYkldTER6zQ-eZjGaSA_002.jpg"
+  },
+  {
+    "idx": 424,
+    "image_id": "ChIJR5lYWqUndTERihhnDlUzuLk_001.jpg",
+    "place_id": "ChIJR5lYWqUndTERihhnDlUzuLk",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJR5lYWqUndTERihhnDlUzuLk/ChIJR5lYWqUndTERihhnDlUzuLk_001.jpg"
+  },
+  {
+    "idx": 425,
+    "image_id": "ChIJR5lYWqUndTERihhnDlUzuLk_006.jpg",
+    "place_id": "ChIJR5lYWqUndTERihhnDlUzuLk",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJR5lYWqUndTERihhnDlUzuLk/ChIJR5lYWqUndTERihhnDlUzuLk_006.jpg"
+  },
+  {
+    "idx": 426,
+    "image_id": "ChIJR5lYWqUndTERihhnDlUzuLk_011.jpg",
+    "place_id": "ChIJR5lYWqUndTERihhnDlUzuLk",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJR5lYWqUndTERihhnDlUzuLk/ChIJR5lYWqUndTERihhnDlUzuLk_011.jpg"
+  },
+  {
+    "idx": 427,
+    "image_id": "ChIJR5lYWqUndTERihhnDlUzuLk_003.jpg",
+    "place_id": "ChIJR5lYWqUndTERihhnDlUzuLk",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJR5lYWqUndTERihhnDlUzuLk/ChIJR5lYWqUndTERihhnDlUzuLk_003.jpg"
+  },
+  {
+    "idx": 428,
+    "image_id": "ChIJR5lYWqUndTERihhnDlUzuLk_012.jpg",
+    "place_id": "ChIJR5lYWqUndTERihhnDlUzuLk",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJR5lYWqUndTERihhnDlUzuLk/ChIJR5lYWqUndTERihhnDlUzuLk_012.jpg"
+  },
+  {
+    "idx": 429,
+    "image_id": "ChIJR5lYWqUndTERihhnDlUzuLk_009.jpg",
+    "place_id": "ChIJR5lYWqUndTERihhnDlUzuLk",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJR5lYWqUndTERihhnDlUzuLk/ChIJR5lYWqUndTERihhnDlUzuLk_009.jpg"
+  },
+  {
+    "idx": 430,
+    "image_id": "ChIJR5lYWqUndTERihhnDlUzuLk_010.jpg",
+    "place_id": "ChIJR5lYWqUndTERihhnDlUzuLk",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJR5lYWqUndTERihhnDlUzuLk/ChIJR5lYWqUndTERihhnDlUzuLk_010.jpg"
+  },
+  {
+    "idx": 431,
+    "image_id": "ChIJR5lYWqUndTERihhnDlUzuLk_005.jpg",
+    "place_id": "ChIJR5lYWqUndTERihhnDlUzuLk",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJR5lYWqUndTERihhnDlUzuLk/ChIJR5lYWqUndTERihhnDlUzuLk_005.jpg"
+  },
+  {
+    "idx": 432,
+    "image_id": "ChIJR5lYWqUndTERihhnDlUzuLk_002.jpg",
+    "place_id": "ChIJR5lYWqUndTERihhnDlUzuLk",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJR5lYWqUndTERihhnDlUzuLk/ChIJR5lYWqUndTERihhnDlUzuLk_002.jpg"
+  },
+  {
+    "idx": 433,
+    "image_id": "ChIJR5lYWqUndTERihhnDlUzuLk_008.jpg",
+    "place_id": "ChIJR5lYWqUndTERihhnDlUzuLk",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJR5lYWqUndTERihhnDlUzuLk/ChIJR5lYWqUndTERihhnDlUzuLk_008.jpg"
+  },
+  {
+    "idx": 434,
+    "image_id": "ChIJs06heDUvdTERoNy1SNffOr8_013.jpg",
+    "place_id": "ChIJs06heDUvdTERoNy1SNffOr8",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJs06heDUvdTERoNy1SNffOr8/ChIJs06heDUvdTERoNy1SNffOr8_013.jpg"
+  },
+  {
+    "idx": 435,
+    "image_id": "ChIJs06heDUvdTERoNy1SNffOr8_010.jpg",
+    "place_id": "ChIJs06heDUvdTERoNy1SNffOr8",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJs06heDUvdTERoNy1SNffOr8/ChIJs06heDUvdTERoNy1SNffOr8_010.jpg"
+  },
+  {
+    "idx": 436,
+    "image_id": "ChIJs06heDUvdTERoNy1SNffOr8_006.jpg",
+    "place_id": "ChIJs06heDUvdTERoNy1SNffOr8",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJs06heDUvdTERoNy1SNffOr8/ChIJs06heDUvdTERoNy1SNffOr8_006.jpg"
+  },
+  {
+    "idx": 437,
+    "image_id": "ChIJs06heDUvdTERoNy1SNffOr8_005.jpg",
+    "place_id": "ChIJs06heDUvdTERoNy1SNffOr8",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJs06heDUvdTERoNy1SNffOr8/ChIJs06heDUvdTERoNy1SNffOr8_005.jpg"
+  },
+  {
+    "idx": 438,
+    "image_id": "ChIJs06heDUvdTERoNy1SNffOr8_003.jpg",
+    "place_id": "ChIJs06heDUvdTERoNy1SNffOr8",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJs06heDUvdTERoNy1SNffOr8/ChIJs06heDUvdTERoNy1SNffOr8_003.jpg"
+  },
+  {
+    "idx": 439,
+    "image_id": "ChIJs06heDUvdTERoNy1SNffOr8_012.jpg",
+    "place_id": "ChIJs06heDUvdTERoNy1SNffOr8",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJs06heDUvdTERoNy1SNffOr8/ChIJs06heDUvdTERoNy1SNffOr8_012.jpg"
+  },
+  {
+    "idx": 440,
+    "image_id": "ChIJs06heDUvdTERoNy1SNffOr8_007.jpg",
+    "place_id": "ChIJs06heDUvdTERoNy1SNffOr8",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJs06heDUvdTERoNy1SNffOr8/ChIJs06heDUvdTERoNy1SNffOr8_007.jpg"
+  },
+  {
+    "idx": 441,
+    "image_id": "ChIJs06heDUvdTERoNy1SNffOr8_001.jpg",
+    "place_id": "ChIJs06heDUvdTERoNy1SNffOr8",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJs06heDUvdTERoNy1SNffOr8/ChIJs06heDUvdTERoNy1SNffOr8_001.jpg"
+  },
+  {
+    "idx": 442,
+    "image_id": "ChIJs06heDUvdTERoNy1SNffOr8_002.jpg",
+    "place_id": "ChIJs06heDUvdTERoNy1SNffOr8",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJs06heDUvdTERoNy1SNffOr8/ChIJs06heDUvdTERoNy1SNffOr8_002.jpg"
+  },
+  {
+    "idx": 443,
+    "image_id": "ChIJs06heDUvdTERoNy1SNffOr8_011.jpg",
+    "place_id": "ChIJs06heDUvdTERoNy1SNffOr8",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJs06heDUvdTERoNy1SNffOr8/ChIJs06heDUvdTERoNy1SNffOr8_011.jpg"
+  },
+  {
+    "idx": 444,
+    "image_id": "ChIJs06heDUvdTERoNy1SNffOr8_009.jpg",
+    "place_id": "ChIJs06heDUvdTERoNy1SNffOr8",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJs06heDUvdTERoNy1SNffOr8/ChIJs06heDUvdTERoNy1SNffOr8_009.jpg"
+  },
+  {
+    "idx": 445,
+    "image_id": "ChIJNSgishMvdTER-EzR7-2ZYnk_003.jpg",
+    "place_id": "ChIJNSgishMvdTER-EzR7-2ZYnk",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJNSgishMvdTER-EzR7-2ZYnk/ChIJNSgishMvdTER-EzR7-2ZYnk_003.jpg"
+  },
+  {
+    "idx": 446,
+    "image_id": "ChIJNSgishMvdTER-EzR7-2ZYnk_009.jpg",
+    "place_id": "ChIJNSgishMvdTER-EzR7-2ZYnk",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJNSgishMvdTER-EzR7-2ZYnk/ChIJNSgishMvdTER-EzR7-2ZYnk_009.jpg"
+  },
+  {
+    "idx": 447,
+    "image_id": "ChIJNSgishMvdTER-EzR7-2ZYnk_015.jpg",
+    "place_id": "ChIJNSgishMvdTER-EzR7-2ZYnk",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJNSgishMvdTER-EzR7-2ZYnk/ChIJNSgishMvdTER-EzR7-2ZYnk_015.jpg"
+  },
+  {
+    "idx": 448,
+    "image_id": "ChIJNSgishMvdTER-EzR7-2ZYnk_006.jpg",
+    "place_id": "ChIJNSgishMvdTER-EzR7-2ZYnk",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJNSgishMvdTER-EzR7-2ZYnk/ChIJNSgishMvdTER-EzR7-2ZYnk_006.jpg"
+  },
+  {
+    "idx": 449,
+    "image_id": "ChIJNSgishMvdTER-EzR7-2ZYnk_007.jpg",
+    "place_id": "ChIJNSgishMvdTER-EzR7-2ZYnk",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJNSgishMvdTER-EzR7-2ZYnk/ChIJNSgishMvdTER-EzR7-2ZYnk_007.jpg"
+  },
+  {
+    "idx": 450,
+    "image_id": "ChIJNSgishMvdTER-EzR7-2ZYnk_008.jpg",
+    "place_id": "ChIJNSgishMvdTER-EzR7-2ZYnk",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJNSgishMvdTER-EzR7-2ZYnk/ChIJNSgishMvdTER-EzR7-2ZYnk_008.jpg"
+  },
+  {
+    "idx": 451,
+    "image_id": "ChIJNSgishMvdTER-EzR7-2ZYnk_011.jpg",
+    "place_id": "ChIJNSgishMvdTER-EzR7-2ZYnk",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJNSgishMvdTER-EzR7-2ZYnk/ChIJNSgishMvdTER-EzR7-2ZYnk_011.jpg"
+  },
+  {
+    "idx": 452,
+    "image_id": "ChIJNSgishMvdTER-EzR7-2ZYnk_012.jpg",
+    "place_id": "ChIJNSgishMvdTER-EzR7-2ZYnk",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJNSgishMvdTER-EzR7-2ZYnk/ChIJNSgishMvdTER-EzR7-2ZYnk_012.jpg"
+  },
+  {
+    "idx": 453,
+    "image_id": "ChIJNSgishMvdTER-EzR7-2ZYnk_001.jpg",
+    "place_id": "ChIJNSgishMvdTER-EzR7-2ZYnk",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJNSgishMvdTER-EzR7-2ZYnk/ChIJNSgishMvdTER-EzR7-2ZYnk_001.jpg"
+  },
+  {
+    "idx": 454,
+    "image_id": "ChIJNSgishMvdTER-EzR7-2ZYnk_014.jpg",
+    "place_id": "ChIJNSgishMvdTER-EzR7-2ZYnk",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJNSgishMvdTER-EzR7-2ZYnk/ChIJNSgishMvdTER-EzR7-2ZYnk_014.jpg"
+  },
+  {
+    "idx": 455,
+    "image_id": "ChIJNSgishMvdTER-EzR7-2ZYnk_010.jpg",
+    "place_id": "ChIJNSgishMvdTER-EzR7-2ZYnk",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJNSgishMvdTER-EzR7-2ZYnk/ChIJNSgishMvdTER-EzR7-2ZYnk_010.jpg"
+  },
+  {
+    "idx": 456,
+    "image_id": "ChIJNSgishMvdTER-EzR7-2ZYnk_013.jpg",
+    "place_id": "ChIJNSgishMvdTER-EzR7-2ZYnk",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJNSgishMvdTER-EzR7-2ZYnk/ChIJNSgishMvdTER-EzR7-2ZYnk_013.jpg"
+  },
+  {
+    "idx": 457,
+    "image_id": "ChIJWbhpor8vdTER-XxN0YATDxg_007.jpg",
+    "place_id": "ChIJWbhpor8vdTER-XxN0YATDxg",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJWbhpor8vdTER-XxN0YATDxg/ChIJWbhpor8vdTER-XxN0YATDxg_007.jpg"
+  },
+  {
+    "idx": 458,
+    "image_id": "ChIJWbhpor8vdTER-XxN0YATDxg_008.jpg",
+    "place_id": "ChIJWbhpor8vdTER-XxN0YATDxg",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJWbhpor8vdTER-XxN0YATDxg/ChIJWbhpor8vdTER-XxN0YATDxg_008.jpg"
+  },
+  {
+    "idx": 459,
+    "image_id": "ChIJWbhpor8vdTER-XxN0YATDxg_001.jpg",
+    "place_id": "ChIJWbhpor8vdTER-XxN0YATDxg",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJWbhpor8vdTER-XxN0YATDxg/ChIJWbhpor8vdTER-XxN0YATDxg_001.jpg"
+  },
+  {
+    "idx": 460,
+    "image_id": "ChIJWbhpor8vdTER-XxN0YATDxg_010.jpg",
+    "place_id": "ChIJWbhpor8vdTER-XxN0YATDxg",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJWbhpor8vdTER-XxN0YATDxg/ChIJWbhpor8vdTER-XxN0YATDxg_010.jpg"
+  },
+  {
+    "idx": 461,
+    "image_id": "ChIJWbhpor8vdTER-XxN0YATDxg_006.jpg",
+    "place_id": "ChIJWbhpor8vdTER-XxN0YATDxg",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJWbhpor8vdTER-XxN0YATDxg/ChIJWbhpor8vdTER-XxN0YATDxg_006.jpg"
+  },
+  {
+    "idx": 462,
+    "image_id": "ChIJWbhpor8vdTER-XxN0YATDxg_003.jpg",
+    "place_id": "ChIJWbhpor8vdTER-XxN0YATDxg",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJWbhpor8vdTER-XxN0YATDxg/ChIJWbhpor8vdTER-XxN0YATDxg_003.jpg"
+  },
+  {
+    "idx": 463,
+    "image_id": "ChIJWbhpor8vdTER-XxN0YATDxg_011.jpg",
+    "place_id": "ChIJWbhpor8vdTER-XxN0YATDxg",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJWbhpor8vdTER-XxN0YATDxg/ChIJWbhpor8vdTER-XxN0YATDxg_011.jpg"
+  },
+  {
+    "idx": 464,
+    "image_id": "ChIJWbhpor8vdTER-XxN0YATDxg_009.jpg",
+    "place_id": "ChIJWbhpor8vdTER-XxN0YATDxg",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJWbhpor8vdTER-XxN0YATDxg/ChIJWbhpor8vdTER-XxN0YATDxg_009.jpg"
+  },
+  {
+    "idx": 465,
+    "image_id": "ChIJ2bO2S6UvdTER2gFlY1s-IJU_002.jpg",
+    "place_id": "ChIJ2bO2S6UvdTER2gFlY1s-IJU",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJ2bO2S6UvdTER2gFlY1s-IJU/ChIJ2bO2S6UvdTER2gFlY1s-IJU_002.jpg"
+  },
+  {
+    "idx": 466,
+    "image_id": "ChIJ2bO2S6UvdTER2gFlY1s-IJU_012.jpg",
+    "place_id": "ChIJ2bO2S6UvdTER2gFlY1s-IJU",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJ2bO2S6UvdTER2gFlY1s-IJU/ChIJ2bO2S6UvdTER2gFlY1s-IJU_012.jpg"
+  },
+  {
+    "idx": 467,
+    "image_id": "ChIJ2bO2S6UvdTER2gFlY1s-IJU_011.jpg",
+    "place_id": "ChIJ2bO2S6UvdTER2gFlY1s-IJU",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJ2bO2S6UvdTER2gFlY1s-IJU/ChIJ2bO2S6UvdTER2gFlY1s-IJU_011.jpg"
+  },
+  {
+    "idx": 468,
+    "image_id": "ChIJ2bO2S6UvdTER2gFlY1s-IJU_008.jpg",
+    "place_id": "ChIJ2bO2S6UvdTER2gFlY1s-IJU",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJ2bO2S6UvdTER2gFlY1s-IJU/ChIJ2bO2S6UvdTER2gFlY1s-IJU_008.jpg"
+  },
+  {
+    "idx": 469,
+    "image_id": "ChIJ2bO2S6UvdTER2gFlY1s-IJU_003.jpg",
+    "place_id": "ChIJ2bO2S6UvdTER2gFlY1s-IJU",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJ2bO2S6UvdTER2gFlY1s-IJU/ChIJ2bO2S6UvdTER2gFlY1s-IJU_003.jpg"
+  },
+  {
+    "idx": 470,
+    "image_id": "ChIJ2bO2S6UvdTER2gFlY1s-IJU_005.jpg",
+    "place_id": "ChIJ2bO2S6UvdTER2gFlY1s-IJU",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJ2bO2S6UvdTER2gFlY1s-IJU/ChIJ2bO2S6UvdTER2gFlY1s-IJU_005.jpg"
+  },
+  {
+    "idx": 471,
+    "image_id": "ChIJ2bO2S6UvdTER2gFlY1s-IJU_013.jpg",
+    "place_id": "ChIJ2bO2S6UvdTER2gFlY1s-IJU",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJ2bO2S6UvdTER2gFlY1s-IJU/ChIJ2bO2S6UvdTER2gFlY1s-IJU_013.jpg"
+  },
+  {
+    "idx": 472,
+    "image_id": "ChIJ2bO2S6UvdTER2gFlY1s-IJU_009.jpg",
+    "place_id": "ChIJ2bO2S6UvdTER2gFlY1s-IJU",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJ2bO2S6UvdTER2gFlY1s-IJU/ChIJ2bO2S6UvdTER2gFlY1s-IJU_009.jpg"
+  },
+  {
+    "idx": 473,
+    "image_id": "ChIJ2bO2S6UvdTER2gFlY1s-IJU_001.jpg",
+    "place_id": "ChIJ2bO2S6UvdTER2gFlY1s-IJU",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJ2bO2S6UvdTER2gFlY1s-IJU/ChIJ2bO2S6UvdTER2gFlY1s-IJU_001.jpg"
+  },
+  {
+    "idx": 474,
+    "image_id": "ChIJ2bO2S6UvdTER2gFlY1s-IJU_007.jpg",
+    "place_id": "ChIJ2bO2S6UvdTER2gFlY1s-IJU",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJ2bO2S6UvdTER2gFlY1s-IJU/ChIJ2bO2S6UvdTER2gFlY1s-IJU_007.jpg"
+  },
+  {
+    "idx": 475,
+    "image_id": "ChIJ2bO2S6UvdTER2gFlY1s-IJU_010.jpg",
+    "place_id": "ChIJ2bO2S6UvdTER2gFlY1s-IJU",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJ2bO2S6UvdTER2gFlY1s-IJU/ChIJ2bO2S6UvdTER2gFlY1s-IJU_010.jpg"
+  },
+  {
+    "idx": 476,
+    "image_id": "ChIJ2bO2S6UvdTER2gFlY1s-IJU_006.jpg",
+    "place_id": "ChIJ2bO2S6UvdTER2gFlY1s-IJU",
+    "file_path": "/kaggle/input/datasets/nagahuy/tdtt-ver1/images/ChIJ2bO2S6UvdTER2gFlY1s-IJU/ChIJ2bO2S6UvdTER2gFlY1s-IJU_006.jpg"
+  }
+]
