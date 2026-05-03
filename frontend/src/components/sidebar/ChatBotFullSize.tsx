@@ -13,12 +13,13 @@ import { useAuth } from "../../hooks/useAuth";
 import {
 	getConversations,
 	getConversationDetail,
-	createConversation,
 	type Conversation,
 } from "../../api/chatAPI";
 import { signOut } from "firebase/auth";
 import { auth } from "../../firebaseConfig";
 import { useNavigate } from "react-router-dom";
+
+const LOGOUT_EVENT_KEY = "logoutEvent";
 
 interface ChatBotFullSizeProps {
 	onClose?: () => void;
@@ -41,6 +42,18 @@ function ChatBotFullSize({
 	const [activeChat, setActiveChat] = useState<string | null>(null);
 	const { user, loading } = useAuth();
 	const navigate = useNavigate();
+
+	const broadcastLogout = () => {
+		const timestamp = Date.now().toString();
+		localStorage.setItem(LOGOUT_EVENT_KEY, timestamp);
+		window.dispatchEvent(
+			new StorageEvent("storage", {
+				key: LOGOUT_EVENT_KEY,
+				newValue: timestamp,
+				storageArea: localStorage,
+			}),
+		);
+	};
 
 	useEffect(() => {
 		const fetchConversations = async () => {
@@ -91,18 +104,16 @@ function ChatBotFullSize({
 	}, [activeChat, user, setIsThinking, setMessages]);
 
 	const handleNewChat = async () => {
+		setActiveChat(null);
+		setMessages([]);
+		// Refresh conversation list để hiển thị conversation mới nhất
 		if (user) {
 			try {
-				setIsLoading(true);
 				const token = await user.getIdToken();
-				const newConv = await createConversation(token, "New chat");
-				setConversations([newConv, ...conversations]);
-				setActiveChat(newConv.id);
-				setMessages([]);
+				const data = await getConversations(token);
+				setConversations(data);
 			} catch (error) {
-				console.log("Fail to create new conversation: ", error);
-			} finally {
-				setIsLoading(false);
+				console.error("Fail to refresh conversations: ", error);
 			}
 		}
 	};
@@ -112,9 +123,24 @@ function ChatBotFullSize({
 	);
 
 	const handleLogOut = async () => {
-		await signOut(auth);
+		try {
+			await signOut(auth);
+			localStorage.removeItem("user");
+			broadcastLogout();
+		} catch (error) {
+			console.error("Loi dang xuat:", error);
+		}
 		navigate("/");
 	};
+
+	useEffect(() => {
+		const handleStorage = (event: StorageEvent) => {
+			if (event.key !== LOGOUT_EVENT_KEY) return;
+			navigate("/");
+		};
+		window.addEventListener("storage", handleStorage);
+		return () => window.removeEventListener("storage", handleStorage);
+	}, [navigate]);
 
 	return (
 		<div className="w-full h-full rounded-t-4xl flex overflow-hidden shadow-[0_-8px_40px_rgba(0,0,0,0.12)] border-t border-gray-200/60">
@@ -245,6 +271,11 @@ function ChatBotFullSize({
 					isThinking={isThinking}
 					setIsThinking={setIsThinking}
 					isFullSize={true}
+					activeChat={activeChat}
+					setActiveChat={setActiveChat}
+					onConversationCreated={(conv) => {
+						setConversations((prev) => [conv, ...prev]);
+					}}
 				/>
 			</div>
 		</div>
