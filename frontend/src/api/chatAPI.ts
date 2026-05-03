@@ -1,5 +1,5 @@
 import axios from "axios";
-
+import type { MenuResponse } from "../types/menuTranslation";
 const API_BASE_URL = "http://localhost:8000/api/v1/chat/conversations";
 
 export interface Message {
@@ -7,6 +7,7 @@ export interface Message {
 	role: "user" | "bot";
 	content: string;
 	image_url?: string | null;
+	menu_data?: MenuResponse | null;
 	created_at: string | Date;
 }
 
@@ -22,9 +23,10 @@ export interface ConversationDetail extends Conversation {
 }
 
 export interface MessageCreatePayload {
-	role: "user" | "assistant" | "system";
+	role: "user" | "bot";
 	content: string;
 	image_url?: string | null;
+	menu_data?: MenuResponse | null;
 }
 
 export const getConversations = async (
@@ -90,7 +92,7 @@ export const sendMessage = async (
 	return response.data;
 };
 
-export const deleteMessage = async (
+export const deleteConversation = async (
 	token: string,
 	convID: string,
 ): Promise<boolean> => {
