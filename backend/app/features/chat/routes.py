@@ -33,7 +33,7 @@ async def get_conversations(
     return conversations
 
 #Get Conversation Detail API
-@router.get("/{id}", response_model=ConversationDetailResponse)
+@router.get("/{id}/", response_model=ConversationDetailResponse)
 async def get_conversation_detail(
     id: str, 
     user: dict = Depends(get_current_user)
@@ -48,7 +48,7 @@ async def get_conversation_detail(
     return conv_detail
 
 #Add message API
-@router.post("/{id}/messages", response_model=MessageResponse)
+@router.post("/{id}/messages/", response_model=MessageResponse)
 async def add_message(
     id: str,
     request: MessageCreate, 
@@ -60,12 +60,13 @@ async def add_message(
         conv_id=id, 
         role=request.role, 
         content=request.content,
-        image_url=request.image_url
+        image_url=request.image_url,
+        menu_data=request.menu_data.model_dump() if request.menu_data else None
     )
     return new_msg
 
 #Delete conversation API
-@router.delete("/{id}")
+@router.delete("/{id}/")
 async def delete_conversation(
     id: str,
     user: dict = Depends(get_current_user)
