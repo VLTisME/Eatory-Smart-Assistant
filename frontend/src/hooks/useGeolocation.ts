@@ -1,8 +1,14 @@
 import { useEffect, useState } from "react";
+
 export function useGeolocation() {
   const [province, setProvince] = useState("");
   const [error, setError] = useState(false);
-  const [loading, setLoading] = useState(true); // Mặc định là true khi bắt đầu
+
+  const [loading, setLoading] = useState(true);
+
+  // Thêm tọa độ GPS
+  const [lat, setLat] = useState<number | null>(null);
+  const [lng, setLng] = useState<number | null>(null);
 
   useEffect(() => {
     if (!navigator.geolocation) {
@@ -14,16 +20,32 @@ export function useGeolocation() {
     navigator.geolocation.getCurrentPosition(
       async (position) => {
         const { latitude, longitude } = position.coords;
+
+        // Lưu GPS user
+        setLat(latitude);
+        setLng(longitude);
+
         try {
           const res = await fetch(
             `https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}`
           );
+
           const data = await res.json();
+
           const addr = data.address;
-          const p = addr.city || addr.state || addr.province || addr.town;
+
+          const p =
+            addr.city ||
+            addr.state ||
+            addr.province ||
+            addr.town;
 
           if (p) {
-            const clean = p.replace("Thành phố ", "").replace("Tỉnh ", "").trim();
+            const clean = p
+              .replace("Thành phố ", "")
+              .replace("Tỉnh ", "")
+              .trim();
+
             setProvince(clean);
           } else {
             setError(true);
@@ -31,9 +53,10 @@ export function useGeolocation() {
         } catch {
           setError(true);
         } finally {
-          setLoading(false); // Kết thúc dù thành công hay lỗi
+          setLoading(false);
         }
       },
+
       () => {
         setError(true);
         setLoading(false);
@@ -41,5 +64,13 @@ export function useGeolocation() {
     );
   }, []);
 
-  return { province, error, loading }; // Trả thêm biến loading
+  return {
+    province,
+    error,
+    loading,
+
+    // Trả thêm GPS
+    lat,
+    lng,
+  };
 }

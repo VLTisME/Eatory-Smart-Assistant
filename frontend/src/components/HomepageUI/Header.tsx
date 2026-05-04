@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import HeroSection from "./Search/HeroSection";
 import FoodGrid from "./Search/foodGrid";
@@ -28,31 +27,30 @@ export default function Header({
 
   const { results, search, loading: searchLoading } = useFoodSearch();
 
-  //  key riêng theo tỉnh
+  // key riêng theo tỉnh
   const storageKey = displayProvince
     ? `foods_${displayProvince}`
     : "foods_default";
 
-  //  lấy data từ localStorage
+  // lấy data từ localStorage
   const storedFoods = localStorage.getItem(storageKey);
 
- const displayFoods =
-  hasSearched
+  const displayFoods = hasSearched
     ? results.length > 0
       ? results
       : storedFoods
       ? JSON.parse(storedFoods)
       : []
     : [];
-  //  lưu data khi có kết quả mới 
+
+  // lưu data khi có kết quả mới
   useEffect(() => {
     if (results.length > 0 && displayProvince) {
       localStorage.setItem(storageKey, JSON.stringify(results));
     }
   }, [results, displayProvince, storageKey]);
 
-
-  //  click search
+  // click search
   const handleSearch = () => {
     if (!displayProvince) return;
 
@@ -83,6 +81,7 @@ export default function Header({
       {(geoLoading || searchLoading) && (
         <div className="flex flex-col items-center justify-center p-20">
           <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
+
           <p className="mt-4 text-gray-600">
             Đang xác định vị trí của bạn...
           </p>
@@ -90,17 +89,20 @@ export default function Header({
       )}
 
       {/* Result */}
-      {!geoLoading && !searchLoading  && hasSearched && displayFoods.length > 0 && (
-        <div className="max-w-6xl mx-auto p-10">
-          <div className="flex items-center justify-between mb-6 border-b pb-4">
-            <h2 className="text-3xl font-bold text-gray-800">
-              Recommended for you
-            </h2>
-          </div>
+      {!geoLoading &&
+        !searchLoading &&
+        hasSearched &&
+        displayFoods.length > 0 && (
+          <div className="max-w-6xl mx-auto p-10">
+            <div className="flex items-center justify-between mb-6 border-b pb-4">
+              <h2 className="text-3xl font-bold text-gray-800">
+                Recommended for you
+              </h2>
+            </div>
 
-          <FoodGrid items={displayFoods} />
-        </div>
-      )}
+            <FoodGrid items={displayFoods} />
+          </div>
+        )}
     </>
   );
 }

@@ -5,10 +5,12 @@ import { VietNam_Provinces } from "../../../data/travelData";
 
 interface ScrollSelectProps {
   value: string;
+    isLoading?: boolean;
   onSelect: (val: string) => void;
+  
 }
 
-export default function ScrollSelect({ value, onSelect }: ScrollSelectProps) {
+export default function ScrollSelect({ value, onSelect, isLoading, }: ScrollSelectProps) {
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
 
@@ -24,7 +26,12 @@ export default function ScrollSelect({ value, onSelect }: ScrollSelectProps) {
 
   return (
     <div ref={ref} className="relative w-full">
-      <SelectButton value={value} open={open} onToggle={() => setOpen(!open)} />
+      <SelectButton 
+      value={value} 
+      open={open} 
+      onToggle={() => setOpen(!open)}
+      isLoading={isLoading}  
+      />
 
       {open && (
         <SelectDropdown
