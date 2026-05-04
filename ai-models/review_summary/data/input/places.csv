@@ -1,31 +1,44 @@
-"place_id","name","type","address","district","city","lat","lng","avg_rating","total_reviews","source"
-"0098a8ed97daad56f4afab536d7620b8","Net Apex Esports Arena","food","199 Đ. Số 8","Linh Xuân","Hồ Chí Minh",10.8754742,106.7781744,5.0,1322,"google_maps"
-"0621e39bf9eaf732b3e52d83034a3821","The Cup Cafe - Biconsi Phú Hòa","food","117 Đường D1, Khu dân cư Biconsi","Phú Lợi","Hồ Chí Minh",10.9741868,106.6783606,4.2,775,"google_maps"
-"0b10568015d253d7a446eea81905834b","Tiệm lẩu nướng Ngạn 2","food","430 Đ. Nguyễn Văn Trỗi","Phú Lợi","Hồ Chí Minh",10.9962951,106.6612997,4.0,256,"google_maps"
-"10a444ba2ef2661aca13f6bfd473de3a","Công viên nước Thủ Dầu Một ","attraction","563 Đại lộ Bình Dương, Hiệp Thành","Thủ Dầu Một","Hồ Chí Minh",10.989258,106.6619739,4.0,1295,"google_maps"
-"1e24e321e41a0340d2e944fc47593c6e","Tiệm Bánh Binrou","food","155 Lê Hồng Phong, Road","Phú Lợi","Hồ Chí Minh",10.9864306,106.6787827,4.6,342,"google_maps"
-"27ab4f1dc8306012b687f780383aa1c0","BHD Star Cineplex Lê Văn Việt","entertainment","Vincom Plaza, Đ. Lê Văn Việt, Hiệp Phú","Tăng Nhơn Phú","Hồ Chí Minh",10.8451573,106.7786866,4.2,1601,"google_maps"
-"4ba7f240235122afa546195cb99580d1","Đường Ẩm Thực Hồ Thị Kỷ","food","Hồ Thị Kỷ phường Vườn Lài","Vườn Lài","Hồ Chí Minh",10.7653897,106.6770051,4.4,3699,"google_maps"
-"4fd38bb308aad362498515acfd24a5fb","PO BBQ Buffet Lẩu Nướng 139k","food","96 Tô Vĩnh Diện, Linh Chiểu","Thủ Đức","Hồ Chí Minh",10.8535243,106.7680768,4.9,5123,"google_maps"
-"645eb0bbad4d97068d6c430a4d48be2b","Dookki","food","2 QL1A","Linh Xuân","Hồ Chí Minh",10.8679711,106.7767051,4.8,818,"google_maps"
-"6c57ff9df2a76264b13137a921d87f8b","Đánh Một Giấc - Coffee In Bed","food","6C Đ. số 6, Linh Chiểu","Thủ Đức","Hồ Chí Minh",10.8503063,106.768214,4.9,1298,"google_maps"
-"6ea154afb9406af7fe9d8b417143afa4","Di tích Lịch sử Nhà tù Phú Lợi","attraction","XMRJ+FWM","Bến Cát","Hồ Chí Minh",10.991218,106.6822898,4.3,711,"google_maps"
-"786343680239b0ffb5ac51ef895bb1af","Lẩu Bò Giáo Toàn","food","218 QL1K","Linh Xuân","Hồ Chí Minh",10.8835823,106.7710593,4.0,5362,"google_maps"
-"79bc3d017f2088f6ce584fb495cfac1f","The Gangs Urban","food","212 Lý Thái Tổ, Phường 1","Bàn Cờ","Hồ Chí Minh",10.7669753,106.6774514,4.3,1778,"google_maps"
-"7e2fb068b59ed42c5675cb2c41a6082f","Bảo tàng Y học Cổ truyền Việt Nam","attraction","41 Hoàng Dư Khương, Phường 12","Hòa Hưng","Hồ Chí Minh",10.7653897,106.6770051,4.5,1962,"google_maps"
-"8a8b8c4f0ddf453cb1e4e0a20a7d57a7","LẨU CHAY HOẰNG ĐẠT 3 (Linh Trung Thủ Đức)","food","87 Đ. Số 8","Linh Xuân","Hồ Chí Minh",10.8564631,106.7730075,4.5,251,"google_maps"
-"8bec4369c022b30ac14f8e11557a6261","Chè Thái Ý Phương","food","382 Nguyễn Tri Phương, Phường 4","Vườn Lài","Hồ Chí Minh",10.7643554,106.6680664,3.8,4064,"google_maps"
-"a47c30395a2db430f2bb5727dc7b1fa3","Miếu Bà Thiên Hậu - Hội Quán Tuệ Thành","attaction","710 Nguyễn Trãi, Phường 11","Chợ Lớn","Hồ Chí Minh",10.7533133,106.6611762,4.6,3412,"google_maps"
-"aaf4de09844e0576f0c5f1f8f9eb0e4d","Gà Vàng, Lẩu Gà Lá É - Thủ Dầu Một","food","53 Đường D1, Phú Hoà","Phú Lợi","Hồ Chí Minh",10.9738322,106.6803162,4.9,219,"google_maps"
-"ab2b007e6a2b61485b79314c7e90a8b4","Nhâm cafe","food","91/1 Hoà Hưng, Phường 12","Hòa Hưng","Hồ Chí Minh",10.7789967,106.6748244,4.3,2885,"google_maps"
-"ad8aea2b7055cfb45a241e27f8c01eb5","Khu du lịch Đại Nam","attraction","1765A Đại lộ Bình Dương, phường Phú An","Phú An","Hồ Chí Minh",11.0432112,106.6346536,4.5,3791,"google_maps"
-"bc47419b8e84902218a4f82b7be2d66d","Milk & Honey Coffee Co.","food","18 Đường D5, Khu dân cư K8 Thanh Lễ","Phú Lợi","Hồ Chí Minh",10.9935418,106.6636299,5.0,192,"google_maps"
-"bd5e1e167d3beb3757ee098bafea7b28","Lò Đất BBQ","food","564 Lê Hồng Phong, Phú Hoà","Phú Lợi","Hồ Chí Minh",10.9707702,106.682234,4.9,1849,"google_maps"
-"c98f0813f7c2bb163f231316772d6d82","Buffet nướng Ông Mập 139k - CN Tô Vĩnh Diện","food","7 Tô Vĩnh Diện, Linh Chiểu","Thủ Đức","Hồ Chí Minh",10.8526044,106.7669384,4.9,16039,"google_maps"
-"ccca7578a09b3b5807afe0ace283d379","Smell Coffee in Bed","food","Hoàng Hoa Thám, Hiệp Thành","Phú Lợi","Hồ Chí Minh",10.9968307,106.6691951,5.0,297,"google_maps"
-"e68edf797b4383e4c50fae5c858b2825","MIA TOWN - Khu Vui Chơi, Bida, Gaming Đỉnh Cao Quận 10","entertainment","583B Sư Vạn Hạnh, Phường 12","Hòa Hưng","Hồ Chí Minh",10.7765784,106.6661358,4.5,487,"google_maps"
-"e810bd055b7c93a66fdaddc350cac6d2","Haidilao Vạn Hạnh Mall","food","Tầng 4 Vạn Hạnh Mall, 11 Sư Vạn Hạnh, Phường 12","Hòa Hưng","Hồ Chí Minh",10.7704137,106.6699414,5.0,27371,"google_maps"
-"ed979ee2bd467136cda9fb678d6cce15","Buffet Poseidon Vincom Plaza Lê Văn Việt","food","TTTM Vincom Plaza, 50 Đ. Lê Văn Việt, Hiệp Phú","Tăng Nhơn Phú","Hồ Chí Minh",10.8451724,106.7785186,4.1,725,"google_maps"
-"fb8dc0d255f706b0c41413fe7df10158","CGV Bình Dương Square","entertainment","1 Đ. Phú Lợi, Phú Hoà","Phú Lợi","Hồ Chí Minh",10.9845401,106.6674197,4.3,3625,"google_maps"
-"feb2b9ebab5295656ee3853c390f6790","The Wish Coffee ","food","543 Sư Vạn Hạnh, Phường 12","Hòa Hưng","Hồ Chí Minh",10.7756982,106.6670747,4.9,1346,"google_maps"
-"ffba71354431a538f430abe37c9535dd","Dalat Grill Nướng & Chấm","food","Cuối GS18","Đông Hòa","Hồ Chí Minh",10.8932793,106.7698676,4.5,266,"google_maps"
+place_id,name,type,address,district,city,lat,lng,avg_rating,total_reviews,source
+ChIJ-fCCywwndTERBy8ZHAa9B5k,Tiệm bánh KICA,,"31 Tô Vĩnh Diện, Linh Chiểu",Thủ Đức,Hồ Chí Minh,10.8543764,106.7684664,3.7,1017,google_maps
+ChIJ22p6x2AvdTERFDZPouHGoMs,Dolphy Café Mỹ Toàn,,"1441 Đường Nguyễn Văn Linh, Khu đô thị Phú Mỹ Hưng",Tân Hưng,Hồ Chí Minh,10.7280977,106.7069178,4.7,415,google_maps
+ChIJ2bO2S6UvdTER2gFlY1s-IJU,The Coffee House - Trung Sơn,,114 Đ. số 9A,Bình Hưng,Hồ Chí Minh,10.7355352,106.6893147,4.3,1789,google_maps
+ChIJ2xW0W5EvdTERDwMPy7z7n0k,Tuyet Hoa - Seol Hwa Bing Su,,"Sky Garden 1, Đ. Phạm Văn Nghị, Khu đô thị Phú Mỹ Hưng",Quận 7,Hồ Chí Minh,10.7294298,106.706622,4.4,734,google_maps
+ChIJ3yg2LEkvdTERL8-WeUdBSFU,SOLOBOX Restaurant,,252 Lý Tự Trọng,Bến Thành,Hồ Chí Minh,10.77202,106.6941009,4.8,1551,google_maps
+ChIJ67SU4vMudTERyb8_WbHBIiU,Quán chè Hà Ký,,"138 Đ. Châu Văn Liêm, Phường 11",Chợ Lớn,Hồ Chí Minh,10.754095699999999,106.6586222,4.1,1492,google_maps
+ChIJ6cL6ZtkvdTERFI5pV9DaJjQ,Cafe Forest,,"Cafe Forest Sky Garden 2, 1016/36, lô/2 Đ. Phạm Văn Nghị",Tân Hưng,Hồ Chí Minh,10.731626499999999,106.7060479,4.6,636,google_maps
+ChIJ9XAX8oAvdTER1ub-ybAdDbk,L'Usine Phu My Hung,,"GF 56, 101 Đ. Tôn Dật Tiên, Tân Phú",Tân Mỹ,Hồ Chí Minh,10.7295859,106.71928659999999,4.7,1427,google_maps
+ChIJFx7EFQAndTER_QcnargOn1Y,cube cake,,"19 Xuân Thủy, Thảo Điền",An Khánh,Hồ Chí Minh,10.8029531,106.7296363,4.7,106,google_maps
+ChIJI5ehazgldTERH5FH6JbUJcI,Qi Coffee & Tea,,"Raymondienne/16 Phú Mỹ Hưng, Khu Starhill",Tân Mỹ,Hồ Chí Minh,10.729022299999999,106.7266377,4.7,147,google_maps
+ChIJIUO8zYkldTER6zQ-eZjGaSA,"Tartine Saigon - PMH Mỹ Khang, Q7",,"2 Nam Thông II C, P. Tân Phú, Quận 7, Mỹ Khang",Tân Mỹ,Hồ Chí Minh,10.7161406,106.7300691,4.7,314,google_maps
+ChIJMzp1gSUvdTER-IanzsYU1Sc,Chay Tuệ Garden - Nguyễn Bính,,"Nguyễn Bính/101 Khu Phố Mỹ Hoàng, Tân Phong",Tân Hưng,Hồ Chí Minh,10.7280502,106.7103638,4.9,767,google_maps
+ChIJNSgishMvdTER-EzR7-2ZYnk,LALA Coffee&Tea,,"Khu căn hộ Phú Hoàng Anh, Số 9 Nguyễn Hữu Thọ, Phước Kiển",Nhà Bè,Hồ Chí Minh,10.7175779,106.70320079999999,4.3,904,google_maps
+ChIJNVT4dVondTER-sL6PUoLOqE,GHILL COFFEE,,"783 Kha Vạn Cân, Linh Chiểu",Linh Xuân,Hồ Chí Minh,10.8557135,106.7557628,4.7,853,google_maps
+ChIJN_yLl_ovdTERDpCe3N0ySUo,The Fig Cafe,,"7a Nguyễn Bính, Tân Phong",Tân Hưng,Hồ Chí Minh,10.7269331,106.71056229999999,4.3,725,google_maps
+ChIJNwP-6QUvdTERqJOGDQxQRZI,NHẸ TÊNH Coffee & Tea - 552 Lê Văn Lương | Cafe Tân Phong | Cafe Quận 7,,552 Lê Văn Lương,Tân Hưng,Hồ Chí Minh,10.7330399,106.7014327,4.6,164,google_maps
+ChIJOcN1YBYvdTERxs17dCCBl0U,Japanit matcha & coffee 130 THD,,"130 Trần Hưng Đạo, Phường Phạm Ngũ Lão",Bến Thành,Hồ Chí Minh,10.7650837,106.6925706,4.5,1955,google_maps
+ChIJPcJdD8IvdTERo6_7qDO6uY4,Táo Tào - Tiệm Chè Người Hoa - Trần Hưng Đạo,,"202 Trần Hưng Đạo, Phường",Chợ Lớn,Hồ Chí Minh,10.7525856,106.6663617,4.6,533,google_maps
+ChIJR5lYWqUndTERihhnDlUzuLk,Cafe Thanh,,"15 Hòa Bình, Bình Thọ",Thủ Đức,Hồ Chí Minh,10.8431692,106.76689139999999,4.5,519,google_maps
+ChIJRTo9IhsvdTER835Z0g1dO58,AN - nhà hàng chay An & cafe - Phạm Thái Bường,,"220 Phạm Thái Bường, Tân Phong",Tân Hưng,Hồ Chí Minh,10.7275792,106.71247179999999,4.5,370,google_maps
+ChIJRWI6wEYvdTEREjmTDIz-a6M,Partea - English Tearoom,,"58 đường 20, Ấp 2",Bình Hưng,Hồ Chí Minh,10.7300899,106.65192979999999,4.4,624,google_maps
+ChIJT9Pk5PsudTER3sQCMS5UC_0,Baoz Dimsum,,82 - 84 - 86 - 88 Nguyễn Tri Phương,An Đông,Hồ Chí Minh,10.7531011,106.66965479999999,4.4,9246,google_maps
+ChIJVy5_KHQvdTERIuolQr53Dus,Bơ by Butterman,,"67 Lê Thị Riêng, Phường Phạm Ngũ Lão",Bến Thành,Hồ Chí Minh,10.7711063,106.69110289999999,4.7,361,google_maps
+ChIJWX-lRIkvdTERNoQyuLtbbAc,Morico Crescent Mall,,"101 Đ. Tôn Dật Tiên, Tân Phú",Tân Mỹ,Hồ Chí Minh,10.7283101,106.7184046,4.4,607,google_maps
+ChIJWbhpor8vdTER-XxN0YATDxg,"Ulà Ngon - Trà Sữa Hạt Nông Sản, Matcha, Cafe Phin - Delivery Hub - Q3",,"339/18A1 Đ. Lê Văn Sỹ, Phường 13",Nhiêu Lộc,Hồ Chí Minh,10.786914,106.67697299999999,4.7,134,google_maps
+ChIJXeAstn8mdTERTWy8UrjzSI8,Cafe Thịnh,,"14 Lê Văn Thịnh, Phường Bình Trưng Tây",Bình Trưng,Hồ Chí Minh,10.7876976,106.76902989999999,4.1,965,google_maps
+ChIJa50yEW8ndTEREAK7y57f978,AMERICANO COFFEE - 10 Hồng Đức,,"10 Hồng Đức, Bình Thọ",Thủ Đức,Hồ Chí Minh,10.8426116,106.76691199999999,4.4,1252,google_maps
+ChIJcQv9BwAvdTERd0YnfoeH0gA,Eggyolk Coffee,,220 Lê Thánh Tôn,Bến Thành,Hồ Chí Minh,10.772642,106.69661629999999,4.8,1961,google_maps
+ChIJeX1s4_IvdTERKZRLuMufrUQ,The Cup- American Food & Desserts (formerly Master’s Cup),,"43 Hà Huy Tập, Tân Phong",Tân Hưng,Hồ Chí Minh,10.7261892,106.7108638,4.6,463,google_maps
+ChIJf5dULuwldTERhbtf7fImTZo,Raum Brunch Cafe,,"27 Đường số 16, Tân Phú",Tân Mỹ,Hồ Chí Minh,10.723896,106.7290105,4.3,420,google_maps
+ChIJgRwlQ5MvdTERqQ_32WTjau8,Buttery Cake & Cafe,,"94 Mạc Thị Bưởi, Phường",Sài Gòn,Hồ Chí Minh,10.7746158,106.70398019999999,4.5,446,google_maps
+ChIJgWfui4gndTERAY0pIZ6B8CE,TOTO Trà Cà phê 24/24,,"12 Nguyễn Khuyến, Bình Thọ",Thủ Đức,Hồ Chí Minh,10.848678999999999,106.7696093,4.6,508,google_maps
+ChIJjyx4Oe8vdTERzPNy7iVETQY,Nomiya ノミヤcafé,,"1/8A Chánh Hưng, Phường 4",Chánh Hưng,Hồ Chí Minh,10.7370726,106.6726137,4.8,262,google_maps
+ChIJk8X2Fy0vdTERJNAx-4NCts0,Vérité Patisserie,,84T/1 Trần Đình Xu,Cầu Ông Lãnh,Hồ Chí Minh,10.761324,106.690956,4.8,2894,google_maps
+ChIJk8qFZOUldTERcbwPHDZK9n4,Hochi Cafe,,"43 Đ. Số 15, Khu đô thị Phú Mỹ Hưng",Tân Mỹ,Hồ Chí Minh,10.7243937,106.7277273,4.6,449,google_maps
+ChIJmSbykKsvdTERHnCl6ou9HiI,This & That Coffee and Tea,,59 Phạm Viết Chánh,Cầu Ông Lãnh,Hồ Chí Minh,10.765887399999999,106.6826902,4.2,332,google_maps
+ChIJmTwzucwldTERcqxLB6bYWNo,Nhà hàng chay An & cafe quận 7,,"Phố Tiểu Nam/75 Phú Mỹ Hưng, Phường Tân Mỹ",Tân Mỹ,Hồ Chí Minh,10.7198048,106.73119059999999,4.5,738,google_maps
+ChIJnbKCt0UpdTERT3CIorMTWzw,® XOCOATI - Artisan Cocoa Drinks,,33/11 Lý Văn Phức,Tân Định,Hồ Chí Minh,10.7908072,106.6934026,4.7,539,google_maps
+ChIJoSe8xkMvdTERRKC9H2gpQc8,SIGNATURE By The Coffee House,,"101 Đ. Tôn Dật Tiên, Tân Phú",Tân Mỹ,Hồ Chí Minh,10.7295194,106.71883489999999,4.4,533,google_maps
+ChIJq8lL5x4ndTERaR-1dV_Gqf0,THÔ’S Artisan Coffee,,"254 Đặng Văn Bi, Bình Thọ",Thủ Đức,Hồ Chí Minh,10.850385399999999,106.7588475,4.8,210,google_maps
+ChIJs06heDUvdTERoNy1SNffOr8,The Seventh Barista/cafe and more,,"63 đường số 14, khu ven sông",Tân Hưng,Hồ Chí Minh,10.7268505,106.69347619999999,4.8,293,google_maps
+ChIJt9fUYbQvdTERj0Usapzp3ZI,SALLA COFFEE,,"116 Hồ Thành Biên, Phường 4",Chánh Hưng,Hồ Chí Minh,10.740805,106.669089,4.1,488,google_maps
+ChIJy-vbI6EldTERVONPShP8M9c,O'Blanc Bakery & Cafe,,"45 Đ. Số 15, Tân Phú",Tân Mỹ,Hồ Chí Minh,10.724182899999999,106.72738659999999,4.4,216,google_maps

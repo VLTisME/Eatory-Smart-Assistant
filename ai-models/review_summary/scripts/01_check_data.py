@@ -21,7 +21,6 @@ def main():
     required_place_columns = {
         "place_id",
         "name",
-        "type",
         "address",
         "district",
         "city",
