@@ -1,5 +1,6 @@
 import { useEffect, useRef } from "react";
 import type { MenuResponse } from "../../types/menuTranslation";
+import type { PlaceSearchResponse } from "../../types/placeSearch";
 import MenuCard from "./MenuCard";
 
 export interface Message {
@@ -8,6 +9,48 @@ export interface Message {
 	content: string;
 	/** Nếu bot trả về structured menu → render MenuCard */
 	menuData?: MenuResponse;
+	/** Nếu bot trả về structured place search → render cards */
+	placeSearchData?: PlaceSearchResponse;
+}
+
+function PlaceSearchList({ data }: { data: PlaceSearchResponse }) {
+	const results = data.results.slice(0, 5);
+
+	return (
+		<div className="grid gap-3 sm:grid-cols-2">
+			{results.map((item) => (
+				<div
+					key={item.place_id}
+					className="overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm"
+				>
+					<div className="aspect-[4/3] w-full bg-gray-100">
+						{item.top_image ? (
+							<img
+								src={item.top_image}
+								alt={item.name || item.place_id}
+								className="h-full w-full object-cover"
+							/>
+						) : null}
+					</div>
+					<div className="space-y-1 p-3">
+						<div className="flex items-start justify-between gap-3">
+							<h4 className="line-clamp-2 text-sm font-semibold text-gray-900">
+								{item.name || item.place_id}
+							</h4>
+							<span className="shrink-0 rounded-full bg-emerald-50 px-2 py-1 text-[11px] font-semibold text-emerald-700">
+								{Math.round(item.score * 100)}%
+							</span>
+						</div>
+						{item.address ? (
+							<p className="line-clamp-2 text-xs leading-relaxed text-gray-500">
+								{item.address}
+							</p>
+						) : null}
+					</div>
+				</div>
+			))}
+		</div>
+	);
 }
 
 interface ChatBotPanelProps {
@@ -41,6 +84,15 @@ function ChatBotPanel({ messages, isThinking }: ChatBotPanelProps) {
 								</div>
 							)}
 							<MenuCard data={msg.menuData} />
+						</div>
+					) : msg.role === "bot" && msg.placeSearchData ? (
+						<div className="w-full max-w-full animate-fade-in-up space-y-2">
+							{msg.content && (
+								<div className="rounded-2xl rounded-bl-sm border border-gray-100 bg-white p-3 text-sm leading-relaxed text-gray-800 shadow-sm">
+									{msg.content}
+								</div>
+							)}
+							<PlaceSearchList data={msg.placeSearchData} />
 						</div>
 					) : (
 						/* ── Regular text message ── */

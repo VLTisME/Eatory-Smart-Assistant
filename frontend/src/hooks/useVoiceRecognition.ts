@@ -1,10 +1,14 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 
+type SpeechRecognitionEventLike = Event & {
+	results: Array<Array<{ transcript: string }>>;
+};
+
 type BrowserSpeechRecognition = {
 	continuous: boolean;
 	lang: string;
 	interimResults: boolean;
-	onresult: ((event: SpeechRecognitionEvent) => void) | null;
+	onresult: ((event: SpeechRecognitionEventLike) => void) | null;
 	onend: (() => void) | null;
 	start: () => void;
 	stop: () => void;
@@ -28,7 +32,7 @@ export const useVoiceRecognition = () => {
 		recognition.lang = "vi-VN";
 		recognition.interimResults = false;
 
-		recognition.onresult = (event: SpeechRecognitionEvent) => {
+		recognition.onresult = (event: SpeechRecognitionEventLike) => {
 			const transcript = event.results[0][0].transcript;
 			setText(transcript);
 			onResultRef.current?.(transcript);

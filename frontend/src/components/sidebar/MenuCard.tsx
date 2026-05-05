@@ -25,13 +25,20 @@ function formatVND(value: number | null | undefined): string {
 
 function PriceTag({ item }: { item: MenuItem }) {
 	if (item.priceType === "market_price") {
-		return <span className="menu-price-market">Giá thị trường</span>;
+		return (
+			<span className="text-[10px] font-semibold text-emerald-600 italic">
+				Giá thị trường
+			</span>
+		);
 	}
 	if (item.priceType === "variable" && item.priceOptions?.length) {
 		return (
 			<div className="flex flex-wrap gap-1">
 				{item.priceOptions.map((opt) => (
-					<span key={opt.label} className="menu-price-option">
+					<span
+						key={opt.label}
+						className="text-[10px] font-semibold text-orange-600 bg-orange-50 py-px px-1.5 rounded-md border border-orange-400/12"
+					>
 						{opt.label}: {formatVND(opt.price)}
 					</span>
 				))}
@@ -39,7 +46,9 @@ function PriceTag({ item }: { item: MenuItem }) {
 		);
 	}
 	return (
-		<span className="menu-price-fixed">{formatVND(item.basePrice)}</span>
+		<span className="text-[12px] font-bold text-orange-600 whitespace-nowrap bg-[linear-gradient(135deg,#fff7ed,#fff1e6)] py-0.5 px-2 rounded-lg border border-orange-400/15">
+			{formatVND(item.basePrice)}
+		</span>
 	);
 }
 
@@ -51,7 +60,7 @@ function MenuItemRow({ item, index }: { item: MenuItem; index: number }) {
 
 	return (
 		<div
-			className="menu-item-row group"
+			className="flex items-start justify-between py-2 px-2.5 rounded-[0.625rem] transition-colors duration-200 hover:bg-orange-500/4 animate-[menu-item-enter_0.3s_ease-out_both] group"
 			style={{ animationDelay: `${index * 50}ms` }}
 		>
 			{/* Left — name + translation */}
@@ -73,7 +82,10 @@ function MenuItemRow({ item, index }: { item: MenuItem; index: number }) {
 				{item.tags.length > 0 && (
 					<div className="flex flex-wrap gap-1 mt-1">
 						{item.tags.map((tag) => (
-							<span key={tag} className="menu-tag">
+							<span
+								key={tag}
+								className="text-[9px] font-semibold text-indigo-500 bg-indigo-50 py-px px-1.5 rounded-md uppercase tracking-[0.02em]"
+							>
 								{tag}
 							</span>
 						))}
@@ -107,7 +119,7 @@ function CategorySection({
 			: null;
 
 	return (
-		<div className="menu-category">
+		<div className="rounded-xl overflow-hidden">
 			{/* Category header */}
 			<button
 				type="button"
@@ -173,9 +185,9 @@ export default function MenuCard({ data }: MenuCardProps) {
 		restaurantInfo.address;
 
 	return (
-		<div className="menu-card w-full animate-fade-in-up">
+		<div className="bg-[linear-gradient(145deg,rgba(255,255,255,0.95)_0%,rgba(249,250,251,0.9)_100%)] border border-gray-200/60 rounded-[1.25rem] overflow-hidden shadow-[0_4px_24px_rgba(0,0,0,0.06),0_1px_3px_rgba(0,0,0,0.04)] backdrop-blur-sm max-w-full w-full animate-fade-in-up">
 			{/* ── Header ── */}
-			<div className="menu-card-header">
+			<div className="px-3.5 pt-3 pb-2.5 bg-[linear-gradient(135deg,rgba(255,237,213,0.3)_0%,rgba(254,205,211,0.2)_100%)]">
 				<div className="flex items-center gap-2 mb-1">
 					<div
 						className="w-7 h-7 rounded-xl bg-linear-to-br from-orange-400 to-rose-500
@@ -197,12 +209,12 @@ export default function MenuCard({ data }: MenuCardProps) {
 				{hasInfo && (
 					<div className="flex flex-wrap gap-x-3 gap-y-0.5 ml-9">
 						{restaurantInfo.phoneNumber && (
-							<span className="menu-info-chip">
+							<span className="inline-flex items-center gap-0.75 text-[10px] text-gray-400 leading-none">
 								<Phone size={10} /> {restaurantInfo.phoneNumber}
 							</span>
 						)}
 						{restaurantInfo.address && (
-							<span className="menu-info-chip">
+							<span className="inline-flex items-center gap-0.75 text-[10px] text-gray-400 leading-none">
 								<MapPin size={10} /> {restaurantInfo.address}
 							</span>
 						)}
@@ -214,7 +226,7 @@ export default function MenuCard({ data }: MenuCardProps) {
 			<div className="h-px bg-linear-to-r from-transparent via-gray-200 to-transparent mx-2" />
 
 			{/* ── Categories ── */}
-			<div className="menu-card-body space-y-2">
+			<div className="p-2 max-h-80 overflow-y-auto [&::-webkit-scrollbar]:w-1 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-gray-200 [&::-webkit-scrollbar-thumb]:rounded [&::-webkit-scrollbar-thumb:hover]:bg-gray-300 space-y-2">
 				{categories.map((cat, i) => (
 					<CategorySection
 						key={cat.id}

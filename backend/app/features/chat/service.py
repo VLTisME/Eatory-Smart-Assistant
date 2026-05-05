@@ -37,7 +37,7 @@ def get_conversations(uid: str) -> list[dict]:
     return conversations
 
 
-def add_message(uid: str, conv_id: str, role: str, content: str, image_url: str = None) -> dict:
+def add_message(uid: str, conv_id: str, role: str, content: str, image_url: str = None, menu_data: dict = None, place_search_data: dict = None) -> dict:
     db = get_db()
     conv_ref = db.collection(USERS_COL).document(uid).collection(CONVERSATIONS_COL).document(conv_id)
     messages_ref = conv_ref.collection(MESSAGES_COL)
@@ -50,6 +50,8 @@ def add_message(uid: str, conv_id: str, role: str, content: str, image_url: str 
         "role": role,
         "content": content,
         "image_url": image_url,
+        "menu_data": menu_data,
+        "place_search_data": place_search_data,
         "created_at": now
     }
 

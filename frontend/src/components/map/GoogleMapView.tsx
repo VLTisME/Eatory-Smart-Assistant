@@ -1,6 +1,5 @@
 // MapView.tsx
-import { memo, useState, useCallback } from "react";
-import { useSearchParams } from "react-router-dom";
+import { memo, useState } from "react";
 import Map, {
     Marker,
     Popup,
@@ -9,9 +8,11 @@ import Map, {
 } from "react-map-gl/maplibre";
 import maplibregl from "maplibre-gl";
 import "maplibre-gl/dist/maplibre-gl.css";
+import { useGeolocation } from "../../hooks/useGeolocation";
+import { MapPin } from "lucide-react";
 
 // Tọa độ mặc định (Khu vực Đại học Khoa học Tự nhiên - Nguyễn Văn Cừ)
-const INITIAL_VIEW_STATE = {
+const DEFAULT_VIEW_STATE = {
     longitude: 106.6823,
     latitude: 10.7626,
     zoom: 15,
@@ -27,88 +28,124 @@ interface LocationDetails {
     lng: number;
 }
 
-const mockFoodLocation: LocationDetails = {
-    id: "food-1",
-    name: "Cơm tấm bãi rác",
-    description: "Quán ăn bình dân nổi bật theo đánh giá phân tích cảm xúc.",
-    lat: 10.7626,
-    lng: 106.6823,
-};
+/** Marker placed by SearchBar after selecting a final place */
+export interface SearchMarker {
+    lat: number;
+    lng: number;
+    name: string;
+    address: string;
+}
 
-const MapView = memo(function MapView() {
+interface MapViewProps {
+    /** Red marker placed by the search feature */
+    searchMarker?: SearchMarker | null;
+}
+
+const MapView = memo(function MapView({ searchMarker }: MapViewProps) {
     const goongMapKey = import.meta.env.VITE_GOONG_MAP_KEY;
-    const [params] = useSearchParams();
+    const { location, loading } = useGeolocation();
 
-    const lat = params.get("lat");
-    const lng = params.get("lng");
-    const province = params.get("province");
-    let dynamicLocation: LocationDetails | null = null;
-
-    if (lat && lng) {
-    dynamicLocation = {
-        id: "ubnd",
-        name: `UBND ${province}`,
-        description: "Trụ sở UBND",
-        lat: Number(lat),
-        lng: Number(lng),
-    };
-    }
-
-    const displayLocation = dynamicLocation || mockFoodLocation;
-        // Quản lý state cho Popup
+    // Quản lý state cho Popup
     const [selectedLocation, setSelectedLocation] =
         useState<LocationDetails | null>(null);
 
-    // Tối ưu hàm callback tránh re-render
-    const handleMarkerClick = useCallback(
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        (e: any, location: LocationDetails) => {
-            e.originalEvent.stopPropagation();
-            setSelectedLocation(location);
-        },
-        [],
-    );
+    // Track which marker's popup the user has explicitly closed
+    const [closedSearchMarker, setClosedSearchMarker] = useState<SearchMarker | null>(null);
+    const showSearchPopup = searchMarker !== null && searchMarker !== closedSearchMarker;
 
     // URL Style Vector của Goong
     const mapStyle = `https://tiles.goong.io/assets/goong_map_web.json?api_key=${goongMapKey}`;
 
+    if (loading) {
+        return (
+            <div className="flex bg-gray-100 items-center justify-center relative h-screen w-full rounded-xl overflow-hidden shadow-2xl">
+                <span className="text-gray-500 font-medium">
+                    Đang tải bản đồ...
+                </span>
+            </div>
+        );
+    }
+
+    const initialViewState = location
+        ? {
+              ...DEFAULT_VIEW_STATE,
+              latitude: location.lat,
+              longitude: location.lng,
+          }
+        : DEFAULT_VIEW_STATE;
+
     return (
         <div className="relative h-screen w-full rounded-xl overflow-hidden shadow-2xl">
             <Map
-                initialViewState={
-                dynamicLocation
-                    ? {
-                        longitude: dynamicLocation.lng,
-                        latitude: dynamicLocation.lat,
-                        zoom: 16,
-                        pitch: 45,
-                        bearing: 0,
-                    }
-                    : INITIAL_VIEW_STATE
-                }
+                id="mainMap"
+                initialViewState={initialViewState}
                 mapStyle={mapStyle}
                 mapLib={maplibregl}
                 interactiveLayerIds={["poi-label"]}
                 style={{ width: "100%", height: "100%" }}
             >
                 {/* Control điều hướng cơ bản */}
-                <NavigationControl position="top-left" />
+                <NavigationControl position="bottom-left" />
                 {/* Nút định vị người dùng hiện tại */}
-                <GeolocateControl position="top-left" />
+                <GeolocateControl position="bottom-left" />
 
-                {/* Marker Custom với hiệu ứng hover */}
-                <Marker
-                    longitude={displayLocation.lng}
-                    latitude={displayLocation.lat}
-                    anchor="bottom"
-                    onClick={(e) => handleMarkerClick(e, displayLocation)}
-                >
-                    <div className="cursor-pointer transition-transform duration-300 hover:scale-125 hover:-translate-y-2">
-                        <div className="w-8 h-8 bg-red-500 rounded-full flex items-center justify-center shadow-lg border-2 border-white animate-bounce">
-                            🍽️
+                {/* Marker vị trí hiện tại của bạn (xanh dương) */}
+                {location && (
+                    <Marker
+                        longitude={location.lng}
+                        latitude={location.lat}
+                        anchor="bottom"
+                    >
+                        <div className="cursor-pointer transition-transform duration-300 hover:scale-125 hover:-translate-y-2">
+                            <div className="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center shadow-lg border-2 border-white text-white">
+                                <MapPin size={20} />
+                            </div>
                         </div>
-                    </div>
-                </Marker>
+                    </Marker>
+                )}
+
+                {/* ── Red Marker — Vị trí tìm kiếm ──────────────────────── */}
+                {searchMarker && (
+                    <Marker
+                        longitude={searchMarker.lng}
+                        latitude={searchMarker.lat}
+                        anchor="bottom"
+                    >
+                        <div
+                            className="cursor-pointer transition-transform duration-300 hover:scale-125 hover:-translate-y-2 animate-[searchMarkerDrop_0.5s_ease-out]"
+                            onClick={() => setClosedSearchMarker(null)}
+                        >
+                            <div className="w-9 h-9 bg-red-500 rounded-full flex items-center justify-center shadow-xl border-2 border-white text-white">
+                                <MapPin size={22} />
+                            </div>
+                            {/* Pulse ring effect */}
+                            <div className="absolute inset-0 w-9 h-9 rounded-full bg-red-400/30 animate-ping" />
+                        </div>
+                    </Marker>
+                )}
+
+                {/* Popup for search marker */}
+                {searchMarker && showSearchPopup && (
+                    <Popup
+                        longitude={searchMarker.lng}
+                        latitude={searchMarker.lat}
+                        anchor="top"
+                        onClose={() => setClosedSearchMarker(searchMarker || null)}
+                        closeOnClick={false}
+                        className="custom-popup"
+                        maxWidth="280px"
+                        offset={12}
+                    >
+                        <div className="glass-panel min-w-[240px]">
+                            <h3 className="font-bold text-xl text-slate-800 mb-2 leading-tight">
+                                {searchMarker.name}
+                            </h3>
+                            <p className="text-sm text-slate-500 leading-relaxed font-medium">
+                                {searchMarker.address}
+                            </p>
+                        </div>
+                    </Popup>
+                )}
 
                 {/* Popup với hiệu ứng Glassmorphism */}
                 {selectedLocation && (
