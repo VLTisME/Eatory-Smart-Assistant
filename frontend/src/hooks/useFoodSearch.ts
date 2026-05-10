@@ -1,8 +1,20 @@
 import { useState } from "react";
 import type { FoodType } from "../data/foodData";
-import { DATABASE } from "../data/foodData";
+import placesData from "../../../data/places.json";
+import { UBND_COORDS } from "../data/ubndCoords";
 
-// xóa dấu tiếng Việt
+interface RawPlaceData {
+  place_id: string;
+  name: string | null;
+  city: string;
+  district: string;
+  avg_rating: number;
+  total_reviews: number;
+  address: string;
+  lat: number;
+  lng: number;
+}
+
 const normalizeVietnamese = (str: string) => {
   return str
     .toLowerCase()
@@ -12,54 +24,106 @@ const normalizeVietnamese = (str: string) => {
     .trim();
 };
 
-//  tạo data giả
-const generateFakeData = (province: string): FoodType[] => {
-  return Array.from({ length: 6 }).map((_, i) => ({
-    title: `Món ngon ${i + 1} tại ${province}`,
-    location: province,
-    rating: Math.round((4 + Math.random()) * 10) / 10,
-    image: `https://picsum.photos/seed/${province}-${i}/600/400`,
-  }));
-};
-
- export function useFoodSearch() {
+export function useFoodSearch() {
   const [results, setResults] = useState<FoodType[]>([]);
-  const [loading, setLoading] = useState(false); // Khai báo loading
+  const [loading, setLoading] = useState(false);
 
   const search = (province: string) => {
+
+    setResults([]);
+
     if (!province) {
-      setResults([]);
       return;
     }
 
-    setLoading(true); // 1. Bật loading khi bắt đầu search
+    setLoading(true);
 
-    // Giả lập trễ 800ms để user thấy được vòng xoay (UX tốt hơn)
     setTimeout(() => {
-      const cleaned = province
+      const searchCity = province
         .replace("Thành phố ", "")
+        .replace("TP ", "")
         .replace("Tỉnh ", "")
         .trim();
 
-      const normalizedInput = normalizeVietnamese(cleaned);
+      const normalizedInput = normalizeVietnamese(searchCity);
 
-      const foundKey = Object.keys(DATABASE).find(
-        (key) => normalizeVietnamese(key) === normalizedInput
-      );
+      const filtered = (placesData as RawPlaceData[])
+        .filter((item) => {
+          const normalizedItemCity = normalizeVietnamese(item.city);
 
-      let data: FoodType[];
+          return (
+            normalizedItemCity.includes(normalizedInput) ||
+            normalizedInput.includes(normalizedItemCity)
+          );
+        })
+        .sort((a, b) => b.avg_rating - a.avg_rating)
+        .slice(0, 6);
 
-      if (foundKey) {
-        data = DATABASE[foundKey];
-      } else {
-        data = generateFakeData(cleaned);
+      // Nếu không có dữ liệu -> tạo mock data
+      if (filtered.length === 0) {
+        const mockNames = [
+          `Quán ngon ở ${searchCity}`,
+          `Đặc sản ${searchCity}`,
+          `Ẩm thực ${searchCity}`,
+          `Food Tour ${searchCity}`,
+          `Món ngon ${searchCity}`,
+          `Best Food ${searchCity}`,
+        ];
+
+        const mockData: FoodType[] = mockNames.map((name, index) => ({
+          place_id: `mock-${normalizedInput}-${index}`,
+          name,
+          city: searchCity,
+          address: `Địa chỉ quán tại ${searchCity}`,
+          avg_rating: Math.round((4 + Math.random()) * 10) / 10,
+          total_reviews: Math.floor(Math.random() * 500),
+          image: `https://picsum.photos/600/400?random=${normalizedInput}${index}`,
+
+          lat: UBND_COORDS[searchCity]?.lat || 0,
+          lng: UBND_COORDS[searchCity]?.lng || 0,
+         
+          isMock: true,
+        }));
+
+        setResults(mockData);
+        setLoading(false);
+        return;
       }
 
-      setResults(data);
-      setLoading(false); // 2. Tắt loading sau khi đã có dữ liệu
-    }, 800); 
+      // Data thật
+      const finalData: FoodType[] = filtered.map((place, index) => {
+        const displayRating =
+          place.avg_rating > 0
+            ? place.avg_rating
+            : Math.round((4 + Math.random()) * 10) / 10;
+
+        const randomImage = `https://picsum.photos/600/400?random=${place.place_id.slice(
+          -5
+        )}${index}`;
+
+        return {
+          place_id: place.place_id,
+          name: place.name || `Địa điểm tại ${place.city}`,
+          city: place.city,
+          address:
+  place.address && place.district
+    ? `${place.address}, ${place.district}`
+    : place.address || `Địa chỉ quán ở ${place.city}`,
+          avg_rating: displayRating,
+          total_reviews: place.total_reviews || 0,
+          image: randomImage,
+
+          lat: place.lat,
+          lng: place.lng,
+
+          isMock: false,
+        };
+      });
+
+      setResults(finalData);
+      setLoading(false);
+    }, 800);
   };
 
-  // 3. QUAN TRỌNG: Phải trả về loading ở đây
   return { results, search, loading };
 }

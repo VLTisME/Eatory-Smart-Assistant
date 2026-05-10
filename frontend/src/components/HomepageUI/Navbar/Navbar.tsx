@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { RiMenuLine, RiCloseLine } from "react-icons/ri";
 import { UBND_COORDS } from "../../../data/ubndCoords";
 import UserMenu from "./UserMenu";
+import { useGeolocation } from "../../../hooks/useGeolocation";
 
 interface User {
   name: string;
@@ -14,12 +15,19 @@ interface NavbarProps {
 }
 
 export default function Navbar({ currentProvince, currentPath }: NavbarProps) {
+  
   const [open, setOpen] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
+  const { lat: gpsLat, lng: gpsLng, province: detectedProvince } = useGeolocation();
   const isMapPage = currentPath === "/MainPage";
-  const provinceToShare = currentProvince;
-  const coords = provinceToShare ? UBND_COORDS[provinceToShare] : null;
+const provinceToShare = currentProvince || detectedProvince;
 
+const coords = provinceToShare
+  ? UBND_COORDS[provinceToShare]
+  : null;
+
+const finalLat = coords?.lat || gpsLat;
+const finalLng = coords?.lng || gpsLng;
   const [user, setUser] = useState<User | null>(() => {
     const stored = localStorage.getItem("user");
     return stored ? JSON.parse(stored) : null;
@@ -98,8 +106,8 @@ export default function Navbar({ currentProvince, currentPath }: NavbarProps) {
 
               <Link
                 to={
-                  coords
-                    ? `/MainPage?lat=${coords.lat}&lng=${coords.lng}&province=${encodeURIComponent(provinceToShare!)}`
+                  finalLat && finalLng
+                    ? `/MainPage?lat=${finalLat}&lng=${finalLng}&province=${encodeURIComponent(provinceToShare!)}`
                     : "/MainPage"
                 }
                 className="hover:text-[#b59afa]"

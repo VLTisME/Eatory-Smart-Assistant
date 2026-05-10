@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+
 export function useGeolocation() {
 	const [province, setProvince] = useState("");
 	const [error, setError] = useState(false);
