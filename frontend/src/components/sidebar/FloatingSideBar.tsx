@@ -14,6 +14,7 @@ import ChatInput from "./ChatInput";
 import ImageUploadModel from "../upload-image/ImageUploadModal";
 import { uploadMenuImage } from "../../services/menuTranslationApi";
 import { uploadPlaceSearchImage } from "../../services/placeSearchApi";
+import { uploadToImageKit } from "../../api/imageKitApi";
 import { useAuth } from "../../hooks/useAuth";
 import {
 	getConversations,
@@ -46,7 +47,7 @@ interface FloatingSidebarProps {
 	onConversationCreated?: (conv: Conversation) => void;
 }
 
-type UploadMode = "ocr" | "image-search";
+type UploadMode = "ocr" | "image-search" | "send-image";
 
 function FloatingSidebar({
 	onClose,
@@ -130,6 +131,7 @@ function FloatingSidebar({
 				id: m.id,
 				role: (m.role === "user" ? "user" : "bot") as "user" | "bot",
 				content: m.content,
+				imageUrl: m.image_url || undefined,
 				menuData: m.menu_data || undefined,
 				placeSearchData: m.place_search_data || undefined,
 			}));
@@ -197,6 +199,7 @@ function FloatingSidebar({
 	// ─── Upload Modal ──────────────────────────────────────────────────────────
 	const [isOpen, setIsOpen] = useState<boolean>(false);
 	const [uploadMode, setUploadMode] = useState<UploadMode>("ocr");
+	const [isUploading, setIsUploading] = useState<boolean>(false);
 
 	const handleOpenUploadModal = (mode: UploadMode) => {
 		setUploadMode(mode);
@@ -207,13 +210,19 @@ function FloatingSidebar({
 	const processUserAction = async (
 		userText: string,
 		actionLogic: (token: string, chatIdToUse: string) => Promise<void>,
+		options?: { imageUrl?: string },
 	) => {
 		if (isThinking || !user) return;
 
 		const userMsgId = Date.now().toString();
 		setMessages((prev) => [
 			...prev,
-			{ id: userMsgId, role: "user", content: userText },
+			{
+				id: userMsgId,
+				role: "user",
+				content: userText,
+				imageUrl: options?.imageUrl,
+			},
 		]);
 		setIsThinking(true);
 
@@ -223,7 +232,9 @@ function FloatingSidebar({
 
 			if (!chatIdToUse) {
 				const title =
-					userText.length > 30 ? userText.substring(0, 30) + "..." : userText;
+					userText.length > 30
+						? userText.substring(0, 30) + "..."
+						: userText;
 				const newConv = await createConversation(token, title);
 				chatIdToUse = newConv.id;
 				handleSetActiveChat(newConv.id);
@@ -238,6 +249,7 @@ function FloatingSidebar({
 			await sendMessage(token, chatIdToUse, {
 				role: "user",
 				content: userText,
+				image_url: options?.imageUrl,
 			});
 
 			await actionLogic(token, chatIdToUse);
@@ -263,36 +275,126 @@ function FloatingSidebar({
 		}
 	};
 
-	// ─── OCR Upload Handler ────────────────────────────────────────────────────
+	// ─── Helper: Upload image to ImageKit and return URL ────────────────────────
+	const uploadImageToKit = async (
+		file: File,
+	): Promise<string | undefined> => {
+		if (!user) return undefined;
+		try {
+			const firebaseToken = await user.getIdToken();
+			const uploadResult = await uploadToImageKit(file, firebaseToken);
+			return uploadResult.url;
+		} catch (error) {
+			console.error("ImageKit upload failed (non-critical):", error);
+			return undefined;
+		}
+	};
+
+	// ─── Upload Handler ─────────────────────────────────────────────────────────
 	const handleFileSelected = async (file: File) => {
 		if (uploadMode === "ocr") {
-			processUserAction(`Translate menu: ${file.name}`, async (token, chatIdToUse) => {
-				const menuData = await uploadMenuImage(file);
-				const savedBotMsg = await sendMessage(token, chatIdToUse, {
-					role: "bot",
-					content: "Translate menu",
-					menu_data: menuData,
-				});
+			// ── Translate Menu: upload ảnh lên ImageKit → hiện ảnh trong chat → OCR ──
+			const imageUrl = await uploadImageToKit(file);
 
-				setMessages((prev) => [
-					...prev,
-					{
-						id: savedBotMsg.id || Date.now().toString(),
-						role: "bot",
-						content: savedBotMsg.content,
-						menuData,
-					},
-				]);
-			});
-		} else {
-			processUserAction(`[Tìm kiếm hình ảnh] Đã chọn ảnh: ${file.name}`, async (token, chatIdToUse) => {
-				const placeData = await uploadPlaceSearchImage(file);
-				const topResults = placeData.results.slice(0, 5);
-
-				if (topResults.length === 0) {
+			processUserAction(
+				`[Translate Menu]`,
+				async (token, chatIdToUse) => {
+					const menuData = await uploadMenuImage(file);
 					const savedBotMsg = await sendMessage(token, chatIdToUse, {
 						role: "bot",
-						content: "Không tìm thấy địa điểm phù hợp từ ảnh này.",
+						content: "Đã dịch menu thành công!",
+						menu_data: menuData,
+					});
+
+					setMessages((prev) => [
+						...prev,
+						{
+							id: savedBotMsg.id || Date.now().toString(),
+							role: "bot",
+							content: savedBotMsg.content,
+							menuData,
+						},
+					]);
+				},
+				{ imageUrl },
+			);
+		} else if (uploadMode === "image-search") {
+			// ── Image Search: upload ảnh lên ImageKit → hiện ảnh trong chat → search ──
+			const imageUrl = await uploadImageToKit(file);
+
+			processUserAction(
+				`[Tìm kiếm hình ảnh]`,
+				async (token, chatIdToUse) => {
+					const placeData = await uploadPlaceSearchImage(file);
+					const topResults = placeData.results.slice(0, 5);
+
+					if (topResults.length === 0) {
+						const savedBotMsg = await sendMessage(
+							token,
+							chatIdToUse,
+							{
+								role: "bot",
+								content:
+									"Không tìm thấy địa điểm phù hợp từ ảnh này.",
+							},
+						);
+
+						setMessages((prev) => [
+							...prev,
+							{
+								id: savedBotMsg.id || Date.now().toString(),
+								role: "bot",
+								content: savedBotMsg.content,
+							},
+						]);
+						return;
+					}
+
+					const savedBotMsg = await sendMessage(token, chatIdToUse, {
+						role: "bot",
+						content: "Đã tìm thấy các địa điểm tương tự.",
+						place_search_data: { results: topResults },
+					});
+
+					setMessages((prev) => [
+						...prev,
+						{
+							id: savedBotMsg.id || Date.now().toString(),
+							role: "bot",
+							content: savedBotMsg.content,
+							placeSearchData: savedBotMsg.place_search_data || {
+								results: topResults,
+							},
+						},
+					]);
+				},
+				{ imageUrl },
+			);
+		} else if (uploadMode === "send-image") {
+			// ── Send Image: upload ảnh lên ImageKit → hiện ảnh trong chat ──
+			handleSendImage(file);
+		}
+	};
+
+	// ─── Send Image via ImageKit ───────────────────────────────────────────────
+	const handleSendImage = async (file: File) => {
+		if (!user) return;
+
+		setIsUploading(true);
+		try {
+			const firebaseToken = await user.getIdToken();
+			const uploadResult = await uploadToImageKit(file, firebaseToken);
+			const imageUrl = uploadResult.url;
+
+			setIsOpen(false);
+			setIsUploading(false);
+
+			processUserAction(
+				`[Gửi ảnh]`,
+				async (token, chatIdToUse) => {
+					const savedBotMsg = await sendMessage(token, chatIdToUse, {
+						role: "bot",
+						content: "Đã nhận ảnh của bạn! 📸",
 					});
 
 					setMessages((prev) => [
@@ -303,25 +405,21 @@ function FloatingSidebar({
 							content: savedBotMsg.content,
 						},
 					]);
-					return;
-				}
-
-				const savedBotMsg = await sendMessage(token, chatIdToUse, {
+				},
+				{ imageUrl },
+			);
+		} catch (error) {
+			console.error("Image upload failed:", error);
+			setIsUploading(false);
+			setIsOpen(false);
+			setMessages((prev) => [
+				...prev,
+				{
+					id: Date.now().toString(),
 					role: "bot",
-					content: "Đã tìm thấy các địa điểm tương tự.",
-					place_search_data: { results: topResults },
-				});
-
-				setMessages((prev) => [
-					...prev,
-					{
-						id: savedBotMsg.id || Date.now().toString(),
-						role: "bot",
-						content: savedBotMsg.content,
-						placeSearchData: savedBotMsg.place_search_data || { results: topResults },
-					},
-				]);
-			});
+					content: "Tải ảnh lên thất bại. Vui lòng thử lại sau.",
+				},
+			]);
 		}
 	};
 
@@ -370,7 +468,11 @@ function FloatingSidebar({
 
 	// ─── ChatInput tool select ─────────────────────────────────────────────────
 	const handleToolSelect = (
-		toolId: "translate-menu" | "search-image" | "review-summary",
+		toolId:
+			| "translate-menu"
+			| "search-image"
+			| "send-image"
+			| "review-summary",
 	) => {
 		switch (toolId) {
 			case "translate-menu":
@@ -378,6 +480,9 @@ function FloatingSidebar({
 				break;
 			case "search-image":
 				handleOpenUploadModal("image-search");
+				break;
+			case "send-image":
+				handleOpenUploadModal("send-image");
 				break;
 			case "review-summary":
 				handleSubmit("Tôi muốn xem tóm tắt đánh giá nhà hàng này.");
@@ -533,7 +638,7 @@ function FloatingSidebar({
 								</div>
 							) : conversations.length > 0 ? (
 								conversations.map((chat, index) => (
-									<button
+									<div
 										key={chat.id}
 										onClick={() =>
 											handleSelectHistory(chat.id)
@@ -554,9 +659,12 @@ function FloatingSidebar({
 												{chat.title}
 											</span>
 											<button
-												onClick={() =>
-													handleDeleteHistory(chat.id)
-												}
+												onClick={(e) => {
+													e.stopPropagation();
+													handleDeleteHistory(
+														chat.id,
+													);
+												}}
 												className="ml-auto text-gray-400 transition-colors duration-300 p-1.5 hover:text-red-500 cursor-pointer"
 											>
 												<Trash
@@ -580,7 +688,7 @@ function FloatingSidebar({
 													)
 												: "Vừa xong"}
 										</span>
-									</button>
+									</div>
 								))
 							) : (
 								<div className="text-center text-gray-500 py-10 font-medium">
@@ -622,6 +730,7 @@ function FloatingSidebar({
 				onClose={() => setIsOpen(false)}
 				onFileSelected={handleFileSelected}
 				mode={uploadMode}
+				isUploading={isUploading}
 			/>
 		</div>
 	);

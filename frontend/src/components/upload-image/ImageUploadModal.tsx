@@ -6,7 +6,8 @@ interface ImageUploadModelProps {
 	isOpen: boolean;
 	onClose: () => void;
 	onFileSelected: (file: File) => void;
-	mode: "ocr" | "image-search";
+	mode: "ocr" | "image-search" | "send-image";
+	isUploading?: boolean;
 }
 
 function ImageUploadModel({
@@ -14,25 +15,30 @@ function ImageUploadModel({
 	onClose,
 	onFileSelected,
 	mode,
+	isUploading = false,
 }: ImageUploadModelProps) {
 	const [errorMessage, setErrorMessage] = useState<string | null>(null);
 	const maxSizeBytes = 5 * 1024 * 1024;
 
-	const modalContent = useMemo(
-		() =>
-			mode === "ocr"
-				? {
-						title: "OCR Dịch Menu",
-						description:
-							"Kéo thả ảnh menu để nhận diện chữ và dịch nội dung",
-					}
-				: {
-						title: "Tìm kiếm hình ảnh",
-						description:
-							"Kéo thả ảnh để tìm hình tương tự hoặc liên quan",
-					},
-		[mode],
-	);
+	const modalContent = useMemo(() => {
+		if (mode === "ocr") {
+			return {
+				title: "OCR Dịch Menu",
+				description:
+					"Kéo thả ảnh menu để nhận diện chữ và dịch nội dung",
+			};
+		} else if (mode === "image-search") {
+			return {
+				title: "Tìm kiếm hình ảnh",
+				description: "Kéo thả ảnh để tìm hình tương tự hoặc liên quan",
+			};
+		} else {
+			return {
+				title: "Gửi ảnh",
+				description: "Kéo thả ảnh để gửi vào khung chat",
+			};
+		}
+	}, [mode]);
 
 	const onDrop = useCallback(
 		(acceptedFiles: File[]) => {
@@ -104,30 +110,42 @@ function ImageUploadModel({
 				<div
 					{...getRootProps()}
 					className={`border-2 border-dashed rounded-2xl p-16 min-h-96 flex flex-col items-center justify-center transition-all duration-300 cursor-pointer
-                ${isDragActive ? "border-blue-500 bg-blue-50/80 scale-105 shadow-inner ease-in-out" : "border-gray-300 hover:border-gray-800 hover:bg-gray-300"}`}
+                ${isDragActive ? "border-blue-500 bg-blue-50/80 scale-105 shadow-inner ease-in-out" : "border-gray-300 hover:border-gray-800 hover:bg-gray-300"}
+                ${isUploading ? "opacity-50 pointer-events-none" : ""}`}
 				>
-					<input {...getInputProps()} />
+					<input {...getInputProps()} disabled={isUploading} />
 
-					<UploadCloud
-						size={64}
-						className={`mb-4 transition-colors duration-300 ${isDragActive ? "text-green-500" : "text-gray-400"}`}
-					/>
-					{isDragActive ? (
-						<p className="text-blue-400 font-medium text-xl animate-pulse">
-							Thả ảnh vào đây
-						</p>
-					) : (
-						<div className="text-center">
-							<p className="text-gray-600 font-medium text-lg">
-								Kéo thả ảnh vào đây
-							</p>
-							<p className="text-gray-400 text-base mt-1">
-								hoặc click để duyệt file
-							</p>
-							<p className="text-gray-400 text-sm mt-2">
-								Hỗ trợ JPG, JPEG, PNG, WEBP - tối đa 5MB
+					{isUploading ? (
+						<div className="flex flex-col items-center">
+							<div className="w-12 h-12 border-4 border-blue-500 border-t-transparent rounded-full animate-spin mb-4" />
+							<p className="text-blue-500 font-medium text-lg">
+								Đang tải ảnh lên...
 							</p>
 						</div>
+					) : (
+						<>
+							<UploadCloud
+								size={64}
+								className={`mb-4 transition-colors duration-300 ${isDragActive ? "text-green-500" : "text-gray-400"}`}
+							/>
+							{isDragActive ? (
+								<p className="text-blue-400 font-medium text-xl animate-pulse">
+									Thả ảnh vào đây
+								</p>
+							) : (
+								<div className="text-center">
+									<p className="text-gray-600 font-medium text-lg">
+										Kéo thả ảnh vào đây
+									</p>
+									<p className="text-gray-400 text-base mt-1">
+										hoặc click để duyệt file
+									</p>
+									<p className="text-gray-400 text-sm mt-2">
+										Hỗ trợ JPG, JPEG, PNG, WEBP - tối đa 5MB
+									</p>
+								</div>
+							)}
+						</>
 					)}
 				</div>
 				{errorMessage ? (

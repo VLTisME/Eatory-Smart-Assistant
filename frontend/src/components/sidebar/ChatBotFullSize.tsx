@@ -91,6 +91,7 @@ function ChatBotFullSize({
 							| "user"
 							| "bot",
 						content: m.content,
+						imageUrl: m.image_url || undefined,
 						menuData: m.menu_data || undefined,
 						placeSearchData: m.place_search_data || undefined,
 					}));
