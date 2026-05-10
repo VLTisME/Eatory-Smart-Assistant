@@ -6,6 +6,7 @@ import {
 	AudioLines,
 	Languages,
 	Image,
+	ImageUp,
 	FileText,
 	X,
 } from "lucide-react";
@@ -29,6 +30,15 @@ const TOOLS = [
 		color: "text-amber-500",
 		bg: "bg-amber-50",
 		hoverBg: "hover:bg-amber-50",
+	},
+	{
+		id: "send-image",
+		icon: ImageUp,
+		label: "Send Image",
+		description: "Gửi ảnh trong chat",
+		color: "text-violet-500",
+		bg: "bg-violet-50",
+		hoverBg: "hover:bg-violet-50",
 	},
 	{
 		id: "review-summary",

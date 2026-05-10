@@ -41,6 +41,11 @@ class Settings(BaseSettings):
     place_search_min_similarity: float = 0.0
     place_search_use_gpu: bool = False
 
+    # ImageKit configuration
+    kit_url_endpoint: str | None = None
+    kit_public_key: str | None = None
+    kit_private_key: str | None = None
+
     @property
     def ocr_language_list(self) -> list[str]:
         return [language.strip() for language in self.ocr_languages.split(",") if language.strip()]
