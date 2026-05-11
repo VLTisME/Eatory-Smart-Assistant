@@ -1,18 +1,675 @@
 {
-  "total_places": 43,
-  "total_reviews": 2580,
+  "total_places": 2655,
+  "total_reviews": 159050,
   "missing_place_id": 0,
   "missing_text": 0,
   "missing_rating": 0,
   "invalid_rating": 0,
-  "places_with_reviews": 43,
-  "places_under_60_reviews": 0,
+  "places_with_reviews": 2655,
+  "places_under_60_reviews": 164,
   "rating_distribution": {
-    "1": 132,
-    "2": 68,
-    "3": 141,
-    "4": 405,
-    "5": 1834
+    "1": 15749,
+    "2": 5147,
+    "3": 10018,
+    "4": 26740,
+    "5": 101396
   },
-  "places_under_60_detail": []
+  "places_under_60_detail": [
+    {
+      "place_id": "ChIJxfqegBzRdDER7K30G1w4E1s",
+      "review_count": 53
+    },
+    {
+      "place_id": "ChIJN828Lx4vdTERaixjC6KOXLw",
+      "review_count": 54
+    },
+    {
+      "place_id": "ChIJobbMgvsudTERIQ9k-9OS3-Q",
+      "review_count": 55
+    },
+    {
+      "place_id": "ChIJ6-kyYGIpdTERd-_IvlcleH4",
+      "review_count": 55
+    },
+    {
+      "place_id": "ChIJiddJbBQpdTERBQfxnrZRV4I",
+      "review_count": 56
+    },
+    {
+      "place_id": "ChIJHfLZzd8ndTERpuofYnijzOw",
+      "review_count": 56
+    },
+    {
+      "place_id": "ChIJL5uYygwvdTERrETrWO77A5Q",
+      "review_count": 56
+    },
+    {
+      "place_id": "ChIJnblrXh4mdTERn3XWMu6Vv-c",
+      "review_count": 56
+    },
+    {
+      "place_id": "ChIJKXjAWhnRdDERkODjGeCFlpE",
+      "review_count": 56
+    },
+    {
+      "place_id": "ChIJxVlNxvsvdTEROXmaR7JL2-8",
+      "review_count": 56
+    },
+    {
+      "place_id": "ChIJWf9HcVMpdTERx2GdWUDtCSo",
+      "review_count": 57
+    },
+    {
+      "place_id": "ChIJm5eRcJ4vdTERSQq8FkpyRvE",
+      "review_count": 57
+    },
+    {
+      "place_id": "ChIJ0WS0AawndTERZCVtBe_fUxs",
+      "review_count": 57
+    },
+    {
+      "place_id": "ChIJoQErynnXdDER_ag13JbRIqA",
+      "review_count": 57
+    },
+    {
+      "place_id": "ChIJw4sLiDTRdDER6JE-5JLDs7I",
+      "review_count": 57
+    },
+    {
+      "place_id": "ChIJdQj9484vdTER17DaXngV_bA",
+      "review_count": 57
+    },
+    {
+      "place_id": "ChIJBU0ZbT4vdTERlrvIUkwHySs",
+      "review_count": 57
+    },
+    {
+      "place_id": "ChIJ61DXJFovdTERhzQUukF87_0",
+      "review_count": 57
+    },
+    {
+      "place_id": "ChIJDbuTQAApdTERmIBxkwgRFUo",
+      "review_count": 57
+    },
+    {
+      "place_id": "ChIJvW9Cd18ndTER9TbBvNzI9yM",
+      "review_count": 57
+    },
+    {
+      "place_id": "ChIJg8IQDs0odTERXIgMjkvnhyw",
+      "review_count": 58
+    },
+    {
+      "place_id": "ChIJf8i0NV8ndTERCEUUqgvp2g8",
+      "review_count": 58
+    },
+    {
+      "place_id": "ChIJkZNcFkEndTERSboHD3Dd-UE",
+      "review_count": 58
+    },
+    {
+      "place_id": "ChIJ0ewrifAvdTERhX2FdRSqLFY",
+      "review_count": 58
+    },
+    {
+      "place_id": "ChIJ_R3apTsvdTER3e1mZ1PpCZs",
+      "review_count": 58
+    },
+    {
+      "place_id": "ChIJYeGfT9jRdDERnoL3cCHSVuQ",
+      "review_count": 58
+    },
+    {
+      "place_id": "ChIJlVNh3uwpdTER4QfQL4x-CZs",
+      "review_count": 58
+    },
+    {
+      "place_id": "ChIJm9E2XfQudTER_F4L8Frwnhw",
+      "review_count": 58
+    },
+    {
+      "place_id": "ChIJhaOBF4sndTERrXANgDi1bmA",
+      "review_count": 58
+    },
+    {
+      "place_id": "ChIJf67ZC_0udTERSYZx3y7DDT4",
+      "review_count": 58
+    },
+    {
+      "place_id": "ChIJN6mOCa4pdTERkp9O3g7nKJI",
+      "review_count": 58
+    },
+    {
+      "place_id": "ChIJI7Nkoc0vdTERu0N7duX5aN4",
+      "review_count": 58
+    },
+    {
+      "place_id": "ChIJK0HbDz_RdDERik6U-DFsK8k",
+      "review_count": 58
+    },
+    {
+      "place_id": "ChIJQeSu0kYvdTERgmVDlTOU02A",
+      "review_count": 58
+    },
+    {
+      "place_id": "ChIJS_qVKJ7XdDERk4bNGlh2kfA",
+      "review_count": 58
+    },
+    {
+      "place_id": "ChIJGc_-z_0udTERfgjvua0iBRU",
+      "review_count": 58
+    },
+    {
+      "place_id": "ChIJ7QH92DgvdTERvUhKMZ34HfY",
+      "review_count": 58
+    },
+    {
+      "place_id": "ChIJ5xvusgQndTERlkBZQ4IoknA",
+      "review_count": 58
+    },
+    {
+      "place_id": "ChIJ39u5Zb8vdTERcW-Rqw1PxfU",
+      "review_count": 58
+    },
+    {
+      "place_id": "ChIJ7R1leHnXdDERKLZ-I_ESThw",
+      "review_count": 58
+    },
+    {
+      "place_id": "ChIJ2x714NcpdTERtZ74pf2yvZk",
+      "review_count": 58
+    },
+    {
+      "place_id": "ChIJFXMbbc0odTERGBcKbbTa20k",
+      "review_count": 58
+    },
+    {
+      "place_id": "ChIJAUlV8N8udTERmTMsSPLqsjs",
+      "review_count": 58
+    },
+    {
+      "place_id": "ChIJA9dWRvEvdTERNN2-EKadvug",
+      "review_count": 58
+    },
+    {
+      "place_id": "ChIJvaa7rBAvdTERkmf7z3cZYWs",
+      "review_count": 58
+    },
+    {
+      "place_id": "ChIJvRwWWI8pdTERQdiiXVQIlIE",
+      "review_count": 58
+    },
+    {
+      "place_id": "ChIJz5-XRvoudTERmldkT8HQsgs",
+      "review_count": 58
+    },
+    {
+      "place_id": "ChIJr4N52iUvdTERtgSbZbPVQ1U",
+      "review_count": 58
+    },
+    {
+      "place_id": "ChIJzVJD4tcndTERP0sVs7w_M4E",
+      "review_count": 58
+    },
+    {
+      "place_id": "ChIJm0yLi3UrdTERRrXydIYgCIg",
+      "review_count": 59
+    },
+    {
+      "place_id": "ChIJicKWxokpdTERowFUvFCXYnk",
+      "review_count": 59
+    },
+    {
+      "place_id": "ChIJpyd8TwAvdTERUD1Ck1CU-Zk",
+      "review_count": 59
+    },
+    {
+      "place_id": "ChIJp0D14xYvdTERwWkF9bbEx5A",
+      "review_count": 59
+    },
+    {
+      "place_id": "ChIJpV_GgcAvdTERQyl-VgFo11Q",
+      "review_count": 59
+    },
+    {
+      "place_id": "ChIJr1nMVcQudTERkOZjzh4u79Q",
+      "review_count": 59
+    },
+    {
+      "place_id": "ChIJr7EPcnzYdDERffgkTskGeio",
+      "review_count": 59
+    },
+    {
+      "place_id": "ChIJrynSb-IvdTERj9svzc1sjVY",
+      "review_count": 59
+    },
+    {
+      "place_id": "ChIJsWi6utAndTER7IR0UuKVwps",
+      "review_count": 59
+    },
+    {
+      "place_id": "ChIJsSuHieQvdTERJKjSRN4pzWw",
+      "review_count": 59
+    },
+    {
+      "place_id": "ChIJsSSPMirZdDER9AMLQu3iQs8",
+      "review_count": 59
+    },
+    {
+      "place_id": "ChIJ-zccZVEpdTER-jGIV7nyD_E",
+      "review_count": 59
+    },
+    {
+      "place_id": "ChIJsZBEKCUvdTERQTemOqUdln8",
+      "review_count": 59
+    },
+    {
+      "place_id": "ChIJmaVTLwAvdTERmhmQ6NZGYt4",
+      "review_count": 59
+    },
+    {
+      "place_id": "ChIJn1RumWUndTERNyfIfpB-sVo",
+      "review_count": 59
+    },
+    {
+      "place_id": "ChIJe-axt0gvdTER1UU5Dbnw5o0",
+      "review_count": 59
+    },
+    {
+      "place_id": "ChIJe6SXBQDTdDER9VG4-SGiGus",
+      "review_count": 59
+    },
+    {
+      "place_id": "ChIJe5R4qLwvdTERj8wvcF_iBZA",
+      "review_count": 59
+    },
+    {
+      "place_id": "ChIJe2ZStOYudTERhPz_YQ9kSyo",
+      "review_count": 59
+    },
+    {
+      "place_id": "ChIJecpijI4vdTER9vv07iqT0Ok",
+      "review_count": 59
+    },
+    {
+      "place_id": "ChIJfQHI4wsvdTER-byAk2lasCs",
+      "review_count": 59
+    },
+    {
+      "place_id": "ChIJf9f1ywIvdTERljLkuPkZBZI",
+      "review_count": 59
+    },
+    {
+      "place_id": "ChIJhdzg4_vRdDERmh_V5TJEGhA",
+      "review_count": 59
+    },
+    {
+      "place_id": "ChIJhc6rx6HZdDERRLU_uPIqWaA",
+      "review_count": 59
+    },
+    {
+      "place_id": "ChIJhQH9F3MvdTERA-CUsvigmto",
+      "review_count": 59
+    },
+    {
+      "place_id": "ChIJ0T7QOeUvdTERlZ40TcuQ-dQ",
+      "review_count": 59
+    },
+    {
+      "place_id": "ChIJo74C-9MndTERUwE1c6kVNzk",
+      "review_count": 59
+    },
+    {
+      "place_id": "ChIJp4KilIkvdTERVEEW9-ELHV4",
+      "review_count": 59
+    },
+    {
+      "place_id": "ChIJbwZIPnPRdDERrvhhAaHkas0",
+      "review_count": 59
+    },
+    {
+      "place_id": "ChIJcRpq2CQvdTER25AvVy5NsvU",
+      "review_count": 59
+    },
+    {
+      "place_id": "ChIJdWK9KkfRdDERV5o6zXHNo0Q",
+      "review_count": 59
+    },
+    {
+      "place_id": "ChIJX5YFLg4ndTERNS0xm196gQg",
+      "review_count": 59
+    },
+    {
+      "place_id": "ChIJXUQRL2svdTERnUqC19Jza-k",
+      "review_count": 59
+    },
+    {
+      "place_id": "ChIJ1WlNnL0vdTERJEucrV998jM",
+      "review_count": 59
+    },
+    {
+      "place_id": "ChIJ1VhUgW_XdDERe1jgfzizH48",
+      "review_count": 59
+    },
+    {
+      "place_id": "ChIJW9OIvNXXdDERxGXNSmeTRsA",
+      "review_count": 59
+    },
+    {
+      "place_id": "ChIJWZ6z1cMndTERRSpFEJcgP1A",
+      "review_count": 59
+    },
+    {
+      "place_id": "ChIJVWXUq-4pdTERNMrYS2OVRKA",
+      "review_count": 59
+    },
+    {
+      "place_id": "ChIJWbBzUdwudTER-2Ym6I3sXZQ",
+      "review_count": 59
+    },
+    {
+      "place_id": "ChIJb4DVv28vdTERxYJGh4r-mAI",
+      "review_count": 59
+    },
+    {
+      "place_id": "ChIJbaeNZCspdTEREadFbltGF9s",
+      "review_count": 59
+    },
+    {
+      "place_id": "ChIJ_6q4c5fOdDERDs4r84I1NXI",
+      "review_count": 59
+    },
+    {
+      "place_id": "ChIJaQqaSBcmdTEREfFTLGPCe4A",
+      "review_count": 59
+    },
+    {
+      "place_id": "ChIJZWOKIZQtdTER8c-Wb1LRqYQ",
+      "review_count": 59
+    },
+    {
+      "place_id": "ChIJZ1v15p4vdTERH0zklpTt7nQ",
+      "review_count": 59
+    },
+    {
+      "place_id": "ChIJd1uT6DcvdTERAq9bN05v4xk",
+      "review_count": 59
+    },
+    {
+      "place_id": "ChIJcwkSewAndTER1rpxhsSnnl8",
+      "review_count": 59
+    },
+    {
+      "place_id": "ChIJTRfkMwApdTERsSmDw4C2tVo",
+      "review_count": 59
+    },
+    {
+      "place_id": "ChIJTeZohvEpdTERtEHDUODTZdM",
+      "review_count": 59
+    },
+    {
+      "place_id": "ChIJTY9U1SAvdTERRXxP_NhUxdk",
+      "review_count": 59
+    },
+    {
+      "place_id": "ChIJU_Vom1LLdDERrwuxdcrlIX4",
+      "review_count": 59
+    },
+    {
+      "place_id": "ChIJV6IcSacndTER8odj4j3LFv4",
+      "review_count": 59
+    },
+    {
+      "place_id": "ChIJUTUoQlAhdTERlbiQFTDL2Vc",
+      "review_count": 59
+    },
+    {
+      "place_id": "ChIJVarLViEvdTERM44qa4hga_c",
+      "review_count": 59
+    },
+    {
+      "place_id": "ChIJV_-fUWwvdTER1mekTC8k8Hg",
+      "review_count": 59
+    },
+    {
+      "place_id": "ChIJOd2_QfwndTERZh6DOVLF95g",
+      "review_count": 59
+    },
+    {
+      "place_id": "ChIJPR76EwAvdTERWehiUtpBf1w",
+      "review_count": 59
+    },
+    {
+      "place_id": "ChIJNWD50xQvdTERa-bUQKGtjck",
+      "review_count": 59
+    },
+    {
+      "place_id": "ChIJSdiIrZwvdTERkizvncGBAqA",
+      "review_count": 59
+    },
+    {
+      "place_id": "ChIJQ7YBFMQndTERCajLV5RqURc",
+      "review_count": 59
+    },
+    {
+      "place_id": "ChIJPzxAYNAodTERuy_Rrv9pKg0",
+      "review_count": 59
+    },
+    {
+      "place_id": "ChIJRxgilGwvdTERjLP2gnz-kZM",
+      "review_count": 59
+    },
+    {
+      "place_id": "ChIJRYRhjdctdTERHPy226mCiI8",
+      "review_count": 59
+    },
+    {
+      "place_id": "ChIJLwK6fPondTERPHJjO8TwoLs",
+      "review_count": 59
+    },
+    {
+      "place_id": "ChIJMQKAyy_RdDERaJ_leCSesoo",
+      "review_count": 59
+    },
+    {
+      "place_id": "ChIJm4fyXQ4pdTER7E23mMlWcsw",
+      "review_count": 59
+    },
+    {
+      "place_id": "ChIJq8vk8inRdDERp1-TriJdmhg",
+      "review_count": 59
+    },
+    {
+      "place_id": "ChIJqZUlW5ApdTERRlDUHq77Jy4",
+      "review_count": 59
+    },
+    {
+      "place_id": "ChIJqXbWm7ApdTERMxXHRaq3CMw",
+      "review_count": 59
+    },
+    {
+      "place_id": "ChIJtUZVVs8vdTERu6GqHxeklPw",
+      "review_count": 59
+    },
+    {
+      "place_id": "ChIJtY7mfgAvdTERyVYAQcVveP8",
+      "review_count": 59
+    },
+    {
+      "place_id": "ChIJyfleiD4vdTERzs6XEgGdHqs",
+      "review_count": 59
+    },
+    {
+      "place_id": "ChIJyXfvT83ZdDERuggyTAMRluI",
+      "review_count": 59
+    },
+    {
+      "place_id": "ChIJz1KHivLRdDERJYJ4PySZHE0",
+      "review_count": 59
+    },
+    {
+      "place_id": "ChIJz5Lbu5PRdDER_SugyUblX7k",
+      "review_count": 59
+    },
+    {
+      "place_id": "ChIJx1gPcAApdTER2CUK6SX1Rbg",
+      "review_count": 59
+    },
+    {
+      "place_id": "ChIJw8OREgAvdTER3lOiMlpjrrg",
+      "review_count": 59
+    },
+    {
+      "place_id": "ChIJucRH50zRdDER4KQWyIiYvLg",
+      "review_count": 59
+    },
+    {
+      "place_id": "ChIJz0X4BXEvdTERCu9JoCZsDC0",
+      "review_count": 59
+    },
+    {
+      "place_id": "ChIJH2NIPiYpdTERNOhO1A8WR3E",
+      "review_count": 59
+    },
+    {
+      "place_id": "ChIJHUamKnQvdTERumFum_K2Ysg",
+      "review_count": 59
+    },
+    {
+      "place_id": "ChIJI3b5dRQvdTERn7zlzMBU5KQ",
+      "review_count": 59
+    },
+    {
+      "place_id": "ChIJI4fXr0gvdTER-gSIjt4dZs4",
+      "review_count": 59
+    },
+    {
+      "place_id": "ChIJJYrADgAndTERjUcqH3P4_nA",
+      "review_count": 59
+    },
+    {
+      "place_id": "ChIJL6x6XCIvdTER1jOTFg1WOCg",
+      "review_count": 59
+    },
+    {
+      "place_id": "ChIJKbeRHRcvdTERqrSoHGD3Ons",
+      "review_count": 59
+    },
+    {
+      "place_id": "ChIJK8bwfwDRdDER4UfEszjblQQ",
+      "review_count": 59
+    },
+    {
+      "place_id": "ChIJ2SSPd7UvdTEReiSOF9d8nTk",
+      "review_count": 59
+    },
+    {
+      "place_id": "ChIJ2TlWLQAvdTER0PsKawcgfz8",
+      "review_count": 59
+    },
+    {
+      "place_id": "ChIJL0hObjcvdTERxRD4TPQotYo",
+      "review_count": 59
+    },
+    {
+      "place_id": "ChIJN-JMxmUpdTERyoAgWY0Yjos",
+      "review_count": 59
+    },
+    {
+      "place_id": "ChIJMUrzQAQmdTERSaVViT-oIT4",
+      "review_count": 59
+    },
+    {
+      "place_id": "ChIJMWYhLMMvdTERWoyJH6gLPZs",
+      "review_count": 59
+    },
+    {
+      "place_id": "ChIJCz5nLREvdTER2w81PyM2JAw",
+      "review_count": 59
+    },
+    {
+      "place_id": "ChIJD1LKOxMvdTERF5Qlfy7e_1A",
+      "review_count": 59
+    },
+    {
+      "place_id": "ChIJASi5OgAvdTERTv2dmtDb46k",
+      "review_count": 59
+    },
+    {
+      "place_id": "ChIJBV0Yse8udTERmnTCG3BMTRk",
+      "review_count": 59
+    },
+    {
+      "place_id": "ChIJC0ATiKYndTERk_NeAcNEXHM",
+      "review_count": 59
+    },
+    {
+      "place_id": "ChIJC--YPwAndTERLJixlTCYAUs",
+      "review_count": 59
+    },
+    {
+      "place_id": "ChIJCc1dBJwndTERSzEzCNcpNmc",
+      "review_count": 59
+    },
+    {
+      "place_id": "ChIJEX5TceYvdTER0f96d8_MOhw",
+      "review_count": 59
+    },
+    {
+      "place_id": "ChIJ9-1JQtgvdTER5PwDWnWbXoQ",
+      "review_count": 59
+    },
+    {
+      "place_id": "ChIJ3VsxZwAndTERFidkFyR7QT4",
+      "review_count": 59
+    },
+    {
+      "place_id": "ChIJ8cl4ktEvdTERtd7_9Ut2YyU",
+      "review_count": 59
+    },
+    {
+      "place_id": "ChIJ7wvVraUodTER4imxEeG49ZU",
+      "review_count": 59
+    },
+    {
+      "place_id": "ChIJA1CEN88vdTERsmgBQgNYDeI",
+      "review_count": 59
+    },
+    {
+      "place_id": "ChIJ5SzduzIvdTERrTznKHgNxPM",
+      "review_count": 59
+    },
+    {
+      "place_id": "ChIJ5TwN5vIpdTER_OSC5bSyWlA",
+      "review_count": 59
+    },
+    {
+      "place_id": "ChIJ4ff3qT8vdTERlS1oJEkl-XU",
+      "review_count": 59
+    },
+    {
+      "place_id": "ChIJ4zFAls0odTERoOUaIYP_p4c",
+      "review_count": 59
+    },
+    {
+      "place_id": "ChIJF8AFyp3XdDER1La7yMS_Rwo",
+      "review_count": 59
+    },
+    {
+      "place_id": "ChIJ48U70oMpdTERr9snasyinOY",
+      "review_count": 59
+    },
+    {
+      "place_id": "ChIJ4TlGIz8vdTER5U3wkmGq6YI",
+      "review_count": 59
+    },
+    {
+      "place_id": "ChIJ3xalnNzbdDERaAZb_TvQhLQ",
+      "review_count": 59
+    },
+    {
+      "place_id": "ChIJ3xfy6C0pdTERUPvgrpnzbho",
+      "review_count": 59
+    }
+  ]
 }

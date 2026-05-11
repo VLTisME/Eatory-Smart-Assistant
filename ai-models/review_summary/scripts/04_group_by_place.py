@@ -14,7 +14,7 @@ OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 
 
 MIN_REVIEWS_PER_PLACE = 60
-TOP_K_KEYWORDS = 8
+TOP_K_KEYWORDS = 40
 
 
 def parse_keywords(keyword_string):
@@ -92,14 +92,14 @@ def main():
 
         summary = {
             "place_id": place_id,
-            "place_name": place_name,
-            "type": place_type,
-            "address": address,
-            "district": district,
-            "city": city,
+            "place_name": None if pd.isna(place_name) else place_name,
+            "type": None if pd.isna(place_type) else place_type,
+            "address": None if pd.isna(address) else address,
+            "district": None if pd.isna(district) else district,
+            "city": None if pd.isna(city) else city,
             "avg_rating": None if pd.isna(avg_rating) else float(avg_rating),
             "total_reviews_google": None if pd.isna(total_reviews_google) else int(total_reviews_google),
-            "source": source,
+            "source": None if pd.isna(source) else source,
 
             "total_reviews_used": int(total_reviews_used),
 
