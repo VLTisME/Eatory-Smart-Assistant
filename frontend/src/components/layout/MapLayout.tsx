@@ -7,6 +7,7 @@ import { MapProvider, useMap } from "react-map-gl/maplibre";
 import { type PlaceDetailResult } from "../../api/placeSearchAPI";
 import { type Message } from "../sidebar/ChatBotPanel";
 import ChatBotFullSize from "../sidebar/ChatBotFullSize";
+import PlaceSidebar from "../sidebar/PlaceSidebar";
 
 /**
  * SearchBarWithMap — wrapper that uses the useMap hook to flyTo
@@ -33,10 +34,11 @@ function SearchBarWithMap({
                 address: place.formatted_address,
             });
 
-            // Fly the map to the selected location
+            // Fly the map to the selected location, padding for the sidebar width (400px)
             mainMap?.flyTo({
                 center: [lng, lat],
                 zoom: 16,
+                padding: { left: 400 },
                 duration: 2000,
                 essential: true,
             });
@@ -65,6 +67,9 @@ function MapLayout() {
                 </div>
                 <div className="absolute inset-0 z-0">
                     <GoogleMapView searchMarker={searchMarker} />
+                </div>
+                <div className="absolute top-0 left-0 z-40 h-full pointer-events-none">
+                    <PlaceSidebar place={searchMarker} />
                 </div>
                 <div className="absolute top-0 right-0 z-50 h-full w-full pointer-events-none">
                     <div className="h-full flex items-start justify-end p-4">
