@@ -1,9 +1,12 @@
 import { useState, useEffect } from "react";
+import { useSearchParams } from "react-router-dom";
 import AuthContainer from "../components/Auth/AuthContainer";
 
 const images = ["/bg.jpg", "/bg2.webp", "/bg3.jpg"];
 
 export default function AuthPage() {
+  const [searchParams] = useSearchParams();
+  const mode = searchParams.get("mode"); // "signup" or null
   const [current, setCurrent] = useState(0);
 
   useEffect(() => {
@@ -23,7 +26,7 @@ export default function AuthPage() {
         style={{ backgroundImage: `url(${images[current]})` }}
       />
 
-      <AuthContainer />
+      <AuthContainer defaultRegister={mode === "signup"} />
     </div>
   );
 }

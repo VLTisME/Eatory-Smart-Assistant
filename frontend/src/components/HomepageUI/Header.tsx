@@ -3,6 +3,8 @@ import HeroSection from "./Search/HeroSection";
 import FoodGrid from "./Search/foodGrid";
 import { useGeolocation } from "../../hooks/useGeolocation";
 import { useFoodSearch } from "../../hooks/useFoodSearch";
+import { useNavigate } from "react-router-dom"; 
+import { UBND_COORDS } from "../../data/ubndCoords";
 
 interface HeaderProps {
   selectedProvince: string;
@@ -13,6 +15,7 @@ export default function Header({
   selectedProvince,
   setSelectedProvince,
 }: HeaderProps) {
+  const navigate = useNavigate();
   const {
     province: detectedProvince,
     error,
@@ -53,7 +56,13 @@ export default function Header({
   // click search
   const handleSearch = () => {
     if (!displayProvince) return;
-
+    const coords = UBND_COORDS[displayProvince];
+    if (coords) {
+      navigate(
+        `/?lat=${coords.lat}&lng=${coords.lng}&province=${encodeURIComponent(displayProvince)}`,
+        { replace: true }
+      );
+    }
     search(displayProvince);
     setHasSearched(true);
 

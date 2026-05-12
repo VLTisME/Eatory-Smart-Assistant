@@ -5,9 +5,18 @@ import ImageSlider from "./ImageSlider";
 
 const images = ["/bg.jpg", "/bg2.webp", "/bg3.jpg"];
 
-export default function AuthContainer() {
-  const [isRegister, setIsRegister] = useState(false);
+interface AuthContainerProps {
+  defaultRegister?: boolean;
+}
+
+export default function AuthContainer({ defaultRegister = false }: AuthContainerProps) {
+  const [isRegister, setIsRegister] = useState(defaultRegister);
   const [current, setCurrent] = useState(0);
+
+  // Sync with URL-driven prop changes (Sign In / Sign Up navbar links)
+  useEffect(() => {
+    setIsRegister(defaultRegister);
+  }, [defaultRegister]);
 
   useEffect(() => {
     const interval = setInterval(() => {

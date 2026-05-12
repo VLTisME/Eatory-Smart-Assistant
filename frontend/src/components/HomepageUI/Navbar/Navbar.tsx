@@ -18,16 +18,20 @@ export default function Navbar({ currentProvince, currentPath }: NavbarProps) {
   
   const [open, setOpen] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
-  const { lat: gpsLat, lng: gpsLng, province: detectedProvince } = useGeolocation();
+  const { location, province: detectedProvince } = useGeolocation();
+
+// Sau đó lấy gpsLat và gpsLng từ object location
+  const gpsLat = location?.lat;
+  const gpsLng = location?.lng;
   const isMapPage = currentPath === "/MainPage";
-const provinceToShare = currentProvince || detectedProvince;
+  const provinceToShare = currentProvince || detectedProvince;
 
-const coords = provinceToShare
-  ? UBND_COORDS[provinceToShare]
-  : null;
+  const coords = provinceToShare
+    ? UBND_COORDS[provinceToShare]
+    : null;
 
-const finalLat = coords?.lat || gpsLat;
-const finalLng = coords?.lng || gpsLng;
+  const finalLat = coords?.lat || gpsLat;
+  const finalLng = coords?.lng || gpsLng;
   const [user, setUser] = useState<User | null>(() => {
     const stored = localStorage.getItem("user");
     return stored ? JSON.parse(stored) : null;
@@ -60,45 +64,46 @@ const finalLng = coords?.lng || gpsLng;
 
       <nav
         onMouseLeave={() => setIsHovered(false)}
-        className={`fixed top-0 left-0 w-full z-50 transition-all duration-500 bg-white/90 backdrop-blur-md shadow-md py-2.5
+        className={`fixed top-0 left-0 w-full z-50 transition-all duration-500 bg-white py-2.5
           ${isMapPage 
             ? (isHovered || open ? "translate-y-0" : "-translate-y-full") 
             : "translate-y-0"
           }
         `}
       >
-        <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
-          {/* Logo */}
+        <div className="max-w-7xl mx-auto px-8 flex items-center justify-between">
+          {/* Logo — simple sans-serif */}
           <a
             href="/"
             onClick={() => {
               localStorage.removeItem("province");
               setOpen(false);
             }}
-            className="text-2xl font-bold transition-colors text-[#43268c]"
+            className="text-xl font-bold tracking-tight"
           >
-            WebTravel
+            <span className="bg-gradient-to-r from-orange-400 to-rose-500 bg-clip-text text-transparent">Food</span>
+            <span className="text-gray-700 ml-1">Tourism</span>
           </a>
 
-          {/* Mobile button */}
+          {/* Mobile hamburger */}
           <button
-            // Thêm 'pr-6' (padding-right) để đẩy biểu tượng sang trái
-            className="md:hidden text-xl text-black pr-10 z-10" // Thêm z-10 để đảm bảo nó nằm trên bản đồ
+            className="md:hidden text-xl text-gray-900 z-10"
             onClick={() => setOpen(!open)}
           >
             {open ? <RiCloseLine /> : <RiMenuLine />}
           </button>
 
-          {/* Menu */}
+          {/* Desktop & Mobile menu */}
           <div
             className={`absolute md:static top-full left-0 w-full md:w-auto transition-all duration-300 ${
               open ? "block bg-white shadow-lg" : "hidden md:block"
             }`}
           >
-            <div className="flex flex-col md:flex-row items-center gap-6 md:gap-8 font-medium p-4 md:p-0 text-gray-700">
+            <div className="flex flex-col md:flex-row items-center gap-8 p-6 md:p-0">
+              {/* Nav links — thin, elegant font */}
               <Link
                 to="/"
-                className="hover:text-[#b59afa]"
+                className="text-sm font-medium text-gray-600 hover:bg-gradient-to-r hover:from-orange-400 hover:to-rose-500 hover:bg-clip-text hover:text-transparent transition-all duration-300"
                 onClick={() => setOpen(false)}
               >
                 Home
@@ -110,7 +115,7 @@ const finalLng = coords?.lng || gpsLng;
                     ? `/MainPage?lat=${finalLat}&lng=${finalLng}&province=${encodeURIComponent(provinceToShare!)}`
                     : "/MainPage"
                 }
-                className="hover:text-[#b59afa]"
+                className="text-sm font-medium text-gray-600 hover:bg-gradient-to-r hover:from-orange-400 hover:to-rose-500 hover:bg-clip-text hover:text-transparent transition-all duration-300"
                 onClick={() => setOpen(false)}
               >
                 Map
@@ -119,13 +124,23 @@ const finalLng = coords?.lng || gpsLng;
               {user ? (
                 <UserMenu user={user} onLogout={() => setUser(null)} />
               ) : (
-                <Link
-                  to="/AuthPage"
-                  className="hover:text-[#b59afa]"
-                  onClick={() => setOpen(false)}
-                >
-                  Sign in
-                </Link>
+                <>
+                  <Link
+                    to="/AuthPage?mode=signin"
+                    className="text-sm font-medium text-gray-600 hover:bg-gradient-to-r hover:from-orange-400 hover:to-rose-500 hover:bg-clip-text hover:text-transparent transition-all duration-300"
+                    onClick={() => setOpen(false)}
+                  >
+                    Sign In
+                  </Link>
+
+                  <Link
+                    to="/AuthPage?mode=signup"
+                    className="bg-gradient-to-r from-orange-400 to-rose-500 text-white text-sm font-medium px-6 py-2.5 rounded-full hover:shadow-lg hover:shadow-orange-200 transition-all duration-300"
+                    onClick={() => setOpen(false)}
+                  >
+                    Sign Up
+                  </Link>
+                </>
               )}
             </div>
           </div>

@@ -1,64 +1,32 @@
-import img1_des from "../assets/food1.webp";
-import img2_des from "../assets/food2.webp";
-import img3_des from "../assets/food3.webp";
-
 import img1_client from "../assets/client-1.jpg";
 import img2_client from "../assets/client-2.jpg";
 import img3_client from "../assets/client-3.jpg";
 import img4_client from "../assets/client-4.jpg";
 
-export interface DestinationType {
-  title: string;
-  location: string;
-  rating: number;
-  image: string;
-}
-
-export const destinations: DestinationType[] = [
-  {
-    title: "Bún chả Hà Nội",
-    location: "TP. Hà Nội",
-    rating: 4.7,
-    image: img1_des,
-  },
-  {
-    title: "Nem cua bể Hải Phòng",
-    location: "Hải Phòng",
-    rating: 4.5,
-    image: img2_des,
-  },
-  {
-    title: "Bún bò Huế",
-    location: "Huế",
-    rating: 4.8,
-    image: img3_des,
-  },
-];
-
 export const clients = [
   {
-    name: "John Adams",
-    role: "Travel Blogger",
+    name: "Chris",
+    role: "Financial Analyst",
     image: img1_client,
-    text: `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.`,
+    text: `The AI recommendations led me to hidden gems I'd never have found on my own. The local phở spot in Hanoi was life-changing — authentic flavors in a tiny alley restaurant.`,
   },
   {
     name: "Emily",
-    role: "Adventure Enthusiast",
+    role: "Travel Blogger",
     image: img2_client,
-    text: `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.`,
+    text: `As someone who travels for food, this platform is a game-changer. The province-based search made it so easy to plan my entire culinary tour of Central Vietnam.`,
   },
   {
-    name: "Justine Morizt",
-    role: "Chef",
+    name: "Justine",
+    role: "Professional Chef",
     image: img3_client,
-    text: `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.`,
+    text: `I was impressed by how accurately it captured the essence of each region's cuisine. From Huế's royal dishes to Đà Nẵng's seafood — every suggestion was spot on.`,
   },
   {
     name: "Henry",
-    role: "Doctor",
+    role: "Food Photographer",
     image: img4_client,
-    text: `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.`,
+    text: `Perfect for discovering photogenic food spots! The map integration helped me navigate between restaurants effortlessly. My Instagram has never looked better.`,
   },
 ];
 
