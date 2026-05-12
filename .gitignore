@@ -4,4 +4,4 @@ __pycache__/
 .env
 backend/firebase-service-account.json
 backend/API_DOCS.md
-data/images
+data/
