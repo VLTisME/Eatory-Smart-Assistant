@@ -9,6 +9,7 @@ MENU_REFINEMENT_PROMPT_VERSION = "menu_translation_v2"
 PLACE_REFINEMENT_PROMPT_VERSION = "place_search_v1"
 GENERIC_REFINEMENT_PROMPT_VERSION = "generic_refine_v1"
 REVIEW_SUMMARY_PROMPT_VERSION = "review_summary_v1"
+TRANSLATE_REVIEW_SUMMARY_PROMPT_VERSION = "translate_review_summary_v1"
 
 MENU_STRUCTURED_PROMPT = dedent(
     """
@@ -114,12 +115,20 @@ REVIEW_SUMMARY_STRUCTURED_PROMPT = dedent(
     | <must_try_label>   | Món nên thử           | Must Try      |
     For any other language, translate these labels appropriately.
 
-    Return ONLY valid JSON:
+    Return ONLY valid JSON with exactly two fields:
     {
+      "extracted_dishes": ["<exact keyword 1>", "<exact keyword 2>"],
       "summary": "<the structured text above>"
     }
 
-    STRICT RULES:
+    STEP 1: EXTRACTION ("extracted_dishes")
+    - Look AT ONLY the "top_positive_keywords" array.
+    - Identify any keywords that name a SPECIFIC food or drink (e.g., "bánh xèo", "cốt dừa", "kem bơ", "cháo ếch", "pizza", "coffee").
+    - Exclude generic terms entirely (e.g., "đồ ăn", "nước ngon", "thức uống", "nhân viên", "không gian").
+    - CRITICAL: DO NOT extract any dish if it also appears or is heavily referenced in the "top_negative_keywords" array. We only want to recommend good dishes.
+    - Put the exact original strings of these specific items into the "extracted_dishes" array. If none exist, leave the array empty [].
+
+    STEP 2: SUMMARY ("summary")
     - Use the target language from the user prompt for ALL labels and bullet text.
     - Percentages must match the ratios in the input (rounded to integer).
     - Every bullet in 👍 must be derived from "top_positive_keywords" ONLY.
@@ -136,16 +145,28 @@ REVIEW_SUMMARY_STRUCTURED_PROMPT = dedent(
     - NEVER invent information that is not in the provided keywords.
 
     RULES FOR 🍜 <must_try_label>:
-    - ONLY include this section if "top_positive_keywords" contains
-      a real food or drink name (e.g. "phở", "bánh kem", "matcha",
-      "bingsu", "cà phê", "chè mè đen", "trà sữa", "chiên gà").
-    - Generic words like "đồ ăn", "ăn ngon", "đồ uống", "nước ngon",
-      "nhân viên", "view đẹp" are NOT dish names — do NOT use them.
-    - If NO specific dish/drink name exists in the keywords, OMIT the
-      entire 🍜 section.  Do NOT guess or fabricate dish names.
-    - Dish names in the bullet should be written in the target language.
+    - If the "extracted_dishes" array from Step 1 is EMPTY, you MUST OMIT the entire 🍜 section from the summary text. Do NOT guess or fabricate dish names.
+    - If the "extracted_dishes" array has items, include the 🍜 section and translate/format ONLY those extracted dishes into natural phrases in the target language.
 
     - Output JSON only, no markdown fences or explanation.
+    """
+).strip()
+
+TRANSLATE_REVIEW_SUMMARY_PROMPT = dedent(
+    """
+    You are an expert translator for a food tourism assistant.
+    Translate the provided structured restaurant review summary into the target language.
+    
+    STRICT RULES:
+    - Maintain the EXACT same bullet points, formatting, and emojis.
+    - Do NOT add, merge, or remove any bullet points.
+    - Translate the headers appropriately. For English use:
+      "📊 Overview"
+      "👍 Pros (<percent>%)"
+      "👎 Cons (<percent>%)"
+      "🍜 Must Try:"
+    - Keep percentages exactly as they are.
+    - Output plain text only, no JSON, no markdown fences, no explanations.
     """
 ).strip()
 
@@ -168,6 +189,8 @@ def build_refinement_prompt(
       system_prompt = PLACE_SEARCH_STRUCTURED_PROMPT
     elif normalized_context in {"review_summary", "review summary"}:
       system_prompt = REVIEW_SUMMARY_STRUCTURED_PROMPT
+    elif normalized_context in {"translate_review_summary"}:
+      system_prompt = TRANSLATE_REVIEW_SUMMARY_PROMPT
     else:
         system_prompt = dedent(
             """
