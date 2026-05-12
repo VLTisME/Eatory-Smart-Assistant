@@ -2,7 +2,7 @@
   {
     "place_id": "ChIJ-fCCywwndTERBy8ZHAa9B5k",
     "place_name": "Tiệm bánh KICA",
-    "type": NaN,
+    "type": null,
     "address": "31 Tô Vĩnh Diện, Linh Chiểu",
     "district": "Thủ Đức",
     "city": "Hồ Chí Minh",
@@ -50,7 +50,7 @@
   {
     "place_id": "ChIJ22p6x2AvdTERFDZPouHGoMs",
     "place_name": "Dolphy Café Mỹ Toàn",
-    "type": NaN,
+    "type": null,
     "address": "1441 Đường Nguyễn Văn Linh, Khu đô thị Phú Mỹ Hưng",
     "district": "Tân Hưng",
     "city": "Hồ Chí Minh",
@@ -86,7 +86,7 @@
   {
     "place_id": "ChIJ2bO2S6UvdTER2gFlY1s-IJU",
     "place_name": "The Coffee House - Trung Sơn",
-    "type": NaN,
+    "type": null,
     "address": "114 Đ. số 9A",
     "district": "Bình Hưng",
     "city": "Hồ Chí Minh",
@@ -134,7 +134,7 @@
   {
     "place_id": "ChIJ2xW0W5EvdTERDwMPy7z7n0k",
     "place_name": "Tuyet Hoa - Seol Hwa Bing Su",
-    "type": NaN,
+    "type": null,
     "address": "Sky Garden 1, Đ. Phạm Văn Nghị, Khu đô thị Phú Mỹ Hưng",
     "district": "Quận 7",
     "city": "Hồ Chí Minh",
@@ -182,7 +182,7 @@
   {
     "place_id": "ChIJ3yg2LEkvdTERL8-WeUdBSFU",
     "place_name": "SOLOBOX Restaurant",
-    "type": NaN,
+    "type": null,
     "address": "252 Lý Tự Trọng",
     "district": "Bến Thành",
     "city": "Hồ Chí Minh",
@@ -224,7 +224,7 @@
   {
     "place_id": "ChIJ67SU4vMudTERyb8_WbHBIiU",
     "place_name": "Quán chè Hà Ký",
-    "type": NaN,
+    "type": null,
     "address": "138 Đ. Châu Văn Liêm, Phường 11",
     "district": "Chợ Lớn",
     "city": "Hồ Chí Minh",
@@ -272,7 +272,7 @@
   {
     "place_id": "ChIJ6cL6ZtkvdTERFI5pV9DaJjQ",
     "place_name": "Cafe Forest",
-    "type": NaN,
+    "type": null,
     "address": "Cafe Forest Sky Garden 2, 1016/36, lô/2 Đ. Phạm Văn Nghị",
     "district": "Tân Hưng",
     "city": "Hồ Chí Minh",
@@ -320,7 +320,7 @@
   {
     "place_id": "ChIJ9XAX8oAvdTER1ub-ybAdDbk",
     "place_name": "L'Usine Phu My Hung",
-    "type": NaN,
+    "type": null,
     "address": "GF 56, 101 Đ. Tôn Dật Tiên, Tân Phú",
     "district": "Tân Mỹ",
     "city": "Hồ Chí Minh",
@@ -368,7 +368,7 @@
   {
     "place_id": "ChIJFx7EFQAndTER_QcnargOn1Y",
     "place_name": "cube cake",
-    "type": NaN,
+    "type": null,
     "address": "19 Xuân Thủy, Thảo Điền",
     "district": "An Khánh",
     "city": "Hồ Chí Minh",
@@ -416,7 +416,7 @@
   {
     "place_id": "ChIJI5ehazgldTERH5FH6JbUJcI",
     "place_name": "Qi Coffee & Tea",
-    "type": NaN,
+    "type": null,
     "address": "Raymondienne/16 Phú Mỹ Hưng, Khu Starhill",
     "district": "Tân Mỹ",
     "city": "Hồ Chí Minh",
@@ -461,7 +461,7 @@
   {
     "place_id": "ChIJMzp1gSUvdTER-IanzsYU1Sc",
     "place_name": "Chay Tuệ Garden - Nguyễn Bính",
-    "type": NaN,
+    "type": null,
     "address": "Nguyễn Bính/101 Khu Phố Mỹ Hoàng, Tân Phong",
     "district": "Tân Hưng",
     "city": "Hồ Chí Minh",
@@ -500,7 +500,7 @@
   {
     "place_id": "ChIJNSgishMvdTER-EzR7-2ZYnk",
     "place_name": "LALA Coffee&Tea",
-    "type": NaN,
+    "type": null,
     "address": "Khu căn hộ Phú Hoàng Anh, Số 9 Nguyễn Hữu Thọ, Phước Kiển",
     "district": "Nhà Bè",
     "city": "Hồ Chí Minh",
@@ -548,7 +548,7 @@
   {
     "place_id": "ChIJNVT4dVondTER-sL6PUoLOqE",
     "place_name": "GHILL COFFEE",
-    "type": NaN,
+    "type": null,
     "address": "783 Kha Vạn Cân, Linh Chiểu",
     "district": "Linh Xuân",
     "city": "Hồ Chí Minh",
@@ -587,7 +587,7 @@
   {
     "place_id": "ChIJN_yLl_ovdTERDpCe3N0ySUo",
     "place_name": "The Fig Cafe",
-    "type": NaN,
+    "type": null,
     "address": "7a Nguyễn Bính, Tân Phong",
     "district": "Tân Hưng",
     "city": "Hồ Chí Minh",
@@ -635,7 +635,7 @@
   {
     "place_id": "ChIJNwP-6QUvdTERqJOGDQxQRZI",
     "place_name": "NHẸ TÊNH Coffee & Tea - 552 Lê Văn Lương | Cafe Tân Phong | Cafe Quận 7",
-    "type": NaN,
+    "type": null,
     "address": "552 Lê Văn Lương",
     "district": "Tân Hưng",
     "city": "Hồ Chí Minh",
@@ -683,7 +683,7 @@
   {
     "place_id": "ChIJOcN1YBYvdTERxs17dCCBl0U",
     "place_name": "Japanit matcha & coffee 130 THD",
-    "type": NaN,
+    "type": null,
     "address": "130 Trần Hưng Đạo, Phường Phạm Ngũ Lão",
     "district": "Bến Thành",
     "city": "Hồ Chí Minh",
@@ -731,7 +731,7 @@
   {
     "place_id": "ChIJPcJdD8IvdTERo6_7qDO6uY4",
     "place_name": "Táo Tào - Tiệm Chè Người Hoa - Trần Hưng Đạo",
-    "type": NaN,
+    "type": null,
     "address": "202 Trần Hưng Đạo, Phường",
     "district": "Chợ Lớn",
     "city": "Hồ Chí Minh",
@@ -779,7 +779,7 @@
   {
     "place_id": "ChIJR5lYWqUndTERihhnDlUzuLk",
     "place_name": "Cafe Thanh",
-    "type": NaN,
+    "type": null,
     "address": "15 Hòa Bình, Bình Thọ",
     "district": "Thủ Đức",
     "city": "Hồ Chí Minh",
@@ -827,7 +827,7 @@
   {
     "place_id": "ChIJRTo9IhsvdTER835Z0g1dO58",
     "place_name": "AN - nhà hàng chay An & cafe - Phạm Thái Bường",
-    "type": NaN,
+    "type": null,
     "address": "220 Phạm Thái Bường, Tân Phong",
     "district": "Tân Hưng",
     "city": "Hồ Chí Minh",
@@ -875,7 +875,7 @@
   {
     "place_id": "ChIJRWI6wEYvdTEREjmTDIz-a6M",
     "place_name": "Partea - English Tearoom",
-    "type": NaN,
+    "type": null,
     "address": "58 đường 20, Ấp 2",
     "district": "Bình Hưng",
     "city": "Hồ Chí Minh",
@@ -911,7 +911,7 @@
   {
     "place_id": "ChIJT9Pk5PsudTER3sQCMS5UC_0",
     "place_name": "Baoz Dimsum",
-    "type": NaN,
+    "type": null,
     "address": "82 - 84 - 86 - 88 Nguyễn Tri Phương",
     "district": "An Đông",
     "city": "Hồ Chí Minh",
@@ -956,7 +956,7 @@
   {
     "place_id": "ChIJVy5_KHQvdTERIuolQr53Dus",
     "place_name": "Bơ by Butterman",
-    "type": NaN,
+    "type": null,
     "address": "67 Lê Thị Riêng, Phường Phạm Ngũ Lão",
     "district": "Bến Thành",
     "city": "Hồ Chí Minh",
@@ -995,7 +995,7 @@
   {
     "place_id": "ChIJWX-lRIkvdTERNoQyuLtbbAc",
     "place_name": "Morico Crescent Mall",
-    "type": NaN,
+    "type": null,
     "address": "101 Đ. Tôn Dật Tiên, Tân Phú",
     "district": "Tân Mỹ",
     "city": "Hồ Chí Minh",
@@ -1043,7 +1043,7 @@
   {
     "place_id": "ChIJWbhpor8vdTER-XxN0YATDxg",
     "place_name": "Ulà Ngon - Trà Sữa Hạt Nông Sản, Matcha, Cafe Phin - Delivery Hub - Q3",
-    "type": NaN,
+    "type": null,
     "address": "339/18A1 Đ. Lê Văn Sỹ, Phường 13",
     "district": "Nhiêu Lộc",
     "city": "Hồ Chí Minh",
@@ -1088,7 +1088,7 @@
   {
     "place_id": "ChIJXeAstn8mdTERTWy8UrjzSI8",
     "place_name": "Cafe Thịnh",
-    "type": NaN,
+    "type": null,
     "address": "14 Lê Văn Thịnh, Phường Bình Trưng Tây",
     "district": "Bình Trưng",
     "city": "Hồ Chí Minh",
@@ -1136,7 +1136,7 @@
   {
     "place_id": "ChIJa50yEW8ndTEREAK7y57f978",
     "place_name": "AMERICANO COFFEE - 10 Hồng Đức",
-    "type": NaN,
+    "type": null,
     "address": "10 Hồng Đức, Bình Thọ",
     "district": "Thủ Đức",
     "city": "Hồ Chí Minh",
@@ -1184,7 +1184,7 @@
   {
     "place_id": "ChIJcQv9BwAvdTERd0YnfoeH0gA",
     "place_name": "Eggyolk Coffee",
-    "type": NaN,
+    "type": null,
     "address": "220 Lê Thánh Tôn",
     "district": "Bến Thành",
     "city": "Hồ Chí Minh",
@@ -1229,7 +1229,7 @@
   {
     "place_id": "ChIJeX1s4_IvdTERKZRLuMufrUQ",
     "place_name": "The Cup- American Food & Desserts (formerly Master’s Cup)",
-    "type": NaN,
+    "type": null,
     "address": "43 Hà Huy Tập, Tân Phong",
     "district": "Tân Hưng",
     "city": "Hồ Chí Minh",
@@ -1277,7 +1277,7 @@
   {
     "place_id": "ChIJf5dULuwldTERhbtf7fImTZo",
     "place_name": "Raum Brunch Cafe",
-    "type": NaN,
+    "type": null,
     "address": "27 Đường số 16, Tân Phú",
     "district": "Tân Mỹ",
     "city": "Hồ Chí Minh",
@@ -1322,7 +1322,7 @@
   {
     "place_id": "ChIJgRwlQ5MvdTERqQ_32WTjau8",
     "place_name": "Buttery Cake & Cafe",
-    "type": NaN,
+    "type": null,
     "address": "94 Mạc Thị Bưởi, Phường",
     "district": "Sài Gòn",
     "city": "Hồ Chí Minh",
@@ -1370,7 +1370,7 @@
   {
     "place_id": "ChIJgWfui4gndTERAY0pIZ6B8CE",
     "place_name": "TOTO Trà Cà phê 24/24",
-    "type": NaN,
+    "type": null,
     "address": "12 Nguyễn Khuyến, Bình Thọ",
     "district": "Thủ Đức",
     "city": "Hồ Chí Minh",
@@ -1418,7 +1418,7 @@
   {
     "place_id": "ChIJjyx4Oe8vdTERzPNy7iVETQY",
     "place_name": "Nomiya ノミヤcafé",
-    "type": NaN,
+    "type": null,
     "address": "1/8A Chánh Hưng, Phường 4",
     "district": "Chánh Hưng",
     "city": "Hồ Chí Minh",
@@ -1463,7 +1463,7 @@
   {
     "place_id": "ChIJk8X2Fy0vdTERJNAx-4NCts0",
     "place_name": "Vérité Patisserie",
-    "type": NaN,
+    "type": null,
     "address": "84T/1 Trần Đình Xu",
     "district": "Cầu Ông Lãnh",
     "city": "Hồ Chí Minh",
@@ -1502,7 +1502,7 @@
   {
     "place_id": "ChIJk8qFZOUldTERcbwPHDZK9n4",
     "place_name": "Hochi Cafe",
-    "type": NaN,
+    "type": null,
     "address": "43 Đ. Số 15, Khu đô thị Phú Mỹ Hưng",
     "district": "Tân Mỹ",
     "city": "Hồ Chí Minh",
@@ -1550,7 +1550,7 @@
   {
     "place_id": "ChIJmSbykKsvdTERHnCl6ou9HiI",
     "place_name": "This & That Coffee and Tea",
-    "type": NaN,
+    "type": null,
     "address": "59 Phạm Viết Chánh",
     "district": "Cầu Ông Lãnh",
     "city": "Hồ Chí Minh",
@@ -1598,7 +1598,7 @@
   {
     "place_id": "ChIJmTwzucwldTERcqxLB6bYWNo",
     "place_name": "Nhà hàng chay An & cafe quận 7",
-    "type": NaN,
+    "type": null,
     "address": "Phố Tiểu Nam/75 Phú Mỹ Hưng, Phường Tân Mỹ",
     "district": "Tân Mỹ",
     "city": "Hồ Chí Minh",
@@ -1646,7 +1646,7 @@
   {
     "place_id": "ChIJnbKCt0UpdTERT3CIorMTWzw",
     "place_name": "® XOCOATI - Artisan Cocoa Drinks",
-    "type": NaN,
+    "type": null,
     "address": "33/11 Lý Văn Phức",
     "district": "Tân Định",
     "city": "Hồ Chí Minh",
@@ -1685,7 +1685,7 @@
   {
     "place_id": "ChIJoSe8xkMvdTERRKC9H2gpQc8",
     "place_name": "SIGNATURE By The Coffee House",
-    "type": NaN,
+    "type": null,
     "address": "101 Đ. Tôn Dật Tiên, Tân Phú",
     "district": "Tân Mỹ",
     "city": "Hồ Chí Minh",
@@ -1733,7 +1733,7 @@
   {
     "place_id": "ChIJq8lL5x4ndTERaR-1dV_Gqf0",
     "place_name": "THÔ’S Artisan Coffee",
-    "type": NaN,
+    "type": null,
     "address": "254 Đặng Văn Bi, Bình Thọ",
     "district": "Thủ Đức",
     "city": "Hồ Chí Minh",
@@ -1778,7 +1778,7 @@
   {
     "place_id": "ChIJs06heDUvdTERoNy1SNffOr8",
     "place_name": "The Seventh Barista/cafe and more",
-    "type": NaN,
+    "type": null,
     "address": "63 đường số 14, khu ven sông",
     "district": "Tân Hưng",
     "city": "Hồ Chí Minh",
@@ -1814,7 +1814,7 @@
   {
     "place_id": "ChIJt9fUYbQvdTERj0Usapzp3ZI",
     "place_name": "SALLA COFFEE",
-    "type": NaN,
+    "type": null,
     "address": "116 Hồ Thành Biên, Phường 4",
     "district": "Chánh Hưng",
     "city": "Hồ Chí Minh",
@@ -1862,7 +1862,7 @@
   {
     "place_id": "ChIJy-vbI6EldTERVONPShP8M9c",
     "place_name": "O'Blanc Bakery & Cafe",
-    "type": NaN,
+    "type": null,
     "address": "45 Đ. Số 15, Tân Phú",
     "district": "Tân Mỹ",
     "city": "Hồ Chí Minh",

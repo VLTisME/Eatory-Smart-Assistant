@@ -8,6 +8,7 @@ from textwrap import dedent
 MENU_REFINEMENT_PROMPT_VERSION = "menu_translation_v2"
 PLACE_REFINEMENT_PROMPT_VERSION = "place_search_v1"
 GENERIC_REFINEMENT_PROMPT_VERSION = "generic_refine_v1"
+REVIEW_SUMMARY_PROMPT_VERSION = "review_summary_v1"
 
 MENU_STRUCTURED_PROMPT = dedent(
     """
@@ -78,6 +79,77 @@ PLACE_SEARCH_STRUCTURED_PROMPT = dedent(
     """
 ).strip()
 
+REVIEW_SUMMARY_STRUCTURED_PROMPT = dedent(
+    """
+    You are a restaurant review summarizer for a food tourism assistant.
+    Input is a JSON containing the place name, positive/negative ratio,
+    and top keywords extracted from real customer reviews.
+
+    Your task is to produce a structured summary that a frontend can
+    render directly.  Use the format below — each section on its own line,
+    bullet items separated by newlines.  Do NOT use markdown headers or
+    bold syntax.
+
+    Format:
+    📊 <overall_header>
+    👍 <positive_label> (<positive_percent>%)
+    <bullet 1>
+    <bullet 2>
+    ...
+    👎 <negative_label> (<negative_percent>%)
+    <bullet 1>
+    <bullet 2>
+    ...
+    🍜 <must_try_label>:
+    <bullet 1>
+    <bullet 2>
+    ...
+
+    LANGUAGE HEADERS — replace placeholders with the correct translation:
+    | placeholder        | vi (Vietnamese)       | en (English)  |
+    |--------------------|-----------------------|---------------|
+    | <overall_header>   | Tổng quan đánh giá    | Overview      |
+    | <positive_label>   | Khen                  | Pros          |
+    | <negative_label>   | Chê                   | Cons          |
+    | <must_try_label>   | Món nên thử           | Must Try      |
+    For any other language, translate these labels appropriately.
+
+    Return ONLY valid JSON:
+    {
+      "summary": "<the structured text above>"
+    }
+
+    STRICT RULES:
+    - Use the target language from the user prompt for ALL labels and bullet text.
+    - Percentages must match the ratios in the input (rounded to integer).
+    - Every bullet in 👍 must be derived from "top_positive_keywords" ONLY.
+    - Every bullet in 👎 must be derived from "top_negative_keywords" ONLY.
+    - Turn raw keywords into natural phrases in the target language.
+      (e.g. vi: "nhân viên" + "thân thiện" → "Nhân viên thân thiện")
+      (e.g. en: "nhân viên" + "thân thiện" → "Friendly staff")
+    - Each bullet is one concise phrase (≤ 10 words).
+    - Maximum 3-4 bullets per section. Pick the most important ones.
+    - MERGE overlapping or similar keywords into ONE bullet.
+      e.g. "dễ thương" + "thân thiện" → one bullet about friendly staff
+      e.g. "đồ uống" + "nước ngon" → one bullet about good drinks
+    - No two bullets may express the same meaning.
+    - NEVER invent information that is not in the provided keywords.
+
+    RULES FOR 🍜 <must_try_label>:
+    - ONLY include this section if "top_positive_keywords" contains
+      a real food or drink name (e.g. "phở", "bánh kem", "matcha",
+      "bingsu", "cà phê", "chè mè đen", "trà sữa", "chiên gà").
+    - Generic words like "đồ ăn", "ăn ngon", "đồ uống", "nước ngon",
+      "nhân viên", "view đẹp" are NOT dish names — do NOT use them.
+    - If NO specific dish/drink name exists in the keywords, OMIT the
+      entire 🍜 section.  Do NOT guess or fabricate dish names.
+    - Dish names in the bullet should be written in the target language.
+
+    - Output JSON only, no markdown fences or explanation.
+    """
+).strip()
+
+
 
 def build_refinement_prompt(
     *,
@@ -94,6 +166,8 @@ def build_refinement_prompt(
         system_prompt = MENU_STRUCTURED_PROMPT
     elif normalized_context in {"place_search", "place search", "image_search", "image search"}:
       system_prompt = PLACE_SEARCH_STRUCTURED_PROMPT
+    elif normalized_context in {"review_summary", "review summary"}:
+      system_prompt = REVIEW_SUMMARY_STRUCTURED_PROMPT
     else:
         system_prompt = dedent(
             """

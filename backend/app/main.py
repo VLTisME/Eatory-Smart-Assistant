@@ -17,6 +17,7 @@ from app.api.router import router as api_router
 from app.core.config import settings
 from app.features.menu_translation.ocr_engine import get_menu_ocr_engine
 from app.features.place_search.service import get_place_search_engine
+from app.features.review_summary.service import get_review_summary_service
 from app.shared.refinement import get_refinement_client
 
 # 1. Logging configuration
@@ -58,6 +59,13 @@ async def lifespan(app: FastAPI):
         logger.info("Place search engine warm-up completed")
     except Exception:
         logger.exception("Place search warm-up failed; first place-search request may be slower")
+
+    try:
+        logger.info("Warming up review summary engine...")
+        await asyncio.to_thread(get_review_summary_service)
+        logger.info("Review summary engine warm-up completed")
+    except Exception:
+        logger.exception("Review summary warm-up failed; first request may be slower")
 
     yield
     logger.info("Shutting down %s", settings.app_name)

@@ -44,6 +44,8 @@ class Settings(BaseSettings):
     place_search_min_similarity: float = 0.0
     place_search_use_gpu: bool = False
 
+    review_summary_path: str = "../ai-models/review_summary/data/output/review_summaries.json"
+
     # ImageKit configuration
     kit_url_endpoint: str | None = None
     kit_public_key: str | None = None

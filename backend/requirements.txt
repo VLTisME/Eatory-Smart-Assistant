@@ -26,3 +26,5 @@ locust>=2.15.0
 # Dev tooling
 black>=23.0.0
 ruff>=0.1.0
+transformers 
+torch
