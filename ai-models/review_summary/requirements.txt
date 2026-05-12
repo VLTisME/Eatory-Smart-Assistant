@@ -5,3 +5,4 @@ sentence-transformers
 sqlalchemy
 psycopg2-binary
 python-dotenv
+tqdm
