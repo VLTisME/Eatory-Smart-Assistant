@@ -64,7 +64,7 @@ export default function Navbar({ currentProvince, currentPath }: NavbarProps) {
 
       <nav
         onMouseLeave={() => setIsHovered(false)}
-        className={`fixed top-0 left-0 w-full z-50 transition-all duration-500 bg-white py-2.5
+        className={`fixed top-0 left-0 w-full z-50 transition-all duration-500 bg-white py-1.5
           ${isMapPage 
             ? (isHovered || open ? "translate-y-0" : "-translate-y-full") 
             : "translate-y-0"
@@ -72,7 +72,7 @@ export default function Navbar({ currentProvince, currentPath }: NavbarProps) {
         `}
       >
         <div className="max-w-7xl mx-auto px-8 flex items-center justify-between">
-          {/* Logo — simple sans-serif */}
+          {/* Logo */}
           <a
             href="/"
             onClick={() => {
@@ -100,10 +100,10 @@ export default function Navbar({ currentProvince, currentPath }: NavbarProps) {
             }`}
           >
             <div className="flex flex-col md:flex-row items-center gap-8 p-6 md:p-0">
-              {/* Nav links — thin, elegant font */}
+              {/* Nav links*/}
               <Link
                 to="/"
-                className="text-sm font-medium text-gray-600 hover:bg-gradient-to-r hover:from-orange-400 hover:to-rose-500 hover:bg-clip-text hover:text-transparent transition-all duration-300"
+                className="text-sm font-medium text-gray-600 hover:text-orange-500 transition-colors duration-300 ease-in-out"
                 onClick={() => setOpen(false)}
               >
                 Home
@@ -115,7 +115,7 @@ export default function Navbar({ currentProvince, currentPath }: NavbarProps) {
                     ? `/MainPage?lat=${finalLat}&lng=${finalLng}&province=${encodeURIComponent(provinceToShare!)}`
                     : "/MainPage"
                 }
-                className="text-sm font-medium text-gray-600 hover:bg-gradient-to-r hover:from-orange-400 hover:to-rose-500 hover:bg-clip-text hover:text-transparent transition-all duration-300"
+                className="text-sm font-medium text-gray-600 hover:text-orange-500 transition-colors duration-300 ease-in-out"
                 onClick={() => setOpen(false)}
               >
                 Map
@@ -127,7 +127,7 @@ export default function Navbar({ currentProvince, currentPath }: NavbarProps) {
                 <>
                   <Link
                     to="/AuthPage?mode=signin"
-                    className="text-sm font-medium text-gray-600 hover:bg-gradient-to-r hover:from-orange-400 hover:to-rose-500 hover:bg-clip-text hover:text-transparent transition-all duration-300"
+                    className="text-sm font-medium text-gray-600 hover:text-orange-500 transition-colors duration-300 ease-in-out"
                     onClick={() => setOpen(false)}
                   >
                     Sign In

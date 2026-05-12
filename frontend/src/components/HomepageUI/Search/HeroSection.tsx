@@ -17,7 +17,7 @@ export default function HeroSection({
   isLoading,
 }: HeroSectionProps) {
   return (
-    <section className="w-full bg-white pt-12 pb-4 px-4 md:px-8">
+    <section className="w-full bg-white pt-[52px] pb-4 px-1 md:px-8">
       {/* Hero Card Container */}
       <div
         className="relative w-full max-w-[1400px] mx-auto overflow-hidden"

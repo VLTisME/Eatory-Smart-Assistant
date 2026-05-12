@@ -70,7 +70,7 @@ export default function Home() {
       <Header selectedProvince={province} setSelectedProvince={setProvince} />
 
       {/* Destination — has its own internal scroll animation */}
-      <SectionWithArch bgColor="#ffffff" bgClass="bg-white" zIndex={10} archOverlap={40}>
+      <SectionWithArch bgColor="#ffffff" bgClass="bg-white" zIndex={10} archOverlap={0}>
         <Destination />
       </SectionWithArch>
 

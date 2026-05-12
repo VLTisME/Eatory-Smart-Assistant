@@ -60,7 +60,7 @@ export default function Journey() {
               animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 0 }}
               transition={{
                 duration: 0.6,
-                delay: 0.35 + idx * 0.15,
+                delay: 0.35 + idx * 0.3,
                 ease: [0.25, 0.46, 0.45, 0.94],
               }}
               className={`relative ${heightClass} ${marginClass} rounded-[32px] overflow-hidden group transition-all duration-500`}

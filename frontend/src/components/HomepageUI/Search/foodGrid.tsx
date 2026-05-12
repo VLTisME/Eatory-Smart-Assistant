@@ -50,12 +50,16 @@ export default function FoodGrid({ items }: Props) {
             </div>
 
             {/* Food name */}
-            <h4 className="text-white text-xl font-bold leading-tight line-clamp-1">
+            <h4 
+              title={item.name}
+              className="text-white text-xl font-bold leading-tight line-clamp-1">
               {item.name}
             </h4>
 
             {/* Address */}
-            <p className="text-white/70 text-sm line-clamp-1">
+            <p 
+              title={item.address}
+              className="text-white/70 text-sm line-clamp-1">
               {item.address}
             </p>
 
