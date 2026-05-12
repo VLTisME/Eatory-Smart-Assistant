@@ -13,7 +13,7 @@ from app.features.place_search.routes import (
     get_optional_refinement_client,
 )
 from app.features.place_search.schemas import PlaceSearchItem
-from app.features.place_search.service import get_place_search_engine
+from app.features.place_search.service import PlaceSearchNoiseError, get_place_search_engine
 from app.main import app
 
 
@@ -42,6 +42,12 @@ class FakePlaceSearchEngine:
 class EmptyPlaceSearchEngine:
     def search(self, image_bytes: bytes, *, top_k_images: int | None = None) -> list[PlaceSearchItem]:
         return []
+
+
+@dataclass
+class NoisePlaceSearchEngine:
+    def search(self, image_bytes: bytes, *, top_k_images: int | None = None) -> list[PlaceSearchItem]:
+        raise PlaceSearchNoiseError("text", 0.91, "/tmp/noise.jpg")
 
 
 @dataclass
@@ -108,6 +114,20 @@ def test_place_search_returns_404_when_no_match(sample_image_bytes):
 
     assert response.status_code == 404
     assert response.json()["detail"] == "No matching place found for the uploaded image."
+
+
+def test_place_search_returns_422_when_query_is_noise(sample_image_bytes):
+    app.dependency_overrides[get_place_search_engine] = lambda: NoisePlaceSearchEngine()
+
+    client = TestClient(app)
+    response = client.post(
+        "/api/v1/place-search",
+        files={"file": ("dish.png", sample_image_bytes, "image/png")},
+    )
+
+    assert response.status_code == 422
+    assert response.json()["detail"]["reason"] == "similar_to_noise"
+    assert response.json()["detail"]["noise_category"] == "text"
 
 
 def test_place_search_falls_back_to_raw_results_when_refine_invalid(sample_image_bytes):
