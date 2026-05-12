@@ -14,6 +14,7 @@ class ReviewSummaryService:
     def __init__(self, llm_client: RefinementClient | None = None) -> None:
         self._llm = llm_client
         self._data = self._load_data()
+        self._cache: dict[str, ReviewSummaryResponse] = {}
 
     #File path finding function
     def _resolve_data_path(self, configured_path: str) -> Path:
@@ -56,6 +57,41 @@ class ReviewSummaryService:
 
     #Get restaurant summary review
     def get_summary(self, place_id:str, target_language: str = "vi") -> ReviewSummaryResponse:
+        cache_key = f"{place_id}_{target_language}"
+        if cache_key in self._cache:
+            return self._cache[cache_key]
+
+        if target_language.lower() != "vi":
+            # 1. Get the base summary in Vietnamese
+            base_response = self.get_summary(place_id, target_language="vi")
+            
+            # 2. If LLM is missing or it errored out, just return the base response
+            if not self._llm or "An error occurred" in base_response.summary:
+                return base_response
+
+            # 3. Translate the exact summary text to the target language
+            try:
+                translated_text, duration_ms, _ = self._llm.refine(
+                    content=base_response.summary,
+                    context="translate_review_summary",
+                    source_language="vi",
+                    target_language=target_language
+                )
+                logger.info("LLM summary translation completed in %.0fms", duration_ms)
+                
+                response = ReviewSummaryResponse(
+                    place_id=base_response.place_id,
+                    name=base_response.name,
+                    summary=translated_text,
+                    positive_ratio=base_response.positive_ratio,
+                    negative_ratio=base_response.negative_ratio,
+                )
+                self._cache[cache_key] = response
+                return response
+            except Exception as exc:
+                logger.error("Error when calling LLM translate: %s", exc)
+                return base_response
+
         place_data = self._data.get(place_id)
 
         positive_ratio = place_data.get("positive_ratio", 0.0) if place_data else 0.0
@@ -84,6 +120,7 @@ class ReviewSummaryService:
         
         top_pos = place_data.get("top_positive_keywords", [])
         top_neg = place_data.get("top_negative_keywords", [])
+
         content_obj = {
             "place_name": place_name,
             "positive_ratio": positive_ratio,
@@ -106,15 +143,18 @@ class ReviewSummaryService:
             else:
                 summary_text = refined_text
 
+            # Strip an empty 🍜 section if the LLM still emitted one despite instructions
             summary_text = re.sub(r'\n?🍜[^\n]*:\s*\n?\s*$', '', summary_text).rstrip()
 
-            return ReviewSummaryResponse(
+            response = ReviewSummaryResponse(
                 place_id=place_id,
                 name=place_name,
                 summary=summary_text,
                 positive_ratio=positive_ratio,
                 negative_ratio=negative_ratio,
             )
+            self._cache[cache_key] = response
+            return response
         except Exception as exc:
             logger.error("Error when calling LLM refine: %s", exc)
             return ReviewSummaryResponse(
