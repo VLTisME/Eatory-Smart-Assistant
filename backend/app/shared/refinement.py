@@ -12,6 +12,7 @@ from app.core.prompts import (
     MENU_REFINEMENT_PROMPT_VERSION,
     PLACE_REFINEMENT_PROMPT_VERSION,
     GENERIC_REFINEMENT_PROMPT_VERSION,
+    REVIEW_SUMMARY_PROMPT_VERSION,
     build_refinement_prompt,
 )
 
@@ -62,6 +63,8 @@ class RefinementClient:
             version = MENU_REFINEMENT_PROMPT_VERSION
         elif normalized_context in {"place_search", "place search", "image_search", "image search"}:
             version = PLACE_REFINEMENT_PROMPT_VERSION
+        elif normalized_context in {"review_summary", "review summary"}:
+            version = REVIEW_SUMMARY_PROMPT_VERSION
         else:
             version = GENERIC_REFINEMENT_PROMPT_VERSION
 

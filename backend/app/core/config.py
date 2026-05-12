@@ -41,6 +41,8 @@ class Settings(BaseSettings):
     place_search_min_similarity: float = 0.0
     place_search_use_gpu: bool = False
 
+    review_summary_path: str = "../ai-models/review_summary/data/output/review_summaries.json"
+
     @property
     def ocr_language_list(self) -> list[str]:
         return [language.strip() for language in self.ocr_languages.split(",") if language.strip()]
