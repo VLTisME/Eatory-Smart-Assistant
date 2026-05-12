@@ -36,7 +36,10 @@ class Settings(BaseSettings):
     place_search_embeddings_path: str = "data/image_embeddings.npy"
     place_search_index_path: str = "data/image_index.json"
     place_search_places_path: str = "data/places.json"
-    place_search_model_name: str = "google/vit-base-patch16-224"
+    place_search_noise_embeddings_path: str = "data/noise_embeddings.npy"
+    place_search_noise_index_path: str = "data/noise_index.json"
+    place_search_noise_threshold: float = 0.73
+    place_search_model_name: str = "laion/CLIP-ViT-H-14-laion2B-s32B-b79K"
     place_search_top_k_images: int = 5
     place_search_min_similarity: float = 0.0
     place_search_use_gpu: bool = False

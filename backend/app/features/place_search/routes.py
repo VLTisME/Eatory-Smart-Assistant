@@ -10,6 +10,7 @@ from app.features.place_search.schemas import PlaceAutoCompleteResponse, PlaceDe
 from app.features.place_search.service import (
     PlaceSearchEngine,
     PlaceSearchPipeline,
+    PlaceSearchNoiseError,
     RateLimitExceeded,
     autocomplete as goong_autocomplete,
     get_place_search_engine,
@@ -40,7 +41,18 @@ async def search_places_by_image(
 ) -> PlaceSearchResponse:
     validated = await validate_image_upload(file)
     pipeline = PlaceSearchPipeline(engine=engine, llm_client=llm_client)
-    response = pipeline.run(validated.data, target_language=target_language)
+    try:
+        response = pipeline.run(validated.data, target_language=target_language)
+    except PlaceSearchNoiseError as exc:
+        raise HTTPException(
+            status_code=status.HTTP_422_UNPROCESSABLE_CONTENT,
+            detail={
+                "reason": "similar_to_noise",
+                "noise_category": exc.category,
+                "noise_score": exc.score,
+                "noise_image": exc.image_path,
+            },
+        ) from exc
 
     if not response.results:
         raise HTTPException(status_code=404, detail="No matching place found for the uploaded image.")
