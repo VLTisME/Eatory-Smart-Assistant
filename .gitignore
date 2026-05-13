@@ -1,7 +1,33 @@
-backend/.*
-venv/
-__pycache__/
+# ── Credentials & Secrets ──────────────────────────────────────
 .env
-backend/firebase-service-account.json
-backend/API_DOCS.md
-data/*
+*.pem
+*.key
+
+# ── Dataset & Cache (quá lớn để push) ──────────────────────────
+kaggle_cache/
+*.archive
+*.zip
+
+# ── Checkpoint files (generated, không cần track) ──────────────
+cloudinary_results.json
+imgur_results.json
+
+# ── Python ─────────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*.pyo
+.venv/
+venv/
+env/
+*.egg-info/
+dist/
+build/
+
+# ── IDE & OS ───────────────────────────────────────────────────
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+desktop.ini
+archive*/
+embedding_checkpoint.json
