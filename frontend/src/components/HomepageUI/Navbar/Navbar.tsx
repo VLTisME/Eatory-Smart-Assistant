@@ -1,151 +1,279 @@
-import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-import { RiMenuLine, RiCloseLine } from "react-icons/ri";
+import { useState, useEffect, useCallback } from "react";
+import { Link, useLocation } from "react-router-dom";
 import { UBND_COORDS } from "../../../data/ubndCoords";
 import UserMenu from "./UserMenu";
 import { useGeolocation } from "../../../hooks/useGeolocation";
+import Logo from "../../../assets/logo.svg";
+import { motion } from "framer-motion";
 
 interface User {
-  name: string;
-  avatar: string;
+	name: string;
+	avatar: string;
 }
 interface NavbarProps {
-  currentProvince?: string;
-  currentPath?: string;
+	currentProvince?: string;
+	currentPath?: string;
 }
 
+/* ─── Section definitions for scroll-spy ─── */
+const SECTIONS = [
+	{ id: "hero", label: "Home" },
+	{ id: "featured", label: "Featured" },
+	{ id: "why-us", label: "About" },
+	{ id: "benefits", label: "Benefits" },
+	{ id: "popular", label: "Menu" },
+	{ id: "promo", label: "Explore" },
+];
+
 export default function Navbar({ currentProvince, currentPath }: NavbarProps) {
-  
-  const [open, setOpen] = useState(false);
-  const [isHovered, setIsHovered] = useState(false);
-  const { location, province: detectedProvince } = useGeolocation();
+	const location = useLocation();
+	const [open, setOpen] = useState(false);
+	const [isHovered, setIsHovered] = useState(false);
+	const { location: geoLoc, province: detectedProvince } = useGeolocation();
 
-// Sau đó lấy gpsLat và gpsLng từ object location
-  const gpsLat = location?.lat;
-  const gpsLng = location?.lng;
-  const isMapPage = currentPath === "/MainPage";
-  const provinceToShare = currentProvince || detectedProvince;
+	const gpsLat = geoLoc?.lat;
+	const gpsLng = geoLoc?.lng;
+	const isMapPage = currentPath === "/MainPage";
+	const isHomePage = location.pathname === "/";
+	const provinceToShare = currentProvince || detectedProvince;
+	const coords = provinceToShare ? UBND_COORDS[provinceToShare] : null;
+	const finalLat = coords?.lat || gpsLat;
+	const finalLng = coords?.lng || gpsLng;
 
-  const coords = provinceToShare
-    ? UBND_COORDS[provinceToShare]
-    : null;
+	const [user, setUser] = useState<User | null>(() => {
+		const stored = localStorage.getItem("user");
+		return stored ? JSON.parse(stored) : null;
+	});
 
-  const finalLat = coords?.lat || gpsLat;
-  const finalLng = coords?.lng || gpsLng;
-  const [user, setUser] = useState<User | null>(() => {
-    const stored = localStorage.getItem("user");
-    return stored ? JSON.parse(stored) : null;
-  });
+	/* ─── Scroll-spy: track active section ─── */
+	const [activeSection, setActiveSection] = useState("hero");
+	const [scrolled, setScrolled] = useState(false);
 
-  useEffect(() => {
-    const checkUser = () => {
-      const stored = localStorage.getItem("user");
-      setUser(stored ? JSON.parse(stored) : null);
-    };
+	const handleScroll = useCallback(() => {
+		setScrolled(window.scrollY > 60);
 
-    window.addEventListener("storage", checkUser);
-    window.addEventListener("userChange", checkUser);
+		if (!isHomePage) return;
 
-    return () => {
-      window.removeEventListener("storage", checkUser);
-      window.removeEventListener("userChange", checkUser);
-    };
-  }, []);
+		const scrollY = window.scrollY + window.innerHeight / 3;
+		let current = "hero";
 
-  return (
-    <>
-      {/* Vùng cảm biến: Kích hoạt khi di chuột lên sát mép trên cùng */}
-      {isMapPage && (
-        <div
-          className="fixed top-0 left-0 w-full h-4 z-60"
-          onMouseEnter={() => setIsHovered(true)}
-        />
-      )}
+		for (const section of SECTIONS) {
+			const el = document.getElementById(section.id);
+			if (el && el.offsetTop <= scrollY) {
+				current = section.id;
+			}
+		}
+		setActiveSection(current);
+	}, [isHomePage]);
 
-      <nav
-        onMouseLeave={() => setIsHovered(false)}
-        className={`fixed top-0 left-0 w-full z-50 transition-all duration-500 bg-white py-1.5
-          ${isMapPage 
-            ? (isHovered || open ? "translate-y-0" : "-translate-y-full") 
-            : "translate-y-0"
-          }
-        `}
-      >
-        <div className="max-w-7xl mx-auto px-8 flex items-center justify-between">
-          {/* Logo */}
-          <a
-            href="/"
-            onClick={() => {
-              localStorage.removeItem("province");
-              setOpen(false);
-            }}
-            className="text-xl font-bold tracking-tight"
-          >
-            <span className="bg-gradient-to-r from-orange-400 to-rose-500 bg-clip-text text-transparent">Food</span>
-            <span className="text-gray-700 ml-1">Tourism</span>
-          </a>
+	useEffect(() => {
+		// schedule initial call to avoid synchronous setState during render
+		const raf = requestAnimationFrame(handleScroll);
+		window.addEventListener("scroll", handleScroll, { passive: true });
+		return () => {
+			cancelAnimationFrame(raf);
+			window.removeEventListener("scroll", handleScroll);
+		};
+	}, [handleScroll]);
 
-          {/* Mobile hamburger */}
-          <button
-            className="md:hidden text-xl text-gray-900 z-10"
-            onClick={() => setOpen(!open)}
-          >
-            {open ? <RiCloseLine /> : <RiMenuLine />}
-          </button>
+	useEffect(() => {
+		const checkUser = () => {
+			const stored = localStorage.getItem("user");
+			setUser(stored ? JSON.parse(stored) : null);
+		};
+		window.addEventListener("storage", checkUser);
+		window.addEventListener("userChange", checkUser);
+		return () => {
+			window.removeEventListener("storage", checkUser);
+			window.removeEventListener("userChange", checkUser);
+		};
+	}, []);
 
-          {/* Desktop & Mobile menu */}
-          <div
-            className={`absolute md:static top-full left-0 w-full md:w-auto transition-all duration-300 ${
-              open ? "block bg-white shadow-lg" : "hidden md:block"
-            }`}
-          >
-            <div className="flex flex-col md:flex-row items-center gap-8 p-6 md:p-0">
-              {/* Nav links*/}
-              <Link
-                to="/"
-                className="text-sm font-medium text-gray-600 hover:text-orange-500 transition-colors duration-300 ease-in-out"
-                onClick={() => setOpen(false)}
-              >
-                Home
-              </Link>
+	/* ─── Smooth scroll to section ─── */
+	const scrollToSection = (id: string) => {
+		const el = document.getElementById(id);
+		if (el) {
+			el.scrollIntoView({ behavior: "smooth", block: "start" });
+		}
+	};
 
-              <Link
-                to={
-                  finalLat && finalLng
-                    ? `/MainPage?lat=${finalLat}&lng=${finalLng}&province=${encodeURIComponent(provinceToShare!)}`
-                    : "/MainPage"
-                }
-                className="text-sm font-medium text-gray-600 hover:text-orange-500 transition-colors duration-300 ease-in-out"
-                onClick={() => setOpen(false)}
-              >
-                Map
-              </Link>
+	return (
+		<>
+			{/* Hover sensor for map page */}
+			{isMapPage && (
+				<div
+					className="fixed top-0 left-0 z-60 h-4 w-full"
+					onMouseEnter={() => setIsHovered(true)}
+				/>
+			)}
 
-              {user ? (
-                <UserMenu user={user} onLogout={() => setUser(null)} />
-              ) : (
-                <>
-                  <Link
-                    to="/AuthPage?mode=signin"
-                    className="text-sm font-medium text-gray-600 hover:text-orange-500 transition-colors duration-300 ease-in-out"
-                    onClick={() => setOpen(false)}
-                  >
-                    Sign In
-                  </Link>
+			<nav
+				onMouseLeave={() => setIsHovered(false)}
+				className={`${
+					isMapPage
+						? `fixed top-0 left-0 z-50 w-full transition-transform duration-300 ${
+								isHovered || open
+									? "translate-y-0"
+									: "-translate-y-full"
+							}`
+						: scrolled
+							? "fixed top-0 left-0 z-50 w-full"
+							: "relative z-50 w-full"
+				} flex items-center justify-between px-6 py-4 transition-all duration-300 md:px-12 ${
+					scrolled && !isMapPage
+						? "border-b border-white/10 bg-gray-950/70 shadow-lg shadow-black/10 backdrop-blur-xl"
+						: ""
+				}`}
+			>
+				{/* Logo */}
+				<div className="items-center gap-2 text-white">
+					<Link
+						to="/"
+						onClick={() => {
+							localStorage.removeItem("province");
+							setOpen(false);
+						}}
+						className="flex items-center gap-2 text-xl font-bold tracking-tight"
+						aria-label="Go to homepage"
+					>
+						<img
+							src={Logo}
+							alt="Eatory logo"
+							className="h-10 w-auto"
+						/>
+						<span className="text-2xl font-bold tracking-wide">
+							EATORY
+						</span>
+					</Link>
+				</div>
 
-                  <Link
-                    to="/AuthPage?mode=signup"
-                    className="bg-gradient-to-r from-orange-400 to-rose-500 text-white text-sm font-medium px-6 py-2.5 rounded-full hover:shadow-lg hover:shadow-orange-200 transition-all duration-300"
-                    onClick={() => setOpen(false)}
-                  >
-                    Sign Up
-                  </Link>
-                </>
-              )}
-            </div>
-          </div>
-        </div>
-      </nav>
-    </>
-  );
+				{/* Center — Section nav pills (only on homepage) */}
+				{isHomePage && (
+					<div className="hidden items-center gap-1 rounded-full border border-white/15 bg-white/10 p-1 shadow-sm backdrop-blur-md lg:flex">
+						{SECTIONS.map((section) => (
+							<button
+								key={section.id}
+								onClick={() => scrollToSection(section.id)}
+								className={`relative cursor-pointer rounded-full px-4 py-1.5 text-sm font-medium transition-colors duration-200 ${
+									activeSection === section.id
+										? "text-gray-900"
+										: "text-white/70 hover:text-white"
+								}`}
+							>
+								{/* Active pill background */}
+								{activeSection === section.id && (
+									<motion.div
+										layoutId="activeNavPill"
+										className="absolute inset-0 rounded-full bg-white shadow-sm"
+										transition={{
+											type: "spring",
+											stiffness: 380,
+											damping: 30,
+										}}
+									/>
+								)}
+								<span className="relative z-10">
+									{section.label}
+								</span>
+							</button>
+						))}
+
+						{/* Auth links */}
+						{user ? (
+							<UserMenu
+								user={user}
+								onLogout={() => setUser(null)}
+							/>
+						) : (
+							<>
+								<Link
+									to="/AuthPage?mode=signin"
+									className="rounded-full px-4 py-1.5 text-sm font-medium text-white/70 transition hover:text-white"
+									onClick={() => setOpen(false)}
+								>
+									Sign In
+								</Link>
+								<Link
+									to="/AuthPage?mode=signup"
+									className="rounded-full px-4 py-1.5 text-sm font-medium text-white/70 transition hover:text-white"
+									onClick={() => setOpen(false)}
+								>
+									Sign Up
+								</Link>
+							</>
+						)}
+					</div>
+				)}
+
+				{/* Non-homepage center nav (map page etc.) */}
+				{!isHomePage && (
+					<div className="hidden items-center gap-3 rounded-full border border-white/20 bg-white/20 p-1.5 shadow-sm backdrop-blur-md lg:flex">
+						<Link
+							to="/"
+							className="rounded-full bg-white px-6 py-2 text-sm font-semibold text-gray-900"
+							onClick={() => setOpen(false)}
+						>
+							Home
+						</Link>
+						{user ? (
+							<UserMenu
+								user={user}
+								onLogout={() => setUser(null)}
+							/>
+						) : (
+							<>
+								<Link
+									to="/AuthPage?mode=signin"
+									className="rounded-full px-6 py-2 text-sm font-medium text-white transition hover:bg-white/10"
+									onClick={() => setOpen(false)}
+								>
+									Sign In
+								</Link>
+								<Link
+									to="/AuthPage?mode=signup"
+									className="rounded-full px-6 py-2 text-sm font-medium text-white transition hover:bg-white/10"
+									onClick={() => setOpen(false)}
+								>
+									Sign Up
+								</Link>
+							</>
+						)}
+					</div>
+				)}
+
+				{/* Right — Plan Your Trip */}
+				<Link
+					to={
+						finalLat && finalLng
+							? `/MainPage?lat=${finalLat}&lng=${finalLng}&province=${encodeURIComponent(provinceToShare!)}`
+							: "/MainPage"
+					}
+					className="transition-colors duration-300 ease-in-out"
+					onClick={() => setOpen(false)}
+				>
+					<button className="flex cursor-pointer items-center gap-3 rounded-full bg-white p-1.5 pr-2 pl-5 shadow-lg transition-all duration-500 hover:-translate-y-0.5 hover:bg-blue-50">
+						<span className="text-sm font-semibold text-gray-900">
+							Plan Your Trip
+						</span>
+						<div className="rounded-full bg-blue-500 p-2 text-white">
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								fill="none"
+								viewBox="0 0 24 24"
+								strokeWidth="2.5"
+								stroke="currentColor"
+								className="h-4 w-4"
+							>
+								<path
+									strokeLinecap="round"
+									strokeLinejoin="round"
+									d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25"
+								/>
+							</svg>
+						</div>
+					</button>
+				</Link>
+			</nav>
+		</>
+	);
 }

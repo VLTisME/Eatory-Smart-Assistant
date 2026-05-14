@@ -2,48 +2,68 @@ import { useState, useRef, useEffect } from "react";
 import SelectButton from "./SelectButton";
 import SelectDropdown from "./SelectDropdown";
 import { VietNam_Provinces } from "../../../data/travelData";
+import { AnimatePresence } from "framer-motion";
 
 interface ScrollSelectProps {
-  value: string;
-    isLoading?: boolean;
-  onSelect: (val: string) => void;
-  
+	value: string;
+	isLoading?: boolean;
+	onSelect: (val: string) => void;
 }
 
-export default function ScrollSelect({ value, onSelect, isLoading, }: ScrollSelectProps) {
-  const [open, setOpen] = useState(false);
-  const ref = useRef<HTMLDivElement>(null);
+export default function ScrollSelect({
+	value,
+	onSelect,
+	isLoading,
+}: ScrollSelectProps) {
+	const [open, setOpen] = useState(false);
+	const [search, setSearch] = useState("");
+	const ref = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    const handle = (e: MouseEvent) => {
-      if (ref.current && !ref.current.contains(e.target as Node)) {
-        setOpen(false);
-      }
-    };
-    document.addEventListener("mousedown", handle);
-    return () => document.removeEventListener("mousedown", handle);
-  }, []);
+	useEffect(() => {
+		const handle = (e: MouseEvent) => {
+			if (ref.current && !ref.current.contains(e.target as Node)) {
+				setOpen(false);
+				setSearch("");
+			}
+		};
+		document.addEventListener("mousedown", handle);
+		return () => document.removeEventListener("mousedown", handle);
+	}, []);
 
-  return (
-    <div ref={ref} className="relative w-full">
-      <SelectButton 
-      value={value} 
-      open={open} 
-      onToggle={() => setOpen(!open)}
-      isLoading={isLoading}  
-      />
+	const filtered = search
+		? VietNam_Provinces.filter((p) =>
+				p.toLowerCase().includes(search.toLowerCase()),
+			)
+		: VietNam_Provinces;
 
-      {open && (
-        <SelectDropdown
-          options={VietNam_Provinces}
-          value={value}
-          onSelect={(val) => {
-            onSelect(val);
-            localStorage.removeItem("hasSearched");
-            setOpen(false);
-          }}
-        />
-      )}
-    </div>
-  );
+	return (
+		<div ref={ref} className="relative w-full">
+			<SelectButton
+				value={value}
+				open={open}
+				onToggle={() => {
+					setOpen(!open);
+					if (open) setSearch("");
+				}}
+				isLoading={isLoading}
+			/>
+
+			<AnimatePresence>
+				{open && (
+					<SelectDropdown
+						options={filtered}
+						value={value}
+						search={search}
+						onSearchChange={setSearch}
+						onSelect={(val) => {
+							onSelect(val);
+							localStorage.removeItem("hasSearched");
+							setOpen(false);
+							setSearch("");
+						}}
+					/>
+				)}
+			</AnimatePresence>
+		</div>
+	);
 }
