@@ -24,6 +24,7 @@ import {
 	type Conversation,
 	deleteConversation,
 } from "../../api/chatAPI";
+import Logo from "../../assets/logo-color.svg";
 
 /**
  * FloatingSidebar — Component cha cho Chatbot UI (Modern Glassmorphism)
@@ -600,15 +601,16 @@ function FloatingSidebar({
 				{/* ── Logo "Food Tourism" ── */}
 				{!isFullSize && (
 					<div className="text-center px-6 pb-4">
-						<h1 className="text-2xl sm:text-3xl font-bold tracking-tight">
-							<span
-								className="bg-linear-to-r from-orange-400 to-rose-500
-								bg-clip-text text-transparent"
-							>
-								Food
+						<div className="flex items-center justify-center gap-3 text-2xl sm:text-3xl font-bold tracking-tight">
+							<img
+								src={Logo}
+								alt="Eatory logo"
+								className="h-10 w-auto"
+							/>
+							<span className="text-2xl font-bold tracking-wide">
+								EATORY
 							</span>
-							<span className="text-gray-700 ml-2">Tourism</span>
-						</h1>
+						</div>
 						{!hasMessages && (
 							<p className="text-xs text-gray-400 mt-1.5 animate-fade-in-up">
 								Trợ lý ẩm thực du lịch thông minh

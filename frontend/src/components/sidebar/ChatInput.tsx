@@ -289,7 +289,7 @@ export default function ChatInput({
 						className={`shrink-0 p-2.5 rounded-full transition-all duration-300 cursor-pointer
 							${
 								hasText && !isThinking
-									? "bg-linear-to-br from-orange-400 to-rose-500 text-white shadow-md hover:shadow-lg hover:scale-105 active:scale-95"
+									? "bg-linear-to-r from-sky-300 to-cyan-300 text-gray-600 shadow-md hover:shadow-lg hover:scale-105 active:scale-95"
 									: "bg-gray-100 text-gray-300 cursor-not-allowed"
 							}`}
 						title="Gửi tin nhắn"

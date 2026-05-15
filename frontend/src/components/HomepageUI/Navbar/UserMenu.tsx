@@ -1,8 +1,6 @@
 //src/components/HomepageUI/Navbar/UserMenu.tsx
 import { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { signOut } from "firebase/auth";
-import { auth } from "../../../firebaseConfig";
 import Avatar from "./Avatar";
 import Dropdown from "./Dropdown";
 
@@ -34,21 +32,13 @@ export default function UserMenu({ user, onLogout }: Props) {
 	};
 
 	// Xử lý Logout
-	const handleLogout = async () => {
-		try {
-			await signOut(auth);
-
-			localStorage.removeItem("user");
-			broadcastLogout();
-
-			window.dispatchEvent(new Event("userChange"));
-
-			navigate("/login");
-		} catch (error) {
-			console.error("Lỗi đăng xuất:", error);
-		}
+	const handleLogout = () => {
+		localStorage.removeItem("user");
+		broadcastLogout();
+		window.dispatchEvent(new Event("userChange"));
 
 		if (onLogout) onLogout();
+		setOpen(false);
 		navigate("/");
 	};
 

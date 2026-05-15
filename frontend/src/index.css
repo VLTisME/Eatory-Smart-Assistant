@@ -110,6 +110,27 @@
 	animation: scale-in 0.3s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
+@keyframes footer-marquee {
+	0% {
+		transform: translateX(0);
+	}
+	100% {
+		transform: translateX(-50%);
+	}
+}
+
+.footer-marquee {
+	animation: footer-marquee 18s linear infinite;
+	display: flex;
+	width: max-content;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.footer-marquee {
+		animation: none;
+	}
+}
+
 .overflow-y-auto::-webkit-scrollbar {
 	width: 12px;
 }
@@ -208,6 +229,19 @@
 	100% {
 		opacity: 1;
 		transform: translateY(0) scale(1);
+	}
+}
+
+.footer-marquee {
+	animation: marquee 15s linear infinite;
+}
+
+@keyframes marquee {
+	0% {
+		transform: translateX(0%);
+	}
+	100% {
+		transform: translateX(-50%);
 	}
 }
 

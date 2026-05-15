@@ -154,7 +154,7 @@ function ChatBotFullSize({
 				{/* ── Top: Logo + New chat button ── */}
 				<div className="flex items-center justify-between px-5 pt-6 pb-4">
 					<div className="flex items-center gap-2.5">
-						<div className="w-8 h-8 rounded-xl bg-linear-to-br from-orange-400 to-rose-500 flex items-center justify-center shadow-md">
+						<div className="w-8 h-8 rounded-xl bg-linear-to-r from-sky-300 to-cyan-300 flex items-center justify-center shadow-md">
 							<MessageCircle
 								size={16}
 								className="text-white"

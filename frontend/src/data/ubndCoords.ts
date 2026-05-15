@@ -1,6 +1,6 @@
 export const UBND_COORDS: Record<string, { lat: number; lng: number }> = {
   "Hà Nội": { lat: 21.0285, lng: 105.8542 },
-  "TP Hồ Chí Minh": { lat: 10.7769, lng: 106.7009 },
+  "Hồ Chí Minh": { lat: 10.7769, lng: 106.7009 },
   "Đà Nẵng": { lat: 16.0678, lng: 108.2208 },
   "Hải Phòng": { lat: 20.8449, lng: 106.6881 },
   "Cần Thơ": { lat: 10.0452, lng: 105.7469 },
