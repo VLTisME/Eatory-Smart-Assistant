@@ -7,53 +7,32 @@ from pathlib import Path
 from app.core.config import settings
 from app.features.review_summary.schemas import ReviewSummaryResponse
 from app.shared.refinement import RefinementClient
+from app.core.supabase import get_supabase_client
 
 logger = logging.getLogger(__name__)
 
 class ReviewSummaryService:
     def __init__(self, llm_client: RefinementClient | None = None) -> None:
         self._llm = llm_client
-        self._data = self._load_data()
         self._cache: dict[str, ReviewSummaryResponse] = {}
 
-    #File path finding function
-    def _resolve_data_path(self, configured_path: str) -> Path:
-        path = Path(configured_path)
-
-        if path.is_absolute():
-            return path 
-
-        backend_root = Path(__file__).resolve().parents[3]
-        project_root = backend_root.parent
-
-        candidates = [project_root / path, backend_root / path]
-        for candidate in candidates:
-            if candidate.exists():
-                return candidate
-
-        return candidates[0]
-
-
-    #JSON load file function
-    def _load_data(self) -> dict[str, dict]:
-        file_path = self._resolve_data_path(settings.review_summary_path)
-
-        if not file_path.exists():
-            logger.warning("The review summary file could not be found at: %s", file_path)
-            return {}
+    def _fetch_from_supabase(self, place_id: str) -> dict | None:
         try:
-            with file_path.open("r", encoding="utf-8") as f:
-                raw_list = json.load(f)
-                places_by_id = {}
-                for item in raw_list:
-                    place_id = str(item.get("place_id", "")).strip()
-                    if place_id:
-                        places_by_id[place_id] = item
-                logger.info("Review summaries has been loaded %d", len(places_by_id))
-                return places_by_id
+            supabase = get_supabase_client()
+            response = (
+                supabase
+                .table("place_summaries")     
+                .select("*")                  
+                .eq("place_id", place_id)     
+                .limit(1)                     
+                .execute()                    
+            )
+            if response.data and len(response.data) > 0:
+                return response.data[0]  
+            return None  
         except Exception as e:
-            logger.error("Error occur when reading review summaries file: %s", e)
-            return {}
+            logger.error("Error when querying Supabase place_summaries: %s", e)
+            return None
 
     #Get restaurant summary review
     def get_summary(self, place_id:str, target_language: str = "vi") -> ReviewSummaryResponse:
@@ -92,7 +71,7 @@ class ReviewSummaryService:
                 logger.error("Error when calling LLM translate: %s", exc)
                 return base_response
 
-        place_data = self._data.get(place_id)
+        place_data = self._fetch_from_supabase(place_id)
 
         positive_ratio = place_data.get("positive_ratio", 0.0) if place_data else 0.0
         negative_ratio = place_data.get("negative_ratio", 0.0) if place_data else 0.0
@@ -142,8 +121,7 @@ class ReviewSummaryService:
                 summary_text = result.get("summary", "")
             else:
                 summary_text = refined_text
-
-            # Strip an empty 🍜 section if the LLM still emitted one despite instructions
+                
             summary_text = re.sub(r'\n?🍜[^\n]*:\s*\n?\s*$', '', summary_text).rstrip()
 
             response = ReviewSummaryResponse(

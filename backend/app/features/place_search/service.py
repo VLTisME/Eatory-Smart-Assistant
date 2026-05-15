@@ -19,6 +19,7 @@ import numpy as np
 from PIL import Image
 
 from app.core.config import settings
+from app.core.supabase import get_supabase_client
 from app.features.place_search.schemas import PlaceAutoCompleteResponse, PlaceDetailResponse, PlaceSearchItem, PlaceSearchResponse
 from app.shared.refinement import RefinementClient
 
@@ -197,7 +198,6 @@ class PlaceSearchEngine:
     def _load_assets(self) -> PlaceSearchAssets:
         embeddings_path = self._resolve_data_path(settings.place_search_embeddings_path)
         index_path = self._resolve_data_path(settings.place_search_index_path)
-        places_path = self._resolve_data_path(settings.place_search_places_path)
         noise_embeddings_path = self._resolve_data_path(settings.place_search_noise_embeddings_path)
         noise_index_path = self._resolve_data_path(settings.place_search_noise_index_path)
 
@@ -205,8 +205,6 @@ class PlaceSearchEngine:
             raise PlaceSearchServiceError(f"Embeddings file not found: {embeddings_path}")
         if not index_path.exists():
             raise PlaceSearchServiceError(f"Image index file not found: {index_path}")
-        if not places_path.exists():
-            raise PlaceSearchServiceError(f"Places file not found: {places_path}")
         if not noise_embeddings_path.exists():
             raise PlaceSearchServiceError(f"Noise embeddings file not found: {noise_embeddings_path}")
         if not noise_index_path.exists():
@@ -217,18 +215,38 @@ class PlaceSearchEngine:
 
         with index_path.open("r", encoding="utf-8") as file:
             image_index = json.load(file)
-        with places_path.open("r", encoding="utf-8") as file:
-            places = json.load(file)
         with noise_index_path.open("r", encoding="utf-8") as file:
             noise_index = json.load(file)
+        
+        try:
+            supabase = get_supabase_client()
+            places = []
+            page_size = 1000          
+            offset = 0                
+            while True:
+                response = (
+                    supabase
+                    .table("places")
+                    .select("place_id, name, address")
+                    .range(offset, offset + page_size - 1)   
+                    .execute()
+                )
+                batch = response.data or []
+                places.extend(batch)           
+                if len(batch) < page_size:     
+                    break
+                offset += page_size            
+            logger.info("Loaded %d places from Supabase", len(places))
+        except Exception as e:
+            raise PlaceSearchServiceError(f"Unable to query places table from Supabase: {e}")
+
 
         if not isinstance(image_index, list):
             raise PlaceSearchServiceError("Invalid image index format. Expected a list.")
-        if not isinstance(places, list):
-            raise PlaceSearchServiceError("Invalid places format. Expected a list.")
         if not isinstance(noise_index, list):
             raise PlaceSearchServiceError("Invalid noise index format. Expected a list.")
-
+        if not isinstance(places, list):
+            raise PlaceSearchServiceError("Invalid places format from Supabase. Expected a list.")    
         if embeddings.ndim != 2:
             raise PlaceSearchServiceError("Embeddings must be a 2D matrix.")
         if noise_embeddings.ndim != 2:
