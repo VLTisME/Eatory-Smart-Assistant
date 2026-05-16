@@ -27,6 +27,7 @@ class Settings(BaseSettings):
     ocr_openai_model: str = "gpt-4o-mini"
     menu_refine_max_chars: int = 8000
 
+
     openai_api_key: str | None = None
     openai_model: str = "gpt-4o-mini"
     places_api_key: str | None = None
@@ -46,6 +47,8 @@ class Settings(BaseSettings):
 
     review_summary_path: str = "../ai-models/review_summary/data/output/review_summaries.json"
 
+    supabase_url: str | None = None
+    supabase_service_key: str | None = None
     # ImageKit configuration
     kit_url_endpoint: str | None = None
     kit_public_key: str | None = None
