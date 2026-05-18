@@ -30,7 +30,7 @@ class Settings(BaseSettings):
 
     openai_api_key: str | None = None
     openai_model: str = "gpt-4o-mini"
-    places_api_key: str | None = None
+    rest_api_key: str | None = None
     firebase_service_account_path: str = "firebase-service-account.json"
     openai_refine_model: str = "gpt-4o-mini"
 
