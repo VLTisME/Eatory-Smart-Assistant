@@ -109,7 +109,7 @@ async def autocomplete(
     more_compound: Optional[bool] = None,
 ) -> PlaceAutoCompleteResponse:
     params: dict[str, Any] = {
-        "api_key": settings.places_api_key,
+        "api_key": settings.rest_api_key,
         "input": input_text,
         "limit": limit,
     }
@@ -143,7 +143,7 @@ async def autocomplete(
 
 async def place_detail(place_id: str) -> PlaceDetailResponse:
     params: dict[str, Any] = {
-        "api_key": settings.places_api_key,
+        "api_key": settings.rest_api_key,
         "place_id": place_id,
     }
 

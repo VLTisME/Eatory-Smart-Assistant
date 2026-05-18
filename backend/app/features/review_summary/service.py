@@ -143,6 +143,27 @@ class ReviewSummaryService:
                 negative_ratio=negative_ratio,
             )
 
+    def get_samples(self, place_id: str, limit: int = 3) -> list[dict]:
+        try:
+            supabase = get_supabase_client()
+            # Fetch multiple and randomly sample (or just limit since we can't easily random in Supabase python client without RPC)
+            response = (
+                supabase
+                .table("clean_reviews")
+                .select("id, text, rating")
+                .eq("place_id", place_id)
+                .limit(50)  # fetch up to 50
+                .execute()
+            )
+            data = response.data or []
+            import random
+            if len(data) > limit:
+                return random.sample(data, limit)
+            return data
+        except Exception as e:
+            logger.error("Error when querying Supabase clean_reviews: %s", e)
+            return []
+
 @lru_cache(maxsize=1)
 def get_review_summary_service() -> ReviewSummaryService:
     from app.shared.refinement import get_refinement_client

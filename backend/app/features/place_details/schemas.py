@@ -22,3 +22,15 @@ class PlaceDetailItem(BaseModel):
 class PlaceDetailResponse(BaseModel):
 
     data: PlaceDetailItem = Field(..., description="Place details")
+
+
+class PlacesByCityResponse(BaseModel):
+    """Response for /by-city endpoint."""
+    data: list[PlaceDetailItem] = Field(default_factory=list, description="List of places")
+    total: int = Field(default=0, description="Total number of results")
+
+
+class PlaceExistsResponse(BaseModel):
+    """Response for /check-place endpoint."""
+    exists: bool = Field(..., description="Whether the place exists in database")
+    data: PlaceDetailItem | None = Field(default=None, description="Place details if found")

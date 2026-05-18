@@ -7,3 +7,12 @@ class ReviewSummaryResponse(BaseModel):
     summary: str = ""
     positive_ratio: float = 0.0
     negative_ratio: float = 0.0
+
+class ReviewSampleItem(BaseModel):
+    id: int = 0
+    text: str = ""
+    rating: int = 0
+
+class ReviewSamplesResponse(BaseModel):
+    place_id: str
+    reviews: list[ReviewSampleItem] = Field(default_factory=list)
