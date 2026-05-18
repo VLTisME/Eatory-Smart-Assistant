@@ -27,6 +27,8 @@ interface ChatBotFullSizeProps {
 	setMessages: React.Dispatch<React.SetStateAction<FrontendMessage[]>>;
 	isThinking: boolean;
 	setIsThinking: React.Dispatch<React.SetStateAction<boolean>>;
+	activeChat: string | null;
+	setActiveChat: React.Dispatch<React.SetStateAction<string | null>>;
 }
 
 function ChatBotFullSize({
@@ -35,11 +37,12 @@ function ChatBotFullSize({
 	setMessages,
 	isThinking,
 	setIsThinking,
+	activeChat,
+	setActiveChat,
 }: ChatBotFullSizeProps) {
 	const [conversations, setConversations] = useState<Conversation[]>([]);
 	const [isLoading, setIsLoading] = useState<boolean>(false);
 	const [searchQuery, setSearchQuery] = useState("");
-	const [activeChat, setActiveChat] = useState<string | null>(null);
 	const { user, loading } = useAuth();
 	const navigate = useNavigate();
 
@@ -109,7 +112,6 @@ function ChatBotFullSize({
 	const handleNewChat = async () => {
 		setActiveChat(null);
 		setMessages([]);
-		// Refresh conversation list để hiển thị conversation mới nhất
 		if (user) {
 			try {
 				const token = await user.getIdToken();
@@ -183,7 +185,6 @@ function ChatBotFullSize({
 					</div>
 				</div>
 
-				{/* ── Search bar ── */}
 				<div className="px-4 pb-4">
 					<div className="flex items-center gap-2 bg-white hover:bg-white border border-gray-200 rounded-xl px-3.5 py-2.5 focus-within:border-blue-400 focus-within:shadow-sm transition-all duration-200">
 						<Search size={16} className="text-gray-400 shrink-0" />
@@ -197,7 +198,6 @@ function ChatBotFullSize({
 					</div>
 				</div>
 
-				{/* ── Chat History list ── */}
 				<div className="flex-1 overflow-y-auto px-3 pb-4 space-y-1">
 					{isLoading ? (
 						<div className="text-center text-gray-400 text-sm mt-8 px-4">
@@ -234,7 +234,6 @@ function ChatBotFullSize({
 					)}
 				</div>
 
-				{/* ── Bottom: User profile ── */}
 				{!loading && user && (
 					<div className="px-4 py-4 border-t border-gray-200/60">
 						<div className="flex items-center gap-3 px-2">

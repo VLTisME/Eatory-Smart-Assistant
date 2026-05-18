@@ -5,6 +5,7 @@ import UserMenu from "./UserMenu";
 import { useGeolocation } from "../../../hooks/useGeolocation";
 import Logo from "../../../assets/logo.svg";
 import { motion } from "framer-motion";
+import { useLanguage } from "../../../hooks/useLanguage";
 
 interface User {
 	name: string;
@@ -15,20 +16,30 @@ interface NavbarProps {
 	currentPath?: string;
 }
 
-/* ─── Section definitions for scroll-spy ─── */
-const SECTIONS = [
-	{ id: "hero", label: "Home" },
-	{ id: "featured", label: "Featured" },
-	{ id: "why-us", label: "About" },
-	{ id: "benefits", label: "Benefits" },
-	{ id: "popular", label: "Menu" },
-	{ id: "promo", label: "Explore" },
-];
+const SECTIONS = {
+	vi: [
+		{ id: "hero", label: "Trang chủ" },
+		{ id: "food", label: "Món ăn" },
+		{ id: "why-us", label: "Thông tin" },
+		{ id: "benefits", label: "Lợi ích" },
+		{ id: "popular", label: "Thực đơn" },
+		{ id: "promo", label: "Khám phá" },
+	],
+	en: [
+		{ id: "hero", label: "Home" },
+		{ id: "food", label: "Food" },
+		{ id: "why-us", label: "About" },
+		{ id: "benefits", label: "Benefits" },
+		{ id: "popular", label: "Menu" },
+		{ id: "promo", label: "Explore" },
+	],
+};
 
 export default function Navbar({ currentProvince, currentPath }: NavbarProps) {
 	const location = useLocation();
 	const [open, setOpen] = useState(false);
 	const [isHovered, setIsHovered] = useState(false);
+	const { lang, setLang } = useLanguage();
 	const { location: geoLoc, province: detectedProvince } = useGeolocation();
 
 	const gpsLat = geoLoc?.lat;
@@ -45,7 +56,6 @@ export default function Navbar({ currentProvince, currentPath }: NavbarProps) {
 		return stored ? JSON.parse(stored) : null;
 	});
 
-	/* ─── Scroll-spy: track active section ─── */
 	const [activeSection, setActiveSection] = useState("hero");
 	const [scrolled, setScrolled] = useState(false);
 
@@ -57,17 +67,16 @@ export default function Navbar({ currentProvince, currentPath }: NavbarProps) {
 		const scrollY = window.scrollY + window.innerHeight / 3;
 		let current = "hero";
 
-		for (const section of SECTIONS) {
+		for (const section of SECTIONS[lang]) {
 			const el = document.getElementById(section.id);
 			if (el && el.offsetTop <= scrollY) {
 				current = section.id;
 			}
 		}
 		setActiveSection(current);
-	}, [isHomePage]);
+	}, [isHomePage, lang]);
 
 	useEffect(() => {
-		// schedule initial call to avoid synchronous setState during render
 		const raf = requestAnimationFrame(handleScroll);
 		window.addEventListener("scroll", handleScroll, { passive: true });
 		return () => {
@@ -89,7 +98,6 @@ export default function Navbar({ currentProvince, currentPath }: NavbarProps) {
 		};
 	}, []);
 
-	/* ─── Smooth scroll to section ─── */
 	const scrollToSection = (id: string) => {
 		const el = document.getElementById(id);
 		if (el) {
@@ -97,9 +105,13 @@ export default function Navbar({ currentProvince, currentPath }: NavbarProps) {
 		}
 	};
 
+	const handleLangToggle = () => {
+		const nextLang = lang === "vi" ? "en" : "vi";
+		setLang(nextLang);
+	};
+
 	return (
 		<>
-			{/* Hover sensor for map page */}
 			{isMapPage && (
 				<div
 					className="fixed top-0 left-0 z-60 h-4 w-full"
@@ -125,7 +137,6 @@ export default function Navbar({ currentProvince, currentPath }: NavbarProps) {
 						: ""
 				}`}
 			>
-				{/* Logo */}
 				<div className="items-center gap-2 text-white">
 					<Link
 						to="/"
@@ -146,11 +157,9 @@ export default function Navbar({ currentProvince, currentPath }: NavbarProps) {
 						</span>
 					</Link>
 				</div>
-
-				{/* Center — Section nav pills (only on homepage) */}
 				{isHomePage && (
 					<div className="hidden items-center gap-1 rounded-full border border-white/15 bg-white/10 p-1 shadow-sm backdrop-blur-md lg:flex">
-						{SECTIONS.map((section) => (
+						{SECTIONS[lang].map((section) => (
 							<button
 								key={section.id}
 								onClick={() => scrollToSection(section.id)}
@@ -160,7 +169,6 @@ export default function Navbar({ currentProvince, currentPath }: NavbarProps) {
 										: "text-white/70 hover:text-white"
 								}`}
 							>
-								{/* Active pill background */}
 								{activeSection === section.id && (
 									<motion.div
 										layoutId="activeNavPill"
@@ -177,8 +185,6 @@ export default function Navbar({ currentProvince, currentPath }: NavbarProps) {
 								</span>
 							</button>
 						))}
-
-						{/* Auth links */}
 						{user ? (
 							<UserMenu
 								user={user}
@@ -204,8 +210,6 @@ export default function Navbar({ currentProvince, currentPath }: NavbarProps) {
 						)}
 					</div>
 				)}
-
-				{/* Non-homepage center nav (map page etc.) */}
 				{!isHomePage && (
 					<div className="hidden items-center gap-3 rounded-full border border-white/20 bg-white/20 p-1.5 shadow-sm backdrop-blur-md lg:flex">
 						<Link
@@ -240,39 +244,74 @@ export default function Navbar({ currentProvince, currentPath }: NavbarProps) {
 						)}
 					</div>
 				)}
-
-				{/* Right — Plan Your Trip */}
-				<Link
-					to={
-						finalLat && finalLng
-							? `/MainPage?lat=${finalLat}&lng=${finalLng}&province=${encodeURIComponent(provinceToShare!)}`
-							: "/MainPage"
-					}
-					className="transition-colors duration-300 ease-in-out"
-					onClick={() => setOpen(false)}
-				>
-					<button className="flex cursor-pointer items-center gap-3 rounded-full bg-white p-1.5 pr-2 pl-5 shadow-lg transition-all duration-500 hover:-translate-y-0.5 hover:bg-blue-50">
-						<span className="text-sm font-semibold text-gray-900">
-							Plan Your Trip
-						</span>
-						<div className="rounded-full bg-blue-500 p-2 text-white">
-							<svg
-								xmlns="http://www.w3.org/2000/svg"
-								fill="none"
-								viewBox="0 0 24 24"
-								strokeWidth="2.5"
-								stroke="currentColor"
-								className="h-4 w-4"
+				<div className="flex items-center gap-4">
+					{isHomePage && (
+						<div
+							className="relative flex cursor-pointer items-center rounded-full border border-white/20 bg-white/20 p-1 shadow-inner backdrop-blur-md"
+							onClick={handleLangToggle}
+						>
+							<motion.div
+								className="absolute left-1 h-6 w-8 rounded-full bg-white shadow-sm"
+								animate={{ x: lang === "vi" ? 0 : 32 }}
+								transition={{
+									type: "spring",
+									stiffness: 300,
+									damping: 25,
+								}}
+							/>
+							<span
+								className={`relative z-10 flex h-6 w-8 items-center justify-center text-[10px] font-bold tracking-wider transition-colors duration-200 ${
+									lang === "vi"
+										? "text-gray-900"
+										: "text-white"
+								}`}
 							>
-								<path
-									strokeLinecap="round"
-									strokeLinejoin="round"
-									d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25"
-								/>
-							</svg>
+								VI
+							</span>
+							<span
+								className={`relative z-10 flex h-6 w-8 items-center justify-center text-[10px] font-bold tracking-wider transition-colors duration-200 ${
+									lang === "en"
+										? "text-gray-900"
+										: "text-white"
+								}`}
+							>
+								EN
+							</span>
 						</div>
-					</button>
-				</Link>
+					)}
+
+					<Link
+						to={
+							finalLat && finalLng
+								? `/MainPage?lat=${finalLat}&lng=${finalLng}&province=${encodeURIComponent(provinceToShare!)}`
+								: "/MainPage"
+						}
+						className="transition-colors duration-300 ease-in-out"
+						onClick={() => setOpen(false)}
+					>
+						<button className="flex cursor-pointer items-center gap-3 rounded-full bg-white p-1.5 pl-5 pr-2 shadow-lg transition-all duration-500 hover:-translate-y-0.5 hover:bg-blue-50">
+							<span className="text-sm font-semibold text-gray-900">
+								Plan Your Trip
+							</span>
+							<div className="rounded-full bg-blue-500 p-2 text-white">
+								<svg
+									xmlns="http://www.w3.org/2000/svg"
+									fill="none"
+									viewBox="0 0 24 24"
+									strokeWidth="2.5"
+									stroke="currentColor"
+									className="h-4 w-4"
+								>
+									<path
+										strokeLinecap="round"
+										strokeLinejoin="round"
+										d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25"
+									/>
+								</svg>
+							</div>
+						</button>
+					</Link>
+				</div>
 			</nav>
 		</>
 	);

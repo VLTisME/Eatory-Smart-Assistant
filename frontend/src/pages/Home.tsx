@@ -69,23 +69,18 @@ export default function Home() {
 
 	return (
 		<div className="overflow-x-hidden bg-white font-sans">
-			{/* Hero Section — has id="hero" inside */}
 			<HeroSection
 				selectedProvince={province}
 				setSelectedProvince={setProvince}
 			/>
-
-			{/* Featured Dish Carousel */}
 			<SectionWithArch
-				id="featured"
+				id="food"
 				bgColor="#eff6ff"
 				bgClass="bg-blue-50"
 				zIndex={10}
 			>
-				<FeaturedDish />
+				<FeaturedDish province={province} />
 			</SectionWithArch>
-
-			{/* Why Choose Us */}
 			<SectionWithArch
 				id="why-us"
 				bgColor="#ffffff"
@@ -94,8 +89,6 @@ export default function Home() {
 			>
 				<WhyChooseUs />
 			</SectionWithArch>
-
-			{/* Benefits */}
 			<SectionWithArch
 				id="benefits"
 				bgColor="#eff6ff"
@@ -104,8 +97,6 @@ export default function Home() {
 			>
 				<Benefits />
 			</SectionWithArch>
-
-			{/* Popular Dishes */}
 			<SectionWithArch
 				id="popular"
 				bgColor="#ffffff"
@@ -116,13 +107,9 @@ export default function Home() {
 					<PopularDishes />
 				</ScrollReveal>
 			</SectionWithArch>
-
-			{/* Promo CTA */}
 			<div id="promo" className="relative" style={{ zIndex: 50 }}>
 				<PromoSection />
 			</div>
-
-			{/* Footer */}
 			<div className="relative" style={{ zIndex: 60 }}>
 				<Footer />
 			</div>

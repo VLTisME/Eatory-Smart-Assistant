@@ -6,7 +6,7 @@ import {
 	ChevronLeft,
 	Trash,
 } from "lucide-react";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { useVoiceRecognition } from "../../hooks/useVoiceRecognition";
 import ChatBotPanel, { type Message } from "./ChatBotPanel";
 import BentoFeatures from "./BentoFeatures";
@@ -48,7 +48,7 @@ interface FloatingSidebarProps {
 	onConversationCreated?: (conv: Conversation) => void;
 }
 
-type UploadMode = "ocr" | "image-search" | "send-image";
+type UploadMode = "ocr" | "image-search";
 
 function FloatingSidebar({
 	onClose,
@@ -66,11 +66,13 @@ function FloatingSidebar({
 	const currentActiveChat =
 		activeChat !== undefined ? activeChat : localActiveChat;
 
-	const handleSetActiveChat = (id: string | null) => {
-		if (setActiveChat) setActiveChat(id);
-		setLocalActiveChat(id);
-	};
-	// ─── Rainbow border → hiện xung quanh ChatInput khi thinking ─────────────
+	const handleSetActiveChat = useCallback(
+		(id: string | null) => {
+			if (setActiveChat) setActiveChat(id);
+			setLocalActiveChat(id);
+		},
+		[setActiveChat, setLocalActiveChat],
+	);
 	const [showRainbow, setShowRainbow] = useState(false);
 
 	useEffect(() => {
@@ -82,8 +84,6 @@ function FloatingSidebar({
 			return () => clearTimeout(timer);
 		}
 	}, [isThinking]);
-
-	// ─── Lịch sử chat (History) ────────────────────────────────────────────────
 	const [showHistory, setShowHistory] = useState(false);
 	const [conversations, setConversations] = useState<Conversation[]>([]);
 	const [isHistoryLoading, setIsHistoryLoading] = useState(false);
@@ -164,14 +164,9 @@ function FloatingSidebar({
 		}
 	};
 
-	// ─── Voice Recognition ────────────────────────────────────────────────────
 	const { isListening, startListening, stopListening } =
 		useVoiceRecognition();
 
-	/**
-	 * Voice toggle dành cho ChatInput:
-	 * Khi transcript hoàn thành → gửi tin nhắn.
-	 */
 	const handleVoiceToggle = () => {
 		if (isListening) {
 			stopListening();
@@ -182,101 +177,104 @@ function FloatingSidebar({
 		});
 	};
 
-	/**
-	 * Voice toggle dành cho BentoFeatures (Mic card):
-	 * Chỉ bật/tắt mic, KHÔNG gửi chat khi transcript về.
-	 */
 	const handleBentoVoiceToggle = () => {
 		if (isListening) {
 			stopListening();
 			return;
 		}
-		// Mở mic nhưng không xử lý transcript → người dùng chủ động dừng
-		startListening(() => {
-			// no-op: không gửi chat
+		startListening((transcript) => {
+			handleSubmit(transcript);
 		});
 	};
 
-	// ─── Upload Modal ──────────────────────────────────────────────────────────
 	const [isOpen, setIsOpen] = useState<boolean>(false);
 	const [uploadMode, setUploadMode] = useState<UploadMode>("ocr");
-	const [isUploading, setIsUploading] = useState<boolean>(false);
 
 	const handleOpenUploadModal = (mode: UploadMode) => {
 		setUploadMode(mode);
 		setIsOpen(true);
 	};
 
-	// ─── Core Message Processing ───
-	const processUserAction = async (
-		userText: string,
-		actionLogic: (token: string, chatIdToUse: string) => Promise<void>,
-		options?: { imageUrl?: string },
-	) => {
-		if (isThinking || !user) return;
+	const processUserAction = useCallback(
+		async (
+			userText: string,
+			actionLogic: (token: string, chatIdToUse: string) => Promise<void>,
+			options?: { imageUrl?: string },
+		) => {
+			if (isThinking || !user) return;
 
-		const userMsgId = Date.now().toString();
-		setMessages((prev) => [
-			...prev,
-			{
-				id: userMsgId,
-				role: "user",
-				content: userText,
-				imageUrl: options?.imageUrl,
-			},
-		]);
-		setIsThinking(true);
-
-		try {
-			const token = await user.getIdToken();
-			let chatIdToUse = currentActiveChat;
-
-			if (!chatIdToUse) {
-				const title =
-					userText.length > 30
-						? userText.substring(0, 30) + "..."
-						: userText;
-				const newConv = await createConversation(token, title);
-				chatIdToUse = newConv.id;
-				handleSetActiveChat(newConv.id);
-
-				if (onConversationCreated) {
-					onConversationCreated(newConv);
-				} else {
-					setConversations((prev) => [newConv, ...prev]);
-				}
-			}
-
-			await sendMessage(token, chatIdToUse, {
-				role: "user",
-				content: userText,
-				image_url: options?.imageUrl,
-			});
-
-			await actionLogic(token, chatIdToUse);
-		} catch (error) {
-			console.error("Action failed: ", error);
-			let errorMsg = "Xin lỗi, đã có lỗi xảy ra. Vui lòng thử lại sau.";
-			if (error && typeof error === "object" && "response" in error) {
-				const axiosErr = error as {
-					response?: { data?: { detail?: string } };
-				};
-				errorMsg = axiosErr.response?.data?.detail || errorMsg;
-			}
+			const userMsgId = Date.now().toString();
 			setMessages((prev) => [
 				...prev,
 				{
-					id: (Date.now() + 1).toString(),
-					role: "bot",
-					content: errorMsg,
+					id: userMsgId,
+					role: "user",
+					content: userText,
+					imageUrl: options?.imageUrl,
 				},
 			]);
-		} finally {
-			setIsThinking(false);
-		}
-	};
+			setIsThinking(true);
 
-	// ─── Helper: Upload image to ImageKit and return URL ────────────────────────
+			try {
+				const token = await user.getIdToken();
+				let chatIdToUse = currentActiveChat;
+
+				if (!chatIdToUse) {
+					const title =
+						userText.length > 30
+							? userText.substring(0, 30) + "..."
+							: userText;
+					const newConv = await createConversation(token, title);
+					chatIdToUse = newConv.id;
+					handleSetActiveChat(newConv.id);
+
+					if (onConversationCreated) {
+						onConversationCreated(newConv);
+					} else {
+						setConversations((prev) => [newConv, ...prev]);
+					}
+				}
+
+				await sendMessage(token, chatIdToUse, {
+					role: "user",
+					content: userText,
+					image_url: options?.imageUrl,
+				});
+
+				await actionLogic(token, chatIdToUse);
+			} catch (error) {
+				console.error("Action failed: ", error);
+				let errorMsg =
+					"Xin lỗi, đã có lỗi xảy ra. Vui lòng thử lại sau.";
+				if (error && typeof error === "object" && "response" in error) {
+					const axiosErr = error as {
+						response?: { data?: { detail?: string } };
+					};
+					errorMsg = axiosErr.response?.data?.detail || errorMsg;
+				}
+				setMessages((prev) => [
+					...prev,
+					{
+						id: (Date.now() + 1).toString(),
+						role: "bot",
+						content: errorMsg,
+					},
+				]);
+			} finally {
+				setIsThinking(false);
+			}
+		},
+		[
+			isThinking,
+			user,
+			currentActiveChat,
+			handleSetActiveChat,
+			onConversationCreated,
+			setIsThinking,
+			setMessages,
+		],
+	);
+
 	const uploadImageToKit = async (
 		file: File,
 	): Promise<string | undefined> => {
@@ -291,10 +289,8 @@ function FloatingSidebar({
 		}
 	};
 
-	// ─── Upload Handler ─────────────────────────────────────────────────────────
 	const handleFileSelected = async (file: File) => {
 		if (uploadMode === "ocr") {
-			// ── Translate Menu: upload ảnh lên ImageKit → hiện ảnh trong chat → OCR ──
 			const imageUrl = await uploadImageToKit(file);
 
 			processUserAction(
@@ -320,7 +316,6 @@ function FloatingSidebar({
 				{ imageUrl },
 			);
 		} else if (uploadMode === "image-search") {
-			// ── Image Search: upload ảnh lên ImageKit → hiện ảnh trong chat → search ──
 			const imageUrl = await uploadImageToKit(file);
 
 			processUserAction(
@@ -371,60 +366,53 @@ function FloatingSidebar({
 				},
 				{ imageUrl },
 			);
-		} else if (uploadMode === "send-image") {
-			// ── Send Image: upload ảnh lên ImageKit → hiện ảnh trong chat ──
-			handleSendImage(file);
 		}
 	};
 
-	// ─── Send Image via ImageKit ───────────────────────────────────────────────
-	const handleSendImage = async (file: File) => {
-		if (!user) return;
-
-		setIsUploading(true);
-		try {
-			const firebaseToken = await user.getIdToken();
-			const uploadResult = await uploadToImageKit(file, firebaseToken);
-			const imageUrl = uploadResult.url;
-
-			setIsOpen(false);
-			setIsUploading(false);
-
-			processUserAction(
-				`[Gửi ảnh]`,
-				async (token, chatIdToUse) => {
+	useEffect(() => {
+		const handleProcessAction = (event: Event) => {
+			const e = event as CustomEvent<{
+				action: string;
+				placeId: string;
+				name: string;
+			}>;
+			const { action, placeId, name } = e.detail;
+			if (action === "review-summary") {
+				const userText = `Review summary ${name}`;
+				processUserAction(userText, async (token, chatIdToUse) => {
+					let botReplyContent = "Không tìm thấy dữ liệu đánh giá.";
+					try {
+						const { fetchReviewSummary } =
+							await import("../../api/placeAPI");
+						const res = await fetchReviewSummary(placeId);
+						botReplyContent = res.summary;
+					} catch (err) {
+						console.error(err);
+					}
 					const savedBotMsg = await sendMessage(token, chatIdToUse, {
 						role: "bot",
-						content: "Đã nhận ảnh của bạn! 📸",
+						content: botReplyContent,
 					});
 
 					setMessages((prev) => [
 						...prev,
 						{
-							id: savedBotMsg.id || Date.now().toString(),
+							id: savedBotMsg.id || (Date.now() + 1).toString(),
 							role: "bot",
 							content: savedBotMsg.content,
 						},
 					]);
-				},
-				{ imageUrl },
+				});
+			}
+		};
+		window.addEventListener("process-chatbot-action", handleProcessAction);
+		return () =>
+			window.removeEventListener(
+				"process-chatbot-action",
+				handleProcessAction,
 			);
-		} catch (error) {
-			console.error("Image upload failed:", error);
-			setIsUploading(false);
-			setIsOpen(false);
-			setMessages((prev) => [
-				...prev,
-				{
-					id: Date.now().toString(),
-					role: "bot",
-					content: "Tải ảnh lên thất bại. Vui lòng thử lại sau.",
-				},
-			]);
-		}
-	};
+	}, [processUserAction, setMessages]);
 
-	// ─── Submit handler ────────────────────────────────────────────────────────
 	const handleSubmit = (text: string) => {
 		if (!text.trim()) return;
 		processUserAction(text, async (token, chatIdToUse) => {
@@ -447,7 +435,6 @@ function FloatingSidebar({
 		});
 	};
 
-	// ─── Bento feature click ───────────────────────────────────────────────────
 	const handleFeatureClick = (label: string) => {
 		switch (label) {
 			case "Translate Menu":
@@ -457,36 +444,20 @@ function FloatingSidebar({
 				handleOpenUploadModal("image-search");
 				break;
 			case "Voice Assistant":
-				// Chỉ bật mic, không gửi chat
 				handleBentoVoiceToggle();
 				break;
 			default:
-				// Review Summary và các chức năng khác → gửi chat
-				handleSubmit(`Tôi muốn sử dụng tính năng: ${label}`);
 				break;
 		}
 	};
 
-	// ─── ChatInput tool select ─────────────────────────────────────────────────
-	const handleToolSelect = (
-		toolId:
-			| "translate-menu"
-			| "search-image"
-			| "send-image"
-			| "review-summary",
-	) => {
+	const handleToolSelect = (toolId: "translate-menu" | "search-image") => {
 		switch (toolId) {
 			case "translate-menu":
 				handleOpenUploadModal("ocr");
 				break;
 			case "search-image":
 				handleOpenUploadModal("image-search");
-				break;
-			case "send-image":
-				handleOpenUploadModal("send-image");
-				break;
-			case "review-summary":
-				handleSubmit("Tôi muốn xem tóm tắt đánh giá nhà hàng này.");
 				break;
 		}
 	};
@@ -539,7 +510,6 @@ function FloatingSidebar({
 						: "rounded-[2.5rem] shadow-2xl shadow-orange-500/10 bg-white/85 backdrop-blur-xl border border-white/60"
 				}`}
 			>
-				{/* ── Header: Close button ── */}
 				{!isFullSize && (
 					<div className="flex justify-end items-center px-6 pt-5 pb-2 gap-5">
 						<div /> {/* Spacer */}
@@ -566,7 +536,6 @@ function FloatingSidebar({
 								setMessages([]);
 								handleSetActiveChat(null);
 								setShowHistory(false);
-								// Reset conversations cache để lần sau mở history sẽ fetch mới
 								setConversations([]);
 							}}
 							className="p-2 text-gray-400 hover:text-gray-600
@@ -597,8 +566,6 @@ function FloatingSidebar({
 						</button>
 					</div>
 				)}
-
-				{/* ── Logo "Food Tourism" ── */}
 				{!isFullSize && (
 					<div className="text-center px-6 pb-4">
 						<div className="flex items-center justify-center gap-3 text-2xl sm:text-3xl font-bold tracking-tight">
@@ -618,8 +585,6 @@ function FloatingSidebar({
 						)}
 					</div>
 				)}
-
-				{/* ── Content area ── */}
 				<div
 					className={`flex-1 overflow-y-auto px-5 pb-2 min-h-0 ${isFullSize ? "pt-6" : ""}`}
 				>
@@ -699,21 +664,17 @@ function FloatingSidebar({
 							)}
 						</div>
 					) : !hasMessages ? (
-						/* Khi chưa có tin nhắn → Hiển thị Bento Grid */
 						<BentoFeatures
 							isListening={isListening}
 							onFeatureClick={handleFeatureClick}
 						/>
 					) : (
-						/* Khi có tin nhắn → Hiển thị ChatBotPanel */
 						<ChatBotPanel
 							messages={messages}
 							isThinking={isThinking}
 						/>
 					)}
 				</div>
-
-				{/* ── Input area (rainbow border ở đây) ── */}
 				{!showHistory && (
 					<ChatInput
 						onSubmit={handleSubmit}
@@ -725,14 +686,11 @@ function FloatingSidebar({
 					/>
 				)}
 			</div>
-
-			{/* ── Image Upload Modal ── */}
 			<ImageUploadModel
 				isOpen={isOpen}
 				onClose={() => setIsOpen(false)}
 				onFileSelected={handleFileSelected}
 				mode={uploadMode}
-				isUploading={isUploading}
 			/>
 		</div>
 	);

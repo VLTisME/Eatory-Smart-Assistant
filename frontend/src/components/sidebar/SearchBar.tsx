@@ -20,7 +20,6 @@ import {
    ═══════════════════════════════════════════════════════════════════════════ */
 
 interface SearchBarProps {
-	/** Called when user reaches a final place (has_children=false) with full detail including lat/lng */
 	onSelectPlace?: (place: PlaceDetailResult) => void;
 }
 
@@ -52,14 +51,11 @@ function SearchBar({ onSelectPlace }: SearchBarProps) {
 	const handleSelect = useCallback(
 		async (prediction: PlacePrediction) => {
 			if (prediction.has_children) {
-				// ── Drill down: re-search with the description ──────────
 				setQuery(prediction.description);
 				setIsOpen(true);
 				inputRef.current?.focus();
 				return;
 			}
-
-			// ── Final place: fetch detail for coordinates ───────────────
 			setQuery(prediction.description);
 			close();
 
@@ -80,7 +76,6 @@ function SearchBar({ onSelectPlace }: SearchBarProps) {
 		[setQuery, setIsOpen, close, onSelectPlace],
 	);
 
-	// ── Keyboard navigation ─────────────────────────────────────────────────
 	const handleKeyDown = useCallback(
 		(e: React.KeyboardEvent) => {
 			if (!isOpen || results.length === 0) {
@@ -119,14 +114,12 @@ function SearchBar({ onSelectPlace }: SearchBarProps) {
 		[isOpen, results, activeIndex, setActiveIndex, handleSelect, close],
 	);
 
-	// ── Scroll active item into view ────────────────────────────────────────
 	useEffect(() => {
 		if (activeIndex < 0 || !listRef.current) return;
 		const item = listRef.current.children[activeIndex] as HTMLElement;
 		item?.scrollIntoView({ block: "nearest" });
 	}, [activeIndex]);
 
-	// ── Close dropdown on outside click ─────────────────────────────────────
 	useEffect(() => {
 		const handler = (e: MouseEvent) => {
 			if (
@@ -140,7 +133,6 @@ function SearchBar({ onSelectPlace }: SearchBarProps) {
 		return () => document.removeEventListener("mousedown", handler);
 	}, [close]);
 
-	// ── Keyword highlighting helper ─────────────────────────────────────────
 	const highlightMatch = (text: string, keyword: string) => {
 		if (!keyword.trim()) return text;
 		const escapedKw = keyword.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
@@ -160,7 +152,6 @@ function SearchBar({ onSelectPlace }: SearchBarProps) {
 		);
 	};
 
-	// ── Whether to show dropdown ────────────────────────────────────────────
 	const showDropdown =
 		isOpen &&
 		query.trim().length > 0 &&
@@ -171,7 +162,6 @@ function SearchBar({ onSelectPlace }: SearchBarProps) {
 			ref={containerRef}
 			className="relative w-100 m-4 z-100 font-sans pointer-events-auto"
 		>
-			{/* ── Input row ─────────────────────────────────────────────── */}
 			<div
 				className={`flex items-center gap-2 px-4 h-12 bg-white/92 backdrop-blur-lg backdrop-saturate-[1.8] border-[1.5px] border-black/5 shadow-[0_4px_24px_rgba(0,0,0,0.07),0_1px_3px_rgba(0,0,0,0.04)] transition-all duration-250 ease-in-out hover:bg-white/97 hover:shadow-[0_6px_28px_rgba(0,0,0,0.1),0_1px_4px_rgba(0,0,0,0.05)] focus-within:bg-white focus-within:border-indigo-500/40 focus-within:shadow-[0_0_0_3px_rgba(99,102,241,0.1),0_6px_28px_rgba(0,0,0,0.1)] group/wrapper ${showDropdown ? "rounded-t-2xl rounded-b-none border-b-black/5" : "rounded-2xl"}`}
 			>
@@ -197,16 +187,12 @@ function SearchBar({ onSelectPlace }: SearchBarProps) {
 					onKeyDown={handleKeyDown}
 					className="flex-1 border-none outline-none bg-transparent text-[14px] font-medium text-gray-800 leading-normal placeholder:text-gray-400 placeholder:font-normal"
 				/>
-
-				{/* Loading spinner */}
 				{(isLoading || isFetchingDetail) && (
 					<Loader2
 						size={16}
 						className="shrink-0 text-indigo-500 animate-[spin_0.8s_linear_infinite]"
 					/>
 				)}
-
-				{/* Clear button */}
 				{query && !isLoading && !isFetchingDetail && (
 					<button
 						type="button"
@@ -218,8 +204,6 @@ function SearchBar({ onSelectPlace }: SearchBarProps) {
 					</button>
 				)}
 			</div>
-
-			{/* ── Dropdown ──────────────────────────────────────────────── */}
 			{showDropdown && (
 				<div className="absolute top-full left-0 right-0 bg-white/97 backdrop-blur-lg backdrop-saturate-[1.8] border-[1.5px] border-t-0 border-black/5 rounded-b-2xl shadow-[0_12px_40px_rgba(0,0,0,0.1),0_2px_6px_rgba(0,0,0,0.04)] overflow-hidden animate-[searchbar-slide-in_0.18s_ease-out]">
 					{/* Error state */}
@@ -229,16 +213,12 @@ function SearchBar({ onSelectPlace }: SearchBarProps) {
 							<span>{error}</span>
 						</div>
 					)}
-
-					{/* Empty state */}
 					{!error && !isLoading && results.length === 0 && (
 						<div className="flex items-center justify-center gap-2 px-4 py-6 text-gray-400 text-[13px] font-medium">
 							<Search size={20} className="opacity-60" />
 							<span>Không tìm thấy kết quả</span>
 						</div>
 					)}
-
-					{/* Results list */}
 					{results.length > 0 && (
 						<ul
 							ref={listRef}
@@ -253,7 +233,6 @@ function SearchBar({ onSelectPlace }: SearchBarProps) {
 								const secondaryText =
 									pred.structured_formatting
 										?.secondary_text ?? "";
-
 								return (
 									<li
 										key={pred.place_id}
@@ -286,7 +265,6 @@ function SearchBar({ onSelectPlace }: SearchBarProps) {
 												</span>
 											)}
 										</div>
-										{/* Drill-down indicator for places with sub-areas */}
 										{pred.has_children && (
 											<ChevronRight
 												size={14}
@@ -298,8 +276,6 @@ function SearchBar({ onSelectPlace }: SearchBarProps) {
 							})}
 						</ul>
 					)}
-
-					{/* Footer hint */}
 					{results.length > 0 && (
 						<div className="flex items-center justify-center gap-1 px-3 py-2 text-[11px] text-gray-400 border-t border-black/5 bg-gray-50/60 [&>kbd]:inline-flex [&>kbd]:items-center [&>kbd]:justify-center [&>kbd]:min-w-5 [&>kbd]:h-4.5 [&>kbd]:px-1 [&>kbd]:text-[10px] [&>kbd]:font-inherit [&>kbd]:font-semibold [&>kbd]:text-gray-500 [&>kbd]:bg-white [&>kbd]:border [&>kbd]:border-gray-200 [&>kbd]:rounded-sm [&>kbd]:shadow-[0_1px_1px_rgba(0,0,0,0.04)]">
 							<kbd>↑</kbd> <kbd>↓</kbd> di chuyển &nbsp;·&nbsp;{" "}

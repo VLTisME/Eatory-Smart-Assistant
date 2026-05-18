@@ -9,11 +9,8 @@ export interface Message {
 	id: string;
 	role: "user" | "bot";
 	content: string;
-	/** Nếu bot trả về structured menu → render MenuCard */
 	menuData?: MenuResponse;
-	/** Nếu bot trả về structured place search → render cards */
 	placeSearchData?: PlaceSearchResponse;
-	/** URL ảnh đã upload lên ImageKit */
 	imageUrl?: string;
 }
 
@@ -57,7 +54,6 @@ function ImageLightbox({
 	);
 }
 
-/* ── Chat Image Bubble — hiển thị ảnh đẹp trong khung chat ── */
 function ChatImage({ src, isUser }: { src: string; isUser: boolean }) {
 	const [lightbox, setLightbox] = useState(false);
 	const [loaded, setLoaded] = useState(false);
@@ -70,7 +66,6 @@ function ChatImage({ src, isUser }: { src: string; isUser: boolean }) {
 				}`}
 				onClick={() => setLightbox(true)}
 			>
-				{/* Skeleton shimmer while loading */}
 				{!loaded && (
 					<div className="w-full aspect-4/3 rounded-2xl bg-linear-to-r from-gray-200 via-gray-100 to-gray-200 animate-pulse" />
 				)}
@@ -83,7 +78,6 @@ function ChatImage({ src, isUser }: { src: string; isUser: boolean }) {
 					style={{ maxHeight: "240px" }}
 					onLoad={() => setLoaded(true)}
 				/>
-				{/* Hover overlay */}
 				<div className="absolute inset-0 rounded-2xl bg-black/0 group-hover:bg-black/10 transition-all duration-300 flex items-center justify-center">
 					<span className="text-white text-xs font-medium opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black/40 px-3 py-1.5 rounded-full backdrop-blur-sm">
 						Nhấn để phóng to
@@ -101,41 +95,89 @@ function ChatImage({ src, isUser }: { src: string; isUser: boolean }) {
 	);
 }
 
+function PlaceSearchCard({
+	item,
+}: {
+	item: PlaceSearchResponse["results"][0];
+}) {
+	const [imageUrl, setImageUrl] = useState<string | null>(null);
+	const [imageLoaded, setImageLoaded] = useState(false);
+
+	useEffect(() => {
+		let cancelled = false;
+		const controller = new AbortController();
+
+		async function loadImage() {
+			try {
+				const res = await fetch(
+					`http://localhost:8000/api/v1/place-images/single?place_id=${encodeURIComponent(item.place_id)}`,
+					{ signal: controller.signal },
+				);
+				if (!res.ok) return;
+				const data = await res.json();
+				if (!cancelled && data.file_path) {
+					setImageUrl(data.file_path);
+				}
+			} catch {
+				// Silently ignore — image is non-critical
+			}
+		}
+
+		loadImage();
+		return () => {
+			cancelled = true;
+			controller.abort();
+		};
+	}, [item.place_id]);
+
+	return (
+		<div className="overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm">
+			<div className="aspect-4/3 w-full bg-gray-100 relative overflow-hidden">
+				{!imageLoaded && (
+					<div className="absolute inset-0 bg-linear-to-r from-gray-200 via-gray-100 to-gray-200 animate-pulse" />
+				)}
+				{imageUrl && (
+					<img
+						src={imageUrl}
+						alt={item.name || item.place_id}
+						className={`h-full w-full object-cover transition-opacity duration-300 ${
+							imageLoaded ? "opacity-100" : "opacity-0"
+						}`}
+						onLoad={() => setImageLoaded(true)}
+					/>
+				)}
+				{!imageUrl && !imageLoaded && (
+					<div className="absolute inset-0 flex items-center justify-center">
+						<span className="text-3xl">🍜</span>
+					</div>
+				)}
+			</div>
+			<div className="space-y-1 p-3">
+				<div className="flex items-start justify-between gap-3">
+					<h4 className="line-clamp-2 text-sm font-semibold text-gray-900">
+						{item.name || item.place_id}
+					</h4>
+					<span className="shrink-0 rounded-full bg-emerald-50 px-2 py-1 text-[11px] font-semibold text-emerald-700">
+						{Math.round(item.score * 100)}%
+					</span>
+				</div>
+				{item.address ? (
+					<p className="line-clamp-2 text-xs leading-relaxed text-gray-500">
+						{item.address}
+					</p>
+				) : null}
+			</div>
+		</div>
+	);
+}
+
 function PlaceSearchList({ data }: { data: PlaceSearchResponse }) {
 	const results = data.results.slice(0, 5);
 
 	return (
 		<div className="grid gap-3 sm:grid-cols-2">
 			{results.map((item) => (
-				<div
-					key={item.place_id}
-					className="overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm"
-				>
-					<div className="aspect-4/3 w-full bg-gray-100">
-						{item.top_image ? (
-							<img
-								src={item.top_image}
-								alt={item.name || item.place_id}
-								className="h-full w-full object-cover"
-							/>
-						) : null}
-					</div>
-					<div className="space-y-1 p-3">
-						<div className="flex items-start justify-between gap-3">
-							<h4 className="line-clamp-2 text-sm font-semibold text-gray-900">
-								{item.name || item.place_id}
-							</h4>
-							<span className="shrink-0 rounded-full bg-emerald-50 px-2 py-1 text-[11px] font-semibold text-emerald-700">
-								{Math.round(item.score * 100)}%
-							</span>
-						</div>
-						{item.address ? (
-							<p className="line-clamp-2 text-xs leading-relaxed text-gray-500">
-								{item.address}
-							</p>
-						) : null}
-					</div>
-				</div>
+				<PlaceSearchCard key={item.place_id} item={item} />
 			))}
 		</div>
 	);
@@ -162,10 +204,8 @@ function ChatBotPanel({ messages, isThinking }: ChatBotPanelProps) {
 						msg.role === "user" ? "justify-end" : "justify-start"
 					} animate-fade-in-up`}
 				>
-					{/* ── Bot message with menuData → render MenuCard ── */}
 					{msg.role === "bot" && msg.menuData ? (
 						<div className="w-full max-w-full space-y-2">
-							{/* Optional text above the card */}
 							{msg.content && (
 								<div className="bg-white border border-gray-100 text-gray-800 rounded-2xl rounded-bl-sm p-3 shadow-sm leading-relaxed text-sm inline-block">
 									{msg.content}
@@ -183,7 +223,6 @@ function ChatBotPanel({ messages, isThinking }: ChatBotPanelProps) {
 							<PlaceSearchList data={msg.placeSearchData} />
 						</div>
 					) : (
-						/* ── Regular text message & separated image ── */
 						<div
 							className={`flex flex-col gap-2 max-w-[85%] ${msg.role === "user" ? "items-end" : "items-start"}`}
 						>
@@ -198,7 +237,6 @@ function ChatBotPanel({ messages, isThinking }: ChatBotPanelProps) {
 									{msg.content}
 								</div>
 							)}
-							{/* ── Image display — outside the text bubble ── */}
 							{msg.imageUrl && (
 								<ChatImage
 									src={msg.imageUrl}

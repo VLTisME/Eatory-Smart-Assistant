@@ -5,49 +5,85 @@ import {
 	RiSparklingLine,
 } from "react-icons/ri";
 import ScrollReveal from "./Animation/ScrollReveal";
+import { useLanguage } from "../../hooks/useLanguage";
 
-const features = [
-	{
-		icon: RiLeafLine,
-		label: "100% Authentic\nRecipes",
-		color: "from-emerald-400 to-emerald-600",
+const WHY_TEXT = {
+	vi: {
+		title1: "Khám phá Việt Nam bằng",
+		title2: "hương vị & niềm vui",
+		desc: "Chúng tôi mang đến cho bạn những trải nghiệm ẩm thực tinh túy nhất trên mọi tỉnh thành — từ những quán ăn đường phố ẩn mình đến những đặc sản địa phương huyền thoại.",
+		features: [
+			{
+				icon: RiLeafLine,
+				label: "100% Công thức\nChuẩn vị",
+				color: "from-emerald-400 to-emerald-600",
+			},
+			{
+				icon: RiSparklingLine,
+				label: "Nguyên liệu\nĐịa phương tươi ngon",
+				color: "from-blue-400 to-blue-600",
+			},
+			{
+				icon: RiMapPinLine,
+				label: "Địa điểm ăn uống\nĐược tuyển chọn",
+				color: "from-violet-400 to-violet-600",
+			},
+			{
+				icon: RiHeartPulseLine,
+				label: "Trải nghiệm\nVăn hóa phong phú",
+				color: "from-rose-400 to-rose-600",
+			},
+		]
 	},
-	{
-		icon: RiSparklingLine,
-		label: "Fresh Local\nIngredients",
-		color: "from-blue-400 to-blue-600",
-	},
-	{
-		icon: RiMapPinLine,
-		label: "Curated Food\nLocations",
-		color: "from-violet-400 to-violet-600",
-	},
-	{
-		icon: RiHeartPulseLine,
-		label: "Rich Cultural\nExperience",
-		color: "from-rose-400 to-rose-600",
-	},
-];
+	en: {
+		title1: "Discover Vietnam with",
+		title2: "taste & joy",
+		desc: "We bring you the finest culinary experiences across every province — from hidden street food gems to legendary local specialties.",
+		features: [
+			{
+				icon: RiLeafLine,
+				label: "100% Authentic\nRecipes",
+				color: "from-emerald-400 to-emerald-600",
+			},
+			{
+				icon: RiSparklingLine,
+				label: "Fresh Local\nIngredients",
+				color: "from-blue-400 to-blue-600",
+			},
+			{
+				icon: RiMapPinLine,
+				label: "Curated Food\nLocations",
+				color: "from-violet-400 to-violet-600",
+			},
+			{
+				icon: RiHeartPulseLine,
+				label: "Rich Cultural\nExperience",
+				color: "from-rose-400 to-rose-600",
+			},
+		]
+	}
+};
 
 export default function WhyChooseUs() {
+	const { lang } = useLanguage();
+	const t = WHY_TEXT[lang];
+	const features = t.features;
+
 	return (
-		<section className="relative overflow-hidden bg-white py-28 px-4">
-			{/* Decorative circles */}
+		<section id="why-us" className="relative overflow-hidden bg-white py-28 px-4">
 			<div className="pointer-events-none absolute -top-20 -right-20 h-64 w-64 rounded-full border-2 border-blue-100/50" />
 			<div className="pointer-events-none absolute -bottom-16 -left-16 h-48 w-48 rounded-full border-2 border-sky-100/50" />
 
 			<div className="mx-auto max-w-5xl">
 				<ScrollReveal delay={0.1}>
 					<h2 className="mx-auto mb-6 max-w-lg text-center text-4xl font-bold leading-tight tracking-tight text-gray-900 md:text-5xl">
-						Discover Vietnam with{" "}
+						{t.title1}{" "}
 						<span className="bg-linear-to-r from-blue-500 to-sky-400 bg-clip-text text-transparent">
-							taste & joy
+							{t.title2}
 						</span>
 					</h2>
 					<p className="mx-auto mb-16 max-w-xl text-center text-base leading-relaxed text-gray-500">
-						We bring you the finest culinary experiences across
-						every province — from hidden street food gems to
-						legendary local specialties.
+						{t.desc}
 					</p>
 				</ScrollReveal>
 

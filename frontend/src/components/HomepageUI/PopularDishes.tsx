@@ -1,64 +1,68 @@
-import { RiStarFill, RiShoppingCart2Line } from "react-icons/ri";
+import { RiStarFill } from "react-icons/ri";
 import { motion } from "framer-motion";
 import ScrollReveal from "./Animation/ScrollReveal";
+import { useLanguage } from "../../hooks/useLanguage";
+
+const POPULAR_TEXT = {
+	vi: {
+		menu: "Thực đơn",
+		title1: "Chọn món ăn yêu thích",
+		title2: "từ Ẩm thực",
+		desc: "Khám phá những món ăn Việt Nam được yêu thích nhất từ khắp mọi miền đất nước — được đánh giá bởi du khách, tuyển chọn dành cho bạn.",
+	},
+	en: {
+		menu: "Food Menu",
+		title1: "Pick your favorite dish",
+		title2: "from Food",
+		desc: "Discover the most loved Vietnamese dishes from every corner of the country — rated by travelers, curated for you.",
+	},
+};
 
 const popularDishes = [
 	{
-		name: "Phở Bò Tái",
-		region: "Hà Nội",
-		price: "45.000₫",
-		calories: "350 cal",
+		name: "Sushi Ren",
 		rating: 4.9,
-		image: "/featured_pho.png",
+		image: "https://res.cloudinary.com/dj8o6k6ol/image/upload/v1778596122/smart_tourism/ChIJS2I83prPdDER3O6qYkqgC8Y/ChIJS2I83prPdDER3O6qYkqgC8Y_008.jpg",
 	},
 	{
-		name: "Bánh Mì Thịt",
-		region: "TP. Hồ Chí Minh",
-		price: "35.000₫",
-		calories: "420 cal",
+		name: "Phở Nhất Vị",
 		rating: 4.8,
-		image: "/featured_banhmi.png",
+		image: "https://res.cloudinary.com/dj8o6k6ol/image/upload/v1778571777/smart_tourism/ChIJ8XuNRUspdTERy38oQfU5oc8/ChIJ8XuNRUspdTERy38oQfU5oc8_002.jpg",
 	},
 	{
-		name: "Gỏi Cuốn Tôm",
-		region: "Miền Tây",
-		price: "40.000₫",
-		calories: "180 cal",
+		name: "OKKIO Coffee",
 		rating: 4.7,
-		image: "/featured_springrolls.png",
+		image: "https://res.cloudinary.com/dj8o6k6ol/image/upload/v1778574494/smart_tourism/ChIJiyfmqrYvdTERFpK50X-rB5Y/ChIJiyfmqrYvdTERFpK50X-rB5Y_005.jpg",
 	},
 	{
-		name: "Bún Chả Hà Nội",
-		region: "Hà Nội",
-		price: "50.000₫",
-		calories: "450 cal",
+		name: "Bros Korea",
 		rating: 4.9,
-		image: "/featured_buncha.png",
+		image: "https://res.cloudinary.com/dj8o6k6ol/image/upload/v1778574627/smart_tourism/ChIJJ_YTX4IvdTER-Bo0wjUNwdE/ChIJJ_YTX4IvdTER-Bo0wjUNwdE_001.jpg",
 	},
 ];
 
 export default function PopularDishes() {
+	const { lang } = useLanguage();
+	const t = POPULAR_TEXT[lang];
+
 	return (
 		<section className="bg-white py-28 px-4 lg:px-16">
 			<div className="mx-auto max-w-7xl">
 				<ScrollReveal delay={0.1}>
 					<div className="mb-14 text-center">
 						<span className="mb-3 inline-block rounded-full bg-blue-100 px-4 py-1.5 text-xs font-bold tracking-wider text-blue-600 uppercase">
-							Featured Menu
+							{t.menu}
 						</span>
 						<h2 className="mb-4 text-4xl font-bold tracking-tight text-gray-900 md:text-5xl">
-							Pick your favorite dish
+							{t.title1}
 							<br />
-							<span className="text-blue-600">from featured</span>
+							<span className="text-blue-600">{t.title2}</span>
 						</h2>
 						<p className="mx-auto max-w-lg text-base text-gray-500">
-							Discover the most loved Vietnamese dishes from every
-							corner of the country — rated by travelers, curated
-							for you.
+							{t.desc}
 						</p>
 					</div>
 				</ScrollReveal>
-
 				<div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
 					{popularDishes.map((dish, i) => (
 						<ScrollReveal key={dish.name} delay={0.15 + i * 0.1}>
@@ -67,7 +71,6 @@ export default function PopularDishes() {
 								transition={{ duration: 0.3, ease: "easeOut" }}
 								className="group relative overflow-hidden rounded-3xl border border-gray-100 bg-white shadow-sm transition-shadow hover:shadow-xl"
 							>
-								{/* Image */}
 								<div className="relative overflow-hidden bg-linear-to-br from-blue-50 to-sky-50 p-6 pb-4">
 									<img
 										src={dish.image}
@@ -83,24 +86,10 @@ export default function PopularDishes() {
 										</span>
 									</div>
 								</div>
-
-								{/* Content */}
 								<div className="p-5 pt-3">
 									<h3 className="mb-0.5 text-lg font-bold text-gray-900">
 										{dish.name}
 									</h3>
-									<p className="mb-2 text-xs font-medium text-gray-400">
-										{dish.region} · {dish.calories}
-									</p>
-
-									<div className="flex items-center justify-between">
-										<span className="text-xl font-bold text-blue-600">
-											{dish.price}
-										</span>
-										<button className="flex h-10 w-10 cursor-pointer items-center justify-center rounded-full bg-blue-600 text-white shadow-md transition-all hover:scale-110 hover:bg-blue-700 hover:shadow-lg">
-											<RiShoppingCart2Line className="text-base" />
-										</button>
-									</div>
 								</div>
 							</motion.div>
 						</ScrollReveal>

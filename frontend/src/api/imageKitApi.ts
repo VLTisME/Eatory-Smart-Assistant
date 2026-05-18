@@ -18,10 +18,6 @@ export interface ImageKitUploadResult {
 	thumbnailUrl?: string;
 }
 
-/**
- * Step 1: Fetch auth parameters (signature, token, expire) from our backend.
- * The backend signs the request using the private key.
- */
 export const getImageKitAuth = async (
 	firebaseToken: string,
 ): Promise<ImageKitAuthResponse> => {
@@ -36,18 +32,12 @@ export const getImageKitAuth = async (
 	return response.data;
 };
 
-/**
- * Step 2: Upload a file directly to ImageKit's upload API.
- * Uses the auth params from our backend + the public key.
- */
 export const uploadToImageKit = async (
 	file: File,
 	firebaseToken: string,
 ): Promise<ImageKitUploadResult> => {
-	// 1. Get authentication parameters from our backend
 	const authParams = await getImageKitAuth(firebaseToken);
 
-	// 2. Build multipart form for ImageKit upload API
 	const formData = new FormData();
 	formData.append("file", file);
 	formData.append("fileName", file.name);
@@ -56,7 +46,6 @@ export const uploadToImageKit = async (
 	formData.append("expire", authParams.expire.toString());
 	formData.append("token", authParams.token);
 
-	// 3. POST directly to ImageKit upload API
 	const response = await axios.post(
 		"https://upload.imagekit.io/api/v1/files/upload",
 		formData,

@@ -12,7 +12,6 @@ function ToggleButton({ handleClick }: ToggleButtonProps) {
 	};
 	return (
 		<div className="flex flex-col sm:flex-row items-center gap-2 p-2 bg-white/70 backdrop-blur-md border border-white/60 shadow-[0_8px_32px_rgba(0,0,0,0.1)] rounded-full z-50 transition-all duration-300">
-			{/* Home Button */}
 			<button
 				onClick={handleHomeClick}
 				className="group relative flex items-center justify-center w-10 h-10 rounded-full bg-white hover:bg-gray-50 hover:shadow-md transition-all duration-500 ease-in-out hover:w-32 overflow-hidden cursor-pointer"

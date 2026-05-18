@@ -1,10 +1,3 @@
-/**
- * Place Search API – calls our backend proxy for Goong Places.
- *
- * Uses native fetch + AbortSignal so the consumer can cancel in-flight
- * requests (critical for debounced autocomplete).
- */
-
 const BASE_URL = "http://localhost:8000/api/v1/places";
 
 export interface StructuredFormatting {
@@ -72,9 +65,6 @@ export const searchPlaces = async (
 	return res.json();
 };
 
-/**
- * Fetch place detail by place_id.
- */
 export const getPlaceDetail = async (
 	placeId: string,
 	signal?: AbortSignal,

@@ -16,7 +16,6 @@ export default function AuthContainer({
 	const navigate = useNavigate();
 	const [isRegister, setIsRegister] = useState(defaultRegister);
 
-	// Sync with URL-driven prop changes (Sign In / Sign Up navbar links)
 	useEffect(() => {
 		setIsRegister(defaultRegister);
 	}, [defaultRegister]);
@@ -38,7 +37,6 @@ export default function AuthContainer({
 				<span aria-hidden="true">←</span>
 				Quay lại
 			</button>
-			{/* Left panel — decorative */}
 			<div className="relative hidden w-[45%] overflow-hidden lg:block">
 				<div className="absolute inset-0 bg-linear-to-br from-blue-600 via-blue-700 to-indigo-800" />
 				<div
@@ -64,10 +62,7 @@ export default function AuthContainer({
 					</p>
 				</div>
 			</div>
-
-			{/* Right panel — forms */}
 			<div className="flex w-full flex-col justify-center px-8 py-10 lg:w-[55%] lg:px-12">
-				{/* Tab switcher */}
 				<div className="relative mb-8 flex rounded-full bg-blue-50 p-1">
 					<div
 						className={`absolute top-1 h-[calc(100%-8px)] w-[calc(50%-4px)] rounded-full bg-blue-600 shadow-md transition-all duration-300 ${
@@ -91,8 +86,6 @@ export default function AuthContainer({
 						Sign Up
 					</button>
 				</div>
-
-				{/* Form content */}
 				{isRegister ? (
 					<RegisterForm onSwitchToLogin={() => handleSwitch(false)} />
 				) : (

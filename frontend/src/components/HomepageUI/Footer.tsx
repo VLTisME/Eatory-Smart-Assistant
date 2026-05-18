@@ -8,13 +8,52 @@ import {
 	RiArrowRightUpLine,
 } from "react-icons/ri";
 import Logo from "../../assets/logo.svg";
+import { useLanguage } from "../../hooks/useLanguage";
 
-const quickLinks = [
-	{ label: "Home", to: "/" },
-	{ label: "Explore Map", to: "/MainPage" },
-	{ label: "About Us", to: "#" },
-	{ label: "Contact", to: "#" },
-];
+const FOOTER_TEXT = {
+	vi: {
+		start: "BẮT ĐẦU",
+		adventure: "HÀNH TRÌNH",
+		desc: "Đăng ký nhận bản tin của chúng tôi và nhận hướng dẫn ẩm thực độc quyền, mẹo nội bộ và cảm hứng điểm đến cho hành trình ẩm thực tiếp theo của bạn.",
+		emailPlaceholder: "Nhập địa chỉ email của bạn...",
+		subscribe: "Đăng ký",
+		aboutDesc:
+			"Người bạn đồng hành du lịch ẩm thực hỗ trợ bởi AI của bạn — khám phá, trải nghiệm và thưởng thức hương vị đích thực của Việt Nam trên 63 tỉnh thành.",
+		quickLinks: "Liên kết nhanh",
+		topDestinations: "Điểm đến hàng đầu",
+		contactUs: "Liên hệ chúng tôi",
+		allRights: "Mọi quyền được bảo lưu",
+		privacy: "Chính sách bảo mật",
+		terms: "Điều khoản dịch vụ",
+		links: [
+			{ label: "Trang chủ", to: "/" },
+			{ label: "Khám phá bản đồ", to: "/MainPage" },
+			{ label: "Về chúng tôi", to: "#" },
+			{ label: "Liên hệ", to: "#" },
+		],
+	},
+	en: {
+		start: "START YOUR",
+		adventure: "ADVENTURE",
+		desc: "Sign up for our newsletter and receive exclusive food guides, insider tips, and destination inspiration for your next culinary journey.",
+		emailPlaceholder: "Enter your email address...",
+		subscribe: "Subscribe",
+		aboutDesc:
+			"Your AI-powered food tourism companion — discover, explore, and savor the authentic flavors of Vietnam across all 63 provinces.",
+		quickLinks: "Quick Links",
+		topDestinations: "Top Destinations",
+		contactUs: "Contact Us",
+		allRights: "All Rights Reserved",
+		privacy: "Privacy Policy",
+		terms: "Terms of Service",
+		links: [
+			{ label: "Home", to: "/" },
+			{ label: "Explore Map", to: "/MainPage" },
+			{ label: "About Us", to: "#" },
+			{ label: "Contact", to: "#" },
+		],
+	},
+};
 
 const destinations = ["Hà Nội", "TP. Hồ Chí Minh", "Đà Nẵng", "Huế", "Hội An"];
 
@@ -26,9 +65,11 @@ const socials = [
 ];
 
 export default function Footer() {
+	const { lang } = useLanguage();
+	const t = FOOTER_TEXT[lang];
+
 	return (
 		<>
-			{/* Newsletter CTA */}
 			<section className="relative overflow-hidden bg-linear-to-r from-blue-600 to-blue-800 py-20 px-4">
 				<div
 					className="pointer-events-none absolute inset-0 opacity-5"
@@ -40,39 +81,33 @@ export default function Footer() {
 				/>
 				<div className="relative z-10 mx-auto max-w-4xl text-center">
 					<h2 className="font-display mb-4 text-5xl font-bold tracking-wide text-white md:text-7xl">
-						START YOUR
+						{t.start}
 						<br />
-						ADVENTURE
+						{t.adventure}
 					</h2>
 					<p className="mx-auto mb-8 max-w-lg text-sm leading-relaxed text-blue-100/80 md:text-base">
-						Sign up for our newsletter and receive exclusive food
-						guides, insider tips, and destination inspiration for
-						your next culinary journey.
+						{t.desc}
 					</p>
-
 					<form className="mx-auto flex max-w-md flex-col items-center gap-3 sm:flex-row">
 						<input
 							type="email"
-							placeholder="Enter your email address..."
+							placeholder={t.emailPlaceholder}
 							className="w-full rounded-full bg-white/15 px-6 py-3.5 text-sm text-white placeholder-blue-200/60 outline-none ring-1 ring-white/20 backdrop-blur-sm transition-all focus:bg-white/20 focus:ring-white/40"
 							required
 						/>
 						<button
 							type="submit"
-							className="flex w-full cursor-pointer items-center justify-center gap-2 rounded-full bg-white px-8 py-3.5 text-sm font-bold text-blue-700 shadow-lg transition-all hover:-translate-y-0.5 hover:shadow-xl sm:w-auto"
+							className="flex w-full cursor-pointer items-center justify-center gap-2 rounded-full bg-white px-6 py-3.5 text-sm font-bold text-blue-700 shadow-lg transition-all hover:-translate-y-0.5 hover:shadow-xl sm:w-auto"
 						>
-							Subscribe
+							{t.subscribe}
 							<RiArrowRightUpLine className="text-base" />
 						</button>
 					</form>
 				</div>
 			</section>
-
-			{/* Footer */}
 			<footer className="relative overflow-hidden bg-gray-950 pt-20 text-white">
 				<div className="mx-auto max-w-7xl px-6 md:px-12">
 					<div className="relative z-10 mb-16 grid grid-cols-1 gap-12 md:grid-cols-12">
-						{/* Brand */}
 						<div className="md:col-span-4 lg:col-span-5">
 							<Link
 								to="/"
@@ -88,9 +123,7 @@ export default function Footer() {
 								</span>
 							</Link>
 							<p className="mb-6 max-w-xs text-sm leading-relaxed text-gray-400">
-								Your AI-powered food tourism companion —
-								discover, explore, and savor the authentic
-								flavors of Vietnam across all 63 provinces.
+								{t.aboutDesc}
 							</p>
 							<div className="flex gap-3">
 								{socials.map((s) => (
@@ -105,14 +138,12 @@ export default function Footer() {
 								))}
 							</div>
 						</div>
-
-						{/* Quick Links */}
 						<div className="md:col-span-2 lg:col-span-2">
 							<h4 className="mb-6 text-sm font-bold uppercase tracking-wider text-gray-300">
-								Quick Links
+								{t.quickLinks}
 							</h4>
 							<ul className="space-y-3.5 text-sm text-gray-400">
-								{quickLinks.map((link) => (
+								{t.links.map((link) => (
 									<li key={link.label}>
 										<Link
 											to={link.to}
@@ -124,11 +155,9 @@ export default function Footer() {
 								))}
 							</ul>
 						</div>
-
-						{/* Destinations */}
 						<div className="md:col-span-3 lg:col-span-2">
 							<h4 className="mb-6 text-sm font-bold uppercase tracking-wider text-gray-300">
-								Top Destinations
+								{t.topDestinations}
 							</h4>
 							<ul className="space-y-3.5 text-sm text-gray-400">
 								{destinations.map((d) => (
@@ -144,11 +173,9 @@ export default function Footer() {
 								))}
 							</ul>
 						</div>
-
-						{/* Contact */}
 						<div className="md:col-span-3 lg:col-span-3">
 							<h4 className="mb-6 text-sm font-bold uppercase tracking-wider text-gray-300">
-								Contact Us
+								{t.contactUs}
 							</h4>
 							<ul className="space-y-3.5 text-sm text-gray-400">
 								<li>eatory@support.com</li>
@@ -157,24 +184,22 @@ export default function Footer() {
 							</ul>
 						</div>
 					</div>
-
 					<hr className="relative z-10 border-gray-800" />
-
 					<div className="relative z-10 flex flex-col items-center justify-center gap-4 py-8 text-center text-sm text-gray-500 md:flex-row">
-						<span>© 2024 Eatory . All Rights Reserved</span>
+						<span>© 2024 Eatory . {t.allRights}</span>
 						<span className="hidden md:inline">|</span>
 						<a
 							href="#"
 							className="transition-colors hover:text-white"
 						>
-							Privacy Policy
+							{t.privacy}
 						</a>
 						<span className="hidden md:inline">|</span>
 						<a
 							href="#"
 							className="transition-colors hover:text-white"
 						>
-							Terms of Service
+							{t.terms}
 						</a>
 					</div>
 				</div>

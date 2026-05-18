@@ -6,7 +6,7 @@ interface ImageUploadModelProps {
 	isOpen: boolean;
 	onClose: () => void;
 	onFileSelected: (file: File) => void;
-	mode: "ocr" | "image-search" | "send-image";
+	mode: "ocr" | "image-search";
 	isUploading?: boolean;
 }
 

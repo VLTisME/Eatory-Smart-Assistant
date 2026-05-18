@@ -1,15 +1,19 @@
 // MapView.tsx
-import { memo, useState } from "react";
+import { memo, useState, useEffect, useMemo } from "react";
 import Map, {
 	Marker,
 	Popup,
 	NavigationControl,
 	GeolocateControl,
+	Source,
+	Layer,
 } from "react-map-gl/maplibre";
 import maplibregl from "maplibre-gl";
 import "maplibre-gl/dist/maplibre-gl.css";
 import { useGeolocation } from "../../hooks/useGeolocation";
 import { MapPin } from "lucide-react";
+import { useMap } from "react-map-gl/maplibre";
+import type { RouteInfo } from "../../api/directionsAPI";
 
 // Tọa độ mặc định (Khu vực Đại học Khoa học Tự nhiên - Nguyễn Văn Cừ)
 const DEFAULT_VIEW_STATE = {
@@ -28,7 +32,6 @@ interface LocationDetails {
 	lng: number;
 }
 
-/** Marker placed by SearchBar after selecting a final place */
 export interface SearchMarker {
 	lat: number;
 	lng: number;
@@ -37,25 +40,102 @@ export interface SearchMarker {
 }
 
 interface MapViewProps {
-	/** Red marker placed by the search feature */
 	searchMarker?: SearchMarker | null;
+	activeRoute?: RouteInfo | null;
 }
 
-const MapView = memo(function MapView({ searchMarker }: MapViewProps) {
+/**
+ * Decode a Google-encoded polyline string into an array of [lng, lat] pairs.
+ * Based on the algorithm described at:
+ * https://developers.google.com/maps/documentation/utilities/polylinealgorithm
+ */
+function decodePolyline(encoded: string): [number, number][] {
+	const coords: [number, number][] = [];
+	let index = 0;
+	let lat = 0;
+	let lng = 0;
+
+	while (index < encoded.length) {
+		let b: number;
+		let shift = 0;
+		let result = 0;
+		do {
+			b = encoded.charCodeAt(index++) - 63;
+			result |= (b & 0x1f) << shift;
+			shift += 5;
+		} while (b >= 0x20);
+		const dlat = result & 1 ? ~(result >> 1) : result >> 1;
+		lat += dlat;
+		shift = 0;
+		result = 0;
+		do {
+			b = encoded.charCodeAt(index++) - 63;
+			result |= (b & 0x1f) << shift;
+			shift += 5;
+		} while (b >= 0x20);
+		const dlng = result & 1 ? ~(result >> 1) : result >> 1;
+		lng += dlng;
+
+		coords.push([lng / 1e5, lat / 1e5]); // GeoJSON uses [lng, lat]
+	}
+
+	return coords;
+}
+
+const MapView = memo(function MapView({
+	searchMarker,
+	activeRoute,
+}: MapViewProps) {
 	const goongMapKey = import.meta.env.VITE_GOONG_MAP_KEY;
 	const { location, loading } = useGeolocation();
+	const { mainMap } = useMap();
 
-	// Quản lý state cho Popup
 	const [selectedLocation, setSelectedLocation] =
 		useState<LocationDetails | null>(null);
 
-	// Track which marker's popup the user has explicitly closed
 	const [closedSearchMarker, setClosedSearchMarker] =
 		useState<SearchMarker | null>(null);
 	const showSearchPopup =
 		searchMarker !== null && searchMarker !== closedSearchMarker;
 
-	// URL Style Vector của Goong
+	const routeGeoJSON =
+		useMemo<GeoJSON.Feature<GeoJSON.LineString> | null>(() => {
+			return activeRoute?.overview_polyline?.points
+				? {
+						type: "Feature",
+						properties: {},
+						geometry: {
+							type: "LineString",
+							coordinates: decodePolyline(
+								activeRoute.overview_polyline.points,
+							),
+						},
+					}
+				: null;
+		}, [activeRoute]);
+
+	useEffect(() => {
+		if (!routeGeoJSON || !mainMap) return;
+
+		const coords = routeGeoJSON.geometry.coordinates;
+		if (coords.length < 2) return;
+
+		const bounds = new maplibregl.LngLatBounds(
+			[coords[0][0], coords[0][1]],
+			[coords[0][0], coords[0][1]],
+		);
+
+		for (const coord of coords) {
+			bounds.extend([coord[0], coord[1]]);
+		}
+
+		mainMap.fitBounds(bounds, {
+			padding: { top: 80, bottom: 80, left: 440, right: 80 },
+			duration: 1000,
+			maxZoom: 16,
+		});
+	}, [routeGeoJSON, mainMap]);
+
 	const mapStyle = `https://tiles.goong.io/assets/goong_map_web.json?api_key=${goongMapKey}`;
 
 	if (loading) {
@@ -99,12 +179,8 @@ const MapView = memo(function MapView({ searchMarker }: MapViewProps) {
 					});
 				}}
 			>
-				{/* Control điều hướng cơ bản */}
 				<NavigationControl position="bottom-left" />
-				{/* Nút định vị người dùng hiện tại */}
 				<GeolocateControl position="bottom-left" />
-
-				{/* Marker vị trí hiện tại của bạn (xanh dương) */}
 				{location && (
 					<Marker
 						longitude={location.lng}
@@ -118,8 +194,6 @@ const MapView = memo(function MapView({ searchMarker }: MapViewProps) {
 						</div>
 					</Marker>
 				)}
-
-				{/* ── Red Marker — Vị trí tìm kiếm ──────────────────────── */}
 				{searchMarker && (
 					<Marker
 						longitude={searchMarker.lng}
@@ -138,8 +212,6 @@ const MapView = memo(function MapView({ searchMarker }: MapViewProps) {
 						</div>
 					</Marker>
 				)}
-
-				{/* Popup for search marker */}
 				{searchMarker && showSearchPopup && (
 					<Popup
 						longitude={searchMarker.lng}
@@ -163,8 +235,6 @@ const MapView = memo(function MapView({ searchMarker }: MapViewProps) {
 						</div>
 					</Popup>
 				)}
-
-				{/* Popup với hiệu ứng Glassmorphism */}
 				{selectedLocation && (
 					<Popup
 						longitude={selectedLocation.lng}
@@ -187,6 +257,42 @@ const MapView = memo(function MapView({ searchMarker }: MapViewProps) {
 							</button>
 						</div>
 					</Popup>
+				)}
+				{routeGeoJSON && (
+					<>
+						<Source
+							id="route-source"
+							type="geojson"
+							data={routeGeoJSON}
+						>
+							<Layer
+								id="route-outline"
+								type="line"
+								paint={{
+									"line-color": "#1e40af",
+									"line-width": 8,
+									"line-opacity": 0.25,
+								}}
+								layout={{
+									"line-cap": "round",
+									"line-join": "round",
+								}}
+							/>
+							<Layer
+								id="route-line"
+								type="line"
+								paint={{
+									"line-color": "#3b82f6",
+									"line-width": 5,
+									"line-opacity": 0.9,
+								}}
+								layout={{
+									"line-cap": "round",
+									"line-join": "round",
+								}}
+							/>
+						</Source>
+					</>
 				)}
 			</Map>
 		</div>

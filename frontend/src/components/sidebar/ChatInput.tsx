@@ -6,8 +6,6 @@ import {
 	AudioLines,
 	Languages,
 	Image,
-	ImageUp,
-	FileText,
 	X,
 } from "lucide-react";
 
@@ -31,40 +29,16 @@ const TOOLS = [
 		bg: "bg-amber-50",
 		hoverBg: "hover:bg-amber-50",
 	},
-	{
-		id: "send-image",
-		icon: ImageUp,
-		label: "Send Image",
-		description: "Gửi ảnh trong chat",
-		color: "text-violet-500",
-		bg: "bg-violet-50",
-		hoverBg: "hover:bg-violet-50",
-	},
-	{
-		id: "review-summary",
-		icon: FileText,
-		label: "Review Summary",
-		description: "Tóm tắt đánh giá",
-		color: "text-emerald-500",
-		bg: "bg-emerald-50",
-		hoverBg: "hover:bg-emerald-50",
-	},
 ] as const;
 
 type ToolId = (typeof TOOLS)[number]["id"];
 
 interface ChatInputProps {
-	/** Callback khi gửi tin nhắn */
 	onSubmit: (text: string) => void;
-	/** Trạng thái bot đang suy nghĩ → disable input */
 	isThinking: boolean;
-	/** Trạng thái đang ghi âm */
 	isListening: boolean;
-	/** Toggle bật/tắt ghi âm */
 	onVoiceToggle: () => void;
-	/** Callback khi chọn công cụ */
 	onToolSelect?: (toolId: ToolId) => void;
-	/** Hiện rainbow border (khi bot thinking) */
 	showRainbow?: boolean;
 }
 
@@ -88,7 +62,6 @@ export default function ChatInput({
 	const textareaRef = useRef<HTMLTextAreaElement>(null);
 	const toolsRef = useRef<HTMLDivElement>(null);
 
-	// ─── Đóng dropdown khi click ngoài ────────────────────────────────────────
 	useEffect(() => {
 		const handleClickOutside = (e: MouseEvent) => {
 			if (
@@ -105,7 +78,6 @@ export default function ChatInput({
 			document.removeEventListener("mousedown", handleClickOutside);
 	}, [showTools]);
 
-	// ─── Auto-resize textarea ──────────────────────────────────────────────────
 	const autoResize = () => {
 		const el = textareaRef.current;
 		if (!el) return;
@@ -118,7 +90,6 @@ export default function ChatInput({
 		autoResize();
 	};
 
-	// ─── Submit ────────────────────────────────────────────────────────────────
 	const handleSubmit = () => {
 		const trimmed = text.trim();
 		if (!trimmed || isThinking) return;
@@ -134,7 +105,6 @@ export default function ChatInput({
 		}
 	};
 
-	// ─── Tools dropdown ────────────────────────────────────────────────────────
 	const handleToolClick = (toolId: ToolId) => {
 		setShowTools(false);
 		onToolSelect?.(toolId);
@@ -144,14 +114,11 @@ export default function ChatInput({
 
 	return (
 		<div className="px-4 pb-4 pt-2">
-			{/* ── Wrapper với rainbow border ── */}
 			<div className="relative">
-				{/* Rainbow conic-gradient xoay — chỉ hiện khi showRainbow */}
 				<div
 					className={`absolute -inset-0.5 rounded-4xl transition-opacity duration-700 pointer-events-none overflow-hidden
 						${showRainbow ? "opacity-100" : "opacity-0"}`}
 				>
-					{/* Vòng xoay gradient */}
 					<div
 						className="absolute -inset-2 animate-spin-slow"
 						style={{
@@ -159,7 +126,6 @@ export default function ChatInput({
 								"conic-gradient(from 0deg, #f97316, #ec4899, #a855f7, #3b82f6, #06b6d4, #f97316)",
 						}}
 					/>
-					{/* Glow mờ bên ngoài */}
 					<div
 						className="absolute -inset-1.5 blur-md animate-rainbow-pulse opacity-60"
 						style={{
@@ -168,8 +134,6 @@ export default function ChatInput({
 						}}
 					/>
 				</div>
-
-				{/* Pill input — nằm trên gradient, inset 2px để lộ viền */}
 				<div
 					className="relative z-10 flex items-center gap-1.5 bg-white/90 backdrop-blur-sm
 						border border-gray-200/60 rounded-[1.75rem] p-1.5
@@ -177,7 +141,6 @@ export default function ChatInput({
 						focus-within:shadow-sm transition-all duration-300"
 					style={{ margin: showRainbow ? "2px" : "0" }}
 				>
-					{/* ── Nút Tools (trái) w/ dropdown ──────────────────────── */}
 					<div className="relative shrink-0" ref={toolsRef}>
 						<button
 							type="button"
@@ -197,7 +160,6 @@ export default function ChatInput({
 							)}
 						</button>
 
-						{/* ── Dropdown menu công cụ ──────────────────────────── */}
 						{showTools && (
 							<div
 								className="absolute bottom-full left-0 mb-2 w-52
@@ -239,8 +201,6 @@ export default function ChatInput({
 							</div>
 						)}
 					</div>
-
-					{/* ── Textarea auto-resize ──────────────────────────────── */}
 					<textarea
 						ref={textareaRef}
 						value={text}
@@ -259,8 +219,6 @@ export default function ChatInput({
 							placeholder:text-gray-400
 							disabled:opacity-50 disabled:cursor-not-allowed"
 					/>
-
-					{/* ── Nút Voice ─────────────────────────────────────────── */}
 					<button
 						type="button"
 						onClick={onVoiceToggle}
@@ -280,8 +238,6 @@ export default function ChatInput({
 							<AudioLines size={18} strokeWidth={1.8} />
 						)}
 					</button>
-
-					{/* ── Nút Send ──────────────────────────────────────────── */}
 					<button
 						type="button"
 						onClick={handleSubmit}
@@ -298,8 +254,6 @@ export default function ChatInput({
 					</button>
 				</div>
 			</div>
-
-			{/* ── Hint text ── */}
 			<p className="text-[10px] text-gray-400 text-center mt-2 select-none">
 				Enter để gửi · Shift + Enter để xuống dòng
 			</p>

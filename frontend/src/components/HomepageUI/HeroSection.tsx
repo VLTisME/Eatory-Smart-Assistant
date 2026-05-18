@@ -3,9 +3,27 @@ import SlideIn from "./Animation/SlideIn";
 import BackgroundImage from "../../assets/vietnam.png";
 import Navbar from "./Navbar/Navbar";
 import { useGeolocation } from "../../hooks/useGeolocation";
-import { useFoodSearch } from "../../hooks/useFoodSearch";
+
 import { useNavigate } from "react-router-dom";
 import { UBND_COORDS } from "../../data/ubndCoords";
+import { useLanguage } from "../../hooks/useLanguage";
+
+const HERO_TEXT = {
+	vi: {
+		discover: "Khám phá điểm đến",
+		adventure: "HÀNH TRÌNH",
+		desc: "Trải nghiệm phép màu khi khám phá những điểm đến ngoạn mục nhất thế giới với các gói du lịch được thiết kế riêng cho mọi nhà thám hiểm.",
+		searching: "Đang tìm...",
+		search: "Tìm kiếm",
+	},
+	en: {
+		discover: "Discover Your Next",
+		adventure: "ADVENTURE",
+		desc: "Experience the magic of exploring the world's most breathtaking destinations with our custom-designed travel packages for every adventurer.",
+		searching: "Searching...",
+		search: "Search",
+	},
+};
 
 interface HeroSectionProps {
 	selectedProvince: string;
@@ -21,8 +39,9 @@ export default function HeroSection({
 		useGeolocation();
 
 	const displayProvince = selectedProvince || detectedProvince;
-	const { search, loading: searchLoading } = useFoodSearch();
-	const isLoading = geoLoading || searchLoading;
+	const isLoading = geoLoading;
+	const { lang } = useLanguage();
+	const t = HERO_TEXT[lang];
 
 	const handleSearch = () => {
 		if (!displayProvince) return;
@@ -33,7 +52,6 @@ export default function HeroSection({
 				{ replace: true },
 			);
 		}
-		search(displayProvince);
 		localStorage.setItem("hasSearched", "true");
 
 		setTimeout(() => {
@@ -50,7 +68,6 @@ export default function HeroSection({
 			className="relative flex min-h-[calc(100vh+80px)] flex-col justify-between overflow-hidden bg-cover bg-center pb-20"
 			style={{ backgroundImage: `url(${BackgroundImage})` }}
 		>
-			{/* Overlay */}
 			<div className="pointer-events-none absolute inset-0 bg-linear-to-b from-black/30 via-transparent to-black/20" />
 
 			<SlideIn
@@ -62,24 +79,18 @@ export default function HeroSection({
 
 				<main className="relative z-10 flex flex-1 flex-col items-center justify-center px-4 text-center">
 					<h2 className="mb-2 text-sm font-semibold tracking-[0.3em] text-white uppercase drop-shadow-md md:text-base">
-						Discover Your Next
+						{t.discover}
 					</h2>
 
 					<h1 className="font-display mt-4 mb-6 text-[7rem] leading-[0.8] font-semibold tracking-normal text-white drop-shadow-xl md:text-[10rem] lg:text-[14rem]">
-						ADVENTURE
+						{t.adventure}
 					</h1>
 
 					<p className="max-w-2xl text-sm leading-relaxed font-medium text-white/90 drop-shadow-md md:text-base">
-						Experience the magic of exploring the world's most
-						breathtaking destinations
-						<br className="hidden md:block" />
-						with our custom-designed travel packages for every
-						adventurer.
+						{t.desc}
 					</p>
 				</main>
 			</SlideIn>
-
-			{/* Search bar — compact, blur glass */}
 			<SlideIn delay={0.6} direction="up">
 				<div className="relative z-10 mx-auto mt-12 w-full max-w-xl px-4 pb-16">
 					<div className="flex items-center gap-2 rounded-full border border-white/25 bg-white/15 p-1.5 shadow-2xl shadow-black/20 backdrop-blur-xl">
@@ -103,8 +114,6 @@ export default function HeroSection({
 								isLoading={isLoading}
 							/>
 						</div>
-
-						{/* Search button */}
 						<button
 							onClick={handleSearch}
 							disabled={isLoading}
@@ -126,7 +135,7 @@ export default function HeroSection({
 								/>
 							</svg>
 							<span className="hidden text-sm font-semibold sm:inline">
-								{isLoading ? "Searching..." : "Search"}
+								{isLoading ? t.searching : t.search}
 							</span>
 						</button>
 					</div>

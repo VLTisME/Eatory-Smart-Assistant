@@ -13,15 +13,10 @@ import type {
 	MenuItem,
 } from "../../types/menuTranslation";
 
-/* ─── Helpers ─────────────────────────────────────────────────────────────── */
-
-/** Format VND price: 20000 → "20.000₫" */
 function formatVND(value: number | null | undefined): string {
 	if (value == null) return "—";
 	return value.toLocaleString("vi-VN") + "₫";
 }
-
-/* ─── Sub-components ─────────────────────────────────────────────────────── */
 
 function PriceTag({ item }: { item: MenuItem }) {
 	if (item.priceType === "market_price") {
@@ -63,7 +58,6 @@ function MenuItemRow({ item, index }: { item: MenuItem; index: number }) {
 			className="flex items-start justify-between py-2 px-2.5 rounded-[0.625rem] transition-colors duration-200 hover:bg-orange-500/4 animate-[menu-item-enter_0.3s_ease-out_both] group"
 			style={{ animationDelay: `${index * 50}ms` }}
 		>
-			{/* Left — name + translation */}
 			<div className="flex-1 min-w-0">
 				<p className="text-[13px] font-semibold text-gray-800 leading-tight truncate">
 					{primaryName}
@@ -78,7 +72,6 @@ function MenuItemRow({ item, index }: { item: MenuItem; index: number }) {
 						{item.description}
 					</p>
 				)}
-				{/* Tags */}
 				{item.tags.length > 0 && (
 					<div className="flex flex-wrap gap-1 mt-1">
 						{item.tags.map((tag) => (
@@ -92,8 +85,6 @@ function MenuItemRow({ item, index }: { item: MenuItem; index: number }) {
 					</div>
 				)}
 			</div>
-
-			{/* Right — price */}
 			<div className="shrink-0 ml-3 text-right">
 				<PriceTag item={item} />
 			</div>
@@ -120,7 +111,6 @@ function CategorySection({
 
 	return (
 		<div className="rounded-xl overflow-hidden">
-			{/* Category header */}
 			<button
 				type="button"
 				onClick={() => setIsOpen((v) => !v)}
@@ -158,8 +148,6 @@ function CategorySection({
 					<ChevronDown size={14} className="text-gray-400 shrink-0" />
 				)}
 			</button>
-
-			{/* Items */}
 			{isOpen && (
 				<div className="mt-1 space-y-0.5 px-1">
 					{category.items.map((item, i) => (
@@ -172,7 +160,6 @@ function CategorySection({
 }
 
 /* ─── Main MenuCard ──────────────────────────────────────────────────────── */
-
 interface MenuCardProps {
 	data: MenuResponse;
 }
@@ -221,8 +208,6 @@ export default function MenuCard({ data }: MenuCardProps) {
 					</div>
 				)}
 			</div>
-
-			{/* ── Divider ── */}
 			<div className="h-px bg-linear-to-r from-transparent via-gray-200 to-transparent mx-2" />
 
 			{/* ── Categories ── */}
@@ -235,8 +220,6 @@ export default function MenuCard({ data }: MenuCardProps) {
 					/>
 				))}
 			</div>
-
-			{/* ── Footer ── */}
 			<div className="px-3 pb-2 pt-1">
 				<p className="text-[9px] text-gray-300 text-center select-none">
 					Được dịch tự động bởi AI · Giá có thể thay đổi
