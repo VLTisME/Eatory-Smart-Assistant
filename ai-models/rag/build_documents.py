@@ -6,7 +6,13 @@ from rules import extract_place_signals
 
 
 BASE_DIR = Path(__file__).resolve().parent
-INPUT_PATH = BASE_DIR / "review_summaries_with_text.json"
+AI_MODELS_DIR = BASE_DIR.parent
+
+# Input: find locally first, fallback to review_summary output
+INPUT_PATH_LOCAL = BASE_DIR / "review_summaries_with_text.json"
+INPUT_PATH_FALLBACK = AI_MODELS_DIR / "review_summary" / "data" / "output" / "review_summaries_with_text.json"
+INPUT_PATH = INPUT_PATH_LOCAL if INPUT_PATH_LOCAL.exists() else INPUT_PATH_FALLBACK
+
 OUTPUT_PATH = BASE_DIR / "rag_documents.json"
 
 
@@ -31,7 +37,7 @@ def format_percent(value: Any) -> str:
 
 
 def build_content(place: Dict[str, Any], signals: Dict[str, List[str]]) -> str:
-    return f"""
+    return f"""\
 Tên: {place.get("place_name", "Không có tên")}
 Loại: {safe_join(signals["derived_categories"])}
 Địa chỉ: {place.get("address", "Không có thông tin")}
@@ -51,8 +57,7 @@ Review:
 Keywords:
 - Tích cực: {safe_join(signals["matched_positive_keywords"])}
 - Trung lập: {safe_join(signals["matched_neutral_keywords"])}
-- Tiêu cực: {safe_join(signals["matched_negative_keywords"])}
-""".strip()
+- Tiêu cực: {safe_join(signals["matched_negative_keywords"])}"""
 
 
 def build_metadata(place: Dict[str, Any], signals: Dict[str, List[str]]) -> Dict[str, Any]:
