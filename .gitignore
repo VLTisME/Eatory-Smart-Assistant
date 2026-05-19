@@ -31,3 +31,7 @@ Thumbs.db
 desktop.ini
 archive*/
 embedding_checkpoint.json
+backend/firebase-service-account.json
+backend/.env.example
+/data/
+/data/.env.example

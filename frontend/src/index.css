@@ -1,5 +1,5 @@
-@import "tailwindcss";
 @import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
+@import "tailwindcss";
 @theme {
 	/* Định nghĩa lại font family chuẩn cho hệ thống */
 	--font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
