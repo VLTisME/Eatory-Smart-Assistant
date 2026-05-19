@@ -64,7 +64,7 @@ def build_embeddings() -> HuggingFaceEmbeddings:
     return HuggingFaceEmbeddings(
         model_name=EMBEDDING_MODEL,
         model_kwargs={
-            "device": "cpu",
+            "device": "cuda",
             "trust_remote_code": True,
         },
         encode_kwargs={
