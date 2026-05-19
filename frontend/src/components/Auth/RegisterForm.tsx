@@ -16,12 +16,13 @@ import {
 
 interface RegisterFormProps {
 	onSwitchToLogin: () => void;
+	prefillEmail?: string;
 }
 
-export default function RegisterForm({ onSwitchToLogin }: RegisterFormProps) {
+export default function RegisterForm({ onSwitchToLogin, prefillEmail = "" }: RegisterFormProps) {
 	const navigate = useNavigate();
 	const [name, setName] = useState("");
-	const [email, setEmail] = useState("");
+	const [email, setEmail] = useState(prefillEmail);
 	const [password, setPassword] = useState("");
 	const [showPwd, setShowPwd] = useState(false);
 	const [error, setError] = useState("");

@@ -556,7 +556,7 @@ export default function PlaceSidebar({
 							src={selectedImage}
 							alt="Enlarged view"
 							className="max-h-full max-w-full rounded-2xl shadow-2xl object-contain cursor-default"
-							onClick={(e) => e.stopPropagation()}
+							onClick={(e: React.MouseEvent) => e.stopPropagation()}
 						/>
 						<button
 							onClick={() => setSelectedImage(null)}

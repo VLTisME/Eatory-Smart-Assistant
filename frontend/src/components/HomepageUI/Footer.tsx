@@ -1,4 +1,5 @@
-import { Link } from "react-router-dom";
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import {
 	RiMapPinLine,
 	RiFacebookFill,
@@ -67,6 +68,15 @@ const socials = [
 export default function Footer() {
 	const { lang } = useLanguage();
 	const t = FOOTER_TEXT[lang];
+	const navigate = useNavigate();
+	const [promoEmail, setPromoEmail] = useState("");
+
+	const handleSubscribe = (e: React.FormEvent) => {
+		e.preventDefault();
+		if (promoEmail.trim()) {
+			navigate(`/AuthPage?mode=signup&email=${encodeURIComponent(promoEmail.trim())}`);
+		}
+	};
 
 	return (
 		<>
@@ -88,10 +98,12 @@ export default function Footer() {
 					<p className="mx-auto mb-8 max-w-lg text-sm leading-relaxed text-blue-100/80 md:text-base">
 						{t.desc}
 					</p>
-					<form className="mx-auto flex max-w-md flex-col items-center gap-3 sm:flex-row">
+					<form onSubmit={handleSubscribe} className="mx-auto flex max-w-md flex-col items-center gap-3 sm:flex-row">
 						<input
 							type="email"
 							placeholder={t.emailPlaceholder}
+							value={promoEmail}
+							onChange={(e) => setPromoEmail(e.target.value)}
 							className="w-full rounded-full bg-white/15 px-6 py-3.5 text-sm text-white placeholder-blue-200/60 outline-none ring-1 ring-white/20 backdrop-blur-sm transition-all focus:bg-white/20 focus:ring-white/40"
 							required
 						/>

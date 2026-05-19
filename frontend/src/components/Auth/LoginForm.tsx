@@ -8,6 +8,7 @@ import {
 	RiEyeLine,
 	RiEyeOffLine,
 } from "react-icons/ri";
+import ForgotPasswordForm from "./ForgotPasswordForm";
 
 interface LoginFormProps {
 	onSwitchToRegister: () => void;
@@ -19,6 +20,7 @@ export default function LoginForm({ onSwitchToRegister }: LoginFormProps) {
 	const [password, setPassword] = useState("");
 	const [showPwd, setShowPwd] = useState(false);
 	const [error, setError] = useState("");
+	const [showForgotPassword, setShowForgotPassword] = useState(false);
 	const [loading, setLoading] = useState(false);
 
 	const handleSubmit = async (e: React.FormEvent) => {
@@ -79,6 +81,14 @@ export default function LoginForm({ onSwitchToRegister }: LoginFormProps) {
 		}
 	};
 
+	if (showForgotPassword) {
+		return (
+			<ForgotPasswordForm
+				onBackToLogin={() => setShowForgotPassword(false)}
+			/>
+		);
+	}
+
 	return (
 		<form onSubmit={handleSubmit} className="flex flex-col gap-5">
 			<div>
@@ -137,12 +147,13 @@ export default function LoginForm({ onSwitchToRegister }: LoginFormProps) {
 					/>
 					Remember me
 				</label>
-				<a
-					href="#"
-					className="font-medium text-blue-600 hover:text-blue-700"
+				<button
+					type="button"
+					onClick={() => setShowForgotPassword(true)}
+					className="cursor-pointer font-medium text-blue-600 hover:text-blue-700"
 				>
 					Forgot password?
-				</a>
+				</button>
 			</div>
 
 			<button

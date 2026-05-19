@@ -2,6 +2,7 @@ import { Routes, Route, useLocation } from "react-router-dom";
 import Home from "./pages/Home";
 import MainPage from "./pages/MainPage";
 import AuthPage from "./pages/AuthPage";
+import ResetPasswordPage from "./pages/ResetPasswordPage";
 
 export default function App() {
 	const location = useLocation();
@@ -15,6 +16,7 @@ export default function App() {
 					element={<MainPage key={location.search} />}
 				/>
 				<Route path="/AuthPage" element={<AuthPage />} />
+				<Route path="/reset-password" element={<ResetPasswordPage />} />
 			</Routes>
 		</>
 	);

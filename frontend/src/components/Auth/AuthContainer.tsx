@@ -7,11 +7,13 @@ import Logo from "../../assets/logo.svg";
 interface AuthContainerProps {
 	defaultRegister?: boolean;
 	onModeChange?: (mode: "signin" | "signup") => void;
+	prefillEmail?: string;
 }
 
 export default function AuthContainer({
 	defaultRegister = false,
 	onModeChange,
+	prefillEmail = "",
 }: AuthContainerProps) {
 	const navigate = useNavigate();
 	const [isRegister, setIsRegister] = useState(defaultRegister);
@@ -87,7 +89,10 @@ export default function AuthContainer({
 					</button>
 				</div>
 				{isRegister ? (
-					<RegisterForm onSwitchToLogin={() => handleSwitch(false)} />
+					<RegisterForm
+						onSwitchToLogin={() => handleSwitch(false)}
+						prefillEmail={prefillEmail}
+					/>
 				) : (
 					<LoginForm onSwitchToRegister={() => handleSwitch(true)} />
 				)}

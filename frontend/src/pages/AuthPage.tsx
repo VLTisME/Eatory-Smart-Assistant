@@ -4,6 +4,7 @@ import AuthContainer from "../components/Auth/AuthContainer";
 export default function AuthPage() {
 	const [searchParams, setSearchParams] = useSearchParams();
 	const mode = searchParams.get("mode"); // "signup" or null
+	const prefillEmail = searchParams.get("email") || "";
 
 	const handleModeChange = (newMode: "signin" | "signup") => {
 		setSearchParams({ mode: newMode }, { replace: true });
@@ -20,6 +21,7 @@ export default function AuthPage() {
 				<AuthContainer
 					defaultRegister={mode === "signup"}
 					onModeChange={handleModeChange}
+					prefillEmail={prefillEmail}
 				/>
 			</div>
 		</div>

@@ -15,7 +15,7 @@
 		"@types/mapbox-gl": "^3.4.1",
 		"axios": "^1.15.2",
 		"firebase": "^12.12.1",
-		"framer-motion": "^12.38.0",
+		"framer-motion": "^12.39.0",
 		"leaflet": "^1.9.4",
 		"lucide-react": "^1.7.0",
 		"mapbox-gl": "^3.21.0",
