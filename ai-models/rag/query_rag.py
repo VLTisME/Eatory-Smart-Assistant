@@ -11,7 +11,7 @@ CHROMA_DIR = BASE_DIR / "chroma_db"
 
 COLLECTION_NAME = "places_rag"
 EMBEDDING_MODEL = "AITeamVN/Vietnamese_Embedding"
-OPENAI_MODEL = "gpt-5.5"
+OPENAI_MODEL = "gpt-4o-mini"
 
 
 SYSTEM_PROMPT = """
