@@ -10,6 +10,8 @@ PLACE_REFINEMENT_PROMPT_VERSION = "place_search_v1"
 GENERIC_REFINEMENT_PROMPT_VERSION = "generic_refine_v1"
 REVIEW_SUMMARY_PROMPT_VERSION = "review_summary_v1"
 TRANSLATE_REVIEW_SUMMARY_PROMPT_VERSION = "translate_review_summary_v1"
+RAG_REFINEMENT_PROMPT_VERSION = "rag_chat_v1"
+
 
 MENU_STRUCTURED_PROMPT = dedent(
     """
@@ -171,6 +173,53 @@ TRANSLATE_REVIEW_SUMMARY_PROMPT = dedent(
 ).strip()
 
 
+RAG_CHAT_REFINEMENT_PROMPT = dedent(
+    """
+    You are a premium food tourism assistant. Your task is to take a raw recommendation answer about food places, cafes, or restaurants and format it to be visually stunning, highly professional, structured, and easy to read.
+
+    CRITICAL RULES:
+    1. STRICTLY PRESERVE all factual information (names, details, pros/cons, reasons) from the raw content. Never hallucinate or add any new restaurants or change existing ratings or numbers.
+    2. Tone: Helpful, enthusiastic, natural, and polite Vietnamese.
+    3. Formatting:
+       - Use clean Markdown with beautiful emojis to make the content pop.
+       - Use horizontal lines (`---`) to separate different places.
+       - Use clear and consistent sub-headers for each recommendation (e.g. `### ☕ 1. [Tên quán]`). Choose appropriate emojis based on the place type (e.g., ☕ for cafe/coffee, 🍜 for noodles, 🍲 for hotpot/restaurants, 🍰 for dessert, 🍹 for bars/drinks, 🍽️ for generic food).
+       - Keep lists neat and visually grouped.
+       - Do NOT use code block wrappers or JSON output. Return clean, formatted markdown text that the frontend can render directly.
+
+    Example Raw Input:
+    "Dưới đây là hai quán cà phê yên tĩnh ở quận 1 mà bạn có thể tham khảo:
+    1. The Simple Cafe - Le Lai Dist 1
+    - Lý do phù hợp: Có không gian rộng rãi, yên tĩnh, thích hợp cho học bài hoặc làm việc.
+    - Điểm mạnh: Đồ uống ngon, nhân viên thân thiện, giá cả hợp lý.
+    - Điểm cần lưu ý: Một số vấn đề vệ sinh được nhắc đến trong review.
+    2. Quán cà phê đợi một người
+    - Lý do phù hợp: Không gian yên tĩnh, lý tưởng để học bài hoặc làm việc.
+    - Điểm mạnh: Đồ uống ngon, nhân viên thân thiện, 100% đánh giá tích cực.
+    - Điểm cần lưu ý: Đợi món có thể lâu.
+    Bạn có thể chọn một trong hai quán dựa trên nhu cầu và sở thích của mình!"
+
+    Example Refined Output:
+    Dưới đây là **hai quán cà phê yên tĩnh tại Quận 1** rất thích hợp để bạn học bài hoặc làm việc:
+
+    ### ☕ 1. The Simple Cafe – Lê Lai, Quận 1
+    * 🎯 **Lý do phù hợp:** Không gian rộng rãi, cực kỳ yên tĩnh, thích hợp cho học tập hoặc làm việc.
+    * ✨ **Điểm mạnh:** Đồ uống ngon, nhân viên thân thiện, giá cả hợp lý.
+    * ⚠️ **Điểm cần lưu ý:** Một số vấn đề vệ sinh được nhắc đến trong review.
+
+    ---
+
+    ### ☕ 2. Quán Cà Phê Đợi Một Người
+    * 🎯 **Lý do phù hợp:** Không gian yên tĩnh, lý tưởng để học bài hoặc làm việc.
+    * ✨ **Điểm mạnh:** Đồ uống ngon, nhân viên thân thiện, 100% đánh giá tích cực.
+    * ⚠️ **Điểm cần lưu ý:** Đợi món có thể lâu.
+
+    Hy vọng những gợi ý trên sẽ giúp bạn tìm được một không gian ưng ý và có những trải nghiệm thật tuyệt vời!
+    """
+).strip()
+
+
+
 
 def build_refinement_prompt(
     *,
@@ -191,7 +240,10 @@ def build_refinement_prompt(
       system_prompt = REVIEW_SUMMARY_STRUCTURED_PROMPT
     elif normalized_context in {"translate_review_summary"}:
       system_prompt = TRANSLATE_REVIEW_SUMMARY_PROMPT
+    elif normalized_context in {"rag_chat", "rag_refinement", "rag refine"}:
+      system_prompt = RAG_CHAT_REFINEMENT_PROMPT
     else:
+
         system_prompt = dedent(
             """
             You are a precise assistant that rewrites structured OCR or feature output.

@@ -12,6 +12,7 @@ from app.features.imagekit.routes import router as imagekit_router
 from app.features.place_images.routes import router as place_image_router
 from app.features.place_details.routes import router as place_detail_router
 from app.features.directions.routes import router as directions_router
+from app.features.rag_chat.routes import router as rag_chat_router
 
 
 router = APIRouter()
@@ -25,3 +26,4 @@ router.include_router(imagekit_router)
 router.include_router(place_image_router)
 router.include_router(place_detail_router)
 router.include_router(directions_router)
+router.include_router(rag_chat_router)

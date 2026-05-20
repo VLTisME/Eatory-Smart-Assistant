@@ -13,6 +13,7 @@ from app.core.prompts import (
     PLACE_REFINEMENT_PROMPT_VERSION,
     GENERIC_REFINEMENT_PROMPT_VERSION,
     REVIEW_SUMMARY_PROMPT_VERSION,
+    RAG_REFINEMENT_PROMPT_VERSION,
     build_refinement_prompt,
 )
 
@@ -65,6 +66,8 @@ class RefinementClient:
             version = PLACE_REFINEMENT_PROMPT_VERSION
         elif normalized_context in {"review_summary", "review summary"}:
             version = REVIEW_SUMMARY_PROMPT_VERSION
+        elif normalized_context in {"rag_chat", "rag_refinement", "rag refine"}:
+            version = RAG_REFINEMENT_PROMPT_VERSION
         else:
             version = GENERIC_REFINEMENT_PROMPT_VERSION
 
