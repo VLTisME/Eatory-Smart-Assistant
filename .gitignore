@@ -35,3 +35,5 @@ backend/firebase-service-account.json
 backend/.env.example
 /data/
 /data/.env.example
+/ai-models/rag/rag_documents.json
+/ai-models/rag/chroma_db/
