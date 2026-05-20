@@ -1,13 +1,13 @@
 import { useState, useEffect } from "react";
 
-import HeroSection from "../components/HomepageUI/HeroSection";
-import FeaturedDish from "../components/HomepageUI/FeaturedDish";
-import WhyChooseUs from "../components/HomepageUI/WhyChooseUs";
-import Benefits from "../components/HomepageUI/Benefits";
-import PopularDishes from "../components/HomepageUI/PopularDishes";
-import PromoSection from "../components/HomepageUI/PromoSection";
-import Footer from "../components/HomepageUI/Footer";
-import ScrollReveal from "../components/HomepageUI/Animation/ScrollReveal";
+import HeroSection from "../features/homepage/HeroSection";
+import FeaturedDish from "../features/homepage/FeaturedDish";
+import WhyChooseUs from "../features/homepage/WhyChooseUs";
+import Benefits from "../features/homepage/Benefits";
+import PopularDishes from "../features/homepage/PopularDishes";
+import PromoSection from "../features/homepage/PromoSection";
+import Footer from "../features/homepage/Footer";
+import ScrollReveal from "../features/homepage/Animation/ScrollReveal";
 
 /**
  * Arch-shaped transition: a SVG "dome" that overlaps the previous section,

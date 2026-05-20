@@ -1,5 +1,5 @@
 import { useSearchParams } from "react-router-dom";
-import AuthContainer from "../components/Auth/AuthContainer";
+import AuthContainer from "../features/auth/components/AuthContainer";
 
 export default function AuthPage() {
 	const [searchParams, setSearchParams] = useSearchParams();
