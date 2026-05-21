@@ -4,6 +4,7 @@ import {
 	type DirectionResponse,
 	type TransportMode,
 } from "../services/directionsAPI";
+import { useLanguage } from "../../../hooks/useLanguage";
 
 interface UseDirectionsOptions {
 	originLat?: number | null;
@@ -13,6 +14,7 @@ interface UseDirectionsOptions {
 }
 
 export function useDirections(opts: UseDirectionsOptions = {}) {
+	const { lang } = useLanguage();
 	const [result, setResult] = useState<DirectionResponse | null>(null);
 	const [isLoading, setIsLoading] = useState(false);
 	const [error, setError] = useState<string | null>(null);
@@ -30,7 +32,11 @@ export function useDirections(opts: UseDirectionsOptions = {}) {
 				destLat == null ||
 				destLng == null
 			) {
-				setError("Thiếu tọa độ điểm đi hoặc điểm đến");
+				setError(
+					lang === "vi"
+						? "Thiếu tọa độ điểm đi hoặc điểm đến"
+						: "Origin or destination coordinates are missing",
+				);
 				return;
 			}
 
@@ -62,7 +68,11 @@ export function useDirections(opts: UseDirectionsOptions = {}) {
 				if (!controller.signal.aborted) {
 					setResult(data);
 					if (data.routes.length === 0) {
-						setError("Không tìm thấy tuyến đường");
+						setError(
+							lang === "vi"
+								? "Không tìm thấy tuyến đường"
+								: "No route found",
+						);
 					}
 				}
 			} catch (err: unknown) {
@@ -70,7 +80,10 @@ export function useDirections(opts: UseDirectionsOptions = {}) {
 				console.error("Directions error:", err);
 				if (!controller.signal.aborted) {
 					setError(
-						(err as Error)?.message ?? "Lỗi lấy chỉ đường. Vui lòng thử lại.",
+						(err as Error)?.message ??
+							(lang === "vi"
+								? "Lỗi lấy chỉ đường. Vui lòng thử lại."
+								: "Failed to get directions. Please try again."),
 					);
 				}
 			} finally {
@@ -79,7 +92,7 @@ export function useDirections(opts: UseDirectionsOptions = {}) {
 				}
 			}
 		},
-		[opts, vehicle, result],
+		[lang, opts, vehicle, result],
 	);
 
 	const changeVehicle = useCallback(

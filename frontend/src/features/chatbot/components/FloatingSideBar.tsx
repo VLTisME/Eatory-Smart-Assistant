@@ -17,12 +17,14 @@ import { uploadPlaceSearchImage } from "../services/placeSearchApi";
 import { uploadToImageKit } from "../../../services/imageKitApi";
 import { sendRagChat } from "../services/ragApi";
 import { useAuth } from "../../auth/hooks/useAuth";
+import { getOppositeLanguage, useLanguage } from "../../../hooks/useLanguage";
 import {
 	getConversations,
 	getConversationDetail,
 	createConversation,
 	sendMessage,
 	type Conversation,
+	type Message as StoredMessage,
 	deleteConversation,
 } from "../services/chatAPI";
 import Logo from "../../../assets/logo-color.svg";
@@ -52,6 +54,59 @@ interface FloatingSidebarProps {
 }
 
 type UploadMode = "ocr" | "image-search";
+
+const CHATBOT_TEXT = {
+	vi: {
+		tagline: "Trợ lý ẩm thực du lịch thông minh",
+		back: "Quay lại",
+		history: "Lịch sử",
+		newChat: "Trò chuyện mới",
+		fullscreen: "Toàn màn hình",
+		minimize: "Thu nhỏ",
+		historyTitle: "Lịch sử trò chuyện",
+		historySubtitle: "Tìm lại các chuyến đi trước đây",
+		loadingHistory: "Đang tải lịch sử...",
+		justNow: "Vừa xong",
+		noConversations: "Bạn chưa có cuộc trò chuyện nào.",
+		deleteSuccess: "Xóa trò chuyện thành công.",
+		deleteFailed: "Xóa thất bại, vui lòng thử lại.",
+		genericError: "Xin lỗi, đã có lỗi xảy ra. Vui lòng thử lại sau.",
+		menuAction: "[Dịch menu]",
+		menuSuccess: "Đã dịch menu thành công!",
+		imageSearchAction: "[Tìm kiếm hình ảnh]",
+		imageSearchEmpty: "Không tìm thấy địa điểm phù hợp từ ảnh này.",
+		imageSearchSuccess: "Đã tìm thấy các địa điểm tương tự.",
+		reviewAction: (name: string) => `Tóm tắt đánh giá ${name}`,
+		reviewEmpty: "Không tìm thấy dữ liệu đánh giá.",
+		ragFallback: "Xin lỗi, hệ thống AI đang gặp sự cố. Vui lòng thử lại sau.",
+		locale: "vi-VN",
+	},
+	en: {
+		tagline: "Smart food and travel assistant",
+		back: "Back",
+		history: "History",
+		newChat: "New chat",
+		fullscreen: "Fullscreen",
+		minimize: "Minimize",
+		historyTitle: "Chat history",
+		historySubtitle: "Find your previous trips",
+		loadingHistory: "Loading history...",
+		justNow: "Just now",
+		noConversations: "You have no conversations yet.",
+		deleteSuccess: "Conversation deleted.",
+		deleteFailed: "Delete failed. Please try again.",
+		genericError: "Sorry, something went wrong. Please try again later.",
+		menuAction: "[Translate menu]",
+		menuSuccess: "Menu translated successfully!",
+		imageSearchAction: "[Image search]",
+		imageSearchEmpty: "No matching place was found from this image.",
+		imageSearchSuccess: "Found similar places.",
+		reviewAction: (name: string) => `Review summary ${name}`,
+		reviewEmpty: "No review data was found.",
+		ragFallback: "Sorry, the AI system is currently unavailable. Please try again later.",
+		locale: "en-US",
+	},
+};
 
 function FloatingSidebar({
 	onClose,
@@ -97,6 +152,8 @@ function FloatingSidebar({
 		visible: boolean;
 	} | null>(null);
 	const { user } = useAuth();
+	const { lang } = useLanguage();
+	const t = CHATBOT_TEXT[lang];
 
 	const showToast = (message: string, type: "success" | "error") => {
 		setToast({ message, type, visible: true });
@@ -132,7 +189,7 @@ function FloatingSidebar({
 			setMessages([]);
 			const token = await user.getIdToken();
 			const detail = await getConversationDetail(token, chatId);
-			const formattedMessages = detail.messages.map((m: any) => ({
+			const formattedMessages = detail.messages.map((m: StoredMessage) => ({
 				id: m.id,
 				role: (m.role === "user" ? "user" : "bot") as "user" | "bot",
 				content: m.content,
@@ -158,13 +215,13 @@ function FloatingSidebar({
 				setConversations((preConv) =>
 					preConv.filter((conv) => conv.id !== chatID),
 				);
-				showToast("Xóa trò chuyện thành công.", "success");
+				showToast(t.deleteSuccess, "success");
 			} else {
-				showToast("Xóa thất bại, vui lòng thử lại.", "error");
+				showToast(t.deleteFailed, "error");
 			}
 		} catch (error) {
 			console.error("Failed to delete conversation: ", error);
-			showToast("Xoa that bai. Vui long thu lai.", "error");
+			showToast(t.deleteFailed, "error");
 		}
 	};
 
@@ -280,8 +337,7 @@ function FloatingSidebar({
 				await actionLogic(token, chatIdToUse!);
 			} catch (error) {
 				console.error("Action failed: ", error);
-				let errorMsg =
-					"Xin lỗi, đã có lỗi xảy ra. Vui lòng thử lại sau.";
+				let errorMsg = t.genericError;
 				if (error && typeof error === "object" && "response" in error) {
 					const axiosErr = error as {
 						response?: { data?: { detail?: string } };
@@ -315,6 +371,7 @@ function FloatingSidebar({
 			onConversationCreated,
 			setIsThinking,
 			setMessages,
+			t.genericError,
 		],
 	);
 
@@ -335,15 +392,19 @@ function FloatingSidebar({
 	const handleFileSelected = async (file: File) => {
 		if (uploadMode === "ocr") {
 			const imageUploadPromise = uploadImageToKit(file);
+			const menuTargetLanguage = getOppositeLanguage(lang);
 
 			processUserAction(
-				`[Translate Menu]`,
+				t.menuAction,
 				async (token, chatIdToUse) => {
-					const menuData = await uploadMenuImage(file);
+					const menuData = await uploadMenuImage(
+						file,
+						menuTargetLanguage,
+					);
 
 					const savedBotMsg = await sendMessage(token, chatIdToUse, {
 						role: "bot",
-						content: "Đã dịch menu thành công!",
+						content: t.menuSuccess,
 						menu_data: menuData,
 					});
 
@@ -363,9 +424,9 @@ function FloatingSidebar({
 			const imageUploadPromise = uploadImageToKit(file);
 
 			processUserAction(
-				`[Tìm kiếm hình ảnh]`,
+				t.imageSearchAction,
 				async (token, chatIdToUse) => {
-					const placeData = await uploadPlaceSearchImage(file);
+					const placeData = await uploadPlaceSearchImage(file, lang);
 
 					const topResults = placeData.results.slice(0, 5);
 
@@ -375,8 +436,7 @@ function FloatingSidebar({
 							chatIdToUse,
 							{
 								role: "bot",
-								content:
-									"Không tìm thấy địa điểm phù hợp từ ảnh này.",
+								content: t.imageSearchEmpty,
 							},
 						);
 
@@ -393,7 +453,7 @@ function FloatingSidebar({
 
 					const savedBotMsg = await sendMessage(token, chatIdToUse, {
 						role: "bot",
-						content: "Đã tìm thấy các địa điểm tương tự.",
+						content: t.imageSearchSuccess,
 						place_search_data: { results: topResults },
 					});
 
@@ -423,13 +483,13 @@ function FloatingSidebar({
 			}>;
 			const { action, placeId, name } = e.detail;
 			if (action === "review-summary") {
-				const userText = `Review summary ${name}`;
+				const userText = t.reviewAction(name);
 				processUserAction(userText, async (token, chatIdToUse) => {
-					let botReplyContent = "Không tìm thấy dữ liệu đánh giá.";
+					let botReplyContent = t.reviewEmpty;
 					try {
 						const { fetchReviewSummary } =
 							await import("../../map-search/services/placeAPI");
-						const res = await fetchReviewSummary(placeId);
+						const res = await fetchReviewSummary(placeId, lang);
 						botReplyContent = res.summary;
 					} catch (err) {
 						console.error(err);
@@ -456,7 +516,7 @@ function FloatingSidebar({
 				"process-chatbot-action",
 				handleProcessAction,
 			);
-	}, [processUserAction, setMessages]);
+	}, [lang, processUserAction, setMessages, t]);
 
 	const handleSubmit = (text: string) => {
 		if (!text.trim()) return;
@@ -464,12 +524,14 @@ function FloatingSidebar({
 			// Call the RAG chatbot API for an AI-generated answer
 			let botReplyContent: string;
 			try {
-				const ragResponse = await sendRagChat({ message: text });
+				const ragResponse = await sendRagChat({
+					message: text,
+					target_language: lang,
+				});
 				botReplyContent = ragResponse.answer;
 			} catch (error) {
 				console.error("RAG chat failed, using fallback:", error);
-				botReplyContent =
-					"Xin lỗi, hệ thống AI đang gặp sự cố. Vui lòng thử lại sau.";
+				botReplyContent = t.ragFallback;
 			}
 
 			const savedBotMsg = await sendMessage(token, chatIdToUse, {
@@ -568,7 +630,7 @@ function FloatingSidebar({
 						<div /> {/* Spacer */}
 						<button
 							type="button"
-							title={showHistory ? "Quay lại" : "Lịch sử"}
+							title={showHistory ? t.back : t.history}
 							onClick={handleOpenHistory}
 							className={`p-2 rounded-xl transition-all duration-300 cursor-pointer ${
 								showHistory
@@ -584,7 +646,7 @@ function FloatingSidebar({
 						</button>
 						<button
 							type="button"
-							title="New chat"
+							title={t.newChat}
 							onClick={() => {
 								setMessages([]);
 								handleSetActiveChat(null);
@@ -603,7 +665,7 @@ function FloatingSidebar({
 							className="p-2 text-gray-400 hover:text-gray-600
 							hover:bg-gray-100/80 rounded-xl
 							transition-all duration-200 cursor-pointer"
-							title="FullScreen"
+							title={t.fullscreen}
 						>
 							<Fullscreen size={18} strokeWidth={2} />
 						</button>
@@ -613,7 +675,7 @@ function FloatingSidebar({
 							className="p-2 text-gray-400 hover:text-gray-600
 							hover:bg-gray-100/80 rounded-xl
 							transition-all duration-200 cursor-pointer"
-							title="Minimize"
+							title={t.minimize}
 						>
 							<Minimize2 size={18} strokeWidth={2} />
 						</button>
@@ -633,7 +695,7 @@ function FloatingSidebar({
 						</div>
 						{!hasMessages && (
 							<p className="text-xs text-gray-400 mt-1.5 animate-fade-in-up">
-								Trợ lý ẩm thực du lịch thông minh
+								{t.tagline}
 							</p>
 						)}
 					</div>
@@ -645,16 +707,16 @@ function FloatingSidebar({
 						<div className="flex flex-col gap-3 py-3">
 							<div className="px-2 mb-2 flex flex-col gap-1">
 								<h3 className="text-xl font-bold tracking-tight text-gray-800">
-									Lịch sử trò chuyện
+									{t.historyTitle}
 								</h3>
 								<p className="text-xs font-medium text-gray-500">
-									Tìm lại các chuyến đi trước đây
+									{t.historySubtitle}
 								</p>
 							</div>
 
 							{isHistoryLoading ? (
 								<div className="text-center text-gray-500 py-10 font-medium animate-pulse">
-									Đang tải lịch sử...
+									{t.loadingHistory}
 								</div>
 							) : conversations.length > 0 ? (
 								conversations.map((chat, index) => (
@@ -698,7 +760,7 @@ function FloatingSidebar({
 												? new Date(
 														chat.created_at,
 													).toLocaleDateString(
-														"vi-VN",
+														t.locale,
 														{
 															month: "short",
 															day: "numeric",
@@ -706,13 +768,13 @@ function FloatingSidebar({
 															minute: "2-digit",
 														},
 													)
-												: "Vừa xong"}
+												: t.justNow}
 										</span>
 									</div>
 								))
 							) : (
 								<div className="text-center text-gray-500 py-10 font-medium">
-									Bạn chưa có cuộc trò chuyện nào.
+									{t.noConversations}
 								</div>
 							)}
 						</div>

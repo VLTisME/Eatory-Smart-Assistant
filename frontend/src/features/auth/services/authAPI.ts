@@ -1,6 +1,5 @@
 import { auth } from "../../../firebaseConfig";
-
-const BASE_URL = "http://localhost:8000/api/v1";
+import { apiV1 } from "../../../config/api";
 
 export const fetchWithAuth = async (
 	endpoint: string,
@@ -11,7 +10,7 @@ export const fetchWithAuth = async (
 		token = await auth.currentUser.getIdToken();
 	}
 
-	const res = await fetch(`${BASE_URL}${endpoint}`, {
+	const res = await fetch(apiV1(endpoint), {
 		...options,
 		headers: {
 			"Content-Type": "application/json",

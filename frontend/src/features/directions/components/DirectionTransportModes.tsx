@@ -1,5 +1,6 @@
 import { Car, Bike, CarTaxiFront } from "lucide-react";
 import type { TransportMode } from "../services/directionsAPI";
+import { useLanguage } from "../../../hooks/useLanguage";
 
 interface DirectionTransportModesProps {
 	selected: TransportMode;
@@ -7,10 +8,14 @@ interface DirectionTransportModesProps {
 	disabled?: boolean;
 }
 
-const MODES: { id: TransportMode; label: string; icon: typeof Car }[] = [
-	{ id: "car", label: "Ô tô", icon: Car },
-	{ id: "motorcycle", label: "Xe máy", icon: Bike },
-	{ id: "taxi", label: "Taxi", icon: CarTaxiFront },
+const MODES: {
+	id: TransportMode;
+	label: { vi: string; en: string };
+	icon: typeof Car;
+}[] = [
+	{ id: "car", label: { vi: "Ô tô", en: "Car" }, icon: Car },
+	{ id: "motorcycle", label: { vi: "Xe máy", en: "Motorbike" }, icon: Bike },
+	{ id: "taxi", label: { vi: "Taxi", en: "Taxi" }, icon: CarTaxiFront },
 ];
 
 export default function DirectionTransportModes({
@@ -18,6 +23,7 @@ export default function DirectionTransportModes({
 	onChange,
 	disabled = false,
 }: DirectionTransportModesProps) {
+	const { lang } = useLanguage();
 	return (
 		<div className="flex gap-2">
 			{MODES.map(({ id, label, icon: Icon }) => {
@@ -35,7 +41,7 @@ export default function DirectionTransportModes({
 						} ${disabled ? "opacity-50 cursor-not-allowed" : "active:scale-95"}`}
 					>
 						<Icon size={18} />
-						<span className="hidden sm:inline">{label}</span>
+						<span className="hidden sm:inline">{label[lang]}</span>
 					</button>
 				);
 			})}

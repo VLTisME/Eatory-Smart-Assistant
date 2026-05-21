@@ -9,8 +9,13 @@ import os
 import sys
 from pathlib import Path
 
-ARCHIVE_PATH = r"D:\HieuLT\TDTT\Tutorial\kaggle_cache\datasets\nagahuy\tdtt-ver2\1.archive"
-OUTPUT_DIR   = r"D:\HieuLT\TDTT\Tutorial\kaggle_cache\datasets\nagahuy\tdtt-ver2\data"
+from dotenv import load_dotenv
+
+
+load_dotenv()
+
+ARCHIVE_PATH = os.getenv("KAGGLE_ARCHIVE_PATH", "./data/raw/1.archive")
+OUTPUT_DIR = os.getenv("KAGGLE_DATASET_DIR", "./data/raw/tdtt-ver2")
 
 def extract_streaming(archive_path: str, output_dir: str):
     """Giải nén zip lớn theo kiểu streaming, tránh MemoryError."""

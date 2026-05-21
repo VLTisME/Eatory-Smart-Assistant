@@ -7,9 +7,9 @@ from supabase import create_client, Client
 
 load_dotenv()
 
-DATA_FILE = r"D:\HieuLT\TDTT\Tutorial\archive (1)\review_summaries_with_text.json"
-BATCH_SIZE = 200
-SUPABASE_DELAY = 0.3
+DATA_FILE = os.getenv("REVIEW_SUMMARIES_FILE", "./data/artifacts/review_summaries_with_text.json")
+BATCH_SIZE = int(os.getenv("SUMMARIES_BATCH_SIZE", "200"))
+SUPABASE_DELAY = float(os.getenv("SUPABASE_DELAY_SECONDS", "0.3"))
 
 def validate_env():
     missing = [v for v in ["SUPABASE_URL", "SUPABASE_SERVICE_KEY"]

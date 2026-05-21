@@ -12,17 +12,32 @@ import type {
 	MenuCategory,
 	MenuItem,
 } from "../../../types/menuTranslation";
+import { useLanguage, type AppLanguage } from "../../../hooks/useLanguage";
+
+const MENU_TEXT = {
+	vi: {
+		marketPrice: "Giá thị trường",
+		translatedMenu: "Menu đã dịch",
+		footer: "Được dịch tự động bởi AI · Giá có thể thay đổi",
+	},
+	en: {
+		marketPrice: "Market price",
+		translatedMenu: "Translated menu",
+		footer: "Automatically translated by AI · Prices may change",
+	},
+};
 
 function formatVND(value: number | null | undefined): string {
 	if (value == null) return "—";
 	return value.toLocaleString("vi-VN") + "₫";
 }
 
-function PriceTag({ item }: { item: MenuItem }) {
+function PriceTag({ item, lang }: { item: MenuItem; lang: AppLanguage }) {
+	const t = MENU_TEXT[lang];
 	if (item.priceType === "market_price") {
 		return (
 			<span className="text-[10px] font-semibold text-emerald-600 italic">
-				Giá thị trường
+				{t.marketPrice}
 			</span>
 		);
 	}
@@ -48,7 +63,15 @@ function PriceTag({ item }: { item: MenuItem }) {
 	);
 }
 
-function MenuItemRow({ item, index }: { item: MenuItem; index: number }) {
+function MenuItemRow({
+	item,
+	index,
+	lang,
+}: {
+	item: MenuItem;
+	index: number;
+	lang: AppLanguage;
+}) {
 	const hasTranslation = Boolean(item.translation?.trim());
 	const primaryName = hasTranslation ? item.translation! : item.name;
 	const secondaryName =
@@ -87,7 +110,7 @@ function MenuItemRow({ item, index }: { item: MenuItem; index: number }) {
 				)}
 			</div>
 			<div className="shrink-0 ml-3 text-right">
-				<PriceTag item={item} />
+				<PriceTag item={item} lang={lang} />
 			</div>
 		</div>
 	);
@@ -96,9 +119,11 @@ function MenuItemRow({ item, index }: { item: MenuItem; index: number }) {
 function CategorySection({
 	category,
 	defaultOpen = true,
+	lang,
 }: {
 	category: MenuCategory;
 	defaultOpen?: boolean;
+	lang: AppLanguage;
 }) {
 	const [isOpen, setIsOpen] = useState(defaultOpen);
 	const hasTranslation = Boolean(category.translation?.trim());
@@ -152,7 +177,12 @@ function CategorySection({
 			{isOpen && (
 				<div className="mt-1 space-y-0.5 px-1">
 					{category.items.map((item: MenuItem, i: number) => (
-						<MenuItemRow key={item.id} item={item} index={i} />
+						<MenuItemRow
+							key={item.id}
+							item={item}
+							index={i}
+							lang={lang}
+						/>
 					))}
 				</div>
 			)}
@@ -167,6 +197,8 @@ interface MenuCardProps {
 
 export default function MenuCard({ data }: MenuCardProps) {
 	const { restaurantInfo, categories } = data;
+	const { lang } = useLanguage();
+	const t = MENU_TEXT[lang];
 	const hasInfo =
 		(restaurantInfo.name && restaurantInfo.name !== "Unknown") ||
 		restaurantInfo.phoneNumber ||
@@ -190,7 +222,7 @@ export default function MenuCard({ data }: MenuCardProps) {
 					<h3 className="text-sm font-bold text-gray-800">
 						{restaurantInfo.name !== "Unknown"
 							? restaurantInfo.name
-							: "Menu đã dịch"}
+							: t.translatedMenu}
 					</h3>
 				</div>
 
@@ -218,12 +250,13 @@ export default function MenuCard({ data }: MenuCardProps) {
 						key={cat.id}
 						category={cat}
 						defaultOpen={i === 0}
+						lang={lang}
 					/>
 				))}
 			</div>
 			<div className="px-3 pb-2 pt-1">
 				<p className="text-[9px] text-gray-300 text-center select-none">
-					Được dịch tự động bởi AI · Giá có thể thay đổi
+					{t.footer}
 				</p>
 			</div>
 		</div>

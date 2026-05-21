@@ -11,6 +11,10 @@ kaggle_cache/
 # ── Checkpoint files (generated, không cần track) ──────────────
 cloudinary_results.json
 imgur_results.json
+data-engineering/artifacts/
+data-engineering/data/
+data-engineering/kaggle_cache/
+data-engineering/maps-scraper/chrome_user_data_*/
 
 # ── Python ─────────────────────────────────────────────────────
 __pycache__/
@@ -32,8 +36,7 @@ desktop.ini
 archive*/
 embedding_checkpoint.json
 backend/firebase-service-account.json
-backend/.env.example
 /data/
 /data/.env.example
-/ai-models/rag/rag_documents.json
-/ai-models/rag/chroma_db/
+/ai-models/rag-service/rag_documents.json
+/ai-models/rag-service/chroma_db/

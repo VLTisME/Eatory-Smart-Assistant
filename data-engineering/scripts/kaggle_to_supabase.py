@@ -31,11 +31,11 @@ load_dotenv()
 
 # Đường dẫn thư mục dataset đã giải nén trên máy
 # (Chạy python extract_dataset.py trước nếu chưa giải nén)
-DATASET_LOCAL_PATH = r"D:\HieuLT\TDTT\Tutorial\kaggle_cache\datasets\nagahuy\tdtt-ver2\data"
+DATASET_LOCAL_PATH = os.getenv("KAGGLE_DATASET_DIR", "./data/raw/tdtt-ver2")
 
 # --- Tên file JSON/CSV trong dataset (xem kết quả inspect_kaggle_data.py) ---
-PLACES_FILE    = "places.json"        # TODO: Điền đúng tên sau khi inspect
-REVIEWS_FILE   = "clean_reviews.json" # TODO: Điền đúng tên sau khi inspect
+PLACES_FILE = os.getenv("KAGGLE_PLACES_FILE", "places.json")
+REVIEWS_FILE = os.getenv("KAGGLE_REVIEWS_FILE", "clean_reviews.json")
 
 # --- Ánh xạ tên cột: { "tên_cột_trong_kaggle": "tên_cột_trong_supabase" } ---
 PLACES_COLUMN_MAP = {
@@ -61,10 +61,10 @@ REVIEWS_COLUMN_MAP = {
 }
 
 # --- Thông số push ---
-PLACES_BATCH_SIZE  = 200   # Nhỏ để tránh vượt giới hạn payload PostgREST
-REVIEWS_BATCH_SIZE = 500   # Supabase giới hạn ~256KB/request  batch nhỏ cho an toàn
-DELAY_SECONDS      = 0.3
-MAX_REVIEW_LENGTH  = 2000  # Cắt bớt text để giảm kích thước mỗi batch
+PLACES_BATCH_SIZE = int(os.getenv("PLACES_BATCH_SIZE", "200"))
+REVIEWS_BATCH_SIZE = int(os.getenv("REVIEWS_BATCH_SIZE", "500"))
+DELAY_SECONDS = float(os.getenv("SUPABASE_DELAY_SECONDS", "0.3"))
+MAX_REVIEW_LENGTH = int(os.getenv("MAX_REVIEW_LENGTH", "2000"))
 
 # Dùng upsert thay insert: chạy lại script không bị lỗi duplicate key
 USE_UPSERT = True

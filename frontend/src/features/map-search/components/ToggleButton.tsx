@@ -1,5 +1,6 @@
 import { MessageCircle, House } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { useLanguage } from "../../../hooks/useLanguage";
 
 interface ToggleButtonProps {
 	handleClick: () => void;
@@ -7,6 +8,11 @@ interface ToggleButtonProps {
 
 function ToggleButton({ handleClick }: ToggleButtonProps) {
 	const navigate = useNavigate();
+	const { lang } = useLanguage();
+	const text =
+		lang === "vi"
+			? { home: "Trang chủ", chat: "Trò chuyện" }
+			: { home: "Home", chat: "Chat Now" };
 	const handleHomeClick = () => {
 		navigate("/");
 	};
@@ -23,7 +29,7 @@ function ToggleButton({ handleClick }: ToggleButtonProps) {
 					/>
 				</div>
 				<span className="absolute left-10 whitespace-nowrap text-sm font-semibold text-gray-800 opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-100">
-					Home
+					{text.home}
 				</span>
 			</button>
 
@@ -38,7 +44,7 @@ function ToggleButton({ handleClick }: ToggleButtonProps) {
 					/>
 				</div>
 				<span className="absolute left-10 whitespace-nowrap text-sm font-semibold text-gray-800 opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-100">
-					Chat Now
+					{text.chat}
 				</span>
 			</button>
 		</div>

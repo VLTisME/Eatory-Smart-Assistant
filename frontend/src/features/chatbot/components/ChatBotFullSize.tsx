@@ -20,6 +20,7 @@ import {
 import { signOut } from "firebase/auth";
 import { auth } from "../../../firebaseConfig";
 import { useNavigate } from "react-router-dom";
+import { useLanguage } from "../../../hooks/useLanguage";
 
 const LOGOUT_EVENT_KEY = "logoutEvent";
 
@@ -50,6 +51,27 @@ function ChatBotFullSize({
 	const [searchQuery, setSearchQuery] = useState("");
 	const { user, loading } = useAuth();
 	const navigate = useNavigate();
+	const { lang } = useLanguage();
+	const text =
+		lang === "vi"
+			? {
+					newChat: "Trò chuyện mới",
+					minimize: "Thu nhỏ",
+					search: "Tìm kiếm...",
+					loading: "Đang tải...",
+					noChats: "Không tìm thấy đoạn chat nào",
+					logout: "Đăng xuất",
+					noEmail: "Không có email",
+				}
+			: {
+					newChat: "New chat",
+					minimize: "Minimize",
+					search: "Search...",
+					loading: "Loading...",
+					noChats: "No chats found",
+					logout: "Sign out",
+					noEmail: "No email",
+				};
 
 	const broadcastLogout = () => {
 		const timestamp = Date.now().toString();
@@ -178,7 +200,7 @@ function ChatBotFullSize({
 					</div>
 					<div className="flex items-center gap-1">
 						<button
-							title="Thu nhỏ"
+							title={text.minimize}
 							onClick={onClose}
 							className="p-2 text-gray-400 hover:text-gray-700 hover:bg-gray-200/60 rounded-xl transition-all duration-200 cursor-pointer"
 						>
@@ -186,7 +208,7 @@ function ChatBotFullSize({
 						</button>
 						<button
 							onClick={handleNewChat}
-							title="New chat"
+							title={text.newChat}
 							className="p-2 text-gray-400 hover:text-gray-700 hover:bg-gray-200/60 rounded-xl transition-all duration-200 cursor-pointer"
 						>
 							<SquarePen size={18} strokeWidth={2} />
@@ -201,7 +223,7 @@ function ChatBotFullSize({
 							type="text"
 							value={searchQuery}
 							onChange={(e) => setSearchQuery(e.target.value)}
-							placeholder="Tìm kiếm..."
+							placeholder={text.search}
 							className="grow bg-transparent outline-none text-gray-700 text-sm placeholder:text-gray-400"
 						/>
 					</div>
@@ -210,7 +232,7 @@ function ChatBotFullSize({
 				<div className="flex-1 overflow-y-auto px-3 pb-4 space-y-1">
 					{isLoading ? (
 						<div className="text-center text-gray-400 text-sm mt-8 px-4">
-							Loading ...
+							{text.loading}
 						</div>
 					) : filteredHistory.length > 0 ? (
 						filteredHistory.map((chat) => (
@@ -238,7 +260,7 @@ function ChatBotFullSize({
 						))
 					) : (
 						<div className="text-center text-gray-400 text-sm mt-8 px-4">
-							Không tìm thấy đoạn chat nào
+							{text.noChats}
 						</div>
 					)}
 				</div>
@@ -256,12 +278,12 @@ function ChatBotFullSize({
 									{user.displayName}
 								</p>
 								<p className="text-xs text-gray-400 truncate">
-									{user.email ?? "No email"}
+									{user.email ?? text.noEmail}
 								</p>
 							</div>
 							<button
 								onClick={handleLogOut}
-								title="Đăng xuất"
+								title={text.logout}
 								className="p-1.5 text-gray-400 hover:text-red-500 hover:bg-red-50 rounded-lg transition-all duration-200 cursor-pointer shrink-0"
 							>
 								<LogOut size={16} strokeWidth={2} />

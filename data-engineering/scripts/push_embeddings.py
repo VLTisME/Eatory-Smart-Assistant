@@ -43,15 +43,15 @@ load_dotenv()
 
 # CONFIG
 
-ARCHIVE_DIR      = r"D:\HieuLT\TDTT\Tutorial\archive (1)"
-IMAGE_INDEX_FILE = "image_index.json"
-EMBEDDINGS_FILE  = "image_embeddings.npy"
+ARCHIVE_DIR = os.getenv("EMBEDDINGS_ARTIFACT_DIR", "./data/artifacts")
+IMAGE_INDEX_FILE = os.getenv("IMAGE_INDEX_FILE", "image_index.json")
+EMBEDDINGS_FILE = os.getenv("IMAGE_EMBEDDINGS_FILE", "image_embeddings.npy")
 
-BATCH_SIZE       = 50     # So rows update moi lan (halfvec(1024) kha lon)
-SUPABASE_DELAY   = 0.3    # Giay cho giua cac batch
-PAGE_SIZE        = 1000   # So rows fetch moi trang tu Supabase
+BATCH_SIZE = int(os.getenv("EMBEDDINGS_BATCH_SIZE", "50"))
+SUPABASE_DELAY = float(os.getenv("SUPABASE_DELAY_SECONDS", "0.3"))
+PAGE_SIZE = int(os.getenv("SUPABASE_PAGE_SIZE", "1000"))
 
-CHECKPOINT_FILE  = "embedding_checkpoint.json"   # Luu image_id da push
+CHECKPOINT_FILE = os.getenv("EMBEDDING_CHECKPOINT_FILE", "embedding_checkpoint.json")
 
 
 
@@ -74,7 +74,9 @@ def load_checkpoint() -> set:
 
 
 def save_checkpoint(done: set):
-    with open(CHECKPOINT_FILE, "w", encoding="utf-8") as f:
+    checkpoint_path = Path(CHECKPOINT_FILE)
+    checkpoint_path.parent.mkdir(parents=True, exist_ok=True)
+    with checkpoint_path.open("w", encoding="utf-8") as f:
         json.dump(list(done), f)
 
 

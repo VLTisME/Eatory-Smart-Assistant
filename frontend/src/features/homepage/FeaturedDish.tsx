@@ -124,7 +124,7 @@ export default function FeaturedDish({ province }: FeaturedDishProps) {
 						fetchRandomImage(place.place_id).catch(() => ({
 							file_path: "",
 						})),
-						fetchReviewSummary(place.place_id).catch(() => ({
+						fetchReviewSummary(place.place_id, lang).catch(() => ({
 							summary: "",
 						})),
 					]);
@@ -148,7 +148,7 @@ export default function FeaturedDish({ province }: FeaturedDishProps) {
 		} finally {
 			setIsLoading(false);
 		}
-	}, []);
+	}, [lang]);
 
 	useEffect(() => {
 		if (province) {

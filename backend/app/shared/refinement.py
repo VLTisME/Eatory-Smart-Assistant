@@ -1,79 +1,112 @@
-"""Shared OpenAI refinement step used as final output polish across features."""
+"""HTTP client for the internal shared refinement AI endpoint."""
 
 from __future__ import annotations
 
-import time
-from functools import lru_cache
+from dataclasses import dataclass
+from typing import Any
 
-from openai import OpenAI
+import httpx
+from fastapi import HTTPException
+from pydantic import ValidationError
 
-from app.core.config import settings
-from app.core.prompts import (
-    MENU_REFINEMENT_PROMPT_VERSION,
-    PLACE_REFINEMENT_PROMPT_VERSION,
-    GENERIC_REFINEMENT_PROMPT_VERSION,
-    REVIEW_SUMMARY_PROMPT_VERSION,
-    RAG_REFINEMENT_PROMPT_VERSION,
-    build_refinement_prompt,
-)
+from app.clients.ai_services import get_ai_service_endpoints
+from app.shared.schemas import RefineTextResponse
 
 
 class RefinementError(RuntimeError):
-    """Raised when the refinement model cannot be used."""
+    """Raised when the refinement service cannot satisfy a request."""
+
+    def __init__(self, detail: Any, status_code: int = 502) -> None:
+        super().__init__(str(detail))
+        self.detail = detail
+        self.status_code = status_code
 
 
+@dataclass(slots=True)
 class RefinementClient:
-    """OpenAI chat wrapper for final output refinement."""
+    """Thin backend client for the AI-owned refinement endpoint."""
 
-    def __init__(self) -> None:
-        if not settings.openai_api_key:
-            raise RefinementError(
-                "OPENAI_API_KEY is not configured. Set it in the environment before calling the refinement endpoint."
-            )
-        self._client = OpenAI(api_key=settings.openai_api_key)
-        self.model = settings.openai_refine_model
+    base_url: str
+    timeout_seconds: float
+    service_token: str | None = None
+    transport: httpx.AsyncBaseTransport | None = None
 
-    def refine(
+    @property
+    def model(self) -> str:
+        return "remote-refinement-service"
+
+    async def refine(
         self,
         *,
         content: str,
         context: str,
         source_language: str,
         target_language: str,
-    ) -> tuple[str, float, str]:
-        system_prompt, user_prompt = build_refinement_prompt(
-            content=content,
-            context=context,
-            source_language=source_language,
-            target_language=target_language,
+    ) -> RefineTextResponse:
+        payload = await self._post_json(
+            "/v1/refinement/refine",
+            {
+                "content": content,
+                "context": context,
+                "source_language": source_language,
+                "target_language": target_language,
+            },
         )
-        start_time = time.perf_counter()
-        response = self._client.chat.completions.create(
-            model=self.model,
-            temperature=0.2,
-            messages=[
-                {"role": "system", "content": system_prompt},
-                {"role": "user", "content": user_prompt},
-            ],
-        )
-        processing_time_ms = (time.perf_counter() - start_time) * 1000
-        refined_text = (response.choices[0].message.content or "").strip()
+        try:
+            return RefineTextResponse.model_validate(payload)
+        except ValidationError as exc:
+            raise RefinementError("Refinement AI service returned an invalid response.") from exc
 
-        normalized_context = (context or "").strip().lower()
-        if normalized_context in {"menu", "menu_translation", "menu translation", "ocr_menu"}:
-            version = MENU_REFINEMENT_PROMPT_VERSION
-        elif normalized_context in {"place_search", "place search", "image_search", "image search"}:
-            version = PLACE_REFINEMENT_PROMPT_VERSION
-        elif normalized_context in {"review_summary", "review summary"}:
-            version = REVIEW_SUMMARY_PROMPT_VERSION
-        elif normalized_context in {"rag_chat", "rag_refinement", "rag refine"}:
-            version = RAG_REFINEMENT_PROMPT_VERSION
-        else:
-            version = GENERIC_REFINEMENT_PROMPT_VERSION
+    async def _post_json(self, path: str, payload: dict[str, Any]) -> Any:
+        try:
+            async with httpx.AsyncClient(
+                timeout=self.timeout_seconds,
+                transport=self.transport,
+            ) as client:
+                response = await client.post(self._url(path), headers=self._headers(), json=payload)
+                response.raise_for_status()
+                return response.json()
+        except httpx.HTTPStatusError as exc:
+            status_code = exc.response.status_code
+            raise RefinementError(
+                self._extract_error_detail(exc.response),
+                status_code=status_code if status_code < 500 else 502,
+            ) from exc
+        except httpx.RequestError as exc:
+            raise RefinementError("Refinement AI service is unavailable.", status_code=503) from exc
+        except ValueError as exc:
+            raise RefinementError("Refinement AI service returned a non-JSON response.", status_code=502) from exc
 
-        return refined_text, processing_time_ms, version
+    def _url(self, path: str) -> str:
+        return f"{self.base_url.rstrip('/')}{path}"
+
+    def _headers(self) -> dict[str, str]:
+        if not self.service_token:
+            return {}
+        return {"Authorization": f"Bearer {self.service_token}"}
+
+    def _extract_error_detail(self, response: httpx.Response) -> Any:
+        try:
+            payload = response.json()
+        except ValueError:
+            return response.text or "Refinement AI service request failed."
+
+        if isinstance(payload, dict):
+            return payload.get("detail") or payload.get("error") or payload
+        return payload
 
 
-@lru_cache
 def get_refinement_client() -> RefinementClient:
-    return RefinementClient()
+    endpoints = get_ai_service_endpoints()
+    refinement_url = endpoints.refinement or endpoints.rag
+    if not refinement_url:
+        raise HTTPException(
+            status_code=503,
+            detail="AI_REFINEMENT_SERVICE_URL or AI_RAG_SERVICE_URL is not configured for the backend.",
+        )
+
+    return RefinementClient(
+        base_url=refinement_url,
+        timeout_seconds=endpoints.timeout_seconds,
+        service_token=endpoints.service_token,
+    )

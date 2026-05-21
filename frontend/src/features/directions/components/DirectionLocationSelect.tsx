@@ -1,4 +1,5 @@
 import { MapPin, Navigation2 } from "lucide-react";
+import { useLanguage } from "../../../hooks/useLanguage";
 
 interface DirectionLocationSelectProps {
 	originLabel: string;
@@ -11,6 +12,24 @@ export default function DirectionLocationSelect({
 	destinationLabel,
 	originLoading = false,
 }: DirectionLocationSelectProps) {
+	const { lang } = useLanguage();
+	const text =
+		lang === "vi"
+			? {
+					origin: "Vị trí của bạn",
+					locating: "Đang xác định vị trí...",
+					unknownOrigin: "Chưa xác định",
+					destination: "Chọn điểm đến",
+					unknownDestination: "Chưa chọn điểm đến",
+				}
+			: {
+					origin: "Your location",
+					locating: "Detecting location...",
+					unknownOrigin: "Not detected yet",
+					destination: "Destination",
+					unknownDestination: "No destination selected",
+				};
+
 	return (
 		<div className="relative flex flex-col gap-3">
 			<div className="absolute left-4.75 top-7 w-0.5 h-[calc(100%-48px)] bg-linear-to-b from-blue-400 to-red-400 rounded-full" />
@@ -20,15 +39,15 @@ export default function DirectionLocationSelect({
 				</div>
 				<div className="flex-1 bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm">
 					<span className="text-[11px] font-semibold text-slate-400 uppercase tracking-wider block mb-0.5">
-						Vị trí của bạn
+						{text.origin}
 					</span>
 					{originLoading ? (
 						<span className="text-slate-400 animate-pulse text-[13px]">
-							Đang xác định vị trí...
+							{text.locating}
 						</span>
 					) : (
 						<span className="text-slate-700 font-medium text-[13px] line-clamp-1">
-							{originLabel || "Chưa xác định"}
+							{originLabel || text.unknownOrigin}
 						</span>
 					)}
 				</div>
@@ -39,10 +58,10 @@ export default function DirectionLocationSelect({
 				</div>
 				<div className="flex-1 bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm">
 					<span className="text-[11px] font-semibold text-slate-400 uppercase tracking-wider block mb-0.5">
-						Chọn điểm đến
+						{text.destination}
 					</span>
 					<span className="text-slate-700 font-medium text-[13px] line-clamp-1">
-						{destinationLabel || "Chưa chọn điểm đến"}
+						{destinationLabel || text.unknownDestination}
 					</span>
 				</div>
 			</div>

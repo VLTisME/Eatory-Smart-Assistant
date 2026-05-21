@@ -1,0 +1,18 @@
+# Shared data-engineering script dependencies
+python-dotenv>=1.0.1
+supabase>=2.0.0
+tqdm>=4.66.0
+numpy>=1.26.0
+cloudinary>=1.40.0
+kagglehub>=0.3.0
+fastapi>=0.110.0
+uvicorn>=0.29.0
+
+# maps-scraper runtime
+playwright>=1.42.0
+playwright-stealth>=1.0.6
+sqlalchemy>=2.0.0
+pydantic>=2.6.0
+loguru>=0.7.2
+psycopg2-binary>=2.9.9
+selectolax>=0.3.21

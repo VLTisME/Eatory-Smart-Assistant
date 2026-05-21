@@ -8,14 +8,15 @@ import {
 	Image,
 	X,
 } from "lucide-react";
+import { getOppositeLanguage, useLanguage } from "../../../hooks/useLanguage";
 
 // ─── Danh sách công cụ trong dropdown ─────────────────────────────────────────
 const TOOLS = [
 	{
 		id: "translate-menu",
 		icon: Languages,
-		label: "Translate Menu",
-		description: "Dịch menu nhà hàng",
+		label: { vi: "Dịch menu", en: "Translate Menu" },
+		description: { vi: "Dịch menu nhà hàng", en: "Translate restaurant menu" },
 		color: "text-sky-500",
 		bg: "bg-sky-50",
 		hoverBg: "hover:bg-sky-50",
@@ -23,8 +24,8 @@ const TOOLS = [
 	{
 		id: "search-image",
 		icon: Image,
-		label: "Search Image",
-		description: "Tìm món ăn qua ảnh",
+		label: { vi: "Tìm bằng ảnh", en: "Search Image" },
+		description: { vi: "Tìm món ăn qua ảnh", en: "Find places by image" },
 		color: "text-amber-500",
 		bg: "bg-amber-50",
 		hoverBg: "hover:bg-amber-50",
@@ -61,6 +62,33 @@ export default function ChatInput({
 	const [showTools, setShowTools] = useState(false);
 	const textareaRef = useRef<HTMLTextAreaElement>(null);
 	const toolsRef = useRef<HTMLDivElement>(null);
+	const { lang } = useLanguage();
+	const menuTargetLabel =
+		getOppositeLanguage(lang) === "vi" ? "Vietnamese" : "English";
+	const menuDescription =
+		lang === "vi"
+			? `Dịch menu sang tiếng ${menuTargetLabel === "English" ? "Anh" : "Việt"}`
+			: `Translate restaurant menu into ${menuTargetLabel}`;
+	const uiText =
+		lang === "vi"
+			? {
+					tools: "Công cụ",
+					thinking: "AI đang trả lời...",
+					placeholder: "Hỏi về ẩm thực, địa điểm...",
+					stopVoice: "Dừng ghi âm",
+					startVoice: "Ghi âm giọng nói",
+					send: "Gửi tin nhắn",
+					shortcut: "Enter để gửi · Shift + Enter để xuống dòng",
+				}
+			: {
+					tools: "Tools",
+					thinking: "AI is replying...",
+					placeholder: "Ask about food or places...",
+					stopVoice: "Stop recording",
+					startVoice: "Voice input",
+					send: "Send message",
+					shortcut: "Enter to send · Shift + Enter for a new line",
+				};
 
 	useEffect(() => {
 		const handleClickOutside = (e: MouseEvent) => {
@@ -151,7 +179,7 @@ export default function ChatInput({
 										? "text-orange-500 bg-orange-50"
 										: "text-gray-400 hover:text-orange-500 hover:bg-orange-50"
 								}`}
-							title="Công cụ"
+							title={uiText.tools}
 						>
 							{showTools ? (
 								<X size={18} strokeWidth={2} />
@@ -167,7 +195,7 @@ export default function ChatInput({
 									overflow-hidden 	z-50 animate-slide-up"
 							>
 								<p className="text-[10px] font-semibold text-gray-400 uppercase tracking-wider px-3 pt-3 pb-1.5">
-									Công cụ
+									{uiText.tools}
 								</p>
 								{TOOLS.map((tool) => (
 									<button
@@ -189,10 +217,12 @@ export default function ChatInput({
 										</div>
 										<div className="text-left">
 											<p className="text-xs font-semibold text-gray-700 leading-tight">
-												{tool.label}
+												{tool.label[lang]}
 											</p>
 											<p className="text-[10px] text-gray-400 leading-tight mt-0.5">
-												{tool.description}
+												{tool.id === "translate-menu"
+													? menuDescription
+													: tool.description[lang]}
 											</p>
 										</div>
 									</button>
@@ -210,8 +240,8 @@ export default function ChatInput({
 						rows={1}
 						placeholder={
 							isThinking
-								? "AI đang trả lời..."
-								: "Hỏi về ẩm thực, địa điểm..."
+								? uiText.thinking
+								: uiText.placeholder
 						}
 						className="grow resize-none bg-transparent outline-none
 							text-gray-800 text-sm leading-relaxed
@@ -230,7 +260,7 @@ export default function ChatInput({
 									: "text-gray-400 hover:text-emerald-500 hover:bg-emerald-50"
 							}
 							disabled:opacity-40 disabled:cursor-not-allowed`}
-						title={isListening ? "Dừng ghi âm" : "Ghi âm giọng nói"}
+						title={isListening ? uiText.stopVoice : uiText.startVoice}
 					>
 						{isListening ? (
 							<Mic size={18} strokeWidth={2} />
@@ -248,14 +278,14 @@ export default function ChatInput({
 									? "bg-linear-to-r from-sky-300 to-cyan-300 text-gray-600 shadow-md hover:shadow-lg hover:scale-105 active:scale-95"
 									: "bg-gray-100 text-gray-300 cursor-not-allowed"
 							}`}
-						title="Gửi tin nhắn"
+						title={uiText.send}
 					>
 						<SendHorizontal size={16} strokeWidth={2} />
 					</button>
 				</div>
 			</div>
 			<p className="text-[10px] text-gray-400 text-center mt-2 select-none">
-				Enter để gửi · Shift + Enter để xuống dòng
+				{uiText.shortcut}
 			</p>
 		</div>
 	);

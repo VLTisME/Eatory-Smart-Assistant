@@ -31,7 +31,7 @@ class RefineTextRequest(BaseModel):
     model_config = ConfigDict(use_enum_values=True)
 
     content: str = Field(..., min_length=1, description="Text to refine")
-    context: str = Field(default="menu_translation", description="Use case for the refinement")
+    context: str = Field(default="generic", description="Use case for the refinement")
     source_language: LanguageEnum = Field(
         default=LanguageEnum.VIETNAMESE,
         description="Language of the incoming text",

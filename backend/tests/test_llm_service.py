@@ -1,77 +1,77 @@
-"""Unit tests for the OpenAI refinement service."""
+"""Unit tests for the backend refinement service client."""
 
 from __future__ import annotations
 
-from types import SimpleNamespace
+import json
 
+import httpx
 import pytest
 
-import app.core.prompts as prompts_module
-import app.shared.refinement as refinement_module
+from app.shared.refinement import RefinementClient, RefinementError
 
 
-def test_build_refinement_prompt_mentions_translation_rules():
-    system_prompt, user_prompt = prompts_module.build_refinement_prompt(
+@pytest.mark.asyncio
+async def test_refinement_client_posts_refine_request():
+    def handler(request: httpx.Request) -> httpx.Response:
+        assert request.url.path == "/v1/refinement/refine"
+        assert request.headers["authorization"] == "Bearer test-token"
+        payload = json.loads(request.content.decode("utf-8"))
+        assert payload == {
+            "content": "Phở bò",
+            "context": "generic",
+            "source_language": "vi",
+            "target_language": "en",
+        }
+        return httpx.Response(
+            200,
+            json={
+                "refined_text": "Beef Pho",
+                "source_language": "vi",
+                "target_language": "en",
+                "context": "generic",
+                "model": "gpt-4o-mini",
+                "prompt_version": "generic_refine_v1",
+                "processing_time_ms": 12.5,
+            },
+        )
+
+    client = RefinementClient(
+        base_url="http://refinement-ai.test",
+        timeout_seconds=5,
+        service_token="test-token",
+        transport=httpx.MockTransport(handler),
+    )
+
+    response = await client.refine(
         content="Phở bò",
-        context="menu_translation",
+        context="generic",
         source_language="vi",
         target_language="en",
     )
 
-    assert "Vietnamese menu OCR normalizer and translator" in system_prompt
-    assert "Return ONLY valid JSON" in system_prompt
-    assert "Phở bò" in user_prompt
-    assert "Source language: vi" in user_prompt
-    assert "Target language: en" in user_prompt
+    assert response.refined_text == "Beef Pho"
+    assert response.model == "gpt-4o-mini"
+    assert response.prompt_version == "generic_refine_v1"
 
 
-def test_build_refinement_prompt_for_place_search_context():
-    system_prompt, user_prompt = prompts_module.build_refinement_prompt(
-        content='{"results": []}',
-        context="place_search",
-        source_language="vi",
-        target_language="vi",
+@pytest.mark.asyncio
+async def test_refinement_client_preserves_service_error():
+    def handler(request: httpx.Request) -> httpx.Response:
+        return httpx.Response(500, json={"detail": "model unavailable"})
+
+    client = RefinementClient(
+        base_url="http://refinement-ai.test",
+        timeout_seconds=5,
+        transport=httpx.MockTransport(handler),
     )
 
-    assert "place search output refiner" in system_prompt
-    assert '"results"' in system_prompt
-    assert "Context: place_search" in user_prompt
+    with pytest.raises(RefinementError) as exc_info:
+        await client.refine(
+            content="Phở bò",
+            context="generic",
+            source_language="vi",
+            target_language="en",
+        )
 
-
-def test_llm_service_raises_without_api_key(monkeypatch):
-    monkeypatch.setattr(refinement_module.settings, "openai_api_key", None)
-
-    with pytest.raises(refinement_module.RefinementError):
-        refinement_module.RefinementClient()
-
-
-def test_llm_service_refines_text(monkeypatch):
-    monkeypatch.setattr(refinement_module.settings, "openai_api_key", "test-key")
-    monkeypatch.setattr(refinement_module.settings, "openai_refine_model", "gpt-4o-mini")
-
-    class FakeCompletions:
-        def create(self, *, model, temperature, messages):
-            assert model == "gpt-4o-mini"
-            assert temperature == 0.2
-            assert messages[0]["role"] == "system"
-            return SimpleNamespace(
-                choices=[SimpleNamespace(message=SimpleNamespace(content="Beef Pho\nPrice: 50,000 VND"))]
-            )
-
-    class FakeClient:
-        def __init__(self, api_key):
-            self.chat = SimpleNamespace(completions=FakeCompletions())
-
-    monkeypatch.setattr(refinement_module, "OpenAI", FakeClient)
-
-    client = refinement_module.RefinementClient()
-    refined_text, processing_time_ms, prompt_version = client.refine(
-        content="Phở bò",
-        context="menu_translation",
-        source_language="vi",
-        target_language="en",
-    )
-
-    assert refined_text == "Beef Pho\nPrice: 50,000 VND"
-    assert processing_time_ms >= 0
-    assert prompt_version == "menu_translation_v2"
+    assert exc_info.value.status_code == 502
+    assert exc_info.value.detail == "model unavailable"

@@ -1,4 +1,4 @@
-const BASE_URL = "http://localhost:8000/api/v1/places";
+import { apiV1 } from "../../../config/api";
 
 export interface StructuredFormatting {
 	main_text: string;
@@ -53,7 +53,7 @@ export const searchPlaces = async (
 	if (options?.limit) params.set("limit", String(options.limit));
 	if (options?.radius) params.set("radius", String(options.radius));
 
-	const res = await fetch(`${BASE_URL}/autocomplete?${params.toString()}`, {
+	const res = await fetch(apiV1(`/places/autocomplete?${params.toString()}`), {
 		signal: options?.signal,
 	});
 
@@ -71,7 +71,7 @@ export const getPlaceDetail = async (
 ): Promise<PlaceDetailResponse> => {
 	const params = new URLSearchParams({ place_id: placeId });
 
-	const res = await fetch(`${BASE_URL}/detail?${params.toString()}`, {
+	const res = await fetch(apiV1(`/places/detail?${params.toString()}`), {
 		signal,
 	});
 

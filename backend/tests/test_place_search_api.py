@@ -9,68 +9,39 @@ import pytest
 from fastapi.testclient import TestClient
 from PIL import Image
 
-from app.features.place_search.routes import (
-    get_optional_refinement_client,
-)
-from app.features.place_search.schemas import PlaceSearchItem
-from app.features.place_search.service import PlaceSearchNoiseError, get_place_search_engine
+from app.features.place_search.client import PlaceSearchServiceError, get_place_search_client
+from app.features.place_search.schemas import PlaceSearchResponse
 from app.main import app
+from app.shared.image_upload import ValidatedImage
 
 
 @dataclass
-class FakePlaceSearchEngine:
-    def search(self, image_bytes: bytes, *, top_k_images: int | None = None) -> list[PlaceSearchItem]:
-        return [
-            PlaceSearchItem(
-                place_id="pho_hoa_q3",
-                score=0.91,
-                top_image="images/pho_hoa_q3/pho_hoa_q3_001.jpg",
-                name="Pho Hoa",
-                address="260C Pasteur, Q3",
-            ),
-            PlaceSearchItem(
-                place_id="bun_bo_hue_q1",
-                score=0.86,
-                top_image="images/bun_bo_hue_q1/bun_bo_hue_q1_003.jpg",
-                name="Bun Bo Hue 3A3",
-                address="3A3 Vo Van Tan, Q1",
-            ),
-        ]
+class FakePlaceSearchClient:
+    response: PlaceSearchResponse | None = None
+    error: PlaceSearchServiceError | None = None
 
-
-@dataclass
-class EmptyPlaceSearchEngine:
-    def search(self, image_bytes: bytes, *, top_k_images: int | None = None) -> list[PlaceSearchItem]:
-        return []
-
-
-@dataclass
-class NoisePlaceSearchEngine:
-    def search(self, image_bytes: bytes, *, top_k_images: int | None = None) -> list[PlaceSearchItem]:
-        raise PlaceSearchNoiseError("text", 0.91, "/tmp/noise.jpg")
-
-
-@dataclass
-class FakeRefinementClient:
-    model: str = "gpt-4o-mini"
-
-    def refine(self, *, content: str, context: str, source_language: str, target_language: str):
-        assert context == "place_search"
-        assert source_language == "vi"
+    async def search_by_image(self, image: ValidatedImage, *, target_language: str) -> PlaceSearchResponse:
+        assert image.filename == "dish.png"
         assert target_language == "vi"
-        return (
-            '{"results":[{"place_id":"pho_hoa_q3","score":0.91,"top_image":"images/pho_hoa_q3/pho_hoa_q3_001.jpg","name":"Pho Hoa Sai Gon","address":"260C Pasteur, Quan 3"}]}',
-            2.1,
-            "menu_translation_v2",
+        if self.error is not None:
+            raise self.error
+        if self.response is not None:
+            return self.response
+        return PlaceSearchResponse.model_validate(
+            {
+                "results": [
+                    {
+                        "place_id": "pho_hoa_q3",
+                        "image_id": "img_1",
+                        "score": 0.91,
+                        "top_image": "images/pho_hoa_q3/pho_hoa_q3_001.jpg",
+                        "images": [],
+                        "name": "Pho Hoa Sai Gon",
+                        "address": "260C Pasteur, Quan 3",
+                    }
+                ]
+            }
         )
-
-
-@dataclass
-class BrokenRefinementClient:
-    model: str = "gpt-4o-mini"
-
-    def refine(self, *, content: str, context: str, source_language: str, target_language: str):
-        return "not-a-json-response", 1.2, "menu_translation_v2"
 
 
 @pytest.fixture
@@ -83,13 +54,12 @@ def sample_image_bytes() -> bytes:
 
 @pytest.fixture(autouse=True)
 def override_dependencies():
-    app.dependency_overrides[get_place_search_engine] = lambda: FakePlaceSearchEngine()
-    app.dependency_overrides[get_optional_refinement_client] = lambda: FakeRefinementClient()
+    app.dependency_overrides[get_place_search_client] = lambda: FakePlaceSearchClient()
     yield
     app.dependency_overrides.clear()
 
 
-def test_place_search_returns_refined_structure(sample_image_bytes):
+def test_place_search_returns_service_results(sample_image_bytes):
     client = TestClient(app)
     response = client.post(
         "/api/v1/place-search",
@@ -104,7 +74,9 @@ def test_place_search_returns_refined_structure(sample_image_bytes):
 
 
 def test_place_search_returns_404_when_no_match(sample_image_bytes):
-    app.dependency_overrides[get_place_search_engine] = lambda: EmptyPlaceSearchEngine()
+    app.dependency_overrides[get_place_search_client] = lambda: FakePlaceSearchClient(
+        response=PlaceSearchResponse(results=[])
+    )
 
     client = TestClient(app)
     response = client.post(
@@ -117,7 +89,17 @@ def test_place_search_returns_404_when_no_match(sample_image_bytes):
 
 
 def test_place_search_returns_422_when_query_is_noise(sample_image_bytes):
-    app.dependency_overrides[get_place_search_engine] = lambda: NoisePlaceSearchEngine()
+    app.dependency_overrides[get_place_search_client] = lambda: FakePlaceSearchClient(
+        error=PlaceSearchServiceError(
+            {
+                "reason": "similar_to_noise",
+                "noise_category": "text",
+                "noise_score": 0.91,
+                "noise_image": "/tmp/noise.jpg",
+            },
+            status_code=422,
+        )
+    )
 
     client = TestClient(app)
     response = client.post(
@@ -128,18 +110,3 @@ def test_place_search_returns_422_when_query_is_noise(sample_image_bytes):
     assert response.status_code == 422
     assert response.json()["detail"]["reason"] == "similar_to_noise"
     assert response.json()["detail"]["noise_category"] == "text"
-
-
-def test_place_search_falls_back_to_raw_results_when_refine_invalid(sample_image_bytes):
-    app.dependency_overrides[get_optional_refinement_client] = lambda: BrokenRefinementClient()
-
-    client = TestClient(app)
-    response = client.post(
-        "/api/v1/place-search",
-        files={"file": ("dish.png", sample_image_bytes, "image/png")},
-    )
-
-    assert response.status_code == 200
-    payload = response.json()
-    assert payload["results"][0]["place_id"] == "pho_hoa_q3"
-    assert payload["results"][0]["name"] == "Pho Hoa"

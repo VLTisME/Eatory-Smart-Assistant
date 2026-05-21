@@ -27,11 +27,16 @@ class SourcePlace(BaseModel):
 class RagChatRequest(BaseModel):
     message: str = Field(..., min_length=1, description="User's question")
     top_k: int = Field(default=5, ge=1, le=10, description="Number of documents to retrieve")
+    target_language: str = Field(
+        default="vi",
+        pattern="^(vi|en)$",
+        description="Language for the generated answer: vi or en",
+    )
 
 
 class RagChatResponse(BaseModel):
     answer: str
-    sources: List[SourcePlace] = []
+    sources: List[SourcePlace] = Field(default_factory=list)
 
 
 class RagRetrieveRequest(BaseModel):
@@ -41,4 +46,4 @@ class RagRetrieveRequest(BaseModel):
 
 class RagRetrieveResponse(BaseModel):
     query: str
-    sources: List[SourcePlace] = []
+    sources: List[SourcePlace] = Field(default_factory=list)

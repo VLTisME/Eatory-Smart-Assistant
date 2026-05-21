@@ -4,7 +4,7 @@
  * Endpoint: GET /api/v1/directions?origin=lat,lng&destination=lat,lng&vehicle=car
  */
 
-const BASE_URL = "http://localhost:8000/api/v1";
+import { apiV1 } from "../../../config/api";
 
 /* ─── Types ────────────────────────────────────────────────────────────────── */
 
@@ -75,7 +75,7 @@ export async function fetchDirections(
 		vehicle,
 	});
 
-	const res = await fetch(`${BASE_URL}/directions?${params}`, { signal });
+	const res = await fetch(apiV1(`/directions?${params}`), { signal });
 	if (!res.ok) {
 		const body = await res.json().catch(() => ({}));
 		throw new Error(

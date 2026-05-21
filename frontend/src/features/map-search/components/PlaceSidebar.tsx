@@ -25,11 +25,61 @@ import {
 import { AnimatePresence, motion } from "framer-motion";
 import DirectionPanel from "../../directions/components/DirectionPanel";
 import type { RouteInfo } from "../../directions/services/directionsAPI";
+import { useLanguage } from "../../../hooks/useLanguage";
 
 interface PlaceSidebarProps {
 	place: SearchMarker | null;
 	onRouteResult?: (route: RouteInfo | null) => void;
 }
+
+const SIDEBAR_TEXT = {
+	vi: {
+		geolocationUnsupported: "Trình duyệt không hỗ trợ định vị.",
+		noReviewsYet: "Chưa có đánh giá",
+		notInSystem: "Chưa có trong hệ thống",
+		locating: "Đang định vị...",
+		directions: "Chỉ đường",
+		reviewSummary: "Tóm tắt đánh giá",
+		tabs: {
+			overview: "Tổng quan",
+			menu: "Góc View",
+			reviews: "Đánh giá",
+		},
+		details: "Thông tin chi tiết",
+		openNow: "Đang mở cửa",
+		closeAt: "Đóng cửa lúc 23:00",
+		coordinates: "Tọa độ:",
+		noImages: "Chưa có hình ảnh cho góc view này.",
+		userReviews: "Đánh giá từ người dùng",
+		user: "Người dùng",
+		noReviews: "Chưa có đánh giá nào cho địa điểm này.",
+		placeImage: "Ảnh địa điểm",
+		enlargedView: "Ảnh phóng to",
+	},
+	en: {
+		geolocationUnsupported: "Your browser does not support geolocation.",
+		noReviewsYet: "No reviews yet",
+		notInSystem: "Not in the system yet",
+		locating: "Locating...",
+		directions: "Directions",
+		reviewSummary: "Review Summary",
+		tabs: {
+			overview: "Overview",
+			menu: "Views",
+			reviews: "Reviews",
+		},
+		details: "Details",
+		openNow: "Open now",
+		closeAt: "Closes at 23:00",
+		coordinates: "Coordinates:",
+		noImages: "No images are available for this view yet.",
+		userReviews: "User reviews",
+		user: "User",
+		noReviews: "There are no reviews for this place yet.",
+		placeImage: "Place image",
+		enlargedView: "Enlarged view",
+	},
+};
 
 const StarRating = ({ rating }: { rating: number }) => {
 	const baseId = useId().replace(/:/g, "");
@@ -104,6 +154,8 @@ export default function PlaceSidebar({
 		lng: number;
 	} | null>(null);
 	const [geoRequested, setGeoRequested] = useState(false);
+	const { lang } = useLanguage();
+	const t = SIDEBAR_TEXT[lang];
 
 	const SIDEBAR_WIDTH = 400;
 
@@ -209,7 +261,7 @@ export default function PlaceSidebar({
 			return;
 		}
 		if (!navigator.geolocation) {
-			alert("Trình duyệt không hỗ trợ định vị.");
+			alert(t.geolocationUnsupported);
 			return;
 		}
 
@@ -228,7 +280,7 @@ export default function PlaceSidebar({
 			},
 			{ enableHighAccuracy: true, timeout: 10000, maximumAge: 60000 },
 		);
-	}, [userLocation]);
+	}, [t.geolocationUnsupported, userLocation]);
 
 	const handleDirectionClose = useCallback(() => {
 		setShowDirections(false);
@@ -325,8 +377,8 @@ export default function PlaceSidebar({
 						<div className="flex items-center space-x-2.5 mb-4 bg-blue-50/50 p-3 rounded-2xl border border-blue-100/50">
 							<span className="text-xs font-medium text-blue-500">
 								{placeExistsInDb
-									? "Chưa có đánh giá"
-									: "Chưa có trong hệ thống"}
+									? t.noReviewsYet
+									: t.notInSystem}
 							</span>
 						</div>
 					)}
@@ -350,7 +402,7 @@ export default function PlaceSidebar({
 									className="mr-2"
 								/>
 							)}
-							{geoRequested ? "Đang định vị..." : "Directions"}
+							{geoRequested ? t.locating : t.directions}
 						</button>
 						<button
 							onClick={() => {
@@ -372,7 +424,7 @@ export default function PlaceSidebar({
 								strokeWidth={2}
 								className="mr-2"
 							/>
-							Review Summary
+							{t.reviewSummary}
 						</button>
 					</div>
 				</div>
@@ -416,10 +468,10 @@ export default function PlaceSidebar({
 								}`}
 							>
 								{tab === "overview"
-									? "Tổng quan"
+									? t.tabs.overview
 									: tab === "menu"
-										? "Góc View"
-										: "Đánh giá"}
+										? t.tabs.menu
+										: t.tabs.reviews}
 								{activeTab === tab && (
 									<div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-12 h-1 bg-blue-600 rounded-t-full" />
 								)}
@@ -432,15 +484,15 @@ export default function PlaceSidebar({
 						<div className="space-y-5 animate-in fade-in slide-in-from-bottom-2 duration-500">
 							<div className="bg-white p-5 rounded-2xl shadow-sm border border-slate-100/50 space-y-4">
 								<h3 className="font-bold text-slate-800 text-base">
-									Thông tin chi tiết
+									{t.details}
 								</h3>
 								<div className="flex items-center text-emerald-600 font-medium">
 									<History size={20} strokeWidth={2} />
 									<div className="text-slate-400 mx-2">
 										<span className="text-emerald-600">
-											Đang mở cửa{" "}
+											{t.openNow}{" "}
 										</span>
-										• Đóng cửa lúc 23:00
+										• {t.closeAt}
 									</div>{" "}
 								</div>
 								<div className="flex items-center font-medium text-emerald-600">
@@ -457,7 +509,7 @@ export default function PlaceSidebar({
 											className="text-emerald-600"
 										/>
 										<span className="font-semibold text-slate-700">
-											Tọa độ:
+											{t.coordinates}
 										</span>
 										{placeDetail.location.lat.toFixed(4)},{" "}
 										{placeDetail.location.lng.toFixed(4)}
@@ -481,7 +533,7 @@ export default function PlaceSidebar({
 											<div className="h-32 bg-slate-200 overflow-hidden">
 												<img
 													src={img.file_path}
-													alt="Place image"
+													alt={t.placeImage}
 													className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
 												/>
 											</div>
@@ -489,7 +541,7 @@ export default function PlaceSidebar({
 									))
 								) : (
 									<div className="col-span-2 text-center text-slate-500 py-4">
-										Chưa có hình ảnh cho góc view này.
+										{t.noImages}
 									</div>
 								)}
 							</div>
@@ -498,7 +550,7 @@ export default function PlaceSidebar({
 					{activeTab === "reviews" && (
 						<div className="space-y-4 animate-in fade-in slide-in-from-bottom-2 duration-500">
 							<h3 className="font-bold text-slate-800 text-base px-1">
-								Đánh giá từ người dùng
+								{t.userReviews}
 							</h3>
 							{placeExistsInDb && reviews.length > 0 ? (
 								reviews.map((rev, idx) => (
@@ -512,7 +564,7 @@ export default function PlaceSidebar({
 											</div>
 											<div>
 												<p className="text-sm font-bold text-slate-800">
-													Người dùng {idx + 1}
+													{t.user} {idx + 1}
 												</p>
 												<div className="flex mt-0.5">
 													<StarRating
@@ -528,7 +580,7 @@ export default function PlaceSidebar({
 								))
 							) : (
 								<div className="text-center text-slate-500 py-4">
-									Chưa có đánh giá nào cho địa điểm này.
+									{t.noReviews}
 								</div>
 							)}
 						</div>
@@ -554,7 +606,7 @@ export default function PlaceSidebar({
 								stiffness: 300,
 							}}
 							src={selectedImage}
-							alt="Enlarged view"
+							alt={t.enlargedView}
 							className="max-h-full max-w-full rounded-2xl shadow-2xl object-contain cursor-default"
 							onClick={(e: React.MouseEvent) => e.stopPropagation()}
 						/>

@@ -1,6 +1,7 @@
 import { Route, Clock, ArrowRight, ChevronDown, ChevronUp } from "lucide-react";
 import { useState } from "react";
-import type { RouteInfo } from "../services/directionsAPI";
+import type { RouteInfo, StepInfo } from "../services/directionsAPI";
+import { useLanguage } from "../../../hooks/useLanguage";
 
 interface DirectionResultProps {
 	route: RouteInfo;
@@ -8,6 +9,25 @@ interface DirectionResultProps {
 
 export default function DirectionResult({ route }: DirectionResultProps) {
 	const [expandedSteps, setExpandedSteps] = useState(false);
+	const { lang } = useLanguage();
+	const text =
+		lang === "vi"
+			? {
+					distance: "Khoảng cách",
+					duration: "Thời gian",
+					from: "Từ:",
+					to: "Đến:",
+					details: (count: number) =>
+						`Hướng dẫn chi tiết (${count} bước)`,
+				}
+			: {
+					distance: "Distance",
+					duration: "Duration",
+					from: "From:",
+					to: "To:",
+					details: (count: number) =>
+						`Detailed directions (${count} steps)`,
+				};
 
 	const leg = route.legs[0];
 	if (!leg) return null;
@@ -28,7 +48,7 @@ export default function DirectionResult({ route }: DirectionResultProps) {
 								{leg.distance.text}
 							</p>
 							<p className="text-xs text-slate-500 font-medium">
-								Khoảng cách
+								{text.distance}
 							</p>
 						</div>
 					</div>
@@ -44,7 +64,7 @@ export default function DirectionResult({ route }: DirectionResultProps) {
 								{leg.duration.text}
 							</p>
 							<p className="text-xs text-slate-500 font-medium">
-								Thời gian
+								{text.duration}
 							</p>
 						</div>
 					</div>
@@ -54,7 +74,7 @@ export default function DirectionResult({ route }: DirectionResultProps) {
 						{leg.start_address && (
 							<p className="text-xs text-slate-500 flex items-start gap-1.5">
 								<span className="text-blue-500 font-bold shrink-0">
-									Từ:
+									{text.from}
 								</span>
 								<span className="line-clamp-1">
 									{leg.start_address}
@@ -64,7 +84,7 @@ export default function DirectionResult({ route }: DirectionResultProps) {
 						{leg.end_address && (
 							<p className="text-xs text-slate-500 flex items-start gap-1.5">
 								<span className="text-red-500 font-bold shrink-0">
-									Đến:
+									{text.to}
 								</span>
 								<span className="line-clamp-1">
 									{leg.end_address}
@@ -83,7 +103,7 @@ export default function DirectionResult({ route }: DirectionResultProps) {
 					>
 						<span className="flex items-center gap-2">
 							<ArrowRight size={16} className="text-blue-500" />
-							Hướng dẫn chi tiết ({steps.length} bước)
+							{text.details(steps.length)}
 						</span>
 						{expandedSteps ? (
 							<ChevronUp size={16} className="text-slate-400" />
@@ -93,7 +113,7 @@ export default function DirectionResult({ route }: DirectionResultProps) {
 					</button>
 					{expandedSteps && (
 						<div className="px-4 pb-4 space-y-2 max-h-60 overflow-y-auto">
-							{steps.map((step: any, idx: number) => (
+							{steps.map((step: StepInfo, idx: number) => (
 								<div
 									key={idx}
 									className="flex gap-3 items-start py-2 border-b border-slate-50 last:border-b-0"

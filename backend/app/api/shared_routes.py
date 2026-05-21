@@ -42,21 +42,13 @@ async def refine_text(
     )
 
     try:
-        refined_text, processing_time_ms, prompt_version = refinement_client.refine(
+        result = await refinement_client.refine(
             content=payload.content,
             context=payload.context,
             source_language=source_language,
             target_language=target_language,
         )
     except RefinementError as exc:
-        raise HTTPException(status_code=500, detail=str(exc)) from exc
+        raise HTTPException(status_code=exc.status_code, detail=exc.detail) from exc
 
-    return RefineTextResponse(
-        refined_text=refined_text,
-        source_language=source_language,
-        target_language=target_language,
-        context=payload.context,
-        model=refinement_client.model,
-        prompt_version=prompt_version,
-        processing_time_ms=processing_time_ms,
-    )
+    return result

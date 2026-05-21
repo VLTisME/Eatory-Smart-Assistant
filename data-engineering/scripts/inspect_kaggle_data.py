@@ -23,10 +23,15 @@ import json
 import csv
 from pathlib import Path
 
+from dotenv import load_dotenv
+
+
+load_dotenv()
+
 DATASET_ID = "nagahuy/tdtt-ver2"
 
 # Đường dẫn mặc định tới thư mục data đã giải nén
-DEFAULT_LOCAL_PATH = r"D:\HieuLT\TDTT\Tutorial\kaggle_cache\datasets\nagahuy\tdtt-ver2\data"
+DEFAULT_LOCAL_PATH = os.getenv("KAGGLE_DATASET_DIR", "./data/raw/tdtt-ver2")
 
 
 def get_dataset_path() -> Path:
@@ -35,7 +40,7 @@ def get_dataset_path() -> Path:
 
     # Chế độ 2: Tải từ Kaggle
     if "--download" in args:
-        os.environ["KAGGLEHUB_CACHE"] = os.path.join(os.getcwd(), "kaggle_cache")
+        os.environ["KAGGLEHUB_CACHE"] = os.getenv("KAGGLEHUB_CACHE", os.path.join(os.getcwd(), "kaggle_cache"))
         import kagglehub
         print(f" Đang tải dataset từ Kaggle: {DATASET_ID} ...")
         path = Path(kagglehub.dataset_download(DATASET_ID))

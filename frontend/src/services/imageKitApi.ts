@@ -1,9 +1,7 @@
 import axios from "axios";
+import { apiV1, IMAGEKIT_PUBLIC_KEY } from "../config/api";
 
-const API_BASE_URL = "http://localhost:8000/api/v1/imagekit";
-
-/** ImageKit public key — exposed to the client (safe). */
-const IMAGEKIT_PUBLIC_KEY = "public_BZTsXidbjAfF/2fLGhzF8TTE4QU=";
+const API_BASE_URL = apiV1("/imagekit");
 
 export interface ImageKitAuthResponse {
 	token: string;

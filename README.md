@@ -1,169 +1,188 @@
-# 📸 Image Query Module — Smart Tourism
+# Eatory Smart Assistant
 
-Module truy xuất ảnh địa điểm từ **Cloudinary CDN** thông qua **Supabase**, phục vụ backend của hệ thống Smart Tourism.
+Eatory Smart Assistant là hệ thống trợ lý du lịch ẩm thực, kết hợp bản đồ, tìm kiếm địa điểm, chatbot RAG, dịch menu từ ảnh, tìm địa điểm bằng ảnh và tóm tắt đánh giá. Dự án được tách thành bốn vùng trách nhiệm chính:
 
----
+- `frontend/`: giao diện React/Vite cho người dùng cuối.
+- `backend/`: public API FastAPI, xác thực, tích hợp Firebase/Supabase/Goong/ImageKit và gọi các AI service nội bộ.
+- `ai-models/`: các AI service độc lập, prompt, model runtime và artifact AI.
+- `data-engineering/`: scraping, ingestion, upload, migration và batch pipeline dữ liệu.
 
-## Kiến trúc
+Nguyên tắc kiến trúc hiện tại: frontend chỉ gọi backend; backend không load model hoặc giữ prompt AI nặng; các xử lý OCR, CLIP, RAG, refinement và review-summary LLM nằm trong `ai-models/`.
 
+## Tổng quan kiến trúc
+
+```text
+React/Vite frontend
+  -> FastAPI backend public API
+      -> Firebase Auth / Firestore
+      -> Supabase
+      -> Goong APIs
+      -> ImageKit
+      -> Internal AI services
+          -> menu-translation-service
+          -> place-search-service
+          -> rag-service
+          -> review-summary-service
 ```
-Local Dataset (.jpg)
-       │
-       ▼  upload_images_cloudinary.py
-Cloudinary CDN
-(lưu file ảnh thật)
-       │  secure_url
-       ▼
-Supabase · bảng image_embeddings
-┌──────────────────────────────────────────────────────┐
-│  image_id (PK) │ place_id (FK) │ file_path (URL)     │
-└──────────────────────────────────────────────────────┘
-       │
-       ▼  query_images.py
-Backend API  →  Frontend
+
+## Cấu trúc thư mục
+
+```text
+.
+|-- backend/             # Public API, auth, chat history, data proxy, AI clients
+|-- frontend/            # React/Vite UI
+|-- ai-models/           # AI services, prompt, model runtime, artifact AI
+|-- data-engineering/    # Scraper, ingestion, upload, migration, batch jobs
+|-- data/                # Artifact runtime cho place search: embeddings, indexes, places.json
+|-- tests/               # Ghi chú kiểm thử cấp repo
+|-- docker-compose.yml   # Chạy full stack local
+`-- REFACTOR.md          # Kế hoạch và lịch sử refactor
 ```
 
----
+## Tính năng chính
 
-## Yêu cầu
+- Dịch menu từ ảnh: upload ảnh menu, OCR, trích xuất món/giá/mô tả và dịch sang ngôn ngữ đích.
+- Tìm địa điểm bằng ảnh: dùng CLIP embedding để tìm địa điểm có hình ảnh tương tự ảnh người dùng tải lên.
+- Chatbot RAG: hỏi đáp và gợi ý địa điểm ăn uống dựa trên dữ liệu review đã index.
+- Tóm tắt review: hiển thị tổng quan đánh giá theo tiếng Việt hoặc tiếng Anh.
+- Bản đồ và địa điểm: tìm kiếm địa điểm, xem ảnh, xem review mẫu và chỉ đường.
+- Chat history: lưu hội thoại theo Firebase Auth và Firestore.
+- Data pipeline: scrape Google Maps, xử lý Kaggle dataset, upload ảnh, sinh embedding và đẩy summary lên database/storage.
+
+## Chạy nhanh bằng Docker
+
+Tạo các file `.env` từ template:
 
 ```bash
-pip install supabase python-dotenv
+cp backend/.env.example backend/.env
+cp frontend/.env.example frontend/.env
+cp ai-models/menu-translation-service/.env.example ai-models/menu-translation-service/.env
+cp ai-models/place-search-service/.env.example ai-models/place-search-service/.env
+cp ai-models/rag-service/.env.example ai-models/rag-service/.env
+cp ai-models/review-summary-service/.env.example ai-models/review-summary-service/.env
+cp data-engineering/.env.example data-engineering/.env
 ```
 
-Tạo file `.env` ở cùng thư mục:
+Điền key thật cho Firebase, Supabase, Goong, ImageKit, OpenAI và các service liên quan. Không commit `.env`, private key, service account hoặc token thật.
 
-```env
-SUPABASE_URL=https://<project-id>.supabase.co
-SUPABASE_SERVICE_KEY=<service_role_key>
-```
-
----
-
-## API Reference
-
-### `get_single_image(place_id)`
-
-Trả về **1 ảnh đầu tiên** của địa điểm.
-
-| Tham số | Kiểu | Mô tả |
-|---------|------|-------|
-| `place_id` | `str` | ID của địa điểm |
-
-**Returns:** `dict` hoặc `None`
-
-```python
-{
-  "image_id": "f92d79ea-4eab-...",
-  "place_id": "ChIJabc123",
-  "file_path": "https://res.cloudinary.com/..."
-}
-```
-
----
-
-### `get_batch_images(place_id, limit=10, offset=0)`
-
-Trả về **nhiều ảnh** của địa điểm, có hỗ trợ phân trang.
-
-| Tham số | Kiểu | Mặc định | Mô tả |
-|---------|------|----------|-------|
-| `place_id` | `str` | — | ID của địa điểm |
-| `limit` | `int` | `10` | Số ảnh muốn lấy |
-| `offset` | `int` | `0` | Vị trí bắt đầu (để phân trang) |
-
-**Returns:** `list[dict]`
-
-```python
-# Trang 1 (ảnh 1–10)
-get_batch_images("ChIJabc123", limit=10, offset=0)
-
-# Trang 2 (ảnh 11–20)
-get_batch_images("ChIJabc123", limit=10, offset=10)
-```
-
----
-
-### `get_random_image(place_id)`
-
-Trả về **1 ảnh ngẫu nhiên** của địa điểm — mỗi lần gọi cho kết quả khác nhau.
-
-| Tham số | Kiểu | Mô tả |
-|---------|------|-------|
-| `place_id` | `str` | ID của địa điểm |
-
-**Returns:** `dict` hoặc `None`
-
----
-
-## Tích hợp vào project
-
-```python
-from query_images import get_single_image, get_batch_images, get_random_image
-
-# Lấy 1 ảnh đại diện
-img = get_single_image("ChIJabc123")
-print(img["file_path"])  # URL Cloudinary
-
-# Lấy tất cả ảnh (có phân trang)
-imgs = get_batch_images("ChIJabc123", limit=10, offset=0)
-
-# Lấy ảnh ngẫu nhiên (dùng cho preview/gợi ý)
-img = get_random_image("ChIJabc123")
-```
-
-### Ví dụ với FastAPI
-
-```python
-from fastapi import FastAPI
-from query_images import get_single_image, get_batch_images, get_random_image
-
-app = FastAPI()
-
-@app.get("/api/places/{place_id}/image")
-def single_image(place_id: str):
-    return get_single_image(place_id) or {"error": "No image found"}
-
-@app.get("/api/places/{place_id}/images")
-def batch_images(place_id: str, limit: int = 10, offset: int = 0):
-    return get_batch_images(place_id, limit=limit, offset=offset)
-
-@app.get("/api/places/{place_id}/image/random")
-def random_image(place_id: str):
-    return get_random_image(place_id) or {"error": "No image found"}
-```
-
-
-
----
-
-## Chạy demo
+Chạy full stack:
 
 ```bash
-python query_images.py
+docker compose up --build
 ```
 
-Output mẫu:
+URL mặc định:
 
+- Frontend: `http://localhost:5173`
+- Backend: `http://localhost:8000`
+- Menu translation service: `http://localhost:8101`
+- Place search service: `http://localhost:8102`
+- RAG service: `http://localhost:8103`
+- Review summary service: `http://localhost:8104`
+
+Kiểm tra container và log:
+
+```bash
+docker compose ps
+docker compose logs -f backend
+docker compose logs -f menu-translation-service
+docker compose logs -f place-search-service
+docker compose logs -f rag-service
+docker compose logs -f review-summary-service
 ```
-[HAM 1] get_single_image()
-  image_id : f92d79ea-4eab-4528-8a8d-54756f85cbb0
-  place_id : ChIJ--gyGFgvdTERalLvAJOJN1k
-  URL      : https://res.cloudinary.com/dj8o6k6ol/image/upload/...
 
-[HAM 2] get_batch_images(limit=5)
-  Tim thay: 5 anh
-  [1] ..._011.jpg  https://res.cloudinary.com/...
-  [2] ..._006.jpg  https://res.cloudinary.com/...
-  ...
+## Chạy từng module khi phát triển
 
-[HAM 3] get_random_image()
-  URL      : https://res.cloudinary.com/...  (khác nhau mỗi lần)
+Backend:
+
+```bash
+cd backend
+uv sync --extra dev
+uv run uvicorn app.main:app --reload --host localhost --port 8000
 ```
 
----
+Frontend:
 
-## Lưu ý
+```bash
+cd frontend
+npm install
+npm run dev
+```
 
-- Không commit file `.env` lên GitHub
-- Quản lý ảnh trên Cloudinary: [console.cloudinary.com](https://console.cloudinary.com/console/media_library)
+Một AI service, ví dụ RAG:
+
+```bash
+cd ai-models/rag-service
+python3 -m venv .venv
+source .venv/bin/activate
+pip install -r requirements-dev.txt
+uvicorn app.main:app --reload --host localhost --port 8103
+```
+
+Data engineering:
+
+```bash
+cd data-engineering
+python3 -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+```
+
+## Quy ước môi trường và dependency
+
+- `backend/.env`: Firebase, Supabase, Goong, ImageKit và URL/token của AI services.
+- `frontend/.env`: chỉ chứa biến public bắt đầu bằng `VITE_*`.
+- `ai-models/*/.env`: key/model/env riêng của từng AI service.
+- `data-engineering/.env`: credential và đường dẫn phục vụ ingestion/scraping/batch jobs.
+- Mỗi module giữ dependency riêng. Không gộp dependency AI, backend, frontend và data-engineering vào một file chung.
+
+## Artifact và dữ liệu runtime
+
+- Root `data/` đang là nguồn artifact runtime cho place search: `image_embeddings.npy`, `image_index.json`, `places.json`, `noise_embeddings.npy`, `noise_index.json`.
+- `ai-models/rag-service/chroma_db/` là artifact vector DB hiện tại của RAG.
+- `ai-models/review-summary-service/offline/data/` chứa dữ liệu batch/offline của review summary.
+- Artifact lớn nên được generate hoặc tải từ storage theo hướng dẫn module, không xem như source code thông thường.
+
+## Kiểm thử
+
+Backend:
+
+```bash
+cd backend
+uv run pytest -q
+```
+
+Frontend:
+
+```bash
+cd frontend
+npm run lint
+npm run build
+```
+
+AI service:
+
+```bash
+cd ai-models/menu-translation-service
+python -m pytest -q
+```
+
+Kiểm tra Docker Compose:
+
+```bash
+docker compose config --quiet
+```
+
+## Tài liệu module
+
+- [Backend](backend/README.md)
+- [Frontend](frontend/README.md)
+- [Nhóm AI services](ai-models/README.md)
+- [Service dịch menu](ai-models/menu-translation-service/README.md)
+- [Service tìm địa điểm bằng ảnh](ai-models/place-search-service/README.md)
+- [Service RAG](ai-models/rag-service/README.md)
+- [Service tổng quan đánh giá](ai-models/review-summary-service/README.md)
+- [Pipeline offline tổng quan đánh giá](ai-models/review-summary-service/offline/README.md)
+- [Data engineering](data-engineering/README.md)
+- [Maps scraper](data-engineering/maps-scraper/readme.md)
+- [Kiểm thử](tests/README.md)

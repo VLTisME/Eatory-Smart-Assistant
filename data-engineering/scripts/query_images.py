@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
 """
-query_images.py — Smart Tourism | Image Query Module & API
+query_images.py — Smart Tourism | Image Query Tooling API
 ==========================================================
-Script cung cap cac ham truy xuat anh va API server (FastAPI).
+Script cung cap cac ham truy xuat anh va API server (FastAPI) cho data tooling.
+Day khong phai product backend API; frontend khong duoc goi truc tiep vao script nay.
 
 3 chuc nang chinh:
   1. get_image_by_id(image_id)        -> Truy van 1 anh theo PK
@@ -28,10 +29,13 @@ import uvicorn
 load_dotenv()
 
 app = FastAPI(
-    title="Smart Tourism Image API",
-    description="API truy xuat hinh anh dia diem tu Supabase & Cloudinary",
+    title="Smart Tourism Image Tooling API",
+    description="Internal data-engineering tooling for Supabase/Cloudinary image rows.",
     version="1.0.0"
 )
+
+TOOLING_HOST = os.getenv("DE_IMAGE_TOOLING_HOST", "127.0.0.1")
+TOOLING_PORT = int(os.getenv("DE_IMAGE_TOOLING_PORT", "8202"))
 
 # Setup Supabase client
 
@@ -139,10 +143,11 @@ def api_get_random_image(place_id: str):
 
 if __name__ == "__main__":
     print("=" * 60)
-    print("   Khoi dong Smart Tourism Image API Server")
-    print("  URL: http://localhost:8000")
-    print("  Tai lieu API (Swagger UI): http://localhost:8000/docs")
+    print("   Khoi dong Smart Tourism Image Tooling API Server")
+    print(f"  URL: http://{TOOLING_HOST}:{TOOLING_PORT}")
+    print(f"  Tai lieu API (Swagger UI): http://{TOOLING_HOST}:{TOOLING_PORT}/docs")
+    print("  Luu y: day la data-engineering tooling, khong phai product backend.")
     print("=" * 60)
     
     # Chay server FastAPI bang uvicorn
-    uvicorn.run("query_images:app", host="0.0.0.0", port=8000, reload=True)
+    uvicorn.run("query_images:app", host=TOOLING_HOST, port=TOOLING_PORT, reload=True)

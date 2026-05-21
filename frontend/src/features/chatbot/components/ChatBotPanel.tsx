@@ -8,6 +8,8 @@ import type {
 import MenuCard from "./MenuCard";
 import { X, Loader2 } from "lucide-react";
 import { MarkdownRenderer } from "./MarkdownRenderer";
+import { apiV1 } from "../../../config/api";
+import { useLanguage } from "../../../hooks/useLanguage";
 
 export interface Message {
 	id: string;
@@ -62,6 +64,8 @@ function ImageLightbox({
 function ChatImage({ src, isUser }: { src: string; isUser: boolean }) {
 	const [lightbox, setLightbox] = useState(false);
 	const [loaded, setLoaded] = useState(false);
+	const { lang } = useLanguage();
+	const zoomLabel = lang === "vi" ? "Nhấn để phóng to" : "Click to enlarge";
 
 	return (
 		<>
@@ -85,7 +89,7 @@ function ChatImage({ src, isUser }: { src: string; isUser: boolean }) {
 				/>
 				<div className="absolute inset-0 rounded-2xl bg-black/0 group-hover:bg-black/10 transition-all duration-300 flex items-center justify-center">
 					<span className="text-white text-xs font-medium opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black/40 px-3 py-1.5 rounded-full backdrop-blur-sm">
-						Nhấn để phóng to
+						{zoomLabel}
 					</span>
 				</div>
 			</div>
@@ -117,7 +121,7 @@ function PlaceSearchCard({
 		async function loadImage() {
 			try {
 				const res = await fetch(
-					`http://localhost:8000/api/v1/place-images/single?place_id=${encodeURIComponent(item.place_id)}`,
+					apiV1(`/place-images/single?place_id=${encodeURIComponent(item.place_id)}`),
 					{ signal: controller.signal },
 				);
 				if (!res.ok) return;

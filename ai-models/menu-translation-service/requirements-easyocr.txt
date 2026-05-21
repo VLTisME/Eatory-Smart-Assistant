@@ -1,0 +1,4 @@
+# Optional local OCR dependencies.
+# Install this only when OCR_PROVIDER=easyocr.
+-r requirements.txt
+easyocr>=1.7.2

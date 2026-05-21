@@ -10,6 +10,7 @@ import {
 	type TransportMode,
 	type RouteInfo,
 } from "../services/directionsAPI";
+import { useLanguage } from "../../../hooks/useLanguage";
 
 interface DirectionPanelProps {
 	userLat: number | null;
@@ -36,6 +37,27 @@ export default function DirectionPanel({
 	const [error, setError] = useState<string | null>(null);
 	const [originLabel, setOriginLabel] = useState("");
 	const [geoLoading, setGeoLoading] = useState(false);
+	const { lang } = useLanguage();
+	const text =
+		lang === "vi"
+			? {
+					title: "Chỉ đường",
+					noLocation: "Không thể xác định vị trí của bạn",
+					noRoute: "Không tìm thấy tuyến đường",
+					error: "Lỗi lấy chỉ đường. Vui lòng thử lại.",
+					loading: "Đang tính toán tuyến đường...",
+					allowLocation:
+						"Vui lòng cho phép truy cập vị trí để tính đường đi",
+				}
+			: {
+					title: "Directions",
+					noLocation: "Unable to detect your location",
+					noRoute: "No route found",
+					error: "Failed to get directions. Please try again.",
+					loading: "Calculating route...",
+					allowLocation:
+						"Please allow location access to calculate directions",
+				};
 
 	const [lastRequest, setLastRequest] = useState("");
 
@@ -63,7 +85,7 @@ export default function DirectionPanel({
 	const doFetch = useCallback(
 		async (mode: TransportMode) => {
 			if (userLat == null || userLng == null) {
-				setError("Không thể xác định vị trí của bạn");
+				setError(text.noLocation);
 				return;
 			}
 
@@ -86,14 +108,14 @@ export default function DirectionPanel({
 				if (data.routes.length > 0) {
 					onRouteResult(data.routes[0]);
 				} else {
-					setError("Không tìm thấy tuyến đường");
+					setError(text.noRoute);
 					onRouteResult(null);
 				}
 			} catch (err: unknown) {
 				console.error("Direction fetch error:", err);
 				setError(
 					(err as Error)?.message ??
-						"Lỗi lấy chỉ đường. Vui lòng thử lại.",
+						text.error,
 				);
 				onRouteResult(null);
 			} finally {
@@ -108,6 +130,9 @@ export default function DirectionPanel({
 			lastRequest,
 			result,
 			onRouteResult,
+			text.error,
+			text.noLocation,
+			text.noRoute,
 		],
 	);
 
@@ -134,7 +159,7 @@ export default function DirectionPanel({
 		>
 			<div className="flex items-center justify-between px-5 py-3.5 bg-linear-to-r from-blue-600 to-blue-700">
 				<h3 className="text-white font-bold text-[15px] tracking-tight">
-					Chỉ đường
+					{text.title}
 				</h3>
 				<button
 					type="button"
@@ -170,7 +195,7 @@ export default function DirectionPanel({
 								className="text-blue-500 animate-spin"
 							/>
 							<span className="ml-3 text-sm text-slate-500 font-medium">
-								Đang tính toán tuyến đường...
+								{text.loading}
 							</span>
 						</motion.div>
 					)}
@@ -217,8 +242,7 @@ export default function DirectionPanel({
 								className="text-center py-4"
 							>
 								<p className="text-sm text-slate-500 font-medium">
-									Vui lòng cho phép truy cập vị trí để tính
-									đường đi
+									{text.allowLocation}
 								</p>
 							</motion.div>
 						)}

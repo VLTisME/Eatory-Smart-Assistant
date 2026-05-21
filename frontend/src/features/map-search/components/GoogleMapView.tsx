@@ -14,6 +14,7 @@ import { useGeolocation } from "../../../hooks/useGeolocation";
 import { MapPin } from "lucide-react";
 import { useMap } from "react-map-gl/maplibre";
 import type { RouteInfo } from "../../directions/services/directionsAPI";
+import { useLanguage } from "../../../hooks/useLanguage";
 
 // Tọa độ mặc định (Khu vực Đại học Khoa học Tự nhiên - Nguyễn Văn Cừ)
 const DEFAULT_VIEW_STATE = {
@@ -88,6 +89,7 @@ const MapView = memo(function MapView({
 }: MapViewProps) {
 	const goongMapKey = import.meta.env.VITE_GOONG_MAP_KEY;
 	const { location, loading } = useGeolocation();
+	const { lang } = useLanguage();
 	const { mainMap } = useMap();
 
 	const [selectedLocation, setSelectedLocation] =
@@ -142,7 +144,7 @@ const MapView = memo(function MapView({
 		return (
 			<div className="flex bg-gray-100 items-center justify-center relative h-screen w-full rounded-xl overflow-hidden shadow-2xl">
 				<span className="text-gray-500 font-medium">
-					Đang tải bản đồ...
+					{lang === "vi" ? "Đang tải bản đồ..." : "Loading map..."}
 				</span>
 			</div>
 		);

@@ -1,5 +1,6 @@
 import React from "react";
 import { Languages, Image, Mic } from "lucide-react";
+import { getOppositeLanguage, useLanguage } from "../../../hooks/useLanguage";
 
 // ─── Mô tả một tính năng trong Bento Grid ────────────────────────────────────
 interface BentoFeature {
@@ -10,7 +11,8 @@ interface BentoFeature {
 		className?: string;
 	}>;
 	label: string;
-	description: string;
+	displayLabel: { vi: string; en: string };
+	description: { vi: string; en: string };
 	color: string;
 	hoverBg: string;
 	activeBg?: string;
@@ -21,7 +23,11 @@ const features: BentoFeature[] = [
 		id: "Translate Menu",
 		icon: Languages,
 		label: "Translate Menu",
-		description: "Dịch menu nhà hàng sang ngôn ngữ của bạn",
+		displayLabel: { vi: "Dịch menu", en: "Translate Menu" },
+		description: {
+			vi: "Dịch menu sang tiếng Anh",
+			en: "Translate menus into Vietnamese",
+		},
 		color: "text-sky-500",
 		hoverBg: "group-hover:bg-sky-50",
 	},
@@ -29,7 +35,11 @@ const features: BentoFeature[] = [
 		id: "Search Image",
 		icon: Image,
 		label: "Search Image",
-		description: "Tìm quán ăn qua hình ảnh",
+		displayLabel: { vi: "Tìm bằng ảnh", en: "Search Image" },
+		description: {
+			vi: "Tìm quán ăn qua hình ảnh",
+			en: "Find places from an image",
+		},
 		color: "text-amber-500",
 		hoverBg: "group-hover:bg-amber-50",
 	},
@@ -37,7 +47,11 @@ const features: BentoFeature[] = [
 		id: "Voice Assistant",
 		icon: Mic,
 		label: "Voice Assistant",
-		description: "Trợ lý giọng nói thông minh",
+		displayLabel: { vi: "Trợ lý giọng nói", en: "Voice Assistant" },
+		description: {
+			vi: "Trợ lý giọng nói thông minh",
+			en: "Smart voice assistant",
+		},
 		color: "text-rose-500",
 		hoverBg: "group-hover:bg-rose-50",
 		activeBg: "bg-rose-50",
@@ -53,6 +67,14 @@ export default function BentoFeatures({
 	onFeatureClick,
 	isListening = false,
 }: BentoFeaturesProps) {
+	const { lang } = useLanguage();
+	const menuTargetLabel =
+		getOppositeLanguage(lang) === "vi" ? "Vietnamese" : "English";
+	const menuDescription =
+		lang === "vi"
+			? `Dịch menu sang tiếng ${menuTargetLabel === "English" ? "Anh" : "Việt"}`
+			: `Translate menus into ${menuTargetLabel}`;
+
 	return (
 		<div className="grid grid-cols-1 sm:grid-cols-2 gap-3 px-1">
 			{features.map((feature, index) => {
@@ -89,12 +111,16 @@ export default function BentoFeatures({
 							/>
 						</div>
 						<h3 className="text-sm font-semibold text-gray-800 mb-1">
-							{feature.label}
+							{feature.displayLabel[lang]}
 						</h3>
 						<p className="text-xs text-gray-500 leading-relaxed">
 							{isActive
-								? "Đang lắng nghe... Bấm lại để dừng"
-								: feature.description}
+								? lang === "vi"
+									? "Đang lắng nghe... Bấm lại để dừng"
+									: "Listening... Tap again to stop"
+								: feature.id === "Translate Menu"
+									? menuDescription
+									: feature.description[lang]}
 						</p>
 						<div
 							className={`absolute top-3 right-3 w-1.5 h-1.5 rounded-full transition-opacity duration-300

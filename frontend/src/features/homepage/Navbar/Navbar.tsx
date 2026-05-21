@@ -35,11 +35,29 @@ const SECTIONS = {
 	],
 };
 
+const NAV_TEXT = {
+	vi: {
+		home: "Trang chủ",
+		signIn: "Đăng nhập",
+		signUp: "Đăng ký",
+		planTrip: "Lên lịch trình",
+		goHome: "Về trang chủ",
+	},
+	en: {
+		home: "Home",
+		signIn: "Sign In",
+		signUp: "Sign Up",
+		planTrip: "Plan Your Trip",
+		goHome: "Go to homepage",
+	},
+};
+
 export default function Navbar({ currentProvince, currentPath }: NavbarProps) {
 	const location = useLocation();
 	const [open, setOpen] = useState(false);
 	const [isHovered, setIsHovered] = useState(false);
 	const { lang, setLang } = useLanguage();
+	const t = NAV_TEXT[lang];
 	const { location: geoLoc, province: detectedProvince } = useGeolocation();
 
 	const gpsLat = geoLoc?.lat;
@@ -145,7 +163,7 @@ export default function Navbar({ currentProvince, currentPath }: NavbarProps) {
 							setOpen(false);
 						}}
 						className="flex items-center gap-2 text-xl font-bold tracking-tight"
-						aria-label="Go to homepage"
+						aria-label={t.goHome}
 					>
 						<img
 							src={Logo}
@@ -197,14 +215,14 @@ export default function Navbar({ currentProvince, currentPath }: NavbarProps) {
 									className="rounded-full px-4 py-1.5 text-sm font-medium text-white/70 transition hover:text-white"
 									onClick={() => setOpen(false)}
 								>
-									Sign In
+									{t.signIn}
 								</Link>
 								<Link
 									to="/AuthPage?mode=signup"
 									className="rounded-full px-4 py-1.5 text-sm font-medium text-white/70 transition hover:text-white"
 									onClick={() => setOpen(false)}
 								>
-									Sign Up
+									{t.signUp}
 								</Link>
 							</>
 						)}
@@ -217,7 +235,7 @@ export default function Navbar({ currentProvince, currentPath }: NavbarProps) {
 							className="rounded-full bg-white px-6 py-2 text-sm font-semibold text-gray-900"
 							onClick={() => setOpen(false)}
 						>
-							Home
+							{t.home}
 						</Link>
 						{user ? (
 							<UserMenu
@@ -231,54 +249,52 @@ export default function Navbar({ currentProvince, currentPath }: NavbarProps) {
 									className="rounded-full px-6 py-2 text-sm font-medium text-white transition hover:bg-white/10"
 									onClick={() => setOpen(false)}
 								>
-									Sign In
+									{t.signIn}
 								</Link>
 								<Link
 									to="/AuthPage?mode=signup"
 									className="rounded-full px-6 py-2 text-sm font-medium text-white transition hover:bg-white/10"
 									onClick={() => setOpen(false)}
 								>
-									Sign Up
+									{t.signUp}
 								</Link>
 							</>
 						)}
 					</div>
 				)}
 				<div className="flex items-center gap-4">
-					{isHomePage && (
-						<div
-							className="relative flex cursor-pointer items-center rounded-full border border-white/20 bg-white/20 p-1 shadow-inner backdrop-blur-md"
-							onClick={handleLangToggle}
+					<div
+						className="relative flex cursor-pointer items-center rounded-full border border-white/20 bg-white/20 p-1 shadow-inner backdrop-blur-md"
+						onClick={handleLangToggle}
+					>
+						<motion.div
+							className="absolute left-1 h-6 w-8 rounded-full bg-white shadow-sm"
+							animate={{ x: lang === "vi" ? 0 : 32 }}
+							transition={{
+								type: "spring",
+								stiffness: 300,
+								damping: 25,
+							}}
+						/>
+						<span
+							className={`relative z-10 flex h-6 w-8 items-center justify-center text-[10px] font-bold tracking-wider transition-colors duration-200 ${
+								lang === "vi"
+									? "text-gray-900"
+									: "text-white"
+							}`}
 						>
-							<motion.div
-								className="absolute left-1 h-6 w-8 rounded-full bg-white shadow-sm"
-								animate={{ x: lang === "vi" ? 0 : 32 }}
-								transition={{
-									type: "spring",
-									stiffness: 300,
-									damping: 25,
-								}}
-							/>
-							<span
-								className={`relative z-10 flex h-6 w-8 items-center justify-center text-[10px] font-bold tracking-wider transition-colors duration-200 ${
-									lang === "vi"
-										? "text-gray-900"
-										: "text-white"
-								}`}
-							>
-								VI
-							</span>
-							<span
-								className={`relative z-10 flex h-6 w-8 items-center justify-center text-[10px] font-bold tracking-wider transition-colors duration-200 ${
-									lang === "en"
-										? "text-gray-900"
-										: "text-white"
-								}`}
-							>
-								EN
-							</span>
-						</div>
-					)}
+							VI
+						</span>
+						<span
+							className={`relative z-10 flex h-6 w-8 items-center justify-center text-[10px] font-bold tracking-wider transition-colors duration-200 ${
+								lang === "en"
+									? "text-gray-900"
+									: "text-white"
+							}`}
+						>
+							EN
+						</span>
+					</div>
 
 					<Link
 						to={
@@ -291,7 +307,7 @@ export default function Navbar({ currentProvince, currentPath }: NavbarProps) {
 					>
 						<button className="flex cursor-pointer items-center gap-3 rounded-full bg-white p-1.5 pl-5 pr-2 shadow-lg transition-all duration-500 hover:-translate-y-0.5 hover:bg-blue-50">
 							<span className="text-sm font-semibold text-gray-900">
-								Plan Your Trip
+								{t.planTrip}
 							</span>
 							<div className="rounded-full bg-blue-500 p-2 text-white">
 								<svg

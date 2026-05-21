@@ -1,22 +1,22 @@
-import json
 import logging
-import re
 
 from functools import lru_cache
-from pathlib import Path
-from app.core.config import settings
 from app.features.review_summary.schemas import ReviewSummaryResponse
-from app.shared.refinement import RefinementClient
 from app.core.supabase import get_supabase_client
+from app.features.review_summary.client import ReviewSummaryAIClient, get_review_summary_ai_client
 
 logger = logging.getLogger(__name__)
 
 class ReviewSummaryService:
-    def __init__(self, llm_client: RefinementClient | None = None) -> None:
-        self._llm = llm_client
+    def __init__(self, ai_client: ReviewSummaryAIClient | None = None) -> None:
+        self._ai_client = ai_client
         self._cache: dict[str, ReviewSummaryResponse] = {}
+        self._data: dict[str, dict] | None = None
 
     def _fetch_from_supabase(self, place_id: str) -> dict | None:
+        if self._data is not None:
+            return self._data.get(place_id)
+
         try:
             supabase = get_supabase_client()
             response = (
@@ -35,40 +35,38 @@ class ReviewSummaryService:
             return None
 
     #Get restaurant summary review
-    def get_summary(self, place_id:str, target_language: str = "vi") -> ReviewSummaryResponse:
+    async def get_summary(self, place_id:str, target_language: str = "vi") -> ReviewSummaryResponse:
         cache_key = f"{place_id}_{target_language}"
         if cache_key in self._cache:
             return self._cache[cache_key]
 
         if target_language.lower() != "vi":
             # 1. Get the base summary in Vietnamese
-            base_response = self.get_summary(place_id, target_language="vi")
+            base_response = await self.get_summary(place_id, target_language="vi")
             
-            # 2. If LLM is missing or it errored out, just return the base response
-            if not self._llm or "An error occurred" in base_response.summary:
+            # 2. If AI is missing or it errored out, just return the base response
+            if not self._ai_client or "An error occurred" in base_response.summary:
                 return base_response
 
             # 3. Translate the exact summary text to the target language
             try:
-                translated_text, duration_ms, _ = self._llm.refine(
-                    content=base_response.summary,
-                    context="translate_review_summary",
-                    source_language="vi",
-                    target_language=target_language
+                translated = await self._ai_client.translate_summary(
+                    summary=base_response.summary,
+                    target_language=target_language,
                 )
-                logger.info("LLM summary translation completed in %.0fms", duration_ms)
+                logger.info("AI summary translation completed in %.0fms", translated.processing_time_ms)
                 
                 response = ReviewSummaryResponse(
                     place_id=base_response.place_id,
                     name=base_response.name,
-                    summary=translated_text,
+                    summary=translated.summary,
                     positive_ratio=base_response.positive_ratio,
                     negative_ratio=base_response.negative_ratio,
                 )
                 self._cache[cache_key] = response
                 return response
             except Exception as exc:
-                logger.error("Error when calling LLM translate: %s", exc)
+                logger.error("Error when calling review summary AI translate: %s", exc)
                 return base_response
 
         place_data = self._fetch_from_supabase(place_id)
@@ -87,12 +85,12 @@ class ReviewSummaryService:
                 negative_ratio=negative_ratio,
             )
 
-        if not self._llm:
-            logger.warning("The LLM client is not configured; it returns raw data.")
+        if not self._ai_client:
+            logger.warning("The review summary AI service is not configured; returning fallback message.")
             return ReviewSummaryResponse(
                 place_id=place_id,
                 name=place_name,
-                summary="LLM has not been configured for summarization.",
+                summary="AI review summary service has not been configured for summarization.",
                 positive_ratio=positive_ratio,
                 negative_ratio=negative_ratio,
             )
@@ -100,41 +98,28 @@ class ReviewSummaryService:
         top_pos = place_data.get("top_positive_keywords", [])
         top_neg = place_data.get("top_negative_keywords", [])
 
-        content_obj = {
-            "place_name": place_name,
-            "positive_ratio": positive_ratio,
-            "negative_ratio": negative_ratio,
-            "top_positive_keywords": top_pos,
-            "top_negative_keywords": top_neg,
-        }
-
         try:
-            refined_text, duration_ms, _ = self._llm.refine(content = json.dumps(content_obj, ensure_ascii=False),
-            context = "review_summary",
-            source_language="vi",
-            target_language=target_language)
-            logger.info("LLM refinement completed in %.0fms", duration_ms)
-            
-            json_match = re.search(r"\{.*\}", refined_text, re.DOTALL)
-            if json_match:
-                result = json.loads(json_match.group(0))
-                summary_text = result.get("summary", "")
-            else:
-                summary_text = refined_text
-                
-            summary_text = re.sub(r'\n?🍜[^\n]*:\s*\n?\s*$', '', summary_text).rstrip()
+            generated = await self._ai_client.generate_summary(
+                place_name=place_name,
+                positive_ratio=positive_ratio,
+                negative_ratio=negative_ratio,
+                top_positive_keywords=[str(item) for item in top_pos],
+                top_negative_keywords=[str(item) for item in top_neg],
+                target_language=target_language,
+            )
+            logger.info("AI review summary generation completed in %.0fms", generated.processing_time_ms)
 
             response = ReviewSummaryResponse(
                 place_id=place_id,
                 name=place_name,
-                summary=summary_text,
+                summary=generated.summary,
                 positive_ratio=positive_ratio,
                 negative_ratio=negative_ratio,
             )
             self._cache[cache_key] = response
             return response
         except Exception as exc:
-            logger.error("Error when calling LLM refine: %s", exc)
+            logger.error("Error when calling review summary AI generate: %s", exc)
             return ReviewSummaryResponse(
                 place_id=place_id,
                 name=place_name,
@@ -166,9 +151,8 @@ class ReviewSummaryService:
 
 @lru_cache(maxsize=1)
 def get_review_summary_service() -> ReviewSummaryService:
-    from app.shared.refinement import get_refinement_client
     try:
-        llm = get_refinement_client()
+        ai_client = get_review_summary_ai_client()
     except Exception:
-        llm = None
-    return ReviewSummaryService(llm_client=llm)
+        ai_client = None
+    return ReviewSummaryService(ai_client=ai_client)

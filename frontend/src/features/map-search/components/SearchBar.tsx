@@ -6,6 +6,7 @@ import {
 	type PlacePrediction,
 	type PlaceDetailResult,
 } from "../services/placeSearchAPI";
+import { useLanguage } from "../../../hooks/useLanguage";
 
 /* ═══════════════════════════════════════════════════════════════════════════
    SearchBar — Premium place-search autocomplete component
@@ -45,6 +46,25 @@ function SearchBar({
 	} = usePlaceSearch({ debounceMs: 400, limit: 10 });
 
 	const [isFetchingDetail, setIsFetchingDetail] = useState(false);
+	const { lang } = useLanguage();
+	const text =
+		lang === "vi"
+			? {
+					placeholder: "Tìm kiếm địa điểm...",
+					clear: "Xóa từ khóa",
+					noResults: "Không tìm thấy kết quả",
+					move: "di chuyển",
+					select: "chọn",
+					close: "đóng",
+				}
+			: {
+					placeholder: "Search places...",
+					clear: "Clear keyword",
+					noResults: "No results found",
+					move: "move",
+					select: "select",
+					close: "close",
+				};
 
 	const containerRef = useRef<HTMLDivElement>(null);
 	const inputRef = useRef<HTMLInputElement>(null);
@@ -195,7 +215,7 @@ function SearchBar({
 					id="place-search-input"
 					type="text"
 					value={query}
-					placeholder="Tìm kiếm địa điểm…"
+					placeholder={text.placeholder}
 					autoComplete="off"
 					onChange={(e) => {
 						const val = e.target.value;
@@ -218,7 +238,7 @@ function SearchBar({
 				{query && !isLoading && !isFetchingDetail && (
 					<button
 						type="button"
-						aria-label="Xóa từ khóa"
+						aria-label={text.clear}
 						onClick={handleClear}
 						className="flex items-center justify-center w-6 h-6 border-none rounded-lg bg-black/5 text-gray-500 cursor-pointer transition-all duration-150 ease-out shrink-0 hover:bg-red-500/10 hover:text-red-500"
 					>
@@ -238,7 +258,7 @@ function SearchBar({
 					{!error && !isLoading && results.length === 0 && (
 						<div className="flex items-center justify-center gap-2 px-4 py-6 text-gray-400 text-[13px] font-medium">
 							<Search size={20} className="opacity-60" />
-							<span>Không tìm thấy kết quả</span>
+							<span>{text.noResults}</span>
 						</div>
 					)}
 					{results.length > 0 && (
@@ -300,9 +320,9 @@ function SearchBar({
 					)}
 					{results.length > 0 && (
 						<div className="flex items-center justify-center gap-1 px-3 py-2 text-[11px] text-gray-400 border-t border-black/5 bg-gray-50/60 [&>kbd]:inline-flex [&>kbd]:items-center [&>kbd]:justify-center [&>kbd]:min-w-5 [&>kbd]:h-4.5 [&>kbd]:px-1 [&>kbd]:text-[10px] [&>kbd]:font-inherit [&>kbd]:font-semibold [&>kbd]:text-gray-500 [&>kbd]:bg-white [&>kbd]:border [&>kbd]:border-gray-200 [&>kbd]:rounded-sm [&>kbd]:shadow-[0_1px_1px_rgba(0,0,0,0.04)]">
-							<kbd>↑</kbd> <kbd>↓</kbd> di chuyển &nbsp;·&nbsp;{" "}
-							<kbd>Enter</kbd> chọn &nbsp;·&nbsp; <kbd>Esc</kbd>{" "}
-							đóng
+							<kbd>↑</kbd> <kbd>↓</kbd> {text.move} &nbsp;·&nbsp;{" "}
+							<kbd>Enter</kbd> {text.select} &nbsp;·&nbsp;{" "}
+							<kbd>Esc</kbd> {text.close}
 						</div>
 					)}
 				</div>

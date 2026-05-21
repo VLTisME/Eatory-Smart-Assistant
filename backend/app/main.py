@@ -15,10 +15,7 @@ initialize_firebase()
 
 from app.api.router import router as api_router
 from app.core.config import settings
-from app.features.menu_translation.ocr_engine import get_menu_ocr_engine
-from app.features.place_search.service import get_place_search_engine
 from app.features.review_summary.service import get_review_summary_service
-from app.shared.refinement import get_refinement_client
 
 # 1. Logging configuration
 logging.basicConfig(
@@ -34,31 +31,11 @@ async def lifespan(app: FastAPI):
     """Lifespan context manager for startup and shutdown events."""
 
     logger.info("Starting %s", settings.app_name)
-    logger.info("OpenAI model: %s", settings.openai_model)
-    logger.info("OCR provider: %s", settings.ocr_provider)
-
-    # Warm-up heavy clients to avoid cold-start failures on the first upload.
-    try:
-        logger.info("Warming up OCR engine...")
-        await asyncio.to_thread(get_menu_ocr_engine)
-        logger.info("OCR engine warm-up completed")
-    except Exception:
-        logger.exception("OCR engine warm-up failed; first OCR request may be slower")
-
-    if settings.openai_api_key:
-        try:
-            logger.info("Warming up refinement client...")
-            await asyncio.to_thread(get_refinement_client)
-            logger.info("Refinement client warm-up completed")
-        except Exception:
-            logger.exception("Refinement warm-up failed; first LLM request may be slower")
-
-    try:
-        logger.info("Warming up place search engine...")
-        await asyncio.to_thread(get_place_search_engine)
-        logger.info("Place search engine warm-up completed")
-    except Exception:
-        logger.exception("Place search warm-up failed; first place-search request may be slower")
+    logger.info("Menu translation AI service: %s", settings.ai_menu_service_url or "not configured")
+    logger.info("Place search AI service: %s", settings.ai_place_search_service_url or "not configured")
+    logger.info("RAG AI service: %s", settings.ai_rag_service_url or "not configured")
+    logger.info("Refinement AI service: %s", settings.ai_refinement_service_url or settings.ai_rag_service_url or "not configured")
+    logger.info("Review summary AI service: %s", settings.ai_review_summary_service_url or "not configured")
 
     try:
         logger.info("Warming up review summary engine...")
@@ -73,7 +50,7 @@ async def lifespan(app: FastAPI):
 # 3. FastAPI app
 app = FastAPI(
     title=settings.app_name,
-    description="API for upload validation, OCR extraction, and LLM-based menu refinement.",
+    description="Public API for app workflows, upload validation, and AI service orchestration.",
     version=settings.app_version,
     lifespan=lifespan,
 )
@@ -112,13 +89,14 @@ async def service_info() -> dict[str, object]:
     return {
         "service": settings.app_name,
         "version": settings.app_version,
-        "shared_components": ["uploads", "llm_refinement"],
-        "features": ["menu_translation", "place_search"],
-        "llm_model": settings.openai_model,
+        "shared_components": ["uploads", "llm_refinement_proxy"],
+        "features": ["menu_translation", "place_search", "rag_chat", "review_summary"],
         "endpoints": {
             "upload_image": "/api/v1/uploads/image",
             "menu_translation_ocr": "/api/v1/menu-translation/ocr",
             "place_search": "/api/v1/place-search",
+            "rag_chat": "/api/v1/rag/chat",
+            "rag_retrieve": "/api/v1/rag/retrieve",
             "llm_refine": "/api/v1/llm/refine",
         },
     }

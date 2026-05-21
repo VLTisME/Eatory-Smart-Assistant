@@ -1,7 +1,8 @@
 import axios from "axios";
 import type { MenuResponse } from "../../../types/menuTranslation";
+import { apiV1 } from "../../../config/api";
 
-const API_BASE = "/api/v1/menu-translation";
+const API_BASE = apiV1("/menu-translation");
 const REQUEST_TIMEOUT_MS = 180_000;
 const MAX_RETRIES = 1;
 const RETRY_DELAY_MS = 1_200;

@@ -1,10 +1,13 @@
 import axios from "axios";
+import { apiV1 } from "../../../config/api";
+import type { AppLanguage } from "../../../hooks/useLanguage";
 
-const RAG_API_URL = "http://localhost:8000/api/v1/rag";
+const RAG_API_URL = apiV1("/rag");
 
 export interface RagChatRequest {
 	message: string;
 	top_k?: number;
+	target_language?: AppLanguage;
 }
 
 export interface RagSourcePlace {
@@ -35,6 +38,7 @@ export async function sendRagChat(
 	const response = await axios.post<RagChatResponse>(`${RAG_API_URL}/chat`, {
 		message: request.message,
 		top_k: request.top_k ?? 5,
+		target_language: request.target_language ?? "vi",
 	});
 	return response.data;
 }

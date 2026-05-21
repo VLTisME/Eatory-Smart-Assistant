@@ -1,4 +1,5 @@
-const BASE_URL = "http://localhost:8000/api/v1";
+import { apiV1 } from "../../../config/api";
+import type { AppLanguage } from "../../../hooks/useLanguage";
 
 /* ─── Types ────────────────────────────────────────────────────────────────── */
 
@@ -44,7 +45,7 @@ export async function fetchPlaceDetail(
 	signal?: AbortSignal,
 ): Promise<PlaceDetailResponse> {
 	const params = new URLSearchParams({ place_id: placeId });
-	const res = await fetch(`${BASE_URL}/place-details?${params}`, { signal });
+	const res = await fetch(apiV1(`/place-details?${params}`), { signal });
 	if (!res.ok) {
 		const body = await res.json().catch(() => ({}));
 		throw new Error(body.detail ?? `Place detail failed (${res.status})`);
@@ -61,7 +62,7 @@ export async function fetchPlacesByCity(
 		city,
 		limit: String(limit),
 	});
-	const res = await fetch(`${BASE_URL}/place-details/by-city?${params}`, {
+	const res = await fetch(apiV1(`/place-details/by-city?${params}`), {
 		signal,
 	});
 	if (!res.ok) {
@@ -76,7 +77,7 @@ export async function checkPlaceExists(
 	signal?: AbortSignal,
 ): Promise<PlaceExistsResponse> {
 	const params = new URLSearchParams({ name });
-	const res = await fetch(`${BASE_URL}/place-details/check-place?${params}`, {
+	const res = await fetch(apiV1(`/place-details/check-place?${params}`), {
 		signal,
 	});
 	if (!res.ok) {
@@ -92,7 +93,7 @@ export async function fetchRandomImage(
 	signal?: AbortSignal,
 ): Promise<SingleImageResponse> {
 	const params = new URLSearchParams({ place_id: placeId });
-	const res = await fetch(`${BASE_URL}/place-images/random?${params}`, {
+	const res = await fetch(apiV1(`/place-images/random?${params}`), {
 		signal,
 	});
 	if (!res.ok) {
@@ -107,7 +108,7 @@ export async function fetchSingleImage(
 	signal?: AbortSignal,
 ): Promise<SingleImageResponse> {
 	const params = new URLSearchParams({ place_id: placeId });
-	const res = await fetch(`${BASE_URL}/place-images/single?${params}`, {
+	const res = await fetch(apiV1(`/place-images/single?${params}`), {
 		signal,
 	});
 	if (!res.ok) {
@@ -138,7 +139,7 @@ export async function fetchBatchImages(
 		place_id: placeId,
 		limit: limit.toString(),
 	});
-	const res = await fetch(`${BASE_URL}/place-images?${params}`, {
+	const res = await fetch(apiV1(`/place-images?${params}`), {
 		signal,
 	});
 	if (!res.ok) {
@@ -170,10 +171,14 @@ export interface ReviewSamplesResponse {
 
 export async function fetchReviewSummary(
 	placeId: string,
+	targetLanguage: AppLanguage = "vi",
 	signal?: AbortSignal,
 ): Promise<ReviewSummaryResponse> {
-	const params = new URLSearchParams({ place_id: placeId });
-	const res = await fetch(`${BASE_URL}/review-summary?${params}`, {
+	const params = new URLSearchParams({
+		place_id: placeId,
+		target_language: targetLanguage,
+	});
+	const res = await fetch(apiV1(`/review-summary?${params}`), {
 		signal,
 	});
 	if (!res.ok) {
@@ -192,7 +197,7 @@ export async function fetchReviewSamples(
 		place_id: placeId,
 		limit: limit.toString(),
 	});
-	const res = await fetch(`${BASE_URL}/review-summary/samples?${params}`, {
+	const res = await fetch(apiV1(`/review-summary/samples?${params}`), {
 		signal,
 	});
 	if (!res.ok) {

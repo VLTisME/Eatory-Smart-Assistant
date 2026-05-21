@@ -1,59 +1,94 @@
-"""Unit tests for place search service scoring behavior."""
+"""Unit tests for the backend place search AI client."""
 
 from __future__ import annotations
 
-from types import SimpleNamespace
+from io import BytesIO
 
-import numpy as np
+import httpx
 import pytest
+from PIL import Image
 
-from app.features.place_search.service import PlaceSearchEngine, PlaceSearchNoiseError
+from app.features.place_search.client import PlaceSearchAIClient, PlaceSearchServiceError
+from app.shared.image_upload import ValidatedImage
 
 
-def test_place_search_sums_scores_per_place_id():
-    engine = PlaceSearchEngine.__new__(PlaceSearchEngine)
-    engine._assets = SimpleNamespace(
-        embeddings=np.array(
-            [
-                [1.0, 0.0],
-                [0.6, 0.0],
-                [0.9, 0.0],
-            ],
-            dtype=np.float32,
-        ),
-        image_index=[
-            {"place_id": "place_a", "image_id": "a-1", "file_path": "a-1.jpg"},
-            {"place_id": "place_a", "image_id": "a-2", "file_path": "a-2.jpg"},
-            {"place_id": "place_b", "image_id": "b-1", "file_path": "b-1.jpg"},
-        ],
-        places_by_id={
-            "place_a": {"name": "Place A", "address": "Addr A"},
-            "place_b": {"name": "Place B", "address": "Addr B"},
-        },
+@pytest.fixture
+def validated_image() -> ValidatedImage:
+    image = Image.new("RGB", (64, 64), color="white")
+    buffer = BytesIO()
+    image.save(buffer, format="PNG")
+    data = buffer.getvalue()
+    return ValidatedImage(
+        filename="dish.png",
+        content_type="image/png",
+        size_bytes=len(data),
+        width=64,
+        height=64,
+        data=data,
     )
-    engine._embed_image_bytes = lambda image_bytes: np.array([1.0, 0.0], dtype=np.float32)
-
-    results = engine.search(b"fake-bytes", top_k_images=3)
-
-    assert [item.place_id for item in results] == ["place_a", "place_b"]
-    assert results[0].score == pytest.approx(1.6)
-    assert results[0].image_id == "a-1"
-    assert results[0].top_image == "a-1.jpg"
-    assert len(results[0].images) == 2
-    assert results[0].images[0].image_id == "a-1"
-    assert results[1].score == pytest.approx(0.9)
 
 
-def test_place_search_raises_noise_error_when_query_matches_noise():
-    engine = PlaceSearchEngine.__new__(PlaceSearchEngine)
-    engine._noise_assets = SimpleNamespace(
-        embeddings=np.array([[1.0, 0.0]], dtype=np.float32),
-        index=[{"category": "bill", "file_path": "/tmp/noise.jpg"}],
+@pytest.mark.asyncio
+async def test_place_search_client_posts_image_request(validated_image):
+    def handler(request: httpx.Request) -> httpx.Response:
+        assert request.url.path == "/v1/place-search/by-image"
+        assert request.url.params["target_language"] == "vi"
+        assert request.headers["authorization"] == "Bearer test-token"
+        assert "multipart/form-data" in request.headers["content-type"]
+        assert b'name="file"' in request.read()
+        return httpx.Response(
+            200,
+            json={
+                "results": [
+                    {
+                        "place_id": "pho_hoa_q3",
+                        "image_id": "img_1",
+                        "score": 0.91,
+                        "top_image": "images/pho_hoa_q3/pho_hoa_q3_001.jpg",
+                        "images": [],
+                        "name": "Pho Hoa",
+                        "address": "260C Pasteur, Q3",
+                    }
+                ]
+            },
+        )
+
+    client = PlaceSearchAIClient(
+        base_url="http://place-ai.test",
+        timeout_seconds=5,
+        service_token="test-token",
+        transport=httpx.MockTransport(handler),
     )
-    engine._embed_image_bytes = lambda image_bytes: np.array([1.0, 0.0], dtype=np.float32)
 
-    with pytest.raises(PlaceSearchNoiseError) as exc_info:
-        engine.search(b"fake-bytes", top_k_images=1)
+    result = await client.search_by_image(validated_image, target_language="vi")
 
-    assert exc_info.value.category == "bill"
-    assert exc_info.value.image_path == "/tmp/noise.jpg"
+    assert result.results[0].place_id == "pho_hoa_q3"
+    assert result.results[0].name == "Pho Hoa"
+
+
+@pytest.mark.asyncio
+async def test_place_search_client_preserves_noise_error(validated_image):
+    def handler(request: httpx.Request) -> httpx.Response:
+        return httpx.Response(
+            422,
+            json={
+                "detail": {
+                    "reason": "similar_to_noise",
+                    "noise_category": "text",
+                    "noise_score": 0.91,
+                    "noise_image": "/tmp/noise.jpg",
+                }
+            },
+        )
+
+    client = PlaceSearchAIClient(
+        base_url="http://place-ai.test",
+        timeout_seconds=5,
+        transport=httpx.MockTransport(handler),
+    )
+
+    with pytest.raises(PlaceSearchServiceError) as exc_info:
+        await client.search_by_image(validated_image, target_language="vi")
+
+    assert exc_info.value.status_code == 422
+    assert exc_info.value.detail["reason"] == "similar_to_noise"

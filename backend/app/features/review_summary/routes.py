@@ -13,7 +13,7 @@ async def get_review_summary(
     
     service: ReviewSummaryService = Depends(get_review_summary_service)) -> ReviewSummaryResponse:
     try:
-        return service.get_summary(place_id=place_id, target_language=target_language)
+        return await service.get_summary(place_id=place_id, target_language=target_language)
     except Exception as e:
         raise HTTPException(status_code = 500, detail = str(e))
 

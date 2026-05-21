@@ -6,7 +6,7 @@ from app.api.shared_routes import router as shared_router
 from app.features.menu_translation.routes import router as menu_translation_router
 from app.features.chat.routes import router as chat_router
 from app.features.place_search.routes import router as place_search_router
-from app.features.place_search.routes import places_router as places_router
+from app.features.places.routes import router as places_router
 from app.features.review_summary.routes import router as review_summary_router
 from app.features.imagekit.routes import router as imagekit_router
 from app.features.place_images.routes import router as place_image_router

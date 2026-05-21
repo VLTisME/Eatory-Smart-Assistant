@@ -36,25 +36,25 @@ from supabase import create_client, Client
 from tqdm import tqdm
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
-# CONFIG
-
-IMAGES_ROOT          = r"D:\HieuLT\TDTT\Tutorial\kaggle_cache\datasets\nagahuy\tdtt-ver2\data"
-IMAGES_SUBDIR        = "images"
-CLOUDINARY_ROOT      = "smart_tourism"
-
-# --- Performance ---
-WORKERS              = 8      # So luong thread song song upload (tang len 12-16 neu mang tot)
-SUPABASE_BATCH_SIZE  = 100    # Rows moi lan push Supabase
-SUPABASE_DELAY       = 0.3    # Giay cho giua cac batch Supabase
-MAX_FILE_MB          = 25
-MAX_RETRIES          = 3
-IMG_EXTENSIONS       = {".jpg", ".jpeg", ".png", ".webp", ".gif"}
-
-CHECKPOINT_FILE      = "cloudinary_results.json"
-CHECKPOINT_INTERVAL  = 50     # Luu checkpoint sau moi N anh thanh cong
-
 
 load_dotenv()
+
+# CONFIG
+
+IMAGES_ROOT = os.getenv("LOCAL_IMAGES_ROOT", os.getenv("KAGGLE_DATASET_DIR", "./data/raw/tdtt-ver2"))
+IMAGES_SUBDIR = os.getenv("LOCAL_IMAGES_SUBDIR", "images")
+CLOUDINARY_ROOT = os.getenv("CLOUDINARY_ROOT_FOLDER", "smart_tourism")
+
+# --- Performance ---
+WORKERS = int(os.getenv("CLOUDINARY_UPLOAD_WORKERS", "8"))
+SUPABASE_BATCH_SIZE = int(os.getenv("SUPABASE_BATCH_SIZE", "100"))
+SUPABASE_DELAY = float(os.getenv("SUPABASE_DELAY_SECONDS", "0.3"))
+MAX_FILE_MB = int(os.getenv("MAX_IMAGE_FILE_MB", "25"))
+MAX_RETRIES = int(os.getenv("CLOUDINARY_MAX_RETRIES", "3"))
+IMG_EXTENSIONS       = {".jpg", ".jpeg", ".png", ".webp", ".gif"}
+
+CHECKPOINT_FILE = os.getenv("CLOUDINARY_CHECKPOINT_FILE", "cloudinary_results.json")
+CHECKPOINT_INTERVAL = int(os.getenv("CLOUDINARY_CHECKPOINT_INTERVAL", "50"))
 
 # Thread-safe lock cho checkpoint va buffer
 _lock = threading.Lock()
@@ -92,7 +92,9 @@ def load_checkpoint() -> dict:
 
 
 def save_checkpoint(results: dict):
-    with open(CHECKPOINT_FILE, "w", encoding="utf-8") as f:
+    checkpoint_path = Path(CHECKPOINT_FILE)
+    checkpoint_path.parent.mkdir(parents=True, exist_ok=True)
+    with checkpoint_path.open("w", encoding="utf-8") as f:
         json.dump(results, f, ensure_ascii=False, indent=2)
 
 

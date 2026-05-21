@@ -1,7 +1,9 @@
 import axios from "axios";
 import type { MenuResponse } from "../../../types/menuTranslation";
 import type { PlaceSearchResponse } from "../../../types/placeSearch";
-const API_BASE_URL = "http://localhost:8000/api/v1/chat/conversations";
+import { apiV1 } from "../../../config/api";
+
+const API_BASE_URL = apiV1("/chat/conversations");
 
 export interface Message {
 	id: string;

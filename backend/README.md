@@ -1,282 +1,208 @@
-# Smart Travel Assistant Backend
+# Backend
 
-This backend is built for one clear pattern:
+`backend/` là public FastAPI API cho frontend. Backend điều phối workflow sản phẩm, xác thực user, đọc/ghi dữ liệu ứng dụng và gọi các AI service nội bộ qua HTTP.
 
-1. A feature (menu OCR now, others later) produces raw output.
-2. Shared LLM refinement polishes the output for UI.
-3. Shared upload validation is reused by image-based features.
+Backend không còn là nơi load model, prompt AI nặng, embedding search hoặc OCR engine.
 
-Current implemented feature:
-- Menu translation OCR (Vietnamese menu image -> raw text)
+## Trách nhiệm
 
-Shared cross-feature components:
-- Image upload validation endpoint
-- LLM refinement endpoint
+Backend sở hữu:
 
-Locust is intentionally deferred for now until output quality is stable.
+- Public routes dưới `/api/v1/...` cho frontend.
+- Firebase token verification.
+- Firestore chat/conversation persistence.
+- Supabase reads cho địa điểm, ảnh, review và summary data.
+- Goong autocomplete, place detail và directions proxy.
+- ImageKit upload auth signature.
+- Request validation, response shaping và error mapping.
+- HTTP clients gọi các AI service nội bộ.
 
-## Architecture At A Glance
+Backend không sở hữu:
 
-```text
-Client
-  -> POST /api/v1/uploads/image (shared validation)
-  -> POST /api/v1/menu-translation/ocr (feature OCR)
-  -> POST /api/v1/llm/refine (shared polish/translation)
-```
+- OCR provider hoặc EasyOCR/OpenAI vision flow.
+- Torch/Transformers/CLIP model loading.
+- Chroma/vector search.
+- Prompt RAG, prompt menu, prompt review summary.
+- Artifact AI như embeddings, indexes hoặc vector DB.
 
-Orchestrated manually in current phase:
-
-```text
-Upload image -> OCR raw text -> LLM refine -> UI
-```
-
-## Project Structure (Important Files Explained)
+## Cấu trúc
 
 ```text
 backend/
-  app/
-    main.py
-    api/
-      router.py
-      shared_routes.py
-    core/
-      config.py
-      prompts.py
-    shared/
-      image_upload.py
-      refinement.py
-      schemas.py
-    features/
-      menu_translation/
-        routes.py
-        schemas.py
-        ocr_engine.py
-  tests/
-    conftest.py
-    test_ocr_service.py
-    test_llm_service.py
-    test_shared_and_menu_api.py
-  requirements.txt
-  pyproject.toml
+|-- app/
+|   |-- main.py
+|   |-- api/
+|   |   |-- router.py
+|   |   `-- shared_routes.py
+|   |-- clients/
+|   |   `-- ai_services.py
+|   |-- core/
+|   |   |-- auth.py
+|   |   |-- config.py
+|   |   |-- firebase.py
+|   |   `-- supabase.py
+|   |-- shared/
+|   |   |-- image_upload.py
+|   |   |-- refinement.py
+|   |   `-- schemas.py
+|   `-- features/
+|       |-- chat/
+|       |-- directions/
+|       |-- imagekit/
+|       |-- menu_translation/
+|       |-- place_details/
+|       |-- place_images/
+|       |-- place_search/
+|       |-- places/
+|       |-- rag_chat/
+|       `-- review_summary/
+|-- tests/
+|-- requirements.txt
+|-- requirements-dev.txt
+|-- pyproject.toml
+`-- .env.example
 ```
 
-### app/main.py
-- Creates FastAPI app.
-- Registers CORS middleware.
-- Includes composed router from `app/api/router.py`.
-- Exposes utility routes:
-  - `GET /`
-  - `GET /health`
-  - `GET /api/v1/info`
-- Contains global exception handler and startup logs.
+## Endpoint public
 
-### app/api/router.py
-- Keeps API clean by composing subrouters.
-- Includes:
-  - shared router (`shared_routes.py`)
-  - menu translation feature router (`features/menu_translation/routes.py`)
+### Health và metadata
 
-### app/api/shared_routes.py
-Shared endpoints used across features:
+- `GET /`
+- `GET /health`
+- `GET /api/v1/info`
+
+### Upload và refinement chung
 
 - `POST /api/v1/uploads/image`
-  - validates image type/size/content
-  - does not persist image
-
 - `POST /api/v1/llm/refine`
-  - receives text output from any feature
-  - applies prompt engineering + OpenAI completion
-  - returns refined text with metadata
 
-### app/core/config.py
-- Centralized environment settings using `pydantic-settings`.
-- Important settings:
-  - OCR provider switch: `OCR_PROVIDER` (`easyocr` or `hf`)
-  - OCR language list: `OCR_LANGUAGES`
-  - HF model name: `HUGGINGFACE_OCR_MODEL`
-  - OpenAI config: `OPENAI_API_KEY`, `OPENAI_MODEL`
+`/api/v1/llm/refine` proxy sang `AI_REFINEMENT_SERVICE_URL`, mặc định là `rag-service`.
 
-### app/core/prompts.py
-Prompt engineering lives here.
+### Dịch menu
 
-- `build_refinement_prompt(...)` builds system+user prompts.
-- For `context in {menu, menu_translation, ...}` it applies menu-specific instructions:
-  - preserve item order and prices
-  - avoid hallucination
-  - return refined translated menu text only
-- `MENU_REFINEMENT_PROMPT_VERSION` tracks prompt iteration.
+- `POST /api/v1/menu-translation/ocr`
+- `POST /api/v1/menu-translation/ocr/structured`
 
-If quality is poor, this is the first file to tune.
+Backend validate ảnh upload và proxy sang `AI_MENU_SERVICE_URL`.
 
-### app/shared/image_upload.py
-- Common image validation utility for all image-based features.
-- Validates:
-  - filename exists
-  - MIME type in allowed set
-  - max file size
-  - image bytes are valid
-- Returns normalized `ValidatedImage` object (in-memory only).
+### Tìm địa điểm bằng ảnh
 
-### app/shared/refinement.py
-- Shared OpenAI client wrapper.
-- `RefinementClient.refine(...)`:
-  - builds prompt from `core/prompts.py`
-  - calls OpenAI chat completion
-  - returns `(refined_text, processing_ms, prompt_version)`
+- `POST /api/v1/place-search`
 
-### app/shared/schemas.py
-- Shared Pydantic request/response types:
-  - `UploadImageResponse`
-  - `RefineTextRequest`
-  - `RefineTextResponse`
-  - `LanguageEnum`
+Backend validate ảnh upload và proxy sang `AI_PLACE_SEARCH_SERVICE_URL`.
 
-### app/features/menu_translation/ocr_engine.py
-Menu feature OCR implementation.
+### RAG chatbot
 
-- Provider abstraction:
-  - `EasyOCROCRProvider` (local CPU)
-  - `HuggingFaceOCRProvider` (remote inference API)
-- Runtime selection based on `OCR_PROVIDER`.
-- Returns `OCRResult(text, provider, processing_time_ms)`.
+- `POST /api/v1/rag/chat`
+- `POST /api/v1/rag/retrieve`
 
-OCR source details:
-- EasyOCR: local model managed by easyocr package.
-- HF OCR: model configured by `HUGGINGFACE_OCR_MODEL`.
-  - current default: `microsoft/trocr-base-printed`
+Backend chuyển `target_language` từ frontend sang RAG service để output bám theo ngôn ngữ UI.
 
-### app/features/menu_translation/routes.py
-- Feature endpoint:
-  - `POST /api/v1/menu-translation/ocr`
-- Uses shared image validation + feature OCR engine.
-- Returns raw OCR text for downstream LLM refinement.
+### Places và directions
 
-## API Endpoints And Correct Usage Order
+- `GET /api/v1/places/autocomplete`
+- `GET /api/v1/places/detail`
+- `GET /api/v1/directions`
 
-Use this order in Swagger (`/docs`):
+Các route này là third-party API proxy do backend sở hữu.
 
-1. `GET /` -> app reachable
-2. `GET /health` -> app healthy
-3. `POST /api/v1/uploads/image` -> image validation check
-4. `POST /api/v1/menu-translation/ocr` -> raw OCR output
-5. `POST /api/v1/llm/refine` -> refine OCR output
-6. `GET /api/v1/info` -> inspect service metadata
+### Place data, images và review summary
 
-## Very Important: /llm/refine Payload Fields
+- `GET /api/v1/place-details`
+- `GET /api/v1/place-details/by-city`
+- `GET /api/v1/place-details/check-place`
+- `GET /api/v1/place-images/single`
+- `GET /api/v1/place-images`
+- `GET /api/v1/place-images/random`
+- `GET /api/v1/review-summary`
+- `GET /api/v1/review-summary/samples`
 
-For `POST /api/v1/llm/refine`, use:
+Review summary route đọc dữ liệu từ Supabase, sau đó gọi `AI_REVIEW_SUMMARY_SERVICE_URL` khi cần generate/translate bằng LLM.
 
-- `content`: OCR raw text (long text goes here)
-- `context`: short mode string (usually `menu_translation`)
-- `source_language`: `vi`
-- `target_language`: `en`
+### Chat history và ImageKit
 
-Common mistake:
-- Putting full OCR text into `context`.
+- `GET /api/v1/chat/conversations/`
+- `POST /api/v1/chat/conversations/`
+- `GET /api/v1/chat/conversations/{id}/`
+- `POST /api/v1/chat/conversations/{id}/messages/`
+- `DELETE /api/v1/chat/conversations/{id}/`
+- `GET /api/v1/imagekit/auth`
 
-Correct example:
+Các route này cần Firebase authentication.
 
-```json
-{
-  "content": "Phở bò\n50,000 VND",
-  "context": "menu_translation",
-  "source_language": "vi",
-  "target_language": "en"
-}
-```
+## Biến môi trường
 
-## Environment Variables
-
-Create `backend/.env`:
-
-```env
-# App
-APP_NAME=Smart Travel Assistant API
-APP_VERSION=0.1.0
-SERVICE_HOST=0.0.0.0
-SERVICE_PORT=8000
-SERVICE_DEBUG=false
-LOG_LEVEL=INFO
-
-# Upload
-MAX_UPLOAD_SIZE_MB=10
-
-# OCR
-OCR_PROVIDER=easyocr
-OCR_LANGUAGES=vi,en
-OCR_GPU=false
-HUGGINGFACE_OCR_MODEL=microsoft/trocr-base-printed
-
-# OpenAI refinement
-OPENAI_API_KEY=your_key_here
-OPENAI_MODEL=gpt-4o-mini
-```
-
-OpenAI key plugin location:
-- `OPENAI_API_KEY` in `.env` (recommended), or shell export before running.
-
-## Setup And Run
+Tạo `.env`:
 
 ```bash
 cd backend
-uv init
-uv add -r requirements.txt
-uv lock
+cp .env.example .env
+```
+
+Biến quan trọng:
+
+- `FIREBASE_SERVICE_ACCOUNT_PATH`
+- `SUPABASE_URL`
+- `SUPABASE_SERVICE_KEY`
+- `REST_API_KEY`
+- `KIT_URL_ENDPOINT`
+- `KIT_PUBLIC_KEY`
+- `KIT_PRIVATE_KEY`
+- `REVIEW_SUMMARY_PATH`
+- `AI_MENU_SERVICE_URL`
+- `AI_PLACE_SEARCH_SERVICE_URL`
+- `AI_RAG_SERVICE_URL`
+- `AI_REFINEMENT_SERVICE_URL`
+- `AI_REVIEW_SUMMARY_SERVICE_URL`
+- `AI_SERVICE_TIMEOUT_SECONDS`
+- `AI_SERVICE_TOKEN`
+
+`REVIEW_SUMMARY_PATH` hiện trỏ tới:
+
+```text
+../ai-models/review-summary-service/offline/data/output/review_summaries.json
+```
+
+## Chạy local
+
+```bash
+cd backend
+uv sync --extra dev
 uv run uvicorn app.main:app --reload --host localhost --port 8000
 ```
 
-Open:
-- `http://localhost:8000/docs`
+Swagger:
 
-## Testing
+```text
+http://localhost:8000/docs
+```
 
-Run all tests:
+Nếu chạy riêng backend, hãy đảm bảo các AI service liên quan cũng đang chạy ở port tương ứng hoặc cấu hình URL trong `backend/.env`.
+
+## Kiểm thử
 
 ```bash
 cd backend
 uv run pytest -q
 ```
 
-Run by scope:
+Test theo feature:
 
 ```bash
-uv run pytest -q tests/test_ocr_service.py
-uv run pytest -q tests/test_llm_service.py
-uv run pytest -q tests/test_shared_and_menu_api.py
+uv run pytest -q tests/test_place_search_api.py
+uv run pytest -q tests/test_review_summary_api.py
+uv run pytest -q tests/test_ai_service_contracts.py
 ```
 
-Coverage:
+Kiểm tra syntax nhanh:
 
 ```bash
-uv run pytest --cov=app --cov-report=term-missing
+python -m compileall -q app
 ```
 
-## Prompt Quality Tuning Guide (For Better GPT Output)
+## Ghi chú refactor
 
-If refinement output quality is poor, tune in this order:
-
-1. Improve OCR text quality first
-- Better image quality, less blur, better lighting.
-- OCR noise directly reduces LLM translation quality.
-
-2. Ensure refine payload is correct
-- OCR text in `content`.
-- `context="menu_translation"`.
-
-3. Tune menu prompt in `app/core/prompts.py`
-- Make formatting constraints explicit.
-- Tell model to fix obvious OCR character confusions (`1Sk` -> `15k`) only when highly confident.
-- Instruct no markdown bullets if undesired.
-
-4. Consider stronger model for refine step
-- Try higher-capability model if `gpt-4o-mini` is insufficient for noisy OCR.
-
-## Current Known Tradeoff
-
-- OCR+LLM quality depends heavily on OCR noise level.
-- This phase focuses on clean architecture and stable API contracts.
-- Advanced post-OCR normalization rules can be added next if needed.
-
-## Deferred For Now
-
-- Load testing with Locust is intentionally postponed until quality is acceptable.
+- Runtime dependency ở `requirements.txt`.
+- Test/tooling dependency ở `requirements-dev.txt` và optional group `dev` trong `pyproject.toml`.
+- Backend chỉ giữ AI service URLs/token, không giữ model runtime settings.
+- Các README trong `app/features/*/` mô tả rõ ranh giới proxy của từng feature đã tách sang AI service.

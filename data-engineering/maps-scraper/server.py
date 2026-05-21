@@ -1,4 +1,5 @@
 import asyncio
+import os
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
@@ -42,4 +43,9 @@ async def add_url(data: UrlInput):
 if __name__ == "__main__":
     import uvicorn
 
-    uvicorn.run("server:app", host="localhost", port=8000, reload=True)
+    uvicorn.run(
+        "server:app",
+        host=os.getenv("MAPS_SCRAPER_HOST", "localhost"),
+        port=int(os.getenv("MAPS_SCRAPER_PORT", "8201")),
+        reload=True,
+    )

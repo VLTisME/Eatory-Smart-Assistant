@@ -9,6 +9,7 @@ import {
     type AutocompleteResponse,
     type PlacePrediction,
 } from "../services/placeSearchAPI";
+import { useLanguage } from "../../../hooks/useLanguage";
 
 // ── Client-side result cache (persists across re-renders / re-mounts) ───────
 const resultCache = new Map<string, PlacePrediction[]>();
@@ -21,6 +22,7 @@ interface UsePlaceSearchOptions {
 
 export function usePlaceSearch(opts: UsePlaceSearchOptions = {}) {
     const { debounceMs = 400, limit = 10, location } = opts;
+    const { lang } = useLanguage();
 
     const [query, setQuery] = useState("");
     const [results, setResults] = useState<PlacePrediction[]>([]);
@@ -80,7 +82,11 @@ export function usePlaceSearch(opts: UsePlaceSearchOptions = {}) {
             } catch (err: unknown) {
                 if ((err as Error)?.name === "AbortError") return; // expected — ignore
                 console.error("Place search error:", err);
-                setError("Lỗi tìm kiếm. Vui lòng thử lại.");
+                setError(
+                    lang === "vi"
+                        ? "Lỗi tìm kiếm. Vui lòng thử lại."
+                        : "Search failed. Please try again.",
+                );
                 setResults([]);
             } finally {
                 if (!controller.signal.aborted) {
@@ -88,7 +94,7 @@ export function usePlaceSearch(opts: UsePlaceSearchOptions = {}) {
                 }
             }
         },
-        [limit, location],
+        [lang, limit, location],
     );
 
     // ── Debounced query watcher ──────────────────────────────────────────────
