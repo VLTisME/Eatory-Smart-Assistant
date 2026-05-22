@@ -1,0 +1,113 @@
+# Local runtime output
+gmaps-output/
+images/
+metadata/
+raw/
+queries/
+testdata/
+data/
+output/
+outputs/
+exports/
+webdata/
+examples/examples-api/map-outputs/
+*.jsonl
+*.ndjson
+*.csv
+*.tsv
+*.parquet
+*.feather
+
+# Local packaged datasets and archives
+*.zip
+*.tar
+*.tar.gz
+*.tgz
+*.7z
+
+# Local database and admin state
+.local/
+local/
+postgres-data/
+pgadmin-data/
+*.sql
+*.dump
+*.backup
+*.db
+*.sqlite
+*.sqlite3
+
+# Python
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+*.pyo
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+.ipynb_checkpoints/
+
+# Go build output
+vendor/
+bin/
+dist/
+build/
+google-maps-scraper
+food_gmaps_scraper
+*.test
+*.prof
+coverage.out
+
+# Node and Playwright caches
+node_modules/
+cache/
+.cache/
+ms-playwright/
+playwright-report/
+test-results/
+*.trace.zip
+
+# Local env and secrets
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.crt
+
+# Local export scratch files
+places.json
+clean_reviews.json
+raw_reviews.json
+images_metadata.json
+commands.txt
+
+# Local logs and scratch files
+logs/
+tmp/
+temp/
+.tmp/
+*.tmp
+*.log
+*.pid
+*.bak
+*.orig
+
+# Generated diagram exports
+diagrams/*.svg
+diagrams/*.png
+diagrams/*.pdf
+
+# One-off maintenance scripts
+scripts/prune_images_temp.py
+
+# OS and editor files
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+.idea/
+.vscode/

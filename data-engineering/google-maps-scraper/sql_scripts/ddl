@@ -1,0 +1,22 @@
+
+create schema if not exists silver;
+
+CREATE TABLE IF NOT EXISTS silver.places (
+    place_id TEXT PRIMARY KEY,
+    name TEXT,
+    address TEXT,
+    district TEXT,
+    city TEXT,
+    lat float,
+    lng float,
+    avg_rating float,
+    total_reviews INTEGER,
+    source TEXT
+);
+
+CREATE TABLE IF NOT EXISTS silver.clean_reviews (
+    place_id TEXT,
+    text TEXT,
+    rating INTEGER CHECK (rating BETWEEN 1 AND 5),
+    FOREIGN KEY (place_id) REFERENCES silver.places(place_id)
+);
