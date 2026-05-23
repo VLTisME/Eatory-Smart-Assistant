@@ -1,0 +1,3 @@
+cafe in Hoan Kiem Hanoi #!#hoan_kiem_cafe
+restaurant in District 1 Ho Chi Minh City #!#district_1_restaurant
+bakery in Da Nang #!#da_nang_bakery

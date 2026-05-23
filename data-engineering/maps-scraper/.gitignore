@@ -1,9 +1,0 @@
-postgres_data
-bookmarklet.md
-__pycache__/
-*.pyc
-temp_script.sql
-chrome_user_data_0/
-chrome_user_data_1/
-chrome_user_data_2/
-data/
