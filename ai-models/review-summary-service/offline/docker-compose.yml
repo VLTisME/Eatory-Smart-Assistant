@@ -1,0 +1,15 @@
+services:
+  postgres:
+    image: postgres:16
+    container_name: review_summary_postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 123456
+      POSTGRES_DB: review_summary_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - review_summary_pgdata:/var/lib/postgresql/data
+
+volumes:
+  review_summary_pgdata:

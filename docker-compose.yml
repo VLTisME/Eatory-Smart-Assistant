@@ -1,0 +1,186 @@
+name: eatory-smart-assistant
+
+x-python-healthcheck: &python-healthcheck
+  interval: 20s
+  timeout: 5s
+  retries: 15
+  start_period: 30s
+
+x-ai-healthcheck: &ai-healthcheck
+  interval: 30s
+  timeout: 10s
+  retries: 30
+  start_period: 10m
+
+services:
+  backend:
+    build:
+      context: ./backend
+    image: eatory/backend:dev
+    working_dir: /workspace/backend
+    volumes:
+      - .:/workspace
+    environment:
+      SERVICE_HOST: "0.0.0.0"
+      SERVICE_PORT: "8000"
+      AI_MENU_SERVICE_URL: "http://menu-translation-service:8101"
+      AI_PLACE_SEARCH_SERVICE_URL: "http://place-search-service:8102"
+      AI_RAG_SERVICE_URL: "http://rag-service:8103"
+      AI_REFINEMENT_SERVICE_URL: "http://rag-service:8103"
+      AI_REVIEW_SUMMARY_SERVICE_URL: "http://review-summary-service:8104"
+      AI_SERVICE_TIMEOUT_SECONDS: "180"
+    env_file:
+      - path: ./backend/.env
+        required: false
+    command: ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]
+    ports:
+      - "8000:8000"
+    depends_on:
+      menu-translation-service:
+        condition: service_healthy
+      place-search-service:
+        condition: service_healthy
+      rag-service:
+        condition: service_healthy
+      review-summary-service:
+        condition: service_healthy
+    healthcheck:
+      <<: *python-healthcheck
+      test:
+        [
+          "CMD-SHELL",
+          "python -c \"import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/health', timeout=3).read()\"",
+        ]
+
+  frontend:
+    build:
+      context: ./frontend
+    image: eatory/frontend:dev
+    working_dir: /workspace/frontend
+    volumes:
+      - .:/workspace
+      - frontend_node_modules:/workspace/frontend/node_modules
+    environment:
+      VITE_API_BASE_URL: "http://localhost:8000"
+    env_file:
+      - path: ./frontend/.env
+        required: false
+    command: ["npm", "run", "dev", "--", "--host", "0.0.0.0"]
+    ports:
+      - "5173:5173"
+    depends_on:
+      backend:
+        condition: service_healthy
+
+  menu-translation-service:
+    build:
+      context: ./ai-models/menu-translation-service
+    image: eatory/menu-translation-service:dev
+    working_dir: /workspace/ai-models/menu-translation-service
+    volumes:
+      - .:/workspace
+    environment:
+      SERVICE_HOST: "0.0.0.0"
+      SERVICE_PORT: "8101"
+      OCR_PROVIDER: "openai"
+    env_file:
+      - path: ./ai-models/menu-translation-service/.env
+        required: false
+    command: ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8101"]
+    ports:
+      - "8101:8101"
+    healthcheck:
+      <<: *ai-healthcheck
+      test:
+        [
+          "CMD-SHELL",
+          "python -c \"import urllib.request; urllib.request.urlopen('http://127.0.0.1:8101/health', timeout=3).read()\"",
+        ]
+
+  place-search-service:
+    build:
+      context: ./ai-models/place-search-service
+    image: eatory/place-search-service:dev
+    working_dir: /workspace/ai-models/place-search-service
+    volumes:
+      - .:/workspace
+      - huggingface_cache:/cache/huggingface
+    environment:
+      SERVICE_HOST: "0.0.0.0"
+      SERVICE_PORT: "8102"
+      HF_HOME: "/cache/huggingface"
+      HF_HUB_DISABLE_XET: "1"
+      PLACE_SEARCH_EMBEDDINGS_PATH: "data/image_embeddings.npy"
+      PLACE_SEARCH_INDEX_PATH: "data/image_index.json"
+      PLACE_SEARCH_PLACES_PATH: "data/places.json"
+      PLACE_SEARCH_NOISE_EMBEDDINGS_PATH: "data/noise_embeddings.npy"
+      PLACE_SEARCH_NOISE_INDEX_PATH: "data/noise_index.json"
+    env_file:
+      - path: ./ai-models/place-search-service/.env
+        required: false
+    command: ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8102"]
+    ports:
+      - "8102:8102"
+    healthcheck:
+      <<: *ai-healthcheck
+      test:
+        [
+          "CMD-SHELL",
+          "python -c \"import urllib.request; urllib.request.urlopen('http://127.0.0.1:8102/health', timeout=3).read()\"",
+        ]
+
+  rag-service:
+    build:
+      context: ./ai-models/rag-service
+    image: eatory/rag-service:dev
+    working_dir: /workspace/ai-models/rag-service
+    volumes:
+      - .:/workspace
+      - huggingface_cache:/cache/huggingface
+    environment:
+      SERVICE_HOST: "0.0.0.0"
+      SERVICE_PORT: "8103"
+      HF_HOME: "/cache/huggingface"
+      HF_HUB_DISABLE_XET: "1"
+      RAG_CHROMA_DIR: "/workspace/ai-models/rag-service/chroma_db"
+    env_file:
+      - path: ./ai-models/rag-service/.env
+        required: false
+    command: ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8103"]
+    ports:
+      - "8103:8103"
+    healthcheck:
+      <<: *ai-healthcheck
+      test:
+        [
+          "CMD-SHELL",
+          "python -c \"import urllib.request; urllib.request.urlopen('http://127.0.0.1:8103/health', timeout=3).read()\"",
+        ]
+
+  review-summary-service:
+    build:
+      context: ./ai-models/review-summary-service
+    image: eatory/review-summary-service:dev
+    working_dir: /workspace/ai-models/review-summary-service
+    volumes:
+      - .:/workspace
+    environment:
+      SERVICE_HOST: "0.0.0.0"
+      SERVICE_PORT: "8104"
+    env_file:
+      - path: ./ai-models/review-summary-service/.env
+        required: false
+    command: ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8104"]
+    ports:
+      - "8104:8104"
+    healthcheck:
+      <<: *ai-healthcheck
+      test:
+        [
+          "CMD-SHELL",
+          "python -c \"import urllib.request; urllib.request.urlopen('http://127.0.0.1:8104/health', timeout=3).read()\"",
+        ]
+
+volumes:
+  frontend_node_modules:
+  huggingface_cache:
