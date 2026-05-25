@@ -58,7 +58,7 @@ place-search-service/
 
 Pipeline:
 
-![Place search pipeline](place_search.png)
+![Place search pipeline](place_search_pipeline.png)
 
 Runtime query flow:
 

@@ -69,7 +69,7 @@ offline/data/input
   -> backend fallback / RAG document build
 ```
 
-Sơ đồ offline pipeline: [review_summary_pipeline.png](review_summary_pipeline.png).
+Sơ đồ offline pipeline: ![offline/review_summary_pipeline.png](offline/review_summary_pipeline.png)
 
 ## 🔗 Dependencies
 
