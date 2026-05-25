@@ -1,17 +1,79 @@
-# Kiểm thử
+# Tests
 
-Thư mục `tests/` ở root dùng cho ghi chú kiểm thử cấp repo. Automated tests chính hiện nằm gần module mà chúng kiểm tra.
+## 🎯 Mục đích
 
-## Nơi đặt test hiện tại
+`tests/` ở root là tài liệu kiểm thử cấp repo. Automated tests thật nằm gần module mà chúng kiểm tra, ví dụ `backend/tests/` hoặc `ai-models/*-service/tests/`.
 
-- `backend/tests/`: backend API tests, AI service HTTP client tests và backend-to-AI schema contract tests.
-- `ai-models/*-service/tests/`: tests cho từng AI service.
-- `frontend/`: kiểm tra bằng `npm run lint` và `npm run build`.
-- `data-engineering/`: kiểm tra syntax nhanh cho scripts và maps-scraper modules.
+## 🧩 Trách nhiệm
 
-CI chạy các nhóm kiểm thử này qua `.github/workflows/ci.yml`.
+- Ghi rõ CI hiện tại đang kiểm tra gì.
+- Ghi checklist smoke test thủ công cho full stack.
+- Tổng hợp lệnh test sâu theo từng module.
+- Giúp developer mới hiểu khi nào cần chạy pytest/lint/Go tests.
 
-## Backend
+## 🔌 Public API
+
+Public interface của module này là workflow kiểm thử:
+
+- CI workflow: `.github/workflows/ci.yml`
+- Manual full-stack smoke test bằng Docker Compose.
+- Module-specific commands cho backend, frontend, AI services và data-engineering.
+
+## 🧠 Cấu trúc
+
+CI hiện tại chạy smoke checks cấp repo.
+
+CI chạy:
+
+```text
+pull request / push
+  -> docker compose config
+  -> Python compile checks
+  -> frontend npm ci + build
+```
+
+`pytest`, `npm run lint` và Go tests được chạy thủ công theo module liên quan.
+
+## 🔗 Dependencies
+
+- Docker Compose cho config check và full-stack smoke test.
+- Python 3.11 cho compile checks và pytest.
+- Node.js 22/npm cho frontend build.
+- Go toolchain nếu muốn chạy Google Maps scraper tests.
+- External API keys và runtime artifacts nếu chạy manual feature smoke test.
+
+## ⚙️ Configuration
+
+CI dùng `.github/workflows/ci.yml`. Manual smoke test cần các file `.env` đã tạo theo root README.
+
+## 🚀 Ví dụ sử dụng
+
+Full-stack smoke test:
+
+```bash
+docker compose up --build
+docker compose ps
+```
+
+Mở frontend:
+
+```text
+http://localhost:5173
+```
+
+Checklist:
+
+- Đổi ngôn ngữ ở homepage sang Vietnamese và English.
+- Mở main map page, kiểm tra UI đúng ngôn ngữ.
+- Dùng menu translation với ảnh menu thật.
+- Dùng place search với ảnh món ăn.
+- Hỏi RAG/chatbot bằng tiếng Việt và tiếng Anh.
+- Mở review summary của một địa điểm có dữ liệu.
+- Xem log backend và AI services nếu frontend báo lỗi.
+
+## 🧪 Testing
+
+Backend:
 
 ```bash
 cd backend
@@ -19,34 +81,14 @@ uv sync --extra dev
 uv run pytest -q
 ```
 
-Test contract backend-to-AI:
+Contract tests backend-to-AI:
 
 ```bash
+cd backend
 uv run pytest -q tests/test_ai_service_contracts.py
 ```
 
-## AI services
-
-Ví dụ với RAG service:
-
-```bash
-cd ai-models/rag-service
-python3 -m venv .venv
-source .venv/bin/activate
-pip install -r requirements-dev.txt
-python -m pytest -q
-```
-
-Lặp lại pattern này cho:
-
-- `ai-models/menu-translation-service`
-- `ai-models/place-search-service`
-- `ai-models/rag-service`
-- `ai-models/review-summary-service`
-
-Không dùng virtualenv của backend để chạy AI tests vì dependency đã tách riêng.
-
-## Frontend
+Frontend:
 
 ```bash
 cd frontend
@@ -55,34 +97,35 @@ npm run lint
 npm run build
 ```
 
-## Data engineering
-
-Kiểm tra syntax nhanh:
+AI service, ví dụ RAG:
 
 ```bash
-python3 -m py_compile data-engineering/scripts/*.py data-engineering/maps-scraper/*.py
+cd ai-models/rag-service
+python3 -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+pip install -r requirements-dev.txt
+python -m pytest -q
 ```
 
-## Docker Compose
-
-Kiểm tra config:
+Data engineering:
 
 ```bash
-docker compose config --quiet
+python -m py_compile data-engineering/scripts/*.py data-engineering/google-maps-scraper/scripts/*.py
 ```
 
-Kiểm tra nhanh full stack:
+Google Maps scraper:
 
 ```bash
-docker compose up -d --build
-docker compose ps
+cd data-engineering/google-maps-scraper
+go test ./gmaps ./runner ./deduper ./grid ./exiter
 ```
 
-Sau đó kiểm tra thủ công trên frontend:
+## 🧱 Extension guide
 
-- Homepage đổi ngôn ngữ `vi`/`en`.
-- Map page hiển thị đúng ngôn ngữ.
-- Menu translation trả ngôn ngữ ngược UI.
-- Place search trả kết quả/refinement đúng ngôn ngữ UI.
-- RAG trả answer đúng ngôn ngữ UI.
-- Review summary hiển thị đúng ngôn ngữ UI.
+Khi thêm module mới:
+
+1. Đặt tests gần module đó.
+2. Thêm lệnh chạy test vào README module.
+3. Chỉ thêm vào CI nếu test không cần secret, model lớn, external service hoặc dữ liệu local nặng.
+4. Cập nhật checklist smoke test nếu feature user-facing.

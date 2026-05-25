@@ -1,28 +1,34 @@
 # Data Engineering
 
-`data-engineering/` chứa các workflow nhập liệu, scraping, upload, migration và publish artifact cho Eatory dataset. Đây là vùng dành cho batch jobs và tooling dữ liệu, không phải runtime API cho frontend.
+## 🎯 Mục đích
 
-## Trách nhiệm
+`data-engineering/` chứa scripts nhập liệu, chuẩn hóa và publish dữ liệu cho Eatory Smart Assistant. Module này đưa dữ liệu từ Kaggle/Google Maps/local images vào Supabase, Cloudinary và runtime artifacts cho AI/search.
 
-Data Engineering sở hữu:
+## 🧩 Trách nhiệm
 
-- Inspect/extract raw dataset.
-- Nạp Kaggle dataset vào Supabase.
-- Upload ảnh địa điểm lên Cloudinary.
-- Push image embeddings.
-- Push review summaries.
-- Google Maps scraping.
-- Script setup/migration database cho ingestion workflow.
+- Inspect/extract Kaggle hoặc raw dataset.
+- Nạp `places` và `clean_reviews` lên Supabase.
+- Upload ảnh địa điểm local lên Cloudinary.
+- Publish image embeddings metadata và review summaries.
+- Crawl Google Maps bằng `google-maps-scraper`.
+- Xuất metadata JSON/ảnh local cho các pipeline tiếp theo.
 
-Data Engineering không sở hữu:
+Runtime frontend/backend dùng dữ liệu đã được publish từ các scripts này.
 
-- Public backend route cho frontend.
-- AI model inference runtime.
-- OpenAI prompt orchestration.
-- Firebase Auth hoặc chat history.
-- Contract response của backend application API.
+## 🔌 Public API
 
-## Cấu trúc
+Public interface là CLI scripts:
+
+- `scripts/inspect_kaggle_data.py`
+- `scripts/extract_dataset.py`
+- `scripts/kaggle_to_supabase.py`
+- `scripts/upload_images_cloudinary.py`
+- `scripts/push_embeddings.py`
+- `scripts/push_summaries.py`
+- `scripts/query_image.py`
+- `scripts/query_images.py`
+
+## 🧠 Cấu trúc
 
 ```text
 data-engineering/
@@ -35,20 +41,56 @@ data-engineering/
 |   |-- push_summaries.py
 |   |-- query_image.py
 |   `-- query_images.py
-|-- maps-scraper/
-|   |-- server.py
-|   |-- scraper.py
-|   |-- database.py
-|   |-- models.py
-|   |-- schema.py
-|   |-- classifier.py
-|   |-- docker-compose.yml
-|   `-- script/
+|-- google-maps-scraper/
+|   |-- main.go
+|   |-- scripts/food_pipeline.py
+|   |-- sql_scripts/
+|   |-- docker-compose.yaml
+|   |-- Makefile
+|   `-- README.md
 |-- requirements.txt
 `-- .env.example
 ```
 
-## Biến môi trường
+Kaggle/local data flow:
+
+```text
+Kaggle/raw files
+  -> inspect/extract
+  -> kaggle_to_supabase.py
+  -> upload_images_cloudinary.py
+  -> push_embeddings.py
+  -> push_summaries.py
+  -> Supabase/Cloudinary/runtime artifacts
+```
+
+Google Maps flow:
+
+```text
+query file
+  -> Go scraper
+  -> raw JSON
+  -> scripts/food_pipeline.py
+  -> PostgreSQL local
+  -> gmaps-output/metadata + gmaps-output/images
+```
+
+## 🔗 Dependencies
+
+- Python dependencies trong `requirements.txt`.
+- Supabase service key.
+- Cloudinary credentials.
+- Local/Kaggle dataset paths.
+- Optional local PostgreSQL cho Google Maps scraper.
+- Docker/Go cho `google-maps-scraper`.
+
+Consumers của output:
+
+- Backend đọc Supabase data.
+- Place search dùng image artifacts trong root `data/`.
+- Review summary/RAG dùng review summary artifacts.
+
+## ⚙️ Configuration
 
 Tạo `.env`:
 
@@ -57,22 +99,19 @@ cd data-engineering
 cp .env.example .env
 ```
 
-Các biến thường dùng:
+Nhóm biến chính:
 
-- `SUPABASE_URL`
-- `SUPABASE_SERVICE_KEY`
-- `CLOUDINARY_CLOUD_NAME`
-- `CLOUDINARY_API_KEY`
-- `CLOUDINARY_API_SECRET`
-- `DATABASE_URL`
-- `KAGGLE_ARCHIVE_PATH`
-- `KAGGLE_DATASET_DIR`
-- `EMBEDDINGS_ARTIFACT_DIR`
-- `REVIEW_SUMMARIES_FILE`
+- Supabase: `SUPABASE_URL`, `SUPABASE_SERVICE_KEY`
+- Cloudinary: `CLOUDINARY_CLOUD_NAME`, `CLOUDINARY_API_KEY`, `CLOUDINARY_API_SECRET`
+- Local DB: `DATABASE_URL`
+- Kaggle/raw data: `KAGGLEHUB_CACHE`, `KAGGLE_ARCHIVE_PATH`, `KAGGLE_DATASET_DIR`, `KAGGLE_PLACES_FILE`, `KAGGLE_REVIEWS_FILE`
+- Image ingestion: `LOCAL_IMAGES_ROOT`, `LOCAL_IMAGES_SUBDIR`, `CLOUDINARY_ROOT_FOLDER`
+- Artifact publish: `EMBEDDINGS_ARTIFACT_DIR`, `IMAGE_INDEX_FILE`, `IMAGE_EMBEDDINGS_FILE`, `REVIEW_SUMMARIES_FILE`
+- Batch tuning: `PLACES_BATCH_SIZE`, `REVIEWS_BATCH_SIZE`, `SUPABASE_BATCH_SIZE`, `SUPABASE_PAGE_SIZE`
 
-Các script trong repo dùng `SUPABASE_SERVICE_KEY`. Cloudinary credential thuộc về data-engineering, không đặt trong backend nếu chỉ dùng cho ingestion.
+## 🚀 Ví dụ sử dụng
 
-## Cài đặt
+Cài đặt:
 
 ```bash
 cd data-engineering
@@ -81,93 +120,67 @@ source .venv/bin/activate
 pip install -r requirements.txt
 ```
 
-Nếu dùng Playwright scraper:
+Inspect/extract dataset:
 
 ```bash
-playwright install chromium
+python scripts/inspect_kaggle_data.py
+python scripts/extract_dataset.py
 ```
 
-## Luồng pipeline gợi ý
-
-1. Inspect hoặc extract raw data:
-
-   ```bash
-   python scripts/inspect_kaggle_data.py
-   python scripts/extract_dataset.py
-   ```
-
-2. Push place và review records lên Supabase:
-
-   ```bash
-   python scripts/kaggle_to_supabase.py
-   ```
-
-3. Upload ảnh local lên Cloudinary và lưu URL/file path:
-
-   ```bash
-   python scripts/upload_images_cloudinary.py
-   ```
-
-4. Push image embeddings:
-
-   ```bash
-   python scripts/push_embeddings.py
-   ```
-
-5. Push review summaries:
-
-   ```bash
-   python scripts/push_summaries.py
-   ```
-
-Trước khi chạy trên database dùng chung, đọc lại từng script vì nhiều script có thao tác upsert/write.
-
-## Tables thường được chạm tới
-
-- `scripts/kaggle_to_supabase.py`: ghi `places`, `clean_reviews`; đọc count ở `places`, `clean_reviews`, `place_summaries`, `image_embeddings`.
-- `scripts/upload_images_cloudinary.py`: upload ảnh lên Cloudinary và upsert metadata vào `image_embeddings`.
-- `scripts/push_embeddings.py`: đọc/upsert embedding vào `image_embeddings`.
-- `scripts/push_summaries.py`: upsert `place_summaries`.
-- `scripts/query_image.py`, `scripts/query_images.py`: tooling đọc `image_embeddings`.
-
-## Maps scraper
-
-Maps scraper nằm trong `maps-scraper/`, dùng để queue Google Maps URL, scrape place/review metadata, classify place type và lưu vào PostgreSQL.
-
-Chạy database local:
+Nạp place/review records lên Supabase:
 
 ```bash
-cd data-engineering/maps-scraper
-docker compose up -d
+python scripts/kaggle_to_supabase.py
 ```
 
-Chạy API scraper:
+Upload ảnh local lên Cloudinary:
 
 ```bash
-uvicorn server:app --reload --host localhost --port 8201
+python scripts/upload_images_cloudinary.py
 ```
 
-Queue một URL:
+Publish artifacts:
 
 ```bash
-curl -X POST http://localhost:8201/add-url \
-  -H "Content-Type: application/json" \
-  -d '{"url":"https://maps.google.com/..."}'
+python scripts/push_embeddings.py
+python scripts/push_summaries.py
 ```
 
-## Artifact policy
+Query image metadata local:
 
-Generated datasets, checkpoints, upload reports và large embeddings không nên commit trừ khi là sample nhỏ có chủ đích.
+```bash
+python scripts/query_image.py
+python scripts/query_images.py
+```
 
-Pattern đề xuất:
+## 🧪 Testing
 
-- Lưu output local dưới `data-engineering/artifacts/` hoặc `data-engineering/data/`.
-- Viết README mô tả cách regenerate.
-- Dùng external storage cho artifact lớn cần chia sẻ.
+Python compile check:
 
-Các path local thường được ignore:
+```bash
+python -m py_compile data-engineering/scripts/*.py data-engineering/google-maps-scraper/scripts/*.py
+```
 
-- `data-engineering/artifacts/`
-- `data-engineering/data/`
-- `data-engineering/kaggle_cache/`
-- `data-engineering/maps-scraper/chrome_user_data_*/`
+Google Maps scraper Go tests:
+
+```bash
+cd data-engineering/google-maps-scraper
+go test ./gmaps ./runner ./deduper ./grid ./exiter
+```
+
+## 🧱 Extension guide
+
+Thêm script data mới:
+
+1. Đặt script trong `data-engineering/scripts/` nếu nó xử lý dataset/Supabase/Cloudinary chung.
+2. Đặt trong `google-maps-scraper/scripts/` nếu nó chỉ phục vụ crawler.
+3. Đọc config từ `.env`, không hardcode key/path cá nhân.
+4. Ghi rõ input/output và idempotency trong docstring hoặc README.
+5. Thêm compile/test command nếu script có dependency đặc biệt.
+
+Thêm artifact mới:
+
+1. Xác định consumer runtime: backend, AI service hay data-only.
+2. Đặt output local vào folder đã ignore nếu artifact sinh ra từ pipeline.
+3. Cập nhật `.env.example` nếu cần path mới.
+4. Cập nhật module README consumer.

@@ -166,17 +166,19 @@ append_area "binh_duong_old_province"
 crawl_area "tp_thu_duc_current" "Thành phố Thủ Đức Thành phố Hồ Chí Minh" "10.741676,106.692236,10.903333,106.881266"
 append_area "tp_thu_duc_current"
 ```
+
 ## Ghi chú clean data sau khi append
 
-Sau khi raw data đã được append vào PostgreSQL, sử dụng các script trong folder `sql_script/` để clean data, tạo bảng/tầng dữ liệu cần dùng và export kết quả về local.
+Sau khi raw data đã được append vào PostgreSQL, sử dụng các script trong folder `sql_scripts/` để clean data, tạo bảng/tầng dữ liệu cần dùng và export kết quả về local.
 
 Luồng xử lý tổng quát:
 
 ```text
 raw data in PostgreSQL
-  -> run SQL scripts in sql_script/
+  -> run SQL scripts in sql_scripts/
   -> clean/transform tables
   -> export cleaned data to local JSON
+```
 
 ## 6. Output
 

@@ -1,41 +1,46 @@
 # Review Summary Service
 
-`review-summary-service` là FastAPI service cho phần LLM online của tính năng tổng quan đánh giá. Backend vẫn sở hữu public route `/api/v1/review-summary`, đọc dữ liệu từ Supabase và gọi service này để sinh hoặc dịch nội dung summary.
+## 🎯 Mục đích
 
-Offline pipeline của cùng domain được đặt trong `offline/` để tránh còn một thư mục `review_summary/` riêng gây nhầm lẫn.
+`review-summary-service` là FastAPI service sinh hoặc dịch tổng quan đánh giá cho một địa điểm. Service này sở hữu prompt review summary và OpenAI runtime. Offline pipeline nằm trong `offline/`.
 
-## Chức năng
+## 🧩 Trách nhiệm
 
-- Sinh review summary từ tên địa điểm, tỷ lệ positive/negative và keyword đã tính trước.
-- Dịch summary có sẵn sang tiếng Việt hoặc tiếng Anh.
-- Giữ prompt và OpenAI runtime dependency của review-summary.
-- Giữ batch/offline scripts xử lý sentiment, keyword, grouping và DB insertion.
+- Generate summary từ tên địa điểm, tỷ lệ sentiment và keywords.
+- Translate summary có sẵn sang `vi` hoặc `en`.
+- Giữ output format đủ nhất quán để frontend hiển thị.
+- Tách runtime service và offline batch pipeline.
+- Cung cấp API nội bộ cho backend review-summary feature.
 
-## Endpoint
+Backend chuẩn bị dữ liệu review/summary rồi gọi service qua HTTP.
+
+## 🔌 Public API
 
 | Method | Path | Mô tả |
 | --- | --- | --- |
-| `GET` | `/health` | Kiểm tra service còn sống. |
-| `POST` | `/v1/review-summary/generate` | Nhận payload review ratio/keyword và `target_language`, trả summary text. |
-| `POST` | `/v1/review-summary/translate` | Nhận summary text hiện có và `target_language`, trả bản dịch. |
+| `GET` | `/health` | Health check. |
+| `POST` | `/v1/review-summary/generate` | Sinh summary mới theo `target_language`. |
+| `POST` | `/v1/review-summary/translate` | Dịch summary hiện có theo `target_language`. |
 
-Nếu `SERVICE_TOKEN` được cấu hình, caller phải gửi `Authorization: Bearer <token>`.
+Swagger:
 
-## Cấu trúc
+```text
+http://localhost:8104/docs
+```
+
+## 🧠 Cấu trúc
 
 ```text
 review-summary-service/
 |-- app/
-|   |-- main.py          # Ứng dụng FastAPI
-|   |-- routes.py        # Generate/translate endpoints
-|   |-- schemas.py       # Request/response schema
-|   |-- service.py       # Điều phối OpenAI
-|   |-- prompts.py       # Prompt review summary
-|   `-- config.py        # Cấu hình môi trường
-|-- offline/
-|   |-- scripts/         # Pipeline batch
-|   |-- sql/             # Schema/setup SQL
-|   `-- data/            # Input/intermediate/output local data
+|   |-- main.py          # FastAPI app
+|   |-- routes.py        # HTTP routes
+|   |-- schemas.py       # Request/response models
+|   |-- config.py        # Env config
+|   |-- llm.py           # OpenAI client wrapper
+|   |-- service.py       # Generate/translate orchestration
+|   `-- prompts.py       # Review summary prompts
+|-- offline/             # Batch pipeline cùng domain
 |-- tests/
 |-- requirements.txt
 |-- requirements-dev.txt
@@ -44,7 +49,36 @@ review-summary-service/
 `-- .env.example
 ```
 
-## Biến môi trường
+Runtime flow:
+
+```text
+backend review-summary route
+  -> Supabase summary/review data
+  -> /v1/review-summary/generate hoặc /translate
+  -> OpenAI
+  -> localized summary text
+```
+
+Offline flow:
+
+```text
+offline/data/input
+  -> offline/scripts
+  -> offline/data/intermediate
+  -> offline/data/output
+  -> backend fallback / RAG document build
+```
+
+Sơ đồ offline pipeline: [review_summary_pipeline.png](review_summary_pipeline.png).
+
+## 🔗 Dependencies
+
+- FastAPI, Pydantic, Uvicorn.
+- OpenAI for summary generation/translation.
+- Backend review-summary feature là consumer runtime.
+- `offline/` pipeline tạo dữ liệu nền cho backend fallback và RAG.
+
+## ⚙️ Configuration
 
 Tạo `.env`:
 
@@ -53,76 +87,28 @@ cd ai-models/review-summary-service
 cp .env.example .env
 ```
 
-Các biến online quan trọng:
+Biến chính:
 
+- `SERVICE_HOST`, `SERVICE_PORT`, `SERVICE_TOKEN`
 - `OPENAI_API_KEY`
-- `OPENAI_MODEL`
-- `SERVICE_TOKEN`
+- `OPENAI_REFINE_MODEL`
+- `DATABASE_URL` cho offline pipeline
 
-Biến offline quan trọng:
+Online runtime chỉ cần OpenAI/service config. Offline scripts dùng thêm `DATABASE_URL`.
 
-- `DATABASE_URL`
+## 🚀 Ví dụ sử dụng
 
-Online service và offline pipeline dùng dependency riêng:
-
-- `requirements.txt`: runtime online service.
-- `requirements-dev.txt`: test/tooling cho online service.
-- `requirements-offline.txt`: batch/offline pipeline.
-
-## Chạy online service
+Chạy local:
 
 ```bash
 cd ai-models/review-summary-service
 python3 -m venv .venv
 source .venv/bin/activate
 pip install -r requirements-dev.txt
-cp .env.example .env
 uvicorn app.main:app --reload --host localhost --port 8104
 ```
 
-Swagger:
-
-```text
-http://localhost:8104/docs
-```
-
-## Chạy offline pipeline
-
-```bash
-cd ai-models/review-summary-service
-python3 -m venv .venv-offline
-source .venv-offline/bin/activate
-pip install -r requirements-offline.txt
-python offline/scripts/01_check_data.py
-```
-
-Xem [offline/README.md](offline/README.md) để biết thứ tự đầy đủ của pipeline.
-
-## Tích hợp backend
-
-Public routes ở backend:
-
-- `GET /api/v1/review-summary`
-- `GET /api/v1/review-summary/samples`
-
-Backend gọi service qua:
-
-```env
-AI_REVIEW_SUMMARY_SERVICE_URL="http://localhost:8104"
-AI_SERVICE_TOKEN=""
-AI_SERVICE_TIMEOUT_SECONDS=180
-```
-
-Backend vẫn đọc Supabase và cache response. Service này chỉ xử lý phần LLM generate/translate.
-
-## Kiểm thử
-
-```bash
-cd ai-models/review-summary-service
-python -m pytest -q
-```
-
-Kiểm tra nhanh generate:
+Generate summary:
 
 ```bash
 curl -X POST http://localhost:8104/v1/review-summary/generate \
@@ -130,8 +116,34 @@ curl -X POST http://localhost:8104/v1/review-summary/generate \
   -d '{"place_name":"Haidilao Hot Pot","positive_ratio":0.97,"negative_ratio":0.02,"positive_keywords":["friendly staff","delicious food"],"negative_keywords":["expensive"],"target_language":"en"}'
 ```
 
-## Lỗi thường gặp
+## 🧪 Testing
 
-- Summary tiếng Anh quá ngắn hoặc thiếu chi tiết: kiểm tra prompt, payload keyword/ratio và `target_language`.
-- Thiếu `OPENAI_API_KEY`: generate/translate sẽ lỗi.
-- Offline data thiếu: backend có thể không có dữ liệu nền để gọi generate.
+```bash
+cd ai-models/review-summary-service
+python -m pytest -q
+python -m compileall -q app
+```
+
+Offline pipeline ![Review summary pipeline](offline/review_summary_pipeline.png).
+
+## 🧱 Extension guide
+
+Thay đổi format summary:
+
+1. Cập nhật prompt trong `app/prompts.py`.
+2. Cập nhật schema nếu response contract thay đổi.
+3. Test cả `target_language=vi` và `target_language=en`.
+4. Kiểm tra frontend rendering với summary dài/ngắn.
+
+Thêm field đầu vào:
+
+1. Cập nhật `app/schemas.py`.
+2. Cập nhật backend client/schema tương ứng.
+3. Giữ field optional nếu cần backward compatibility.
+
+## ⚠️ Lưu ý
+
+- Review summary quality phụ thuộc mạnh vào keyword/ratio từ offline pipeline.
+- English output có thể ngắn hơn Vietnamese nếu prompt không ép đủ chi tiết; cần test cả hai ngôn ngữ khi sửa prompt.
+- Thiếu dữ liệu summary thường cần kiểm tra backend Supabase query hoặc offline output.
+- `DATABASE_URL` trong `.env.example` phục vụ offline scripts.

@@ -9,12 +9,23 @@ kaggle_cache/
 *.zip
 
 # ── Checkpoint files (generated, không cần track) ──────────────
+REFACTOR.md
 cloudinary_results.json
 imgur_results.json
 data-engineering/artifacts/
 data-engineering/data/
 data-engineering/kaggle_cache/
-data-engineering/maps-scraper/chrome_user_data_*/
+data-engineering/google-maps-scraper/gmaps-output/
+data-engineering/google-maps-scraper/images/
+data-engineering/google-maps-scraper/metadata/
+data-engineering/google-maps-scraper/raw/
+data-engineering/google-maps-scraper/queries/
+data-engineering/google-maps-scraper/postgres-data/
+data-engineering/google-maps-scraper/pgadmin-data/
+data-engineering/google-maps-scraper/.local/
+data-engineering/google-maps-scraper/*.sql
+data-engineering/google-maps-scraper/*.dump
+data-engineering/google-maps-scraper/*.backup
 
 # ── Python ─────────────────────────────────────────────────────
 __pycache__/
@@ -28,6 +39,7 @@ dist/
 build/
 
 # ── IDE & OS ───────────────────────────────────────────────────
+.codex/
 .vscode/
 .idea/
 .DS_Store
@@ -40,3 +52,7 @@ backend/firebase-service-account.json
 /data/.env.example
 /ai-models/rag-service/rag_documents.json
 /ai-models/rag-service/chroma_db/
+
+
+# --- unecessary
+HUMAN.md

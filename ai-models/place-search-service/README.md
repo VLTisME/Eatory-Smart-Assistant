@@ -1,58 +1,129 @@
 # Place Search Service
 
-`place-search-service` là FastAPI service cho tính năng tìm địa điểm bằng ảnh. Service này load CLIP model, đọc embedding artifacts cục bộ, phát hiện ảnh nhiễu và trả danh sách địa điểm phù hợp cho backend.
+## 🎯 Mục đích
 
-Backend giữ route public `/api/v1/place-search`; frontend không gọi service này trực tiếp.
+`place-search-service` là FastAPI service tìm địa điểm bằng ảnh. Service này sở hữu CLIP model runtime, image embedding, noise filtering, similarity search và optional LLM refinement.
 
-## Chức năng
+## 🧩 Trách nhiệm
 
-- Validate ảnh upload.
-- Load CLIP image model.
-- Đọc embedding/index/noise artifact từ root `data/`.
-- Tính similarity giữa ảnh người dùng và ảnh địa điểm.
+- Nhận ảnh upload từ backend.
+- Validate ảnh đầu vào.
+- Tạo embedding ảnh bằng CLIP.
+- Đọc runtime artifacts từ root `data/`.
+- Phát hiện ảnh nhiễu/không phù hợp bằng noise embeddings.
+- Tính similarity giữa ảnh upload và image embeddings đã build trước.
 - Gộp kết quả theo `place_id`.
-- Lấy tên/địa chỉ từ Supabase, fallback về `data/places.json`.
-- Refine output bằng OpenAI nếu được bật.
-- Hỗ trợ `target_language` để nội dung refine theo tiếng Việt hoặc tiếng Anh.
+- Enrich metadata từ Supabase hoặc fallback local `places.json`.
+- Refine output theo `target_language` nếu OpenAI được cấu hình.
 
-## Endpoint
+Runtime dùng artifacts đã build sẵn trong root `data/` và trả kết quả theo request hiện tại.
+
+## 🔌 Public API
 
 | Method | Path | Mô tả |
 | --- | --- | --- |
-| `GET` | `/health` | Kiểm tra service còn sống và artifact/model readiness. |
-| `POST` | `/v1/place-search/by-image` | Nhận multipart field `file`, trả `results` theo contract của backend/frontend. Hỗ trợ query `target_language`. |
+| `GET` | `/health` | Health check. |
+| `POST` | `/v1/place-search/by-image` | Nhận field `file`, query `target_language`, trả danh sách địa điểm tương tự. |
 
-Nếu `SERVICE_TOKEN` được cấu hình, caller phải gửi:
+Swagger:
 
-```http
-Authorization: Bearer <token>
+```text
+http://localhost:8102/docs
 ```
 
-## Cấu trúc
+## 🧠 Cấu trúc
 
 ```text
 place-search-service/
 |-- app/
-|   |-- main.py          # Ứng dụng FastAPI
-|   |-- routes.py        # Place-search endpoint
-|   |-- schemas.py       # Request/response schema
-|   |-- service.py       # Orchestration: image -> embedding -> results
-|   |-- embeddings.py    # Artifact loading và similarity search
-|   |-- refinement.py    # Refine bằng OpenAI nếu bật
-|   |-- prompts.py       # Prompt refine kết quả
-|   `-- config.py        # Cấu hình môi trường
+|   |-- main.py              # FastAPI app
+|   |-- routes.py            # HTTP routes
+|   |-- schemas.py           # Request/response models
+|   |-- config.py            # Env config
+|   |-- dependencies.py      # Lazy service dependencies
+|   |-- image_upload.py      # Upload validation
+|   |-- search_engine.py     # CLIP model + similarity search
+|   |-- pipeline.py          # Request orchestration
+|   |-- supabase_client.py   # Optional metadata enrichment
+|   |-- refinement.py        # Optional OpenAI refinement
+|   `-- prompts.py           # Refinement prompts
 |-- research/
-|   `-- clip_pipeline.ipynb
 |-- tests/
 |-- requirements.txt
 |-- requirements-dev.txt
 |-- Dockerfile
+|-- place_search.png
 `-- .env.example
 ```
 
-## Artifact bắt buộc
+Pipeline:
 
-Phase hiện tại vẫn giữ artifact runtime ở root `data/` để tránh thay đổi Docker/runtime path:
+![Place search pipeline](place_search.png)
+
+Runtime query flow:
+
+```text
+backend multipart upload
+  -> /v1/place-search/by-image
+  -> image validation
+  -> CLIP image embedding
+  -> noise similarity check
+  -> image similarity search
+  -> place grouping + Supabase/local enrichment
+  -> optional OpenAI refinement
+  -> JSON response
+```
+
+Artifact flow hiện tại:
+
+```text
+Kaggle/local image dataset
+  -> research notebook / embedding pipeline
+  -> noise embeddings + image embeddings
+  -> root data/
+  -> runtime place search
+```
+
+## 🔗 Dependencies
+
+- FastAPI, Pydantic, Uvicorn.
+- Pillow, NumPy.
+- Transformers/Hugging Face CLIP model: `laion/CLIP-ViT-H-14-laion2B-s32B-b79K` by default.
+- Supabase optional metadata enrichment.
+- OpenAI optional result refinement.
+- Root `data/` artifacts.
+- Docker volume `huggingface_cache` khi chạy bằng Docker Compose.
+
+Backend là consumer runtime chính. `data-engineering/` và notebook research là nguồn tạo artifacts.
+
+## ⚙️ Configuration
+
+Tạo `.env`:
+
+```bash
+cd ai-models/place-search-service
+cp .env.example .env
+```
+
+Biến chính:
+
+- `SERVICE_HOST`, `SERVICE_PORT`, `SERVICE_TOKEN`
+- `MAX_UPLOAD_SIZE_MB`
+- `PLACE_SEARCH_MODEL_NAME`
+- `PLACE_SEARCH_EMBEDDINGS_PATH`
+- `PLACE_SEARCH_INDEX_PATH`
+- `PLACE_SEARCH_PLACES_PATH`
+- `PLACE_SEARCH_NOISE_EMBEDDINGS_PATH`
+- `PLACE_SEARCH_NOISE_INDEX_PATH`
+- `PLACE_SEARCH_NOISE_THRESHOLD`
+- `PLACE_SEARCH_TOP_K_IMAGES`
+- `PLACE_SEARCH_MIN_SIMILARITY`
+- `PLACE_SEARCH_USE_GPU`
+- `HF_TOKEN`, `HF_HUB_DISABLE_XET`
+- `SUPABASE_URL`, `SUPABASE_SERVICE_KEY`
+- `OPENAI_API_KEY`, `OPENAI_REFINE_MODEL`
+
+Runtime artifacts mặc định:
 
 ```text
 data/
@@ -63,92 +134,54 @@ data/
 `-- noise_index.json
 ```
 
-Biến đường dẫn mặc định:
+## 🚀 Ví dụ sử dụng
 
-```env
-PLACE_SEARCH_EMBEDDINGS_PATH="data/image_embeddings.npy"
-PLACE_SEARCH_INDEX_PATH="data/image_index.json"
-PLACE_SEARCH_PLACES_PATH="data/places.json"
-PLACE_SEARCH_NOISE_EMBEDDINGS_PATH="data/noise_embeddings.npy"
-PLACE_SEARCH_NOISE_INDEX_PATH="data/noise_index.json"
-```
-
-Các path này được resolve từ root repo trước, sau đó từ service folder. Nếu thiếu artifact, service có thể start lỗi hoặc trả kết quả rỗng.
-
-## Biến môi trường
-
-Tạo `.env`:
-
-```bash
-cd ai-models/place-search-service
-cp .env.example .env
-```
-
-Các biến quan trọng:
-
-- `PLACE_SEARCH_MODEL_NAME`: CLIP model.
-- `PLACE_SEARCH_TOP_K`: số kết quả nội bộ.
-- `PLACE_SEARCH_MIN_SIMILARITY`: ngưỡng similarity.
-- `PLACE_SEARCH_NOISE_THRESHOLD`: ngưỡng phát hiện ảnh nhiễu.
-- `PLACE_SEARCH_DEVICE`: `cpu`, `cuda` hoặc cấu hình tương ứng.
-- `HF_TOKEN`, `HF_HUB_DISABLE_XET`: phục vụ tải model Hugging Face nếu cần.
-- `SUPABASE_URL`, `SUPABASE_SERVICE_KEY`: dùng để enrich địa điểm.
-- `OPENAI_API_KEY`, `OPENAI_REFINE_MODEL`: dùng cho refine output.
-- `SERVICE_TOKEN`: token nội bộ nếu muốn bảo vệ service.
-
-## Chạy local
+Chạy local:
 
 ```bash
 cd ai-models/place-search-service
 python3 -m venv .venv
 source .venv/bin/activate
 pip install -r requirements-dev.txt
-cp .env.example .env
 uvicorn app.main:app --reload --host localhost --port 8102
 ```
 
-Lần chạy đầu có thể lâu vì CLIP model cần được tải/cache.
-
-Swagger:
-
-```text
-http://localhost:8102/docs
-```
-
-## Tích hợp backend
-
-Public route ở backend:
-
-- `POST /api/v1/place-search`
-
-Backend gọi service qua:
-
-```env
-AI_PLACE_SEARCH_SERVICE_URL="http://localhost:8102"
-AI_SERVICE_TOKEN=""
-AI_SERVICE_TIMEOUT_SECONDS=180
-```
-
-## Nghiên cứu
-
-Notebook nghiên cứu/prototype nằm ở `research/`. Thư mục này không thuộc runtime FastAPI service và được loại khỏi Docker image. Không đưa notebook hoặc checkpoint nghiên cứu vào luồng request production.
-
-## Kiểm thử
-
-```bash
-cd ai-models/place-search-service
-python -m pytest -q
-```
-
-Kiểm tra nhanh:
+Gọi API:
 
 ```bash
 curl -X POST "http://localhost:8102/v1/place-search/by-image?target_language=vi" \
   -F "file=@/path/to/place-image.jpg"
 ```
 
-## Lỗi thường gặp
+## 🧪 Testing
 
-- Cache Hugging Face không tăng hoặc tải model đứng lâu: kiểm tra mạng, `HF_TOKEN`, `HF_HUB_DISABLE_XET` và volume cache trong Docker.
-- Thiếu root `data/`: service không có embedding/index để search.
-- Supabase key thiếu: service vẫn có thể fallback một phần qua `places.json`, nhưng enrichment có thể kém hơn.
+```bash
+cd ai-models/place-search-service
+python -m pytest -q
+python -m compileall -q app
+```
+
+Test hiện tại nên ưu tiên mock model/artifacts để không tải model lớn trong CI.
+
+## 🧱 Extension guide
+
+Đổi model embedding:
+
+1. Cập nhật `PLACE_SEARCH_MODEL_NAME`.
+2. Regenerate toàn bộ `image_embeddings.npy` và `noise_embeddings.npy` bằng cùng model.
+3. Kiểm tra lại similarity threshold và noise threshold.
+4. Cập nhật README/research note với model version.
+
+Thêm metadata field:
+
+1. Cập nhật `places.json` hoặc Supabase query.
+2. Cập nhật response schema trong `app/schemas.py`.
+3. Cập nhật backend/frontend contract nếu field được hiển thị.
+
+## ⚠️ Lưu ý
+
+- Model CLIP lần đầu tải có thể lâu và tốn dung lượng cache.
+- Embeddings phải được build bằng đúng model runtime; đổi model mà không rebuild artifacts sẽ làm similarity sai.
+- Root `data/` là dependency runtime bắt buộc ở phase hiện tại.
+- Supabase không khả dụng thì service fallback sang `places.json`.
+- Threshold quá thấp sẽ trả nhiều kết quả nhiễu; threshold quá cao dễ không có kết quả.

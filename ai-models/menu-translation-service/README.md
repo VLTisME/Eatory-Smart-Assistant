@@ -1,54 +1,84 @@
 # Menu Translation Service
 
-`menu-translation-service` là FastAPI service độc lập cho tính năng dịch menu từ ảnh. Backend nhận request public từ frontend, validate upload, rồi proxy sang service này. Toàn bộ OCR provider, OpenAI vision/refinement và prompt menu nằm trong service này.
+## 🎯 Mục đích
 
-## Chức năng
+`menu-translation-service` là FastAPI service xử lý ảnh menu. Service này sở hữu OCR, prompt structuring và output contract cho menu JSON.
 
-- Nhận ảnh menu từ multipart upload.
+## 🧩 Trách nhiệm
+
+- Nhận ảnh menu từ backend dưới dạng multipart upload.
+- Validate content type và dung lượng ảnh.
 - Chạy OCR bằng OpenAI vision hoặc EasyOCR.
-- Chuẩn hóa text OCR nhiễu thành JSON có cấu trúc.
-- Trả thông tin nhà hàng, danh mục, món ăn, giá, mô tả và ngôn ngữ đích.
-- Hỗ trợ `target_language` để frontend quyết định output menu là tiếng Việt hoặc tiếng Anh.
+- Chuyển OCR text thành cấu trúc `restaurantInfo` và `categories`.
+- Dịch tên món/mô tả theo `target_language`.
+- Trả JSON ổn định cho backend/frontend.
 
-Với UX hiện tại, menu translation dùng ngôn ngữ ngược với UI:
+Runtime xử lý ảnh trong request hiện tại và trả response JSON cho backend.
 
-- UI tiếng Việt -> output menu tiếng Anh.
-- UI tiếng Anh -> output menu tiếng Việt.
-
-## Endpoint
+## 🔌 Public API
 
 | Method | Path | Mô tả |
 | --- | --- | --- |
-| `GET` | `/health` | Kiểm tra service còn sống. |
-| `POST` | `/v1/menu/ocr` | Nhận multipart field `file`, trả raw OCR text và metadata ảnh. |
-| `POST` | `/v1/menu/structured` | Nhận multipart field `file`, trả menu JSON có cấu trúc. Hỗ trợ query `restaurant_name` và `target_language`. |
+| `GET` | `/health` | Health check. |
+| `POST` | `/v1/menu/ocr` | Nhận field `file`, trả raw OCR text và metadata ảnh. |
+| `POST` | `/v1/menu/structured` | Nhận field `file`, query `restaurant_name`, `target_language`, trả menu JSON có cấu trúc. |
 
-Nếu `SERVICE_TOKEN` được cấu hình, caller phải gửi:
+Swagger:
 
-```http
-Authorization: Bearer <token>
+```text
+http://localhost:8101/docs
 ```
 
-## Cấu trúc
+## 🧠 Cấu trúc
 
 ```text
 menu-translation-service/
 |-- app/
-|   |-- main.py          # Ứng dụng FastAPI
-|   |-- routes.py        # OCR và structured endpoints
-|   |-- schemas.py       # Request/response schema
-|   |-- service.py       # Luồng OCR -> structured output
-|   |-- ocr.py           # Lớp trừu tượng cho OCR provider
-|   |-- prompts.py       # Prompt menu
-|   `-- config.py        # Cấu hình môi trường
+|   |-- main.py            # FastAPI app
+|   |-- routes.py          # HTTP routes
+|   |-- schemas.py         # Request/response models
+|   |-- config.py          # Env config
+|   |-- image_upload.py    # Upload validation
+|   |-- ocr_engine.py      # OCR provider abstraction
+|   |-- menu_pipeline.py   # OCR -> refinement -> structured response
+|   |-- refinement.py      # OpenAI structured extraction
+|   `-- prompts.py         # Menu prompts
 |-- tests/
 |-- requirements.txt
 |-- requirements-dev.txt
+|-- requirements-easyocr.txt
 |-- Dockerfile
+|-- menu_translation.png
 `-- .env.example
 ```
 
-## Biến môi trường
+Pipeline:
+
+![Menu translation pipeline](menu_translation.png)
+
+```text
+backend multipart upload
+  -> /v1/menu/structured
+  -> image validation
+  -> OCR provider
+  -> OpenAI menu structuring
+  -> structured menu JSON
+```
+
+Menu translation dùng ngôn ngữ đối ứng với UI do frontend/backend truyền xuống:
+
+- UI `vi` -> `target_language=en`
+- UI `en` -> `target_language=vi`
+
+## 🔗 Dependencies
+
+- FastAPI, Pydantic, Uvicorn.
+- Pillow và `python-multipart` cho upload ảnh.
+- OpenAI cho OCR provider `openai` và menu structuring.
+- EasyOCR optional qua `requirements-easyocr.txt`.
+- Backend là consumer duy nhất ở runtime.
+
+## ⚙️ Configuration
 
 Tạo `.env`:
 
@@ -57,67 +87,68 @@ cd ai-models/menu-translation-service
 cp .env.example .env
 ```
 
-Các biến quan trọng:
+Biến chính:
 
-- `OPENAI_API_KEY`: cần cho OpenAI OCR/refinement flow.
-- `OCR_PROVIDER`: `openai` hoặc `easyocr`.
-- `OCR_LANGUAGES`: danh sách ngôn ngữ OCR khi dùng EasyOCR.
-- `OCR_GPU`: bật/tắt GPU cho EasyOCR.
-- `OCR_OPENAI_MODEL`: model vision OCR.
-- `OPENAI_REFINE_MODEL`: model refine/structured output.
-- `MENU_REFINE_MAX_CHARS`: giới hạn text OCR đưa vào prompt.
-- `SERVICE_TOKEN`: token nội bộ nếu muốn bảo vệ service.
+- `SERVICE_HOST`, `SERVICE_PORT`, `CORS_ALLOW_ORIGINS`
+- `SERVICE_TOKEN`
+- `MAX_UPLOAD_SIZE_MB`
+- `OCR_PROVIDER`
+- `OCR_LANGUAGES`
+- `OCR_GPU`
+- `OCR_OPENAI_MODEL`
+- `MENU_REFINE_MAX_CHARS`
+- `OPENAI_API_KEY`
+- `OPENAI_REFINE_MODEL`
 
-## Chạy local
+`OCR_PROVIDER=openai` là default trong Docker Compose. Nếu dùng EasyOCR, cài thêm `requirements-easyocr.txt`.
+
+## 🚀 Ví dụ sử dụng
+
+Chạy local:
 
 ```bash
 cd ai-models/menu-translation-service
 python3 -m venv .venv
 source .venv/bin/activate
 pip install -r requirements-dev.txt
-cp .env.example .env
 uvicorn app.main:app --reload --host localhost --port 8101
 ```
 
-Swagger:
+Gọi structured endpoint:
 
-```text
-http://localhost:8101/docs
+```bash
+curl -X POST "http://localhost:8101/v1/menu/structured?target_language=en&restaurant_name=Demo" \
+  -F "file=@/path/to/menu.jpg"
 ```
 
-## Tích hợp backend
-
-Public routes ở backend:
-
-- `POST /api/v1/menu-translation/ocr`
-- `POST /api/v1/menu-translation/ocr/structured`
-
-Backend gọi service qua:
-
-```env
-AI_MENU_SERVICE_URL="http://localhost:8101"
-AI_SERVICE_TOKEN=""
-AI_SERVICE_TIMEOUT_SECONDS=180
-```
-
-Frontend không gọi trực tiếp service này.
-
-## Kiểm thử
+## 🧪 Testing
 
 ```bash
 cd ai-models/menu-translation-service
 python -m pytest -q
+python -m compileall -q app
 ```
 
-Kiểm tra nhanh OCR structured:
+Test hiện tại tập trung vào API contract và behavior khi dependency AI được mock.
 
-```bash
-curl -X POST "http://localhost:8101/v1/menu/structured?target_language=en" \
-  -F "file=@/path/to/menu.jpg"
-```
+## 🧱 Extension guide
 
-## Lỗi thường gặp
+Thêm OCR provider mới:
 
-- Thiếu `OPENAI_API_KEY`: OpenAI OCR/refinement sẽ lỗi.
-- Dùng `OCR_PROVIDER=easyocr` lần đầu: dependency/model có thể tải lâu.
-- `SERVICE_TOKEN` không khớp với backend: backend sẽ nhận lỗi unauthorized từ AI service.
+1. Mở rộng provider selection trong `app/ocr_engine.py`.
+2. Thêm env vars cần thiết vào `app/config.py` và `.env.example`.
+3. Giữ output OCR text ổn định cho `menu_pipeline.py`.
+4. Thêm test API/pipeline cho provider mới bằng mock.
+
+Thêm field menu mới:
+
+1. Cập nhật schema trong `app/schemas.py`.
+2. Cập nhật prompt trong `app/prompts.py`.
+3. Đảm bảo backend/frontend contract vẫn backward-compatible nếu field là optional.
+
+## ⚠️ Lưu ý
+
+- Ảnh menu mờ, nghiêng hoặc quá nhiều font có thể làm OCR thiếu món/giá.
+- OpenAI OCR và OpenAI structuring đều cần `OPENAI_API_KEY`.
+- `target_language` dùng `vi` hoặc `en`; frontend truyền ngôn ngữ đối ứng với UI.
+- EasyOCR có dependency nặng hơn và có thể cần cấu hình GPU/CPU riêng.

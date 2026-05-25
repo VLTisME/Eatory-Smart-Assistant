@@ -1,50 +1,76 @@
 # Backend
 
-`backend/` là public FastAPI API cho frontend. Backend điều phối workflow sản phẩm, xác thực user, đọc/ghi dữ liệu ứng dụng và gọi các AI service nội bộ qua HTTP.
+## 🎯 Mục đích
 
-Backend không còn là nơi load model, prompt AI nặng, embedding search hoặc OCR engine.
+`backend/` là FastAPI public API của Eatory Smart Assistant. Module này sở hữu API contract cho frontend, auth, tích hợp dữ liệu và HTTP clients gọi AI services. AI runtime nằm trong `ai-models/`.
 
-## Trách nhiệm
+## 🧩 Trách nhiệm
 
-Backend sở hữu:
+- Cung cấp routes public dưới `/api/v1`.
+- Xác thực Firebase token cho các luồng cần user context.
+- Lưu/đọc chat history bằng Firestore.
+- Đọc địa điểm, ảnh và review từ Supabase.
+- Proxy Goong autocomplete, place detail và directions.
+- Tạo ImageKit upload auth signature.
+- Validate upload/request trước khi gọi AI services.
+- Chuẩn hóa response/error từ AI services cho frontend.
 
-- Public routes dưới `/api/v1/...` cho frontend.
-- Firebase token verification.
-- Firestore chat/conversation persistence.
-- Supabase reads cho địa điểm, ảnh, review và summary data.
-- Goong autocomplete, place detail và directions proxy.
-- ImageKit upload auth signature.
-- Request validation, response shaping và error mapping.
-- HTTP clients gọi các AI service nội bộ.
+## 🔌 Public API
 
-Backend không sở hữu:
+Health và metadata:
 
-- OCR provider hoặc EasyOCR/OpenAI vision flow.
-- Torch/Transformers/CLIP model loading.
-- Chroma/vector search.
-- Prompt RAG, prompt menu, prompt review summary.
-- Artifact AI như embeddings, indexes hoặc vector DB.
+- `GET /`
+- `GET /health`
+- `GET /api/v1/info`
 
-## Cấu trúc
+AI features:
+
+- `POST /api/v1/menu-translation/ocr`
+- `POST /api/v1/menu-translation/ocr/structured`
+- `POST /api/v1/place-search`
+- `POST /api/v1/rag/chat`
+- `POST /api/v1/rag/retrieve`
+- `GET /api/v1/review-summary`
+- `GET /api/v1/review-summary/samples`
+
+Places, directions và media:
+
+- `GET /api/v1/places/autocomplete`
+- `GET /api/v1/places/detail`
+- `GET /api/v1/directions`
+- `GET /api/v1/place-details`
+- `GET /api/v1/place-details/by-city`
+- `GET /api/v1/place-details/check-place`
+- `GET /api/v1/place-images/single`
+- `GET /api/v1/place-images`
+- `GET /api/v1/place-images/random`
+
+Chat history, uploads và ImageKit:
+
+- `GET /api/v1/chat/conversations/`
+- `POST /api/v1/chat/conversations/`
+- `GET /api/v1/chat/conversations/{id}/`
+- `POST /api/v1/chat/conversations/{id}/messages/`
+- `DELETE /api/v1/chat/conversations/{id}/`
+- `POST /api/v1/uploads/image`
+- `GET /api/v1/imagekit/auth`
+
+Swagger khi chạy local:
+
+```text
+http://localhost:8000/docs
+```
+
+## 🧠 Cấu trúc
 
 ```text
 backend/
 |-- app/
-|   |-- main.py
-|   |-- api/
-|   |   |-- router.py
-|   |   `-- shared_routes.py
-|   |-- clients/
-|   |   `-- ai_services.py
-|   |-- core/
-|   |   |-- auth.py
-|   |   |-- config.py
-|   |   |-- firebase.py
-|   |   `-- supabase.py
-|   |-- shared/
-|   |   |-- image_upload.py
-|   |   |-- refinement.py
-|   |   `-- schemas.py
+|   |-- main.py                 # FastAPI app, middleware, health
+|   |-- api/router.py           # include feature routers
+|   |-- core/                   # config, Firebase, Supabase, auth
+|   |-- clients/ai_services.py  # base HTTP client helpers
+|   |-- shared/                 # schemas, upload validation, refinement client
 |   `-- features/
 |       |-- chat/
 |       |-- directions/
@@ -63,74 +89,38 @@ backend/
 `-- .env.example
 ```
 
-## Endpoint public
+Request flow chính:
 
-### Health và metadata
+```text
+frontend
+  -> backend route
+  -> auth/config/upload validation
+  -> Supabase/Firebase/Goong/ImageKit hoặc AI service client
+  -> normalized response
+  -> frontend
+```
 
-- `GET /`
-- `GET /health`
-- `GET /api/v1/info`
+Các feature lớn có README riêng trong `app/features/*/README.md`.
 
-### Upload và refinement chung
+## 🔗 Dependencies
 
-- `POST /api/v1/uploads/image`
-- `POST /api/v1/llm/refine`
+Backend phụ thuộc vào:
 
-`/api/v1/llm/refine` proxy sang `AI_REFINEMENT_SERVICE_URL`, mặc định là `rag-service`.
+- FastAPI, Pydantic, Uvicorn, HTTPX.
+- Firebase Admin SDK.
+- Supabase Python client.
+- Pillow và `python-multipart` cho upload ảnh.
+- Goong REST APIs.
+- ImageKit API.
+- Internal AI services:
+  - `menu-translation-service`
+  - `place-search-service`
+  - `rag-service`
+  - `review-summary-service`
 
-### Dịch menu
+Frontend là consumer chính của backend.
 
-- `POST /api/v1/menu-translation/ocr`
-- `POST /api/v1/menu-translation/ocr/structured`
-
-Backend validate ảnh upload và proxy sang `AI_MENU_SERVICE_URL`.
-
-### Tìm địa điểm bằng ảnh
-
-- `POST /api/v1/place-search`
-
-Backend validate ảnh upload và proxy sang `AI_PLACE_SEARCH_SERVICE_URL`.
-
-### RAG chatbot
-
-- `POST /api/v1/rag/chat`
-- `POST /api/v1/rag/retrieve`
-
-Backend chuyển `target_language` từ frontend sang RAG service để output bám theo ngôn ngữ UI.
-
-### Places và directions
-
-- `GET /api/v1/places/autocomplete`
-- `GET /api/v1/places/detail`
-- `GET /api/v1/directions`
-
-Các route này là third-party API proxy do backend sở hữu.
-
-### Place data, images và review summary
-
-- `GET /api/v1/place-details`
-- `GET /api/v1/place-details/by-city`
-- `GET /api/v1/place-details/check-place`
-- `GET /api/v1/place-images/single`
-- `GET /api/v1/place-images`
-- `GET /api/v1/place-images/random`
-- `GET /api/v1/review-summary`
-- `GET /api/v1/review-summary/samples`
-
-Review summary route đọc dữ liệu từ Supabase, sau đó gọi `AI_REVIEW_SUMMARY_SERVICE_URL` khi cần generate/translate bằng LLM.
-
-### Chat history và ImageKit
-
-- `GET /api/v1/chat/conversations/`
-- `POST /api/v1/chat/conversations/`
-- `GET /api/v1/chat/conversations/{id}/`
-- `POST /api/v1/chat/conversations/{id}/messages/`
-- `DELETE /api/v1/chat/conversations/{id}/`
-- `GET /api/v1/imagekit/auth`
-
-Các route này cần Firebase authentication.
-
-## Biến môi trường
+## ⚙️ Configuration
 
 Tạo `.env`:
 
@@ -139,31 +129,22 @@ cd backend
 cp .env.example .env
 ```
 
-Biến quan trọng:
+Nhóm biến chính:
 
-- `FIREBASE_SERVICE_ACCOUNT_PATH`
-- `SUPABASE_URL`
-- `SUPABASE_SERVICE_KEY`
-- `REST_API_KEY`
-- `KIT_URL_ENDPOINT`
-- `KIT_PUBLIC_KEY`
-- `KIT_PRIVATE_KEY`
-- `REVIEW_SUMMARY_PATH`
-- `AI_MENU_SERVICE_URL`
-- `AI_PLACE_SEARCH_SERVICE_URL`
-- `AI_RAG_SERVICE_URL`
-- `AI_REFINEMENT_SERVICE_URL`
-- `AI_REVIEW_SUMMARY_SERVICE_URL`
-- `AI_SERVICE_TIMEOUT_SECONDS`
-- `AI_SERVICE_TOKEN`
+- App/API: `APP_NAME`, `APP_VERSION`, `API_PREFIX`, `SERVICE_HOST`, `SERVICE_PORT`, `CORS_ALLOW_ORIGINS`
+- Upload: `MAX_UPLOAD_SIZE_MB`
+- Firebase: `FIREBASE_SERVICE_ACCOUNT_PATH`
+- Supabase: `SUPABASE_URL`, `SUPABASE_SERVICE_KEY`
+- Goong: `REST_API_KEY`
+- ImageKit: `KIT_URL_ENDPOINT`, `KIT_PUBLIC_KEY`, `KIT_PRIVATE_KEY`
+- Review fallback: `REVIEW_SUMMARY_PATH`
+- AI services: `AI_MENU_SERVICE_URL`, `AI_PLACE_SEARCH_SERVICE_URL`, `AI_RAG_SERVICE_URL`, `AI_REFINEMENT_SERVICE_URL`, `AI_REVIEW_SUMMARY_SERVICE_URL`, `AI_SERVICE_TIMEOUT_SECONDS`, `AI_SERVICE_TOKEN`
 
-`REVIEW_SUMMARY_PATH` hiện trỏ tới:
+Trong Docker Compose, AI URLs dùng service names như `http://rag-service:8103`. Khi chạy thủ công ngoài Docker, dùng `http://localhost:<port>`.
 
-```text
-../ai-models/review-summary-service/offline/data/output/review_summaries.json
-```
+## 🚀 Ví dụ sử dụng
 
-## Chạy local
+Chạy local:
 
 ```bash
 cd backend
@@ -171,38 +152,52 @@ uv sync --extra dev
 uv run uvicorn app.main:app --reload --host localhost --port 8000
 ```
 
-Swagger:
+Health check:
 
-```text
-http://localhost:8000/docs
+```bash
+curl http://localhost:8000/health
 ```
 
-Nếu chạy riêng backend, hãy đảm bảo các AI service liên quan cũng đang chạy ở port tương ứng hoặc cấu hình URL trong `backend/.env`.
+RAG chat qua backend:
 
-## Kiểm thử
+```bash
+curl -X POST http://localhost:8000/api/v1/rag/chat \
+  -H "Content-Type: application/json" \
+  -d '{"message":"Suggest me sushi places in HCMC","top_k":3,"target_language":"en"}'
+```
+
+## 🧪 Testing
 
 ```bash
 cd backend
+uv sync --extra dev
 uv run pytest -q
 ```
 
-Test theo feature:
+Test theo nhóm:
 
 ```bash
+uv run pytest -q tests/test_ai_service_contracts.py
 uv run pytest -q tests/test_place_search_api.py
 uv run pytest -q tests/test_review_summary_api.py
-uv run pytest -q tests/test_ai_service_contracts.py
 ```
 
-Kiểm tra syntax nhanh:
+Compile check:
 
 ```bash
 python -m compileall -q app
 ```
 
-## Ghi chú refactor
+## 🧱 Extension guide
 
-- Runtime dependency ở `requirements.txt`.
-- Test/tooling dependency ở `requirements-dev.txt` và optional group `dev` trong `pyproject.toml`.
-- Backend chỉ giữ AI service URLs/token, không giữ model runtime settings.
-- Các README trong `app/features/*/` mô tả rõ ranh giới proxy của từng feature đã tách sang AI service.
+Thêm feature backend mới:
+
+1. Tạo folder trong `app/features/<feature_name>/`.
+2. Tách `routes.py`, `schemas.py`, `service.py` hoặc `client.py` theo đúng vai trò.
+3. Include router trong `app/api/router.py`.
+4. Thêm env vars vào `app/core/config.py` và `.env.example` nếu cần.
+5. Viết test cho API contract hoặc service logic.
+6. Cập nhật README của backend và feature.
+
+Nếu feature gọi AI service mới, backend chỉ giữ HTTP client/contract mapping; model logic vẫn nằm trong `ai-models/`.
+

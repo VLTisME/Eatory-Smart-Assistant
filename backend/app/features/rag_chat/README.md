@@ -1,47 +1,85 @@
-# Backend RAG Chat Proxy
+# Backend RAG Chat Feature
 
-Module này expose public RAG routes cho frontend. Backend không load embeddings, Chroma, OpenAI client hoặc prompt RAG; các phần đó thuộc `ai-models/rag-service`.
+## 🎯 Mục đích
 
-## Endpoint public
+Feature này cung cấp public RAG routes cho chatbot. Backend sở hữu API contract, validation và error mapping; retrieval/generation logic thuộc `ai-models/rag-service`.
 
-| Method | Path | Hành vi backend |
+## 🧩 Trách nhiệm
+
+- Nhận message/query từ frontend.
+- Truyền `top_k`, `target_language` và `refine` sang RAG service.
+- Trả answer và sources cho frontend.
+- Map fallback/unavailable errors.
+
+## 🔌 Public API
+
+| Method | Path | Mô tả |
 | --- | --- | --- |
-| `POST` | `/api/v1/rag/chat` | Validate request, truyền `message`, `top_k`, `target_language`, `refine` sang `POST /v1/rag/chat`. |
-| `POST` | `/api/v1/rag/retrieve` | Validate request, truyền `query` và `top_k` sang `POST /v1/rag/retrieve`. |
+| `POST` | `/api/v1/rag/chat` | Gửi `message`, `top_k`, `target_language`, `refine` sang RAG service. |
+| `POST` | `/api/v1/rag/retrieve` | Gửi `query`, `top_k` sang RAG retrieve endpoint. |
 
-## File chính
+## 🧠 Thiết kế nội bộ
 
-- `routes.py`: định nghĩa public FastAPI routes.
+- `routes.py`: FastAPI routes.
 - `client.py`: HTTP client gọi `rag-service`.
-- `schemas.py`: public request/response schema cho frontend contract.
+- `schemas.py`: request/response schemas.
 
-## Backend sở hữu
+Flow:
 
-- Public route compatibility.
-- Request validation.
-- Error mapping khi AI service unavailable hoặc trả invalid response.
-- Truyền language intent từ frontend xuống AI service.
-
-## AI service sở hữu
-
-- Chroma vector DB.
-- Embedding model.
-- RAG retrieval.
-- Prompt và OpenAI answer generation.
-- Shared refinement endpoint.
-
-## Biến môi trường backend
-
-```env
-AI_RAG_SERVICE_URL="http://localhost:8103"
-AI_REFINEMENT_SERVICE_URL="http://localhost:8103"
-AI_SERVICE_TIMEOUT_SECONDS=180
-AI_SERVICE_TOKEN=""
+```text
+frontend chat message
+  -> backend RAG route
+  -> request validation
+  -> RAG AI service
+  -> answer + sources
+  -> frontend
 ```
 
-## Hành vi lỗi
+## 🔗 Dependencies
 
-- Thiếu `AI_RAG_SERVICE_URL`: backend trả `503`.
-- AI service unreachable: backend trả `503`.
-- AI service trả 4xx: backend giữ status code đó.
-- AI service trả 5xx hoặc invalid JSON: backend trả `502`.
+- `AI_RAG_SERVICE_URL`
+- `AI_REFINEMENT_SERVICE_URL`
+- `AI_SERVICE_TIMEOUT_SECONDS`
+- Optional `AI_SERVICE_TOKEN`
+- `ai-models/rag-service` là downstream dependency.
+
+## ⚙️ Configuration
+
+Biến backend liên quan:
+
+- `AI_RAG_SERVICE_URL`
+- `AI_REFINEMENT_SERVICE_URL`
+- `AI_SERVICE_TIMEOUT_SECONDS`
+- `AI_SERVICE_TOKEN`
+
+## 🚀 Ví dụ sử dụng
+
+```bash
+curl -X POST http://localhost:8000/api/v1/rag/chat \
+  -H "Content-Type: application/json" \
+  -d '{"message":"Suggest me natural vibe coffees at Thu Duc","top_k":3,"target_language":"en","refine":true}'
+```
+
+## 🧪 Testing
+
+```bash
+cd backend
+uv run pytest -q tests/test_ai_service_contracts.py
+```
+
+Manual smoke: hỏi chatbot bằng Vietnamese và English, kiểm tra answer language, sources và fallback message.
+
+## 🧱 Extension guide
+
+Thêm option request mới:
+
+1. Cập nhật `schemas.py`.
+2. Cập nhật `client.py` để forward field xuống RAG service.
+3. Cập nhật RAG service schema.
+4. Cập nhật frontend API client nếu option là user-facing.
+
+## ⚠️ Gotchas
+
+- RAG service chỉ trả lời tốt trong phạm vi `chroma_db/` đã build.
+- `target_language` cần được frontend truyền đúng để answer không bị hardcoded Vietnamese.
+- Saved chat history nằm ở feature `chat`, không nằm ở `rag_chat`.

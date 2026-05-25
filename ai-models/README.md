@@ -1,53 +1,105 @@
 # AI Models
 
-Thư mục `ai-models/` chứa toàn bộ phần AI runtime và AI pipeline của Eatory. Sau refactor, backend chỉ gọi các service trong thư mục này qua HTTP; backend không import trực tiếp model code, prompt hoặc logic vector search.
+## 🎯 Mục đích
 
-## Trách nhiệm
+`ai-models/` chứa các AI services của Eatory Smart Assistant: OCR/LLM prompts, CLIP image search, RAG retrieval/generation, refinement dùng chung và review summary generation. Backend sử dụng các service này qua HTTP.
 
-`ai-models/` sở hữu:
+## 🔌 Public API
 
-- OCR và trích xuất menu có cấu trúc.
-- CLIP model, embedding search và noise detection cho tìm địa điểm bằng ảnh.
-- RAG retrieval, Chroma vector DB, prompt trả lời chatbot và shared refinement.
-- Prompt sinh/dịch review summary.
-- Dependency nặng liên quan đến AI như OpenAI SDK, Torch, Transformers, Chroma, EasyOCR.
-- Artifact AI và hướng dẫn regenerate artifact.
-- Test và schema contract ở cấp AI service.
+Các service nội bộ và port mặc định:
 
-`ai-models/` không sở hữu:
+| Service | Port | API chính |
+| --- | --- | --- |
+| `menu-translation-service` | `8101` | `/v1/menu/ocr`, `/v1/menu/structured` |
+| `place-search-service` | `8102` | `/v1/place-search/by-image` |
+| `rag-service` | `8103` | `/v1/rag/chat`, `/v1/rag/retrieve`, `/v1/refinement/refine` |
+| `review-summary-service` | `8104` | `/v1/review-summary/generate`, `/v1/review-summary/translate` |
 
-- Public route cho frontend.
-- Firebase Auth hoặc Firestore chat history.
-- Goong proxy.
-- ImageKit auth signature.
-- Supabase application route dùng trực tiếp cho UI.
+Mỗi service cũng có:
 
-## Module hiện tại
+- `GET /health`
+- Swagger tại `http://localhost:<port>/docs` khi chạy local.
+
+## 🧠 Cấu trúc
 
 ```text
 ai-models/
-|-- menu-translation-service/   # OCR ảnh menu và trích xuất menu có cấu trúc
-|-- place-search-service/       # Tìm địa điểm bằng ảnh với CLIP và embedding artifacts
-|   `-- research/               # Notebook nghiên cứu/prototype CLIP, không phải runtime
-|-- rag-service/                # RAG retrieval/chat và shared LLM refinement
-`-- review-summary-service/     # Online review summary service
-    `-- offline/                # Batch pipeline sentiment/keyword/grouping/DB insert
+|-- menu-translation-service/
+|   |-- app/
+|   `-- menu_translation.png
+|-- place-search-service/
+|   |-- app/
+|   |-- research/
+|   `-- place_search.png
+|-- rag-service/
+|   |-- app/
+|   |-- build_documents.py
+|   |-- build_vector_db.py
+|   |-- rag_pipeline.png
+|   |-- rag_documents.json
+|   `-- chroma_db/
+`-- review-summary-service/
+    |-- app/
+    `-- offline/
 ```
 
-## Service và cổng mặc định
+Runtime flow:
 
-| Service | Port | Vai trò |
-| --- | --- | --- |
-| `menu-translation-service` | `8101` | OCR menu và trả JSON món ăn/danh mục. |
-| `place-search-service` | `8102` | Load CLIP, đọc embedding artifact và tìm địa điểm bằng ảnh. |
-| `rag-service` | `8103` | Vector retrieval, sinh câu trả lời chatbot và refinement endpoint. |
-| `review-summary-service` | `8104` | Sinh/dịch nội dung tổng quan đánh giá. |
+```text
+backend AI client
+  -> FastAPI AI service
+  -> model/artifact/OpenAI call
+  -> typed JSON response
+  -> backend response mapping
+```
 
-Backend mặc định chạy ở `8000`, frontend ở `5173`.
+Artifact flow:
 
-## Chạy một AI service
+```text
+data-engineering hoặc offline scripts
+  -> JSON/embedding/vector artifacts
+  -> AI service runtime
+```
 
-Mỗi service có `.env.example`, `requirements.txt`, `requirements-dev.txt`, Dockerfile và README riêng. Ví dụ:
+Mỗi service giữ cấu trúc `app/main.py`, `app/routes.py`, `app/schemas.py`, `app/config.py` để runtime, env vars và dependency nằm cùng module.
+
+## 🔗 Dependencies
+
+AI services phụ thuộc vào:
+
+- FastAPI, Pydantic, Uvicorn cho service API.
+- OpenAI cho menu structuring, RAG generation/refinement và review summary.
+- Hugging Face model downloads/cache cho CLIP và embedding model.
+- ChromaDB cho RAG vector store.
+- Supabase optional enrichment cho place search.
+- Root `data/` artifacts cho place search.
+- Review summary offline output cho RAG document build.
+
+Backend là consumer runtime chính của các AI services.
+
+## ⚙️ Configuration
+
+Mỗi service có `.env.example` riêng:
+
+```bash
+cp ai-models/menu-translation-service/.env.example ai-models/menu-translation-service/.env
+cp ai-models/place-search-service/.env.example ai-models/place-search-service/.env
+cp ai-models/rag-service/.env.example ai-models/rag-service/.env
+cp ai-models/review-summary-service/.env.example ai-models/review-summary-service/.env
+```
+
+Arguments:
+
+- App/service: `SERVICE_HOST`, `SERVICE_PORT`, `CORS_ALLOW_ORIGINS`, `SERVICE_TOKEN`
+- OpenAI: `OPENAI_API_KEY`, `OPENAI_MODEL`, `OPENAI_REFINE_MODEL`
+- Hugging Face: `HF_TOKEN`, `HF_HUB_DISABLE_XET`
+- Artifact paths: `PLACE_SEARCH_*`, `RAG_CHROMA_DIR`, `RAG_COLLECTION_NAME`
+
+Nếu service đặt `SERVICE_TOKEN`, backend phải đặt `AI_SERVICE_TOKEN` trùng giá trị.
+
+## 🚀 Ví dụ
+
+Chạy một service, ví dụ RAG:
 
 ```bash
 cd ai-models/rag-service
@@ -58,52 +110,54 @@ cp .env.example .env
 uvicorn app.main:app --reload --host localhost --port 8103
 ```
 
-Nếu chạy bằng Docker Compose ở root repo, các service được build và gọi theo service name trong `docker-compose.yml`.
+Health check:
 
-## Quy ước môi trường
-
-Mỗi AI service giữ `.env` riêng:
-
-- `menu-translation-service/.env`: OCR provider, OpenAI key/model, service token.
-- `place-search-service/.env`: CLIP model, đường dẫn embedding/index, Supabase fallback, OpenAI refine.
-- `rag-service/.env`: OpenAI model, Chroma path, embedding model/device.
-- `review-summary-service/.env`: OpenAI model, service token và biến offline pipeline.
-
-Backend chỉ cần URL và token để gọi service:
-
-```env
-AI_MENU_SERVICE_URL="http://localhost:8101"
-AI_PLACE_SEARCH_SERVICE_URL="http://localhost:8102"
-AI_RAG_SERVICE_URL="http://localhost:8103"
-AI_REFINEMENT_SERVICE_URL="http://localhost:8103"
-AI_REVIEW_SUMMARY_SERVICE_URL="http://localhost:8104"
-AI_SERVICE_TOKEN=""
+```bash
+curl http://localhost:8103/health
 ```
 
-## Artifact
-
-Artifact AI không nên bị trộn lẫn với source code thường:
-
-- Root `data/` hiện chứa artifact runtime cho place search.
-- `rag-service/chroma_db/` là Chroma vector DB hiện tại.
-- `rag-service/rag_documents.json` được sinh từ review summary output.
-- `review-summary-service/offline/data/` chứa dữ liệu offline batch.
-- Notebook nghiên cứu nằm trong `place-search-service/research/` và bị loại khỏi runtime Docker image.
-
-Khi thêm artifact mới, hãy thêm README ngắn mô tả artifact đến từ đâu, dùng bởi service nào và cách regenerate.
-
-## Kiểm thử
-
-Chạy test cho từng service:
+## 🧪 Testing
 
 ```bash
 cd ai-models/menu-translation-service
 python -m pytest -q
 ```
 
-Lặp lại pattern trên cho `place-search-service`, `rag-service` và `review-summary-service`. Không dùng virtualenv của backend để chạy AI test vì dependency đã tách riêng.
+Áp dụng cùng pattern cho:
 
-## Tài liệu chi tiết
+- `place-search-service`
+- `rag-service`
+- `review-summary-service`
+
+Compile check tất cả AI apps:
+
+```bash
+python -m compileall -q ai-models/menu-translation-service/app ai-models/place-search-service/app ai-models/rag-service/app ai-models/review-summary-service/app
+```
+
+## 🧱 Extension guide
+
+Thêm AI service mới:
+
+1. Tạo folder `ai-models/<feature>-service/`.
+2. Giữ layout `app/main.py`, `app/routes.py`, `app/schemas.py`, `app/config.py`.
+3. Tạo `requirements.txt`, `requirements-dev.txt`, `Dockerfile`, `.env.example`.
+4. Expose `GET /health` và API route versioned dưới `/v1`.
+5. Thêm service vào `docker-compose.yml`.
+6. Thêm backend feature client để frontend vẫn chỉ gọi backend.
+7. Viết README cho service theo template module.
+
+Chỉ tạo shared package cho utility/contract ổn định, ví dụ common response schemas hoặc auth token helpers.
+
+## ⚠️ Lưu ý
+
+- Lần đầu chạy place search/RAG có thể tải model lớn từ Hugging Face.
+- Docker Compose dùng volume `huggingface_cache` để tránh tải lại model.
+- Root `data/` hiện vẫn là nguồn artifact runtime cho place search.
+- `rag-service/chroma_db/` phải khớp với `rag_documents.json` và embedding model.
+- Frontend gọi backend; backend gọi AI services.
+
+## 📚 README chi tiết
 
 - [Menu translation service](menu-translation-service/README.md)
 - [Place search service](place-search-service/README.md)
