@@ -124,8 +124,6 @@ python -m pytest -q
 python -m compileall -q app
 ```
 
-Offline pipeline ![Review summary pipeline](offline/review_summary_pipeline.png).
-
 ## 🧱 Extension guide
 
 Thay đổi format summary:
