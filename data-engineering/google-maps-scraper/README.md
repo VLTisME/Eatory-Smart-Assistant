@@ -1,182 +1,117 @@
 # Google Maps Scraper
 
-## 🎯 Mục đích
+`google-maps-scraper/` là tool để scrape Google Maps bằng Go/Playwright, post-process bằng Python, lưu dữ liệu vào PostgreSQL local và export JSON/ảnh local.
 
-`google-maps-scraper/` là pipeline crawl Google Maps cho dữ liệu địa điểm ăn uống. Module này dùng Go scraper để lấy raw data, dùng Python để lọc/post-process, lưu vào PostgreSQL local và export metadata/ảnh cho các pipeline tiếp theo.
+Hướng dẫn chạy crawl chi tiết nằm ở [usage.md](usage.md).
 
-Hướng dẫn chạy crawl theo khu vực nằm ở [usage.md](usage.md).
+## Trách nhiệm
 
-## 🧩 Trách nhiệm
+Module này sở hữu:
 
-- Tạo query Google Maps theo khu vực.
-- Crawl metadata địa điểm, review và URL ảnh bằng Go/Playwright.
-- Lọc địa điểm thuộc nhóm ăn uống.
-- Append raw data vào PostgreSQL local.
-- Tải ảnh địa điểm về local.
-- Export metadata JSON gồm places, reviews và images metadata.
+- Tạo và validate query Google Maps.
+- Scraping Google Maps bằng Go, Scrapemate và Playwright.
+- Lấy metadata địa điểm, review và URL ảnh.
+- Lọc dữ liệu địa điểm ăn uống.
+- Tải ảnh về local.
+- Lưu places, reviews và image metadata vào PostgreSQL.
+- Export metadata JSON cho workflow data-engineering.
 
-Output từ module này được dùng tiếp bởi các scripts publish trong `data-engineering/scripts/`.
+Module này không sở hữu:
 
-## 🔌 Public API
+- Route ứng dụng cho frontend.
+- AI model inference.
+- Supabase application query routes.
 
-Public interface là CLI/Makefile:
-
-- Go entrypoint: `main.go`
-- Python post-processing: `scripts/food_pipeline.py`
-- Makefile:
-  - `make help`
-  - `make build`
-  - `make docker`
-  - `make db-up`
-  - `make db-down`
-  - `make python-check`
-  - `make test-go`
-  - `make clean`
-
-## 🧠 Cấu trúc
+## Cấu trúc
 
 ```text
 google-maps-scraper/
-|-- main.go                 # Entry point Go scraper
-|-- gmaps/                  # Google Maps scraping logic
-|-- runner/                 # Job runner
-|-- grid/                   # Grid/bounding-box crawling
-|-- deduper/                # Deduplicate jobs/results
-|-- exiter/                 # Exit/inactivity handling
-|-- scripts/
-|   `-- food_pipeline.py    # Validate query, filter food places, append/export data
-|-- sql_scripts/            # SQL clean/setup scripts
-|-- docker-compose.yaml     # Postgres + pgAdmin local
-|-- Dockerfile              # Scraper image
-|-- Makefile                # Build/test helper commands
-|-- requirements.txt        # Python post-processing dependencies
-|-- usage.md                # Step-by-step crawl guide
-`-- scraping_pipeline.png
+|-- main.go
+|-- Dockerfile
+|-- docker-compose.yaml
+|-- requirements.txt
+|-- usage.md
+|-- gmaps/
+|-- runner/
+|-- grid/
+|-- deduper/
+|-- exiter/
+`-- scripts/
+    `-- food_pipeline.py
 ```
 
-Pipeline:
+## Biến môi trường
 
-```text
-query file
-  -> Docker Go scraper
-  -> gmaps-output/raw/<slug>.json
-  -> python scripts/food_pipeline.py run-all
-  -> PostgreSQL local
-  -> gmaps-output/metadata/*.json
-  -> gmaps-output/images/<place_id>/*.jpg
-```
-
-Output:
-
-```text
-gmaps-output/
-|-- queries/
-|   `-- <slug>.txt
-|-- raw/
-|   `-- <slug>.json
-|-- images/
-|   `-- <place_id>/
-|       `-- <place_id>_001.jpg
-`-- metadata/
-    |-- places.json
-    |-- raw_reviews.json
-    `-- images_metadata.json
-```
-
-## 🔗 Dependencies
-
-- Docker để build/run scraper image.
-- Go toolchain nếu chạy Go tests/build trực tiếp.
-- Python dependencies trong `requirements.txt` cho `food_pipeline.py`.
-- PostgreSQL local từ `docker-compose.yaml`.
-- pgAdmin optional để inspect dữ liệu.
-
-## ⚙️ Configuration
-
-PostgreSQL local:
+DSN mặc định dùng trong command:
 
 ```text
 postgresql://postgres:postgres@localhost:5432/postgres
 ```
+## Pipeline
 
-pgAdmin mặc định:
+![Pipeline](./scraping_pipeline.png)
 
-```text
-URL: http://localhost:5050
-Email: admin@example.com
-Password: admin
-```
+## Cài đặt
 
-Generated output như `gmaps-output/`, `postgres-data/`, `pgadmin-data/`, images và raw exports đã được ignore trong Git.
-
-## 🚀 Ví dụ sử dụng
-
-Cài Python dependencies:
+Cài Python dependency:
 
 ```bash
-cd data-engineering/google-maps-scraper
 python3 -m venv .venv
-source .venv/bin/activate
+. .venv/bin/activate
 pip install -r requirements.txt
 ```
 
-Build Go scraper image:
+Build Docker image scraper:
 
 ```bash
 docker build -t food-gmaps-scraper .
 ```
 
-Hoặc dùng Makefile:
+Nếu cần cài Docker từ đầu, xem [usage.md](usage.md).
 
-```bash
-make docker
-```
-
-Chạy PostgreSQL/pgAdmin local:
+## Chạy database local
 
 ```bash
 docker compose up -d postgres pgadmin
 ```
 
-Đọc guide đầy đủ:
+pgAdmin local:
 
-```bash
-sed -n '1,220p' usage.md
+```text
+http://localhost:5050
 ```
 
-## 🧪 Testing
+## Chạy scraper
 
-Python compile check:
+Luồng chạy chính:
 
-```bash
-python -m py_compile scripts/food_pipeline.py
+```text
+query file
+  -> Docker Go scraper
+  -> raw JSON
+  -> Python pipeline
+  -> PostgreSQL
+  -> metadata JSON và ảnh local
 ```
 
-Go package tests:
+Các hàm `crawl_area` và `append_area` được mô tả trong [usage.md](usage.md).
 
-```bash
-go test ./gmaps ./runner ./deduper ./grid ./exiter
-```
+## Output
 
-Makefile shortcuts:
+Output chính gồm:
 
-```bash
-make python-check
-make test-go
-```
+- Raw JSON từ scraper.
+- Metadata JSON.
+- Clean reviews JSON nếu export riêng.
+- Downloaded images.
+- PostgreSQL tables cho places, reviews và image metadata.
 
-## 🧱 Extension guide
+## Ghi chú vận hành
 
-Thêm bước post-processing:
+- Cần Docker và Playwright browser trong image để scrape thật.
+- Nên chạy PostgreSQL local khi phát triển.
+- Cần kiểm tra điều khoản sử dụng, rate limit và rủi ro bị chặn trước khi chạy job lớn.
 
-1. Thêm subcommand hoặc function vào `scripts/food_pipeline.py`.
-2. Đảm bảo input/output nằm trong `gmaps-output/`.
-3. Nếu cần SQL mới, đặt trong `sql_scripts/`.
-4. Cập nhật `usage.md` nếu bước đó thuộc crawl workflow chính.
+## Credit
 
-Thêm khu vực crawl mới:
-
-1. Tạo query file trong `gmaps-output/queries/`.
-2. Dùng slug rõ nghĩa theo khu vực.
-3. Chạy validate query trước khi crawl.
-4. Export metadata và ảnh sau khi append raw data.
+Tool được phát triển dựa trên open-source code từ [gosom/google-maps-scraper](https://github.com/gosom/google-maps-scraper?fbclid=IwY2xjawR80IlleHRuA2FlbQIxMABicmlkETFOeUZEODVKdE9nTnBQNnhRc3J0YwZhcHBfaWQQMjIyMDM5MTc4ODIwMDg5MgABHstNkSqbGAOsgUVoOUaljTU6fKq0frYGfALeDgzynB2vpMBrArmNW0SMutT5_aem_trSLLu1N5MgO2xyCOXEGvw)
